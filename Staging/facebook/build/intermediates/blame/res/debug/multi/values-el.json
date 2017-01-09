@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "E:\\CrowdBootstrapStaging\\CrowdBootstrap_App_Staging_Version\\facebook\\build\\intermediates\\res\\merged\\debug\\values-el\\values-el.xml",
+        "outputFile": "I:\\Live_Projects\\CrowdBootstrap\\Staging\\facebook\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-el\\values-el.xml",
         "map": [
             {
                 "to": {
@@ -11,7 +11,7 @@
                     "endOffset": 114
                 },
                 "from": {
-                    "file": "E:\\CrowdBootstrapStaging\\CrowdBootstrap_App_Staging_Version\\facebook\\res\\values-el\\messenger_button_strings.xml",
+                    "file": "I:\\Live_Projects\\CrowdBootstrap\\Staging\\facebook\\res\\values-el\\messenger_button_strings.xml",
                     "position": {
                         "startLine": 22,
                         "startColumn": 2,
