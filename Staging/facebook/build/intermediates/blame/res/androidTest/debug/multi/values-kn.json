@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "E:\\CrowdBootstrapStaging\\CrowdBootstrap_App_Staging_Version\\facebook\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-kn\\values-kn.xml",
+        "outputFile": "I:\\Live_Projects\\CrowdBootstrap\\Staging\\facebook\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-kn\\values-kn.xml",
         "map": [
             {
                 "to": {
@@ -11,7 +11,7 @@
                     "endOffset": 113
                 },
                 "from": {
-                    "file": "E:\\CrowdBootstrapStaging\\CrowdBootstrap_App_Staging_Version\\facebook\\build\\intermediates\\bundles\\debug\\res\\values-kn\\values-kn.xml",
+                    "file": "I:\\Live_Projects\\CrowdBootstrap\\Staging\\facebook\\build\\intermediates\\bundles\\debug\\res\\values-kn\\values-kn.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,
