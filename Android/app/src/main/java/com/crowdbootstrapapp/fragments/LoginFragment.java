@@ -51,7 +51,9 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 /*import com.quickblox.core.QBEntityCallbackImpl;
-import com.quickblox.users.model.QBUser;*/
+import com.quickblox.users.model.QBUser;
+tested on Live testcommit
+*/
 
 public class LoginFragment extends Fragment implements View.OnClickListener, AsyncTaskCompleteListener<String> {
 
