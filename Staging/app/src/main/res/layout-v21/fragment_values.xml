@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_backgroundColor"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/padding">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="5sp"
+            android:text="Our Values"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:textStyle="normal" />
+
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/values" />
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10sp"
+
+            android:layout_marginTop="20sp"
+            android:text="1. Entrepreneurs: Innovate and execute then work hard to drive success.\n\n
+2. Startups: Create and respect intellectual property.\n\n
+3. Contractors: Do the right thing and do the thing right.\n"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/mediumTextStyle" />
+
+
+        <Button
+            android:id="@+id/btn_ok"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10sp"
+            android:background="@drawable/blue_button"
+            android:text="OK"
+            android:textColor="@color/white"
+            android:textSize="@dimen/mediumTextStyle"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

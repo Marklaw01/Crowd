@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@color/app_backgroundColor"
+    android:orientation="vertical"
+    android:padding="@dimen/padding">
+
+    <!--<ProgressBar
+        android:id="@+id/progress_chat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />-->
+
+    <LinearLayout
+        android:id="@+id/chatInfoLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="See the chat informtaion"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/smallTextStyle" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_profile" />
+
+    </LinearLayout>
+
+
+    <se.emilsjolander.stickylistheaders.StickyListHeadersListView
+        android:id="@+id/list_chat_messages"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="5sp"
+        android:layout_weight="0.8"
+        android:cacheColorHint="#FFFFFFFF"
+
+        android:dividerHeight="2dp" />
+
+    <LinearLayout
+        android:id="@+id/layout_chat_send_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/edit_chat_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:hint="Type a message"
+            android:inputType="textShortMessage"
+            android:maxLength="1024" />
+
+        <ImageView
+            android:id="@+id/button_chat_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+
+
+            android:src="@android:drawable/ic_menu_send" />
+    </LinearLayout>
+    <!--<se.emilsjolander.stickylistheaders.StickyListHeadersListView
+        android:id="@+id/list_chat_messages"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/layout_attachment_preview_container"
+
+        android:listSelector="@android:color/transparent"
+        android:stackFromBottom="true" />
+
+    <ProgressBar
+        android:id="@+id/progress_chat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:id="@+id/layout_attachment_preview_container"
+        android:layout_width="match_parent"
+
+        android:layout_height="96dp"
+        android:layout_above="@+id/layout_chat_send_container"
+        android:background="?attr/colorPrimary"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <View
+            android:id="@+id/divider_chat_attachments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider_chat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_above="@+id/layout_chat_send_container"
+        android:layout_weight="0.8" />
+
+    <LinearLayout
+        android:id="@+id/layout_chat_send_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/edit_chat_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:hint="Type a message"
+            android:inputType="textShortMessage"
+            android:maxLength="1024" />
+
+        <ImageView
+            android:id="@+id/button_chat_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+
+
+            android:src="@android:drawable/ic_menu_send" />
+    </LinearLayout>-->
+
+</LinearLayout>

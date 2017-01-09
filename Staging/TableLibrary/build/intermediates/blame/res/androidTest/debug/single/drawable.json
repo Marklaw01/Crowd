@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "E:\\CrowdBootstrapStaging\\CrowdBootstrap_App_Staging_Version\\TableLibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shadow_bottom.xml",
+        "source": "E:\\CrowdBootstrapStaging\\CrowdBootstrap_App_Staging_Version\\TableLibrary\\build\\intermediates\\bundles\\debug\\res\\drawable\\shadow_bottom.xml"
+    },
+    {
+        "merged": "E:\\CrowdBootstrapStaging\\CrowdBootstrap_App_Staging_Version\\TableLibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shadow_left.xml",
+        "source": "E:\\CrowdBootstrapStaging\\CrowdBootstrap_App_Staging_Version\\TableLibrary\\build\\intermediates\\bundles\\debug\\res\\drawable\\shadow_left.xml"
+    },
+    {
+        "merged": "E:\\CrowdBootstrapStaging\\CrowdBootstrap_App_Staging_Version\\TableLibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shadow_right.xml",
+        "source": "E:\\CrowdBootstrapStaging\\CrowdBootstrap_App_Staging_Version\\TableLibrary\\build\\intermediates\\bundles\\debug\\res\\drawable\\shadow_right.xml"
+    },
+    {
+        "merged": "E:\\CrowdBootstrapStaging\\CrowdBootstrap_App_Staging_Version\\TableLibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shadow_top.xml",
+        "source": "E:\\CrowdBootstrapStaging\\CrowdBootstrap_App_Staging_Version\\TableLibrary\\build\\intermediates\\bundles\\debug\\res\\drawable\\shadow_top.xml"
+    }
+]
