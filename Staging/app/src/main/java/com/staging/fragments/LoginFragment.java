@@ -54,7 +54,7 @@ import java.util.ArrayList;
 /*import com.quickblox.core.QBEntityCallbackImpl;
 import com.quickblox.users.model.QBUser;
 
-tested on staging
+tested on staging testcommit
 
 
 
