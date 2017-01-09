@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@color/app_backgroundColor"
+    android:orientation="vertical"
+    android:padding="@dimen/padding">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Spinner
+                android:id="@+id/selectStartup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+
+                android:layout_weight="2"
+                android:background="@drawable/spinner_field" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/contributornametext"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center_vertical"
+                    android:layout_weight="1"
+                    android:gravity="left|center_vertical"
+                    android:text="@string/contribname"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/smallTextStyle" />
+
+                <EditText
+                    android:id="@+id/contributorname"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="@drawable/emailtextbox"
+                    android:cursorVisible="false"
+                    android:ems="10"
+                    android:focusable="false"
+                    android:hint="@string/contribname"
+                    android:inputType="none"
+                    android:paddingLeft="10sp"
+                    android:paddingRight="10sp"
+                    android:singleLine="true"
+
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/mediumTextStyle" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/roletext"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center_vertical"
+                    android:layout_weight="1"
+                    android:gravity="left|center_vertical"
+                    android:text="@string/role"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/smallTextStyle" />
+
+                <Spinner
+                    android:id="@+id/role"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+
+
+                    android:layout_weight="2"
+                    android:background="@drawable/spinner_field" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/deliverablename"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center_vertical"
+                    android:layout_weight="1"
+                    android:gravity="left|center_vertical"
+                    android:text="Deliverable"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/smallTextStyle" />
+
+                <EditText
+                    android:id="@+id/et_deliverablename"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="@drawable/emailtextbox"
+
+                    android:cursorVisible="false"
+                    android:ems="10"
+                    android:focusable="false"
+                    android:inputType="none"
+                    android:paddingLeft="10sp"
+                    android:paddingRight="10sp"
+                    android:singleLine="true"
+
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/mediumTextStyle" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/hoursratetext"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center_vertical"
+                    android:layout_weight="1"
+                    android:gravity="left|center_vertical"
+                    android:text="@string/hourlyrate"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/smallTextStyle" />
+
+                <EditText
+                    android:id="@+id/hoursrate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="@drawable/emailtextbox"
+
+                    android:ems="10"
+                    android:inputType="numberDecimal"
+                    android:paddingLeft="10sp"
+                    android:paddingRight="10sp"
+                    android:singleLine="true"
+
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/mediumTextStyle" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/hoursallowedtext"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center_vertical"
+                    android:layout_weight="1"
+                    android:gravity="left|center_vertical"
+                    android:text="@string/hoursallocated"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/smallTextStyle" />
+
+                <EditText
+                    android:id="@+id/hoursallowed"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+
+                    android:layout_weight="2"
+                    android:background="@drawable/emailtextbox"
+                    android:inputType="numberSigned"
+                    android:paddingLeft="10sp"
+                    android:paddingRight="10sp"
+                    android:singleLine="true"
+
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/mediumTextStyle" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/hoursapprovedtext"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center_vertical"
+                    android:layout_weight="1"
+                    android:gravity="left|center_vertical"
+                    android:text="@string/hoursapproved"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/smallTextStyle" />
+
+                <EditText
+                    android:id="@+id/hoursapproved"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+
+
+                    android:layout_weight="2"
+
+                    android:background="@drawable/emailtextbox"
+                    android:inputType="numberSigned"
+                    android:paddingLeft="10sp"
+                    android:paddingRight="10sp"
+                    android:singleLine="true"
+
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/mediumTextStyle" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/targetcompletedatetext"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center_vertical"
+                    android:layout_weight="1"
+                    android:gravity="left|center_vertical"
+                    android:text="@string/targetcompletetext"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/smallTextStyle" />
+
+                <EditText
+                    android:id="@+id/targetcompletedate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="@drawable/emailtextbox"
+                    android:inputType="numberSigned"
+                    android:paddingLeft="10sp"
+                    android:focusable="false"
+                    android:paddingRight="10sp"
+                    android:singleLine="true"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/mediumTextStyle" />
+
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/assign"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/blue_button"
+                android:text="@string/assign"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

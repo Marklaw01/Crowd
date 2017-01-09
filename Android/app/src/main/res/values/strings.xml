@@ -1,0 +1,276 @@
+<resources>
+    <string name="app_name">Crowd Bootstrap</string>
+
+    <!--strings related to admob-->
+
+    <string name="Ad_unit_name">mybanner</string>
+    <string name="Ad_unit_ID">ca-app-pub-8877526086007040/4416451611</string>
+    <string name="App_tracking_ID">UA-33366220-3</string>
+    <string name="please_wait">Please wait....</string>
+    <string name="check_internet">Please check your internet connections and try again.</string>
+    <string name="check_dateformat">Please enter valid date.</string>
+    <string name="check_workunitlimit">Your Work Unit cannot exceed 24..</string>
+    <string name="check_workunitformat">Please enter valid Work Unit.</string>
+    <string name="all_roadmap_complete">All Roadmap deliverable documents are complete.</string>
+    <string name="server_down">Server is not responding. please try after some time.</string>
+    <string name="google_app_id">965286451869</string>
+    <string name="google_api_key">AIzaSyDQ18y3vc76UXoSLtQuv7NHurrsVVklByE</string>
+
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_home">HomeActivity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--strings related to page title-->
+
+    <string name="paymentGateway">Payment Gateway</string>
+    <string name="campaignDetails">Campaign Details</string>
+    <string name="campaignName">Campaign Name</string>
+    <string name="addForum">Add Forum</string>
+    <string name="myForum">My Forums</string>
+    <!--strings related to login screen-->
+    <string name="email_required">Email Required</string>
+    <string name="invalidEmail">Invalid Email Format</string>
+    <string name="password_required">Password Required</string>
+    <string name="passwordValidation">The password must be a minimum of 8 characters with at least one special character or number, at least one uppercase letter &amp; at least one lower case letter.</string>
+    <string name="login">Login</string>
+    <string name="signUp">Sign Up</string>
+    <string name="forgotPassword">Forgot Password?</string>
+    <string name="post">Post</string>
+    <string name="termsandconditions">Terms And Conditions</string>
+    <string name="privacypolicy">Privacy Policy</string>
+
+    <!--Strings related to setting Screen-->
+    <string name="notification">Notifications</string>
+    <string name="publicProfileSetting">Public Profile</string>
+
+    <!--strings related to forgot password screen-->
+    <string name="chooseSecurityQuestion">Choose Security Question</string>
+    <string name="resetPassword">Reset Password</string>
+
+    <!--strings related to campaigns screen-->
+    <string name="addCampaings">Add Campaign</string>
+    <string name="viewDocument">View Document</string>
+    <string name="playAudio">Play Audio</string>
+    <string name="playVideo">Play Video</string>
+    <string name="commit">Commit</string>
+    <string name="viewDonatingContractors">View Contractors</string>
+    <string name="follow">Follow</string>
+    <string name="unfollow">Unfollow</string>
+    <string name="uncommit">Uncommit</string>
+    <string name="chooseFileType">Choose File Type</string>
+    <string-array name="uploadFileType">
+        <item>Document</item>
+        <item>Video</item>
+        <item>Audio</item>
+    </string-array>
+    <string name="upload" translatable="false">Upload</string>
+
+    <!--strings related to payment gateway-->
+    <string name="chooseYourServiceProviders">Choose Your Service Provider</string>
+    <string name="conform">Confirm</string>
+    <string name="submit">Submit</string>
+    <string name="save">Save</string>
+    <string name="agree">I Agree</string>
+
+
+    <!--strings related to home screen-->
+    <string name="howItWorks">An entrepreneur submits a startup to Crowd Bootstrap. If that startup attracts sufficient interest from the crowd of contractors then Crowd Bootstrap invests $100,000 of the contractors\' sweat equity for a 10% stake in the startup. Crowd Bootstrap helps match entrepreneurs and contractors. Contractors help entrepreneurs complete startup deliverables. This is formalized by the contractor submitting a deliverable-based timesheet for approval. After the entrepreneur approves the timesheet, the contractor receives share options in the corresponding Crowd Bootstrap fund. The contractor\'s stake is therefore diversified across all of the startup\'s in that fund\'s portfolio. Crowd Bootstrap does not charge the entrepreneurs or contractors for this service.</string>
+    <string name="homeScreenTextForContractor">Your experience includes expertise that can help a startup overcome a current or impending challenge. Or maybe you just want to help out. A little of your time can have a huge impact on the launch of a high impact startup. Help accelerate an entrepreneur through our lean startup process and empower them to bring their vision to life. Volunteer now to help an entrepreneur change the world.</string>
+    <string name="homeScreenTextForEntrenpreur">You have a great idea for a startup but need a helping hand to accelerate your progress. Follow our lean startup process and our contributors will help you at each step - from formulating your idea to building an MVP to getting your first customer. Leverage our crowd of contributors to bootstrap your startup.</string>
+    <string name="home">Home</string>
+    <string name="myProfile">My Profile</string>
+    <string name="profile">Profile</string>
+    <string name="connections">Connections</string>
+    <string name="suggest_keywords">Suggest Keywords</string>
+    <string name="entrepreneur_video">Entrepreneur Video</string>
+    <string name="currentStartup">Current Startup</string>
+    <string name="rateContributor">Rate Contributor</string>
+    <string name="addContributortitle">Add Contractor</string>
+    <string name="addstartup">Create Startup</string>
+
+    <string name="roadmapvideo">Roadmap Video</string>
+    <string name="startupApplication">Upload Application</string>
+    <string name="startupProfile">Upload Profile</string>
+    <string name="searchCampaign">Search Campaigns</string>
+    <string name="manageWorkorder">Assign Work Units</string>
+    <string name="searchcontributor">Search Contractor</string>
+    <string name="contractorVideo">Contractor Video</string>
+    <string name="searchStartup">Search Startup</string>
+    <string name="funds">Funds</string>
+    <string name="workOrders">Work Orders</string>
+    <string name="workUnit">Work Units</string>
+    <string name="chat">Chat</string>
+    <string name="notes">Notes</string>
+    <string name="publicProfile">View Public Profile</string>
+    <string name="messages">Messages</string>
+    <string name="messaging">Messaging</string>
+    <string name="archivedMessages">Archived Messages</string>
+    <string name="settings">Settings</string>
+    <string name="forums">Forums</string>
+    <string name="archivedForums">Archived Forums</string>
+    <string name="currentStartups">Start Ups</string>
+    <string name="campaighns">Campaigns</string>
+    <string name="payment">Payments</string>
+    <string name="shoppingCart">Shopping Cart</string>
+    <string name="logout">Logout</string>
+    <string name="notificationsReceived">Notifications Received</string>
+    <string name="opportunities">Opportunities</string>
+    <string name="events">Events</string>
+    <string name="conferences">Conferences</string>
+    <string name="demo_days">Demo Days</string>
+    <string name="meet_ups">Meet Ups</string>
+    <string name="webinars">Webinars</string>
+
+    <string name="resources">Resources</string>
+    <string name="hardware">Hardware</string>
+    <string name="software">Software</string>
+    <string name="services">Services</string>
+    <string name="audioVideo">Audio Video</string>
+    <string name="information">Information</string>
+    <string name="productivity">Productivity</string>
+
+    <string name="beta_testers">Beta Testers</string>
+    <string name="board_members">Board Members</string>
+    <string name="communal_assets">Communal Assets</string>
+    <string name="consulting">Consulting</string>
+    <string name="early_adopters">Early Adopters</string>
+    <string name="endorsers">Endorsers</string>
+    <string name="focus_groups">Focus Groups</string>
+    <string name="groups">Groups</string>
+    <string name="jobs">Jobs</string>
+    <string name="recruiter">Recruiter</string>
+
+    <string name="recommended">Recommended</string>
+    <string name="following">Following</string>
+    <string name="commitments">Commitments</string>
+    <string name="myCampaigns">My Campaigns</string>
+
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="action_websearch">Web search</string>
+    <string name="app_not_available">Sorry, there\'s no web browser available</string>
+
+
+    <!--strings related to Profile Basic screen-->
+    <string name="bio">Bio</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="dob">Date Of Birth</string>
+    <string name="phone">Phone</string>
+    <string name="county">Country</string>
+    <string name="city">City</string>
+    <string name="securityquestion">Choose Security Question</string>
+    <string name="addcontributor">Add Contractor</string>
+    <string name="ratecontributor">Rate Contractor</string>
+
+    <string name="updateWorkorder">Update Work Orders</string>
+    <string name="downloadWorkorder">Download Work Orders</string>
+
+    <string name="excellenceAward">Excellence Awards</string>
+
+    <!--strings related to Profile Professional screen-->
+    <string name="experience">Experience</string>
+    <string name="keyword">Keywords</string>
+    <string name="qualification">Qualification</string>
+    <string name="certification">Certifications</string>
+    <string name="skills">Skills</string>
+    <string name="industryfocus">Industry Focus</string>
+    <string name="preferedstartupstage">Recommended Startup Stage</string>
+    <string name="contibutortype">Select Contributor Type</string>
+    <string name="startup1">Start Up 1</string>
+    <string name="startup2">Start Up 2</string>
+    <string name="startup3">Start Up 3</string>
+
+
+    <!--strings related to Add Contributor screen-->
+    <string name="contribname">Contractor Name</string>
+    <string name="role">Role</string>
+    <string name="hourlyrate">Hourly Rate</string>
+    <string name="hoursallocated">Work Units Allocated</string>
+    <string name="hoursapproved">Work Units Approved</string>
+    <string name="assign">Assign</string>
+    <string name="targetcompletetext">Target Completion Date</string>
+
+
+
+    <!--strings related to Rate Contributor screen-->
+    <string name="description">Description</string>
+    <string name="timestamp">TimeStamp</string>
+    <string name="deliverable">Deliverable</string>
+    <string name="stageofstartup">Stage Of Startup</string>
+    <string name="rating">Rating</string>
+    <string name="cancel">Cancel</string>
+    <string name="done">Done</string>
+
+
+    <!--strings related to Intro Contributor screen-->
+    <string name="roadmap">Roadmap Deliverables</string>
+    <string name="roadmapGraphic">Roadmap Graphic</string>
+    <string name="roadmap1">Deliverable 1</string>
+    <string name="roadmap2">Deliverable 2</string>
+    <string name="roadmap3">Deliverable 3</string>
+    <string name="roadmap4">Deliverable 4</string>
+    <string name="roadmap5">Deliverable 5</string>
+    <string name="nextstep">Next Step</string>
+    <string name="edit">Edit</string>
+    <string name="editroadmap">Edit Roadmap</string>
+    <string name="uploadRoadmapGraphic">Upload Roadmap Graphic</string>
+    <string name="supportreq">Support Required</string>
+
+
+    <!--strings related to Team Contributor screen-->
+    <string name="groupchat">Group Chat</string>
+    <string name="recommentcontractor">Recommended Contractors</string>
+    <string name="cofounder">CoFounder</string>
+    <string name="entrepreneur">Entrepreneur</string>
+    <string name="temmember">Team Member</string>
+    <string name="contractor">Contractor</string>
+    <string name="membername">Member Name</string>
+    <string name="designation">Designation</string>
+
+
+    <!--strings related to Docs Contributor screen-->
+    <string name="date">Date</string>
+    <string name="uploadername">Name</string>
+    <string name="docroadmap">Roadmap</string>
+    <string name="workunit">Work Units</string>
+    <string name="docname">DocName</string>
+
+
+    <!--strings related to Uploading screen-->
+    <string name="browsefile">Browse File</string>
+    <string name="filename">File Name</string>
+    <string name="documentaccess" translatable="false">Document Access Rights for Team Members</string>
+    <string name="selectall">Select All Team members</string>
+    <string name="deselectall">Deselect All Team Members</string>
+    <string name="publicsharing">Public Access to Document</string>
+    <string name="no_internet_connection">No Internet Connection available!</string>
+
+    <!--strings related to Start Up Docs screen-->
+    <string name="approvestartuptext">Approve Your Startup</string>
+    <string name="submitapplication">Submit Application</string>
+    <string name="uploadstartup">Upload Startup Profile</string>
+    <string name="uploadroadmap">Upload Roadmap Docs</string>
+    <string name="previousroadmap">Previous Roadmap Deliverable</string>
+    <string name="currentroadmap">Current Roadmap Deliverable</string>
+    <string name="completed">Completed</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="file">File</string>
+    <string name="startupname">Startup Name</string>
+    <string name="startup">Startup</string>
+    <string name="update">Update</string>
+    <string name="nextstepstartup">Next Step</string>
+    <string name="permission_camera_rationale">Camera permission is needed to show the camera preview.</string>
+    <string name="permissions_not_granted">Permissions were not granted.</string>
+    <string name="permision_available_camera">Camera Permission has been granted. Preview can now be opened.</string>
+
+    <string name="permission_SdCard">Storage permission is needed to get the file.</string>
+    <string name="permision_available_sdcard">Storage Permission has been granted.</string>
+    <string name="app_permision">App Needs Camera and Storage permission.</string>
+    <string name="connection_error">Chat connection has been dropped</string>
+    <string name="reconnect_alert">Reconnecting in %s seconds</string>
+    <string name="select_users_choose_users">Please, choose at least two participant.</string>
+</resources>

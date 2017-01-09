@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_backgroundColor"
+    android:orientation="vertical"
+    android:padding="@dimen/padding">
+
+
+    <ImageView
+        android:id="@+id/imageuser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:src="@drawable/contractorselected" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:gravity="right"
+        android:orientation="horizontal">
+
+
+        <!--<RadioButton-->
+        <!--android:id="@+id/rb_contractor"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="left|center"-->
+        <!--android:checked="true"-->
+        <!--android:text="@string/contractor" />-->
+    </RadioGroup>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/belowlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="45dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15sp"
+                        android:src="@drawable/welcome_text" />
+
+                    <TextView
+                        android:id="@+id/tv_textview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5sp"
+                        android:layout_marginTop="15sp"
+                        android:text="@string/agree"
+                        android:textColor="@color/textColor"
+                        android:textSize="@dimen/smallTextStyle" />
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/tv_howItWorks"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginBottom="15sp"-->
+                        <!--android:text="Here's how it works"-->
+                        <!--android:textColor="@color/green"-->
+                        <!--android:textSize="@dimen/smallTextStyle" />-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/tv_IndependentContractorRequierement"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginBottom="15sp"-->
+                        <!--android:text="Independent Contractor Requirements"-->
+                        <!--android:textColor="@color/colorPrimary"-->
+                        <!--android:textSize="@dimen/smallTextStyle" />-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/tv_explainerVideo"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginBottom="15sp"-->
+                        <!--android:text="Explainer Video"-->
+                        <!--android:textColor="@color/green"-->
+                        <!--android:textSize="@dimen/smallTextStyle" />-->
+
+
+
+
+
+                    <LinearLayout
+                        android:id="@+id/layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:id="@+id/tv_vision"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="5dp"
+                            android:layout_weight="0.33"
+                            android:background="@drawable/green_color_button"
+                            android:gravity="center"
+                            android:text="VISION"
+                            android:textColor="@color/white" />
+
+                        <TextView
+                            android:id="@+id/tv_mission"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="5dp"
+                            android:layout_weight="0.33"
+                            android:background="@drawable/blue_button"
+                            android:gravity="center"
+                            android:text="MISSION"
+                            android:textColor="@color/white" />
+
+                        <TextView
+                            android:id="@+id/tv_values"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="5dp"
+                            android:layout_weight="0.33"
+                            android:background="@drawable/green_color_button"
+                            android:gravity="center"
+                            android:text="VALUES"
+                            android:textColor="@color/white" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:weightSum="10">
+                            <ImageView
+                                android:layout_height="wrap_content"
+                                android:layout_width="0dp"
+                                android:layout_weight="5"
+                                android:id="@+id/tv_howItWorks"
+                                android:src="@drawable/howitworksimg"
+                                android:adjustViewBounds = "true"/>
+
+                            <ImageView
+                                android:layout_height="wrap_content"
+                                android:layout_width="0dp"
+                                android:layout_weight="5"
+                                android:id="@+id/tv_explainerVideo"
+                                android:src="@drawable/explainerimg"
+                                android:adjustViewBounds = "true"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:weightSum="10">
+
+                            <ImageView
+                                android:layout_height="wrap_content"
+                                android:layout_width="0dp"
+                                android:layout_weight="5"
+                                android:id="@+id/tv_IndependentContractorRequierement"
+                                android:src="@drawable/contractorimg"
+                                android:adjustViewBounds = "true"/>
+
+                            <ImageView
+                                android:layout_height="wrap_content"
+                                android:layout_width="0dp"
+                                android:layout_weight="5"
+                                android:id="@+id/tv_leanroadmap"
+                                android:src="@drawable/roadmapimg"
+                                android:adjustViewBounds = "true"/>
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </ScrollView>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/abovelayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/belowlayout"
+            android:layout_alignParentBottom="true"
+           >
+
+            <com.google.android.gms.ads.AdView
+                android:id="@+id/adView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                ads:adSize="BANNER"
+                android:layout_centerHorizontal="true"
+                ads:adUnitId="ca-app-pub-8877526086007040/4416451611" />
+        </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>

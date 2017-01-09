@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/layout"
+    android:layout_marginTop="?attr/actionBarSize"
+    android:background="@color/app_backgroundColor"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10sp"
+                android:background="@drawable/starup_docs_background"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/approvestartuplbl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:text="@string/approvestartuptext"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/largeTextStyle" />
+
+                <Button
+                    android:id="@+id/submitapplication"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="10sp"
+                    android:background="@drawable/blue_button"
+                    android:text="@string/submitapplication"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/mediumTextStyle"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/uploadstartupprofile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10sp"
+                    android:background="@drawable/green_color_button"
+                    android:text="@string/uploadstartup"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/mediumTextStyle"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/uploadroadmaplbl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:text="@string/uploadroadmap"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/largeTextStyle" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5sp"
+                    android:layout_marginTop="5sp"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:id="@+id/previousroadmaplbl"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="0.3"
+                        android:text="@string/preferedstartupstage"
+                        android:textColor="@color/textColor"
+                        android:textSize="@dimen/smallTextStyle" />
+
+                    <EditText
+                        android:id="@+id/previousroadmap"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="0.7"
+                        android:background="@drawable/emailtextbox"
+                        android:focusable="false"
+                        android:inputType="textPersonName|textCapWords"
+                        android:paddingLeft="10sp"
+                        android:paddingRight="10sp"
+
+                        android:singleLine="true"
+                        android:text="Problem"
+                        android:textColor="@color/textColor"
+                        android:textColorHint="@color/textColor"
+                        android:textSize="@dimen/mediumTextStyle" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5sp"
+                    android:layout_marginTop="5sp"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:id="@+id/currentroadmaplbl"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="0.3"
+                        android:text="@string/currentroadmap"
+                        android:textColor="@color/textColor"
+                        android:textSize="@dimen/smallTextStyle" />
+
+                    <Spinner
+                        android:id="@+id/spinner_currentroadmap"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:background="@drawable/spinner_field"
+                        android:layout_weight="0.7"
+                        android:hint="" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5sp"
+                    android:layout_marginTop="5sp"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:id="@+id/browsetxt"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="0.3"
+                        android:text="@string/browsefile"
+                        android:textSize="@dimen/smallTextStyle"
+                        android:textColor="@color/textColor" />
+
+                    <EditText
+                        android:id="@+id/filename"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="0.7"
+                        android:background="@drawable/emailtextbox"
+                        android:focusable="false"
+                        android:inputType="none"
+                        android:paddingLeft="10sp"
+                        android:paddingRight="10sp"
+                        android:cursorVisible="false"
+
+                        android:singleLine="true"
+                        android:text="File name"
+                        android:textColor="@color/textColor"
+                        android:textColorHint="@color/textColor"
+                        android:textSize="@dimen/mediumTextStyle" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5sp"
+                    android:layout_marginTop="5sp"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:id="@+id/completedtext"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="0.3"
+                        android:text="@string/completed"
+                        android:textSize="@dimen/smallTextStyle"
+                        android:textColor="@color/textColor" />
+
+                    <RadioGroup
+                        android:id="@+id/radioGroupselection"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.7"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                        <RadioButton
+                            android:id="@+id/yes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/yes" />
+
+                        <RadioButton
+                            android:id="@+id/no"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="40dp"
+                            android:checked="true"
+                            android:text="@string/no" />
+
+                    </RadioGroup>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5sp"
+                    android:layout_marginBottom="5sp"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:id="@+id/nextstetlbl"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="0.3"
+                        android:text="@string/nextstep"
+                        android:textSize="@dimen/smallTextStyle"
+                        android:textColor="@color/textColor" />
+
+                    <Spinner
+                        android:id="@+id/spinner_nextstep"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/spinner_field"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="0.7"
+                        android:hint="" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/uploadstartupdoc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/blue_button"
+                    android:text="@string/update"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
