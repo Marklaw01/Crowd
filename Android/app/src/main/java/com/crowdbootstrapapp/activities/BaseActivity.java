@@ -21,6 +21,8 @@ import com.quickblox.users.model.QBUser;
 
 /**
  * Created by neelmani.karn on 1/6/2016.
+ *
+ *test
  */
 public abstract class BaseActivity extends AppCompatActivity implements QbSessionStateCallback {
     private static final String TAG = BaseActivity.class.getSimpleName();
