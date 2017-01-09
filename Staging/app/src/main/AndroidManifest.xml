@@ -24,17 +24,18 @@
         android:protectionLevel="signature" />
     <uses-permission android:name="com.staging.permission.C2D_MESSAGE" />
 
-    <supports-screens android:smallScreens="true"
-
-        android:normalScreens="true"
+    <supports-screens
+        android:anyDensity="true"
 
         android:largeScreens="true"
 
-        android:xlargeScreens="true"
+        android:normalScreens="true"
 
-        android:anyDensity="true"
+        android:resizeable="true"
 
-        android:resizeable="true"/>
+        android:smallScreens="true"
+
+        android:xlargeScreens="true" />
     <!-- android:name="android.support.multidex.MultiDexApplication"-->
     <application
         android:name=".application.CrowdBootstrapApplicationClass"
@@ -53,11 +54,14 @@
                 <category android:name="com.staging" />
             </intent-filter>
         </receiver>
-        <provider android:authorities="com.facebook.app.FacebookContentProvider16..."
+        <provider
             android:name="com.facebook.FacebookContentProvider"
-            android:exported="true"/>
+            android:authorities="com.facebook.app.FacebookContentProvider16..."
+            android:exported="true" />
 
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/app_id"/>
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/app_id" />
         <!-- [START gcm_listener] -->
         <service
             android:name=".MyGcmListenerService"
@@ -120,50 +124,50 @@
 
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"></activity>
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
 
         <activity
             android:name=".activities.OurMissionActivity"
             android:label="@string/title_activity_home"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".activities.IndependentContractorActivity"
             android:label="@string/title_activity_home"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan"/>
 
         <activity
             android:name=".activities.LeanStartupRoadmap"
             android:label="@string/title_activity_home"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".activities.AccreditedInvesterActivity"
             android:label="@string/title_activity_home"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".activities.OurValuesActivity"
             android:label="@string/title_activity_home"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".activities.OurVisionActivity"
             android:label="@string/title_activity_home"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".filebrowser.FilePicker"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"></activity>
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
 
         <activity
             android:name="com.google.android.gms.ads.AdActivity"

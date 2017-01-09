@@ -6,3 +6,17 @@
 .DS_Store
 /build
 /captures
+/.idea/gradel.xml
+/.idea/misc.xml
+/.idea/runConfigurations.xml
+/.idea/compiler.xml
+.gitignore
+/.idea/encodings.xml
+/.idea/gradle.xml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/vcs.xml
+/.idea
+/TableLibrary/build
+/linkedin-sdk/build
+/facebook/build
