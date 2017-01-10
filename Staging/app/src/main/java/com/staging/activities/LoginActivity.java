@@ -47,9 +47,9 @@ public class LoginActivity extends AppCompatActivity implements AsyncTaskComplet
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        networkConnectivity = CrowdBootstrapApplicationClass.getNetork();
-        utilitiesClass = CrowdBootstrapApplicationClass.getUtilities();
-        prefManager = CrowdBootstrapApplicationClass.getPref();
+        networkConnectivity = NetworkConnectivity.getInstance(LoginActivity.this);
+        utilitiesClass = UtilitiesClass.getInstance(LoginActivity.this);
+        prefManager = PrefManager.getInstance(LoginActivity.this);
 
 
 

@@ -125,26 +125,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Asy
         } else {
             android_id = Settings.Secure.getString(getActivity().getContentResolver(), Settings.Secure.ANDROID_ID);
 
-            /*ApiServices apiServices = ApiClient.getClient().create(ApiServices.class);
-
-            Call<LoginResponseModel> loginResponseModelCall = apiServices.login(new LoginRequestModel(android_id, et_password.getText().toString().trim(), et_email.getText().toString().trim(), "android", ((LoginActivity) getActivity()).prefManager.getRegistrationId()));
-            loginResponseModelCall.enqueue(new Callback<LoginResponseModel>() {
-                @Override
-                public void onResponse(Call<LoginResponseModel> call, Response<LoginResponseModel> response) {
-                    if (response.isSuccessful())
-                        Toast.makeText(getActivity(), response.body().getFirstName(), Toast.LENGTH_LONG).show();
-
-                }
-
-                @Override
-                public void onFailure(Call<LoginResponseModel> call, Throwable t) {
-                    if (t instanceof SocketTimeoutException || t instanceof IOException) {
-
-                    }
-                }
-            });*/
-
-
             JSONObject login = null;
             try {
                 login = new JSONObject();

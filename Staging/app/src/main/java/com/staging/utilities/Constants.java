@@ -533,48 +533,6 @@ public final class Constants {
     public final static String RESPONSE_SUCESS_STATUS_CODE = "200";
     public final static String RESPONSE_ERROR_STATUS_CODE = "404";
 
-    /*-----------------------Rollbar Tags---------------------------------*/
-   /* public final static String ROLLBAR_CLIENT_SIDE_TOKEN = "c36c4567bfe34ecdbaec10984d016965";
-
-    // boolean variable to set the rollbar mode. i.e. true in case of log in rollbar, false when not to log in rollbar
-    public static final boolean IS_IN_ROLLBAR_MODE = true;
-
-    // Tag for user id
-    public static final String ROLLBAR_USER_ID_TAG = "UserID";
-
-    // Tag for UserName
-    public static final String ROLLBAR_USER_NAME_TAG = "UserName";
-
-    // Tag for ClassName
-    public static final String ROLLBAR_CLASS_NAME_TAG = "ClassName";
-
-    // Tag for MethodName
-    public static final String ROLLBAR_METHOD_NAME_TAG = "MethodName";
-
-    // Tag for Exception Message
-    public static final String ROLLBAR_EXCEPTION_MESSAGE_TAG = "Exception Message";
-
-    // Tag for Exception Name in Rollbar
-    public static final String ROLLBAR_EXCEPTION_TAG = "HandledException";
-
-    // Tag for Exception Category in Rollbar
-    public static final String ROLLBAR_EXCEPTION_CATEGORY_TAG = "critical";
-
-    // Variable to define the rollbar for production
-    public static final String ROLLBAR_PRODUCTION = "production";
-
-    // Variable to define the rollbar for Staging
-    public static final String ROLLBAR_STAGING="staging";
-
-    // Variable to define the rollbar message when user id is not defined
-    public static final String ROLLBAR_USER_ID_NOT_AVAILABLE = "UserID not defined";
-
-    // Variable to define the rollbar message when user id is not defined
-    public static final String ROLLBAR_USER_NAME_NOT_AVAILABLE = "UserName not defined";
-
-
-*/
-
 
     //Constants for QuickBlox chat for live app created under crowdbootstrap2016@gmail.com account
     public static final String QUICKBLOX_APP_ID = "41172";

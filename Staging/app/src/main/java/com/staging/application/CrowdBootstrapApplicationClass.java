@@ -22,12 +22,12 @@ import com.quickblox.core.QBSettings;
 public class CrowdBootstrapApplicationClass extends Application {
 
     private static final String TAG = CrowdBootstrapApplicationClass.class.getSimpleName();
-    private static Context context;
+    private Context context;
     private static CrowdBootstrapApplicationClass instance;
 
-    private static PrefManager prefManager;
-    private static NetworkConnectivity networkConnectivity;
-    private static UtilitiesClass utilitiesClass;
+     PrefManager prefManager;
+    NetworkConnectivity networkConnectivity;
+    UtilitiesClass utilitiesClass;
 
     public static CrowdBootstrapApplicationClass getInstance() {
         return instance;
@@ -38,11 +38,11 @@ public class CrowdBootstrapApplicationClass extends Application {
         MultiDex.install(this);
     }
 
-    public static Context getContext() {
+    public Context getContext() {
         return context;
     }
 
-    public static void setContext(Context mContext) {
+    public void setContext(Context mContext) {
         context = mContext;
     }
 
@@ -101,15 +101,15 @@ public class CrowdBootstrapApplicationClass extends Application {
         }
     }
 
-    public static PrefManager getPref() {
+    public PrefManager getPref() {
         return prefManager;
     }
 
-    public static UtilitiesClass getUtilities() {
+    public UtilitiesClass getUtilities() {
         return utilitiesClass;
     }
 
-    public static NetworkConnectivity getNetork() {
+    public NetworkConnectivity getNetork() {
         return networkConnectivity;
     }
 

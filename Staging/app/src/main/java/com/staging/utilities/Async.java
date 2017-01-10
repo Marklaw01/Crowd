@@ -66,7 +66,7 @@ public class Async extends AsyncTask<String, Integer, String> {
             }
             public void onFinish() {
                 // stop async task if not in progress
-                if (asyncObject.getStatus() == AsyncTask.Status.RUNNING) {
+                if (asyncObject.getStatus() == Status.RUNNING) {
                     asyncObject.cancel(true);
                     if(strFrom.compareTo("Home Activity") == 0) {
                         ((HomeActivity) context).dismissProgressDialog();

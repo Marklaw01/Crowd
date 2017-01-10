@@ -277,7 +277,16 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
         googleRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                signIn();
+
+                if(isGoogleAppInstalled()) {
+                    signIn();
+                }
+                else{
+
+                    Toast.makeText(getActivity(), "Google Plus App Not Installed, Kindly install the App from Google Playstore", Toast.LENGTH_LONG).show();
+
+
+                }
             }
         });
 
@@ -286,46 +295,53 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
             @Override
             public void onClick(View v) {
 
-                FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
-                CallbackManager callbackManager = CallbackManager.Factory.create();
-                final ShareDialog shareDialog = new ShareDialog(getActivity());
 
-                shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
+                if (isFacebookAppInstalled()) {
+                    FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
+                    CallbackManager callbackManager = CallbackManager.Factory.create();
+                    final ShareDialog shareDialog = new ShareDialog(getActivity());
 
-                    @Override
-                    public void onSuccess(Sharer.Result result) {
-                        Log.d("XXX", "success");
+                    shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
+
+                        @Override
+                        public void onSuccess(Sharer.Result result) {
+                            Log.d("XXX", "success");
+                        }
+
+                        @Override
+                        public void onError(FacebookException error) {
+                            Log.d("XXX", "error");
+                        }
+
+                        @Override
+                        public void onCancel() {
+                            Log.d("XXX", "cancel");
+                        }
+                    });
+
+
+                    if (shareDialog.canShow(ShareLinkContent.class)) {
+                        ShareLinkContent content = new ShareLinkContent.Builder()
+                                .setContentTitle("Crowd Bootstrap Invitation")
+                                .setImageUrl(Uri.parse("http://stage.crowdbootstrap.com/img/small-logo.png"))
+                                .setContentUrl(Uri.parse("http://crowdbootstrap.com/"))
+                                .setContentDescription(
+                                        "Crowd Bootstrap helps entrepreneurs accelerate their journey from a startup idea to initial revenues. It is a free App that enables you to benefit as an entrepreneur or help as an expert." +
+                                                "Please click the following link to sign-up and help an entrepreneur realize their dream.\n" +
+                                                "Regards,\n" +
+                                                "The Crowd Bootstrap Team")
+                                .build();
+                        ShareDialog shareDialogContent = new ShareDialog(getActivity());
+                        shareDialogContent.show(content);
+
                     }
 
-                    @Override
-                    public void onError(FacebookException error) {
-                        Log.d("XXX", "error");
-                    }
 
-                    @Override
-                    public void onCancel() {
-                        Log.d("XXX", "cancel");
-                    }
-                });
+                } else {
 
-
-                if (shareDialog.canShow(ShareLinkContent.class)) {
-                    ShareLinkContent content = new ShareLinkContent.Builder()
-                            .setContentTitle("Crowd Bootstrap Invitation")
-                            .setImageUrl(Uri.parse("http://stage.crowdbootstrap.com/img/small-logo.png"))
-                            .setContentUrl(Uri.parse("http://crowdbootstrap.com/"))
-                            .setContentDescription(
-                                    "Crowd Bootstrap helps entrepreneurs accelerate their journey from a startup idea to initial revenues. It is a free App that enables you to benefit as an entrepreneur or help as an expert." +
-                                            "Please click the following link to sign-up and help an entrepreneur realize their dream.\n" +
-                                            "Regards,\n" +
-                                            "The Crowd Bootstrap Team")
-                            .build();
-                    ShareDialog shareDialogContent = new ShareDialog(getActivity());
-                    shareDialogContent.show(content);
+                    Toast.makeText(getActivity(), "Facebook App Not Installed, Kindly install the App from Google Playstore", Toast.LENGTH_LONG).show();
 
                 }
-
-
             }
         });
 
@@ -604,6 +620,19 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
         return rootView;
     }
 
+    public boolean isFacebookAppInstalled() {
+        try {
+            thisActivity.getApplicationContext().getPackageManager().getApplicationInfo("com.facebook.katana", 0);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+    }
+
+
+
+
+
     private static Scope buildScope() {
         return Scope.build(Scope.R_BASICPROFILE, Scope.W_SHARE);
     }
@@ -709,6 +738,18 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
 
     }
 
+
+
+
+
+    public boolean isGoogleAppInstalled() {
+        try {
+            thisActivity.getApplicationContext().getPackageManager().getApplicationInfo("om.google.android.apps.plus", 0);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+    }
     @Override
     public void onStart() {
         super.onStart();

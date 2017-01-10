@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * Created by neelmani.karn on 2/15/2016.
  */
-public class DateTimeFormatClass {
+public final class DateTimeFormatClass {
 
     public static String convertDateObjectToMMDDYYYFormat(Date date) {
         return new SimpleDateFormat(Constants.DATE_FORMAT).format(date);

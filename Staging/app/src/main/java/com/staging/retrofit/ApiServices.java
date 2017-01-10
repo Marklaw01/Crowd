@@ -1,12 +1,6 @@
 package com.staging.retrofit;
 
 
-import com.staging.utilities.Constants;
-
-import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.POST;
-
 /**
  * Created by neelmani.karn on 7/25/2016.
  */

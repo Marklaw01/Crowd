@@ -11,7 +11,7 @@ import android.net.NetworkInfo;
 import com.staging.R;
 import com.staging.logger.CrowdBootstrapLogger;
 
-public class NetworkConnectivity {
+public final class NetworkConnectivity {
 
     static Context context;
     private static NetworkConnectivity instance = new NetworkConnectivity();
@@ -44,6 +44,7 @@ public class NetworkConnectivity {
     }
 
 
+    //created by Neel on 10th Jan 2017
     /**
      * Check if internet connection is available or not
      *

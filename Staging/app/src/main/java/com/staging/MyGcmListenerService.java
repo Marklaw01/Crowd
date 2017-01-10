@@ -50,7 +50,7 @@ public class MyGcmListenerService extends GcmListenerService {
     @Override
     public void onMessageReceived(String from, Bundle data) {
         //Log.e("instance", instance.toString());
-        if (CrowdBootstrapApplicationClass.getPref().getBoolean(Constants.IS_NOTIFICATION_ON)) {
+        if (CrowdBootstrapApplicationClass.getInstance().getPref().getBoolean(Constants.IS_NOTIFICATION_ON)) {
             if (data != null) {
                 Set<String> keys = data.keySet();
                 Iterator<String> it = keys.iterator();
