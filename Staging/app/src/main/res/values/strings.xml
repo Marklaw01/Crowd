@@ -306,5 +306,26 @@
     <string name="app_id">1772822902981170</string>
     <string name="exception">Exception: %1$s</string>
     <string name="time_out">Your request has timed out. Please check your Internet connection then try again.</string>
+    <string name="findFunds">Find Funds</string>
+    <string name="fundInvest">Fund/Invest</string>
+    <string name="myfunds">My Funds</string>
+    <string name="archived">Archived</string>
+    <string name="deactivated">Deactivated</string>
+    <string name="search">Search</string>
+    <string name="createFund">Create Fund</string>
+    <string name="archive">Archive</string>
+    <string name="deactivate">Deactivate</string>
+    <string name="delete">Delete</string>
+    <string name="like">Like</string>
+    <string name="deslike">Deslike</string>
+    <string name="funds_title">Fund\'s Title</string>
+    <string name="funds_managers">Fund\'s Managers</string>
+    <string name="sponsers">Sponsers</string>
+    <string name="industry">Industry</string>
+    <string name="portfolio_companies">Portfolio Companies</string>
+    <string name="investment_start_date">Investment Start Date</string>
+    <string name="investment_end_date">Investment End Date</string>
+    <string name="funds_closed_date">Fund\'s Closed Date</string>
+    <string name="apply">Apply</string>
 
 </resources>

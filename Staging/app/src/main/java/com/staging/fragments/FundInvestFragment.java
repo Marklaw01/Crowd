@@ -14,14 +14,14 @@ import com.staging.R;
 import com.staging.utilities.NonSwipeableViewPager;
 
 /**
- * Created by neelmani.karn on 01/10/2017.
+ * Created by Neelmani.Karn on 1/11/2017.
  */
-public class FundsFragment extends Fragment {
+public class FundInvestFragment extends Fragment {
     public TabLayout tabLayout;
     public NonSwipeableViewPager viewPager;
-    public static int int_items = 2;
+    public int int_items = 3;
 
-    public FundsFragment() {
+    public FundInvestFragment() {
         super();
     }
 
@@ -65,9 +65,11 @@ public class FundsFragment extends Fragment {
             try {
                 switch (position) {
                     case 0:
-                        return new FindFundsFragment();
+                        return new MyFundsFragments();
                     case 1:
-                        return new FundInvestFragment();
+                        return new ArchivedFundsFragment();
+                    case 2:
+                        return new DeactivatedFundsFragment();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -89,9 +91,11 @@ public class FundsFragment extends Fragment {
 
             switch (position) {
                 case 0:
-                    return getString(R.string.findFunds);
+                    return getString(R.string.myfunds);
                 case 1:
-                    return getString(R.string.fundInvest);
+                    return getString(R.string.archived);
+                case 2:
+                    return getString(R.string.deactivated);
             }
             return null;
         }
