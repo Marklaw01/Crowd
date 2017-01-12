@@ -3,6 +3,7 @@ package com.staging.fragments;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -23,6 +24,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -39,6 +42,7 @@ import com.staging.utilities.Constants;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -47,6 +51,12 @@ import java.util.Locale;
  */
 public class CreateFundFragment extends Fragment implements onActivityResultListener, View.OnClickListener {
 
+
+    private DatePickerDialog.OnDateSetListener investmentStartdate, investmentEnddate, funcCloseddate;
+    private Calendar myCalendarInvestmentStartDate, myCalendarInvestmentEndDate, myCalendarFuncClosedDate;
+
+    private EditText et_investmentStartDate, et_investmentEndDate, et_fundsClosedDate;
+    private EditText et_fundTitle, et_fundDescription, et_fundManagers;
     private Spinner spinner_uploadFileType;
     private ImageView image_fundImage;
     private ImageView tv_deleteFile;
@@ -90,9 +100,52 @@ public class CreateFundFragment extends Fragment implements onActivityResultList
         ((HomeActivity) getActivity()).setOnActivityResultListener(this);
     }
 
+    /**
+     * Set Start Investment Date on edit text
+     */
+    private void setStartInvestmentDate() {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat(Constants.DATE_FORMAT, Locale.US);
+
+            et_investmentStartDate.setText(sdf.format(myCalendarInvestmentStartDate.getTime()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Set Start Investment Date on edit text
+     */
+    private void setEndInvestmentDate() {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat(Constants.DATE_FORMAT, Locale.US);
+
+            et_investmentEndDate.setText(sdf.format(myCalendarInvestmentEndDate.getTime()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Set Start Investment Date on edit text
+     */
+    private void setFundClosedDate() {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat(Constants.DATE_FORMAT, Locale.US);
+
+            et_fundsClosedDate.setText(sdf.format(myCalendarFuncClosedDate.getTime()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fund_details_fragment, container, false);
+        ((HomeActivity) getActivity()).setActionBarTitle(getString(R.string.createFund));
+        et_fundsClosedDate = (EditText) rootView.findViewById(R.id.et_fundsClosedDate);
+        et_investmentEndDate = (EditText) rootView.findViewById(R.id.et_investmentEndDate);
+        et_investmentStartDate = (EditText) rootView.findViewById(R.id.et_investmentStartDate);
 
         spinner_uploadFileType = (Spinner) rootView.findViewById(R.id.spinner_uploadFileType);
         pathofmedia = new ArrayList<Mediabeans>();
@@ -111,16 +164,48 @@ public class CreateFundFragment extends Fragment implements onActivityResultList
 
         filenames = new ArrayList<TextView>();
 
-        image_fundImage.setOnClickListener(this);
+        myCalendarInvestmentStartDate = Calendar.getInstance();
+        investmentStartdate = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                myCalendarInvestmentStartDate.set(Calendar.YEAR, year);
+                myCalendarInvestmentStartDate.set(Calendar.MONTH, monthOfYear);
+                myCalendarInvestmentStartDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                setStartInvestmentDate();
+            }
+        };
 
-        tv_deleteFile.setOnClickListener(this);
+        myCalendarInvestmentEndDate = Calendar.getInstance();
+        investmentEnddate = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                myCalendarInvestmentEndDate.set(Calendar.YEAR, year);
+                myCalendarInvestmentEndDate.set(Calendar.MONTH, monthOfYear);
+                myCalendarInvestmentEndDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                setEndInvestmentDate();
+            }
+        };
+
+        myCalendarFuncClosedDate = Calendar.getInstance();
+        funcCloseddate = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                myCalendarFuncClosedDate.set(Calendar.YEAR, year);
+                myCalendarFuncClosedDate.set(Calendar.MONTH, monthOfYear);
+                myCalendarFuncClosedDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                setFundClosedDate();
+            }
+        };
+
 
         btn_browse.setTag(0);
         btn_browse.setOnClickListener(this);
-
-
+        et_investmentStartDate.setOnClickListener(this);
+        et_fundsClosedDate.setOnClickListener(this);
+        et_investmentEndDate.setOnClickListener(this);
         btn_plus.setOnClickListener(this);
-
+        image_fundImage.setOnClickListener(this);
+        tv_deleteFile.setOnClickListener(this);
         return rootView;
     }
 
@@ -167,47 +252,47 @@ public class CreateFundFragment extends Fragment implements onActivityResultList
                     case Constants.CAMERA_CAPTURE_IMAGE_REQUEST_CODE:
 
                         // if the result is capturing Image
-                        if (requestCode == Constants.CAMERA_CAPTURE_IMAGE_REQUEST_CODE) {
-                            if (resultCode == Activity.RESULT_OK) {
-                                // successfully captured the image
-                                // display it in image view
-                                try {
-                                    // bimatp factory
-                                    BitmapFactory.Options options = new BitmapFactory.Options();
+                        // if (requestCode == Constants.CAMERA_CAPTURE_IMAGE_REQUEST_CODE) {
+                        if (resultCode == Activity.RESULT_OK) {
+                            // successfully captured the image
+                            // display it in image view
+                            try {
+                                // bimatp factory
+                                BitmapFactory.Options options = new BitmapFactory.Options();
 
-                                    // downsizing image as it throws OutOfMemory Exception for larger
-                                    // images
-                                    options.inSampleSize = 8;
+                                // downsizing image as it throws OutOfMemory Exception for larger
+                                // images
+                                options.inSampleSize = 8;
 
-                                    filepath = fileUri.getPath();
-                                    File finalFile = new File(filepath);
-                                    long length = finalFile.length();
-                                    int a = finalFile.getAbsolutePath().lastIndexOf("/");
+                                filepath = fileUri.getPath();
+                                File finalFile = new File(filepath);
+                                long length = finalFile.length();
+                                int a = finalFile.getAbsolutePath().lastIndexOf("/");
 
-                                    if (length >= Constants.MAX_FILE_LENGTH_ALLOWED) {
-                                        Toast.makeText(getActivity(), finalFile.getAbsolutePath().substring(a + 1).toString().trim() + " size is more than 5 MB.", Toast.LENGTH_LONG).show();
-                                    } else {
-                                        decodeFile(filepath, fileUri);
-                                    }
-
-
-                                    //addpath(finalFile.getAbsolutePath(), "image", String.valueOf(length), finalFile.getAbsolutePath().substring(a + 1).toString().trim());
-
-                                } catch (NullPointerException e) {
-                                    e.printStackTrace();
+                                if (length >= Constants.MAX_FILE_LENGTH_ALLOWED) {
+                                    Toast.makeText(getActivity(), finalFile.getAbsolutePath().substring(a + 1).toString().trim() + " size is more than 5 MB.", Toast.LENGTH_LONG).show();
+                                } else {
+                                    decodeFile(filepath, fileUri);
                                 }
-                            } else if (resultCode == Activity.RESULT_CANCELED) {
-                                // user cancelled Image capture
-                                Toast.makeText(getActivity(),
-                                        "User cancelled image capture", Toast.LENGTH_LONG)
-                                        .show();
-                            } else {
-                                // failed to capture image
-                                Toast.makeText(getActivity(),
-                                        "Sorry! Failed to capture image", Toast.LENGTH_LONG)
-                                        .show();
+
+
+                                //addpath(finalFile.getAbsolutePath(), "image", String.valueOf(length), finalFile.getAbsolutePath().substring(a + 1).toString().trim());
+
+                            } catch (NullPointerException e) {
+                                e.printStackTrace();
                             }
+                        } else if (resultCode == Activity.RESULT_CANCELED) {
+                            // user cancelled Image capture
+                            Toast.makeText(getActivity(),
+                                    "User cancelled image capture", Toast.LENGTH_LONG)
+                                    .show();
+                        } else {
+                            // failed to capture image
+                            Toast.makeText(getActivity(),
+                                    "Sorry! Failed to capture image", Toast.LENGTH_LONG)
+                                    .show();
                         }
+                        //}
 
                         break;
                     case Constants.IMAGE_PICKER:
@@ -508,6 +593,22 @@ public class CreateFundFragment extends Fragment implements onActivityResultList
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.et_investmentStartDate:
+                new DatePickerDialog(getActivity(), investmentStartdate, myCalendarInvestmentStartDate
+                        .get(Calendar.YEAR), myCalendarInvestmentStartDate.get(Calendar.MONTH),
+                        myCalendarInvestmentStartDate.get(Calendar.DAY_OF_MONTH)).show();
+                break;
+
+            case R.id.et_investmentEndDate:
+                new DatePickerDialog(getActivity(), investmentEnddate, myCalendarInvestmentEndDate
+                        .get(Calendar.YEAR), myCalendarInvestmentEndDate.get(Calendar.MONTH),
+                        myCalendarInvestmentEndDate.get(Calendar.DAY_OF_MONTH)).show();
+                break;
+            case R.id.et_fundsClosedDate:
+                new DatePickerDialog(getActivity(), funcCloseddate, myCalendarFuncClosedDate
+                        .get(Calendar.YEAR), myCalendarFuncClosedDate.get(Calendar.MONTH),
+                        myCalendarFuncClosedDate.get(Calendar.DAY_OF_MONTH)).show();
+                break;
             case R.id.btn_browse:
 
                 try {
@@ -525,7 +626,6 @@ public class CreateFundFragment extends Fragment implements onActivityResultList
                         } else if (spinner_uploadFileType.getSelectedItem().toString().trim().equalsIgnoreCase("Video")) {
                             acceptedFileExtensions = new String[]{".mp4"};
                         }
-
                         intent.putExtra("FILE_EXTENSION", acceptedFileExtensions);
                         getActivity().startActivityForResult(intent, Constants.FILE_PICKER);
                     }

@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.staging.R;
+import com.staging.activities.HomeActivity;
 import com.staging.utilities.NonSwipeableViewPager;
 
 /**
@@ -28,7 +29,7 @@ public class FundsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.funds_tab_layout, container, false);
-
+        ((HomeActivity)getActivity()).setActionBarTitle(getString(R.string.funds));
 
         try {
             tabLayout = (TabLayout) rootView.findViewById(R.id.tabs);

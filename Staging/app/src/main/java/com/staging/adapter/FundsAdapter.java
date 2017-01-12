@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,7 +39,7 @@ import java.util.ArrayList;
 /**
  * Created by Neelmani.Karn on 1/11/2017.
  */
-public class FundsAdapter extends BaseAdapter {
+public class FundsAdapter extends BaseAdapter implements View.OnClickListener {
 
     public DisplayImageOptions options;
     private LayoutInflater l_Inflater;
@@ -106,6 +107,7 @@ public class FundsAdapter extends BaseAdapter {
             holder.tv_archive = (TextView) convertView.findViewById(R.id.tv_archive);
             holder.tv_deactivate = (TextView) convertView.findViewById(R.id.tv_deactivate);
             holder.tv_delete = (TextView) convertView.findViewById(R.id.tv_delete);
+            holder.layoutButtons = (LinearLayout) convertView.findViewById(R.id.layoutButtons);
 
             convertView.setTag(holder);
 
@@ -115,6 +117,8 @@ public class FundsAdapter extends BaseAdapter {
         try {
             //ImageLoader.getInstance().displayImage(Constants.APP_IMAGE_URL + list.get(position).getCompanyLogoImage(), holder.fund_icon, options);
 
+            holder.tv_Likes.setOnClickListener(this);
+            holder.tv_dislikes.setOnClickListener(this);
             holder.tv_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -258,10 +262,39 @@ public class FundsAdapter extends BaseAdapter {
         return convertView;
     }
 
+    /**
+     * Called when a view has been clicked.
+     *
+     * @param v The view that was clicked.
+     */
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_Like:
+                Bundle like = new Bundle();
+                like.putInt(Constants.FUND_ID, 1);
+                like.putString(Constants.LIKE_DISLIKE, Constants.LIKE);
+                Fragment likeFragment = new LikeDislikeFragment();
+                likeFragment.setArguments(like);
+                (((HomeActivity) context)).replaceFragment(likeFragment);
+                break;
+
+            case R.id.tv_dislike:
+                Bundle dislike = new Bundle();
+                dislike.putInt(Constants.FUND_ID, 1);
+                dislike.putString(Constants.LIKE_DISLIKE, Constants.DISLIKE);
+                Fragment dislikeFragment = new LikeDislikeFragment();
+                dislikeFragment.setArguments(dislike);
+                (((HomeActivity) context)).replaceFragment(dislikeFragment);
+                break;
+        }
+    }
+
     static class ViewHolder {
         TextView fundTitle, fundDescription, tv_postedDate, tv_Likes, tv_dislikes, tv_archive, tv_delete, tv_deactivate;
         ImageView fund_icon;
         ImageView likeBtn, dislikeBtn;
+        LinearLayout layoutButtons, layoutLikeDeslikeButtons;
     }
 
 

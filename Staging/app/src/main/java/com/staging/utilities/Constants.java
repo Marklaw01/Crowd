@@ -143,7 +143,6 @@ public final class Constants {
     public static final String ADD_EXPERIENCE_TAG = "addExperiences_tag";
 
 
-
     public static final String ADDKEYWORD_KEYWORDTYPE_URL = "addSuggestKeywords";
     public static final String ADDKEYWORD_KEYWORDTYPE_TAG = "addSuggestKeywords_tag";
 
@@ -173,10 +172,8 @@ public final class Constants {
     public static final String JOB_INDUSTRIES_KEYWORDS_TAG = "jobIndustrieLists_tag";
 
 
-
     public static final String EDIT_JOB_URL = "editJob";
     public static final String EDIT_JOB_TAG = "editJob_tag";
-
 
 
     public static final String JOB_TYPE_KEYWORDS_URL = "jobTypeLists";
@@ -493,6 +490,10 @@ public final class Constants {
     //Html tags
     public static final String HTTP_PREFIX_TAX = "<html><style>body{background:#F0F0F0;}div {text-align: justify;}</style><body><div>";
     public static final String HTTP_SUFFIX_TAX = "</div></body></html>";
+    public static final String FUND_ID = "fund_id";
+    public static final String LIKE_DISLIKE = "like_dislike_tag";
+    public static final String LIKE = "Likes";
+    public static final String DISLIKE = "Dislikes";
 
     //Passing data constants using intent
     public static String COMMING_FROM_INTENT = "";
