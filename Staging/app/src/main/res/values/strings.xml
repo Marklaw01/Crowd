@@ -327,5 +327,6 @@
     <string name="investment_end_date">Investment End Date</string>
     <string name="funds_closed_date">Fund\'s Closed Date</string>
     <string name="apply">Apply</string>
+    <string name="funds_image">Fund\'s Image</string>
 
 </resources>

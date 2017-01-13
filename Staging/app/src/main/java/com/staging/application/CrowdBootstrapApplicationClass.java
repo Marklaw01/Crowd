@@ -2,9 +2,13 @@ package com.staging.application;
 
 import android.app.Application;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.multidex.MultiDex;
 import android.util.Log;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.staging.BuildConfig;
+import com.staging.R;
 import com.staging.utilities.Constants;
 import com.staging.utilities.NetworkConnectivity;
 import com.staging.utilities.PrefManager;
@@ -60,9 +64,6 @@ public class CrowdBootstrapApplicationClass extends Application {
             utilitiesClass = UtilitiesClass.getInstance(getApplicationContext());
             initImageLoader(getApplicationContext());
 
-
-            // Initialise Rollbar
-            //Rollbar.init(this, Constants.ROLLBAR_CLIENT_SIDE_TOKEN, "production");
             // Initialise QuickBlox SDK
             initCredentials(Constants.QUICKBLOX_APP_ID, Constants.QUICKBLOX_AUTH_KEY, Constants.QUICKBLOX_AUTH_SECRET, Constants.QUICKBLOX_ACCOUNT_KEY);
         } catch (Exception e) {
@@ -82,6 +83,17 @@ public class CrowdBootstrapApplicationClass extends Application {
 
     public static void initImageLoader(Context context) {
         try {
+
+            DisplayImageOptions options = new DisplayImageOptions.Builder()
+                    .showImageOnLoading(R.drawable.image)
+                    .showImageForEmptyUri(R.drawable.image)
+                    .showImageOnFail(R.drawable.image)
+                    .cacheInMemory(true)
+                    .cacheOnDisk(true)
+                    .considerExifParams(true)
+                    .bitmapConfig(Bitmap.Config.RGB_565)
+                    .build();
+
             // This configuration tuning is custom. You can tune every option, you may tune some of them,
             // or you can create default configuration by
             //  ImageLoaderConfiguration.createDefault(this);
@@ -92,7 +104,10 @@ public class CrowdBootstrapApplicationClass extends Application {
             config.diskCacheFileNameGenerator(new Md5FileNameGenerator());
             config.diskCacheSize(50 * 1024 * 1024); // 50 MiB
             config.tasksProcessingOrder(QueueProcessingType.LIFO);
-            config.writeDebugLogs(); // Remove for release app
+            if (BuildConfig.DEBUG)
+                config.writeDebugLogs(); // Remove for release app
+            // Initialize ImageLoader with configuration.
+            ImageLoader.getInstance().init(config.build());
 
             // Initialize ImageLoader with configuration.
             ImageLoader.getInstance().init(config.build());

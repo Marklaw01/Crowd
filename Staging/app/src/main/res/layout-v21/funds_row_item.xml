@@ -5,6 +5,7 @@
     android:background="@color/app_backgroundColor"
     android:orientation="vertical"
     android:paddingBottom="@dimen/padding"
+    android:elevation="3dp"
     android:paddingTop="@dimen/padding">
 
     <LinearLayout

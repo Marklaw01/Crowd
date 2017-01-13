@@ -56,7 +56,7 @@ public class CreateFundFragment extends Fragment implements onActivityResultList
     private Calendar myCalendarInvestmentStartDate, myCalendarInvestmentEndDate, myCalendarFuncClosedDate;
 
     private EditText et_investmentStartDate, et_investmentEndDate, et_fundsClosedDate;
-    private EditText et_fundTitle, et_fundDescription, et_fundManagers;
+    private EditText et_fundTitle, et_fundDescription, et_fundManagers, et_fundsponsers, et_industry, et_portfolio, et_keywords;
     private Spinner spinner_uploadFileType;
     private ImageView image_fundImage;
     private ImageView tv_deleteFile;
@@ -141,8 +141,18 @@ public class CreateFundFragment extends Fragment implements onActivityResultList
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fund_details_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.create_fund_fragment, container, false);
         ((HomeActivity) getActivity()).setActionBarTitle(getString(R.string.createFund));
+
+
+        et_fundTitle = (EditText) rootView.findViewById(R.id.et_fundTitle);
+        et_fundDescription = (EditText) rootView.findViewById(R.id.et_fundDescription);
+        et_fundManagers = (EditText) rootView.findViewById(R.id.et_fundManagers);
+        et_fundsponsers = (EditText) rootView.findViewById(R.id.et_fundsponsers);
+        et_industry = (EditText) rootView.findViewById(R.id.et_industry);
+        et_portfolio = (EditText) rootView.findViewById(R.id.et_portfolio);
+        et_keywords = (EditText) rootView.findViewById(R.id.et_keywords);
+
         et_fundsClosedDate = (EditText) rootView.findViewById(R.id.et_fundsClosedDate);
         et_investmentEndDate = (EditText) rootView.findViewById(R.id.et_investmentEndDate);
         et_investmentStartDate = (EditText) rootView.findViewById(R.id.et_investmentStartDate);
@@ -157,6 +167,7 @@ public class CreateFundFragment extends Fragment implements onActivityResultList
         layout_fileName = (LinearLayout) rootView.findViewById(R.id.layout_fileName);
         parent_layout = (LinearLayout) rootView.findViewById(R.id.parent_layout);
 
+        btnCreate = (Button) rootView.findViewById(R.id.btn_submit);
         btn_browse = (TextView) rootView.findViewById(R.id.btn_browse);
         //btn_delete = (ImageView) rootView.findViewById(R.id.btn_delete);
         btn_plus = (ImageView) rootView.findViewById(R.id.btn_plus);
@@ -204,8 +215,11 @@ public class CreateFundFragment extends Fragment implements onActivityResultList
         et_fundsClosedDate.setOnClickListener(this);
         et_investmentEndDate.setOnClickListener(this);
         btn_plus.setOnClickListener(this);
+        btnCreate.setOnClickListener(this);
         image_fundImage.setOnClickListener(this);
         tv_deleteFile.setOnClickListener(this);
+
+        et_fundManagers.setOnClickListener(this);
         return rootView;
     }
 
@@ -654,8 +668,6 @@ public class CreateFundFragment extends Fragment implements onActivityResultList
                 }
                 break;
             case R.id.btn_plus:
-
-
                 try {
                     if (layout_more.getChildCount() <= 1) {
                         LayoutInflater mInflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -734,6 +746,12 @@ public class CreateFundFragment extends Fragment implements onActivityResultList
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+
+                break;
+            case R.id.btn_createFund:
+
+                break;
+            case R.id.et_fundManagers:
 
                 break;
 

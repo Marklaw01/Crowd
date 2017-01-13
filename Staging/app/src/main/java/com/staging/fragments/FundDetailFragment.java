@@ -20,7 +20,7 @@ public class FundDetailFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fund_details_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.fund_detail_fragment, container, false);
 
 
 

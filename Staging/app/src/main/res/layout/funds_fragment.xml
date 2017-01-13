@@ -54,10 +54,10 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.8"
         android:cacheColorHint="#FFFFFFFF"
-
+        android:divider="@color/lightGray"
+        android:dividerHeight="1dp"
         android:fadingEdge="none"
         android:fastScrollEnabled="true"
-        android:divider="@null"
         android:scrollbars="vertical"
         android:scrollingCache="false" />
 
