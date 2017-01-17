@@ -1,0 +1,27 @@
+dependencies: \
+  /Users/osx/Desktop/shikha/CrowdBootstap/Pods/QuickBlox/Quickblox.framework/Modules/module.modulemap \
+  /Users/osx/Desktop/shikha/CrowdBootstap/CrowdBootstrap/SignUpViewController.m \
+  /Users/osx/Desktop/shikha/CrowdBootstap/CrowdBootstrap/SignUpViewController.h \
+  /Users/osx/Desktop/shikha/CrowdBootstap/Pods/google-plus-ios-sdk/google-plus-ios-sdk-1.7.1/GooglePlus.framework/Headers/GooglePlus.h \
+  /Users/osx/Desktop/shikha/CrowdBootstap/Pods/google-plus-ios-sdk/google-plus-ios-sdk-1.7.1/GooglePlus.framework/Headers/GPPDeepLink.h \
+  /Users/osx/Desktop/shikha/CrowdBootstap/Pods/google-plus-ios-sdk/google-plus-ios-sdk-1.7.1/GooglePlus.framework/Headers/GPPShare.h \
+  /Users/osx/Desktop/shikha/CrowdBootstap/Pods/google-plus-ios-sdk/google-plus-ios-sdk-1.7.1/GooglePlus.framework/Headers/GPPSignIn.h \
+  /Users/osx/Desktop/shikha/CrowdBootstap/Pods/google-plus-ios-sdk/google-plus-ios-sdk-1.7.1/GooglePlus.framework/Headers/GPPSignInButton.h \
+  /Users/osx/Desktop/shikha/CrowdBootstap/Pods/google-plus-ios-sdk/google-plus-ios-sdk-1.7.1/GooglePlus.framework/Headers/GPPURLHandler.h \
+  /Users/osx/Desktop/shikha/CrowdBootstap/CrowdBootstrap/SignUp/TextFieldTableViewCell.h \
+  /Users/osx/Desktop/shikha/CrowdBootstap/CrowdBootstrap/ChooseSecurityQuesTableViewCell.h \
+  /Users/osx/Desktop/shikha/CrowdBootstap/CrowdBootstrap/EnterSecurityQuesTableViewCell.h \
+  /Users/osx/Desktop/shikha/CrowdBootstap/CrowdBootstrap/Profile/Basic/DobTableViewCell.h \
+  /Users/osx/Desktop/shikha/CrowdBootstap/CrowdBootstrap/Payments/PaymentsTableViewCell.h \
+  /Users/osx/Desktop/shikha/CrowdBootstap/CrowdBootstrap/Profile/Basic/PhoneTableViewCell.h \
+  /Users/osx/Desktop/shikha/CrowdBootstap/linkedin-sdk.framework/Headers/LISDK.h \
+  /Users/osx/Desktop/shikha/CrowdBootstap/linkedin-sdk.framework/Headers/LISDKSessionManager.h \
+  /Users/osx/Desktop/shikha/CrowdBootstap/linkedin-sdk.framework/Headers/LISDKSession.h \
+  /Users/osx/Desktop/shikha/CrowdBootstap/linkedin-sdk.framework/Headers/LISDKAccessToken.h \
+  /Users/osx/Desktop/shikha/CrowdBootstap/linkedin-sdk.framework/Headers/LISDKAPIError.h \
+  /Users/osx/Desktop/shikha/CrowdBootstap/linkedin-sdk.framework/Headers/LISDKAPIHelper.h \
+  /Users/osx/Desktop/shikha/CrowdBootstap/linkedin-sdk.framework/Headers/LISDKAPIResponse.h \
+  /Users/osx/Desktop/shikha/CrowdBootstap/linkedin-sdk.framework/Headers/LISDKCallbackHandler.h \
+  /Users/osx/Desktop/shikha/CrowdBootstap/linkedin-sdk.framework/Headers/LISDKDeeplinkHelper.h \
+  /Users/osx/Desktop/shikha/CrowdBootstap/linkedin-sdk.framework/Headers/LISDKErrorCode.h \
+  /Users/osx/Desktop/shikha/CrowdBootstap/linkedin-sdk.framework/Headers/LISDKPermission.h

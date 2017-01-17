@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomePopupView">
+            <connections>
+                <outlet property="contentView" destination="iN0-l3-epB" id="TVS-4X-pdz"/>
+                <outlet property="okButton" destination="dfB-V0-0au" id="Nkm-k5-aUp"/>
+                <outlet property="titleLbl" destination="WAO-LQ-80l" id="ojY-od-wHG"/>
+                <outlet property="webView" destination="a2S-2I-UQF" id="cWP-AN-TR0"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WAO-LQ-80l">
+                    <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="25" id="Uer-Bz-ORc"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
+                    <color key="textColor" red="0.01176470588" green="0.2156862745" blue="0.36078431370000003" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="Uer-Bz-ORc"/>
+                        </mask>
+                    </variation>
+                    <variation key="heightClass=regular-widthClass=compact">
+                        <mask key="constraints">
+                            <include reference="Uer-Bz-ORc"/>
+                        </mask>
+                    </variation>
+                </label>
+                <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a2S-2I-UQF">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
+                </webView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dfB-V0-0au">
+                    <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="35" id="lQR-nD-wgm"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
+                    <state key="normal" title="OK" backgroundImage="Signup_btn"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="lQR-nD-wgm"/>
+                        </mask>
+                    </variation>
+                    <variation key="heightClass=regular-widthClass=compact">
+                        <mask key="constraints">
+                            <include reference="lQR-nD-wgm"/>
+                        </mask>
+                    </variation>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="0.91764705879999997" green="0.60784313729999995" blue="0.20784313730000001" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="dfB-V0-0au" firstAttribute="top" secondItem="a2S-2I-UQF" secondAttribute="bottom" constant="8" id="7ez-sI-fqa"/>
+                <constraint firstItem="WAO-LQ-80l" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="EI3-Ad-o4d"/>
+                <constraint firstAttribute="trailing" secondItem="dfB-V0-0au" secondAttribute="trailing" constant="20" id="GWc-AS-daz"/>
+                <constraint firstItem="a2S-2I-UQF" firstAttribute="top" secondItem="WAO-LQ-80l" secondAttribute="bottom" constant="8" id="N5H-J2-CQ8"/>
+                <constraint firstItem="a2S-2I-UQF" firstAttribute="top" secondItem="WAO-LQ-80l" secondAttribute="bottom" constant="8" id="QTD-gp-Sv0"/>
+                <constraint firstItem="WAO-LQ-80l" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="RCo-l6-XYq"/>
+                <constraint firstAttribute="trailing" secondItem="WAO-LQ-80l" secondAttribute="trailing" constant="20" id="ZCB-xf-rsX"/>
+                <constraint firstItem="dfB-V0-0au" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="boU-SF-mDm"/>
+                <constraint firstItem="a2S-2I-UQF" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="fvN-9b-Q9R"/>
+                <constraint firstItem="dfB-V0-0au" firstAttribute="top" secondItem="a2S-2I-UQF" secondAttribute="bottom" constant="8" id="mph-xa-JGg"/>
+                <constraint firstAttribute="trailing" secondItem="a2S-2I-UQF" secondAttribute="trailing" constant="20" id="uzL-uh-L6Q"/>
+                <constraint firstAttribute="bottom" secondItem="dfB-V0-0au" secondAttribute="bottom" constant="8" id="w1x-tY-dSK"/>
+            </constraints>
+            <variation key="default">
+                <mask key="subviews">
+                    <exclude reference="WAO-LQ-80l"/>
+                    <exclude reference="a2S-2I-UQF"/>
+                    <exclude reference="dfB-V0-0au"/>
+                </mask>
+                <mask key="constraints">
+                    <exclude reference="7ez-sI-fqa"/>
+                    <exclude reference="GWc-AS-daz"/>
+                    <exclude reference="boU-SF-mDm"/>
+                    <exclude reference="mph-xa-JGg"/>
+                    <exclude reference="w1x-tY-dSK"/>
+                    <exclude reference="EI3-Ad-o4d"/>
+                    <exclude reference="RCo-l6-XYq"/>
+                    <exclude reference="ZCB-xf-rsX"/>
+                    <exclude reference="N5H-J2-CQ8"/>
+                    <exclude reference="QTD-gp-Sv0"/>
+                    <exclude reference="fvN-9b-Q9R"/>
+                    <exclude reference="uzL-uh-L6Q"/>
+                </mask>
+            </variation>
+            <variation key="heightClass=regular-widthClass=compact">
+                <mask key="subviews">
+                    <include reference="WAO-LQ-80l"/>
+                    <include reference="a2S-2I-UQF"/>
+                    <include reference="dfB-V0-0au"/>
+                </mask>
+                <mask key="constraints">
+                    <include reference="7ez-sI-fqa"/>
+                    <include reference="GWc-AS-daz"/>
+                    <include reference="boU-SF-mDm"/>
+                    <include reference="mph-xa-JGg"/>
+                    <include reference="w1x-tY-dSK"/>
+                    <include reference="EI3-Ad-o4d"/>
+                    <include reference="RCo-l6-XYq"/>
+                    <include reference="ZCB-xf-rsX"/>
+                    <include reference="N5H-J2-CQ8"/>
+                    <include reference="QTD-gp-Sv0"/>
+                    <include reference="fvN-9b-Q9R"/>
+                    <include reference="uzL-uh-L6Q"/>
+                </mask>
+            </variation>
+            <connections>
+                <outlet property="okButton" destination="dfB-V0-0au" id="8eS-3Q-GuI"/>
+                <outlet property="titleLbl" destination="WAO-LQ-80l" id="G0B-nf-1XW"/>
+                <outlet property="webView" destination="a2S-2I-UQF" id="e5W-RY-Oy0"/>
+            </connections>
+        </view>
+    </objects>
+    <resources>
+        <image name="Signup_btn" width="297" height="25"/>
+    </resources>
+</document>
