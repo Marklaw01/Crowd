@@ -1,0 +1,38 @@
+//
+//  CrowdBootstrap-Prefix.pch
+//  CrowdBootstrap
+//
+//  Created by OSX on 26/05/16.
+//  Copyright © 2016 trantor.com. All rights reserved.
+//
+
+#ifndef CrowdBootstrap_Prefix_pch
+#define CrowdBootstrap_Prefix_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#endif /* CrowdBootstrap_Prefix_pch */
+
+#import "Constants.h"
+#import "Constants_Server.h"
+#import "Constants_AlertMessages.h"
+#import "Constants_Notifications.h"
+#import "Constants_UserDefaults.h"
+#import "Constants_HUD.h"
+#import "Constants_ViewIdentifiers.h"
+#import "Constants_Quickblox.h"
+#import "Constants_Push.h"
+
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import <MobileCoreServices/MobileCoreServices.h>
+#import <SystemConfiguration/SystemConfiguration.h>
+#import <Quickblox/Quickblox.h>
+#import <Quickblox/QBMulticastDelegate.h>
+#import <QMServices.h>
+#import "QMChatViewController.h"
+#import "ServicesManager.h"
+
+#import "UtilityClass.h"
+#import "ApiCrowdBootstrap.h"

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>application-identifier</key>
+	<string>L8QB59U372.com.trantorinc.crowdbootstrap</string>
+	<key>keychain-access-groups</key>
+	<array>
+		<string>L8QB59U372.com.trantorinc.crowdbootstrap</string>
+	</array>
+</dict>
+</plist>
