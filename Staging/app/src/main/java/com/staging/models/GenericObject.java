@@ -7,7 +7,15 @@ public class GenericObject<T> {
 
     String id, title, answer;
     boolean ischecked;
+    int position;
 
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
 
     public String getAnswer() {
         return answer;

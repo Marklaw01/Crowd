@@ -1,5 +1,6 @@
 package com.staging.adapter;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -62,6 +63,12 @@ public class LikeDislikeFragment extends Fragment implements AdapterView.OnItemC
         adapter = new LikesDislikesAdapter(getActivity());
         list_persons.setAdapter(adapter);
         list_persons.setOnItemClickListener(this);
+        list_persons.setOnLoadMoreListener(new LoadMoreListView.OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                list_persons.onLoadMoreComplete();
+            }
+        });
         return rootView;
     }
 

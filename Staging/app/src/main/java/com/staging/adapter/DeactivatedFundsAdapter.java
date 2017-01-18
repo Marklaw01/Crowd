@@ -1,45 +1,32 @@
 package com.staging.adapter;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Html;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.staging.R;
 import com.staging.activities.HomeActivity;
-import com.staging.fragments.ViewFollowers;
-import com.staging.models.JobListObject;
 import com.staging.utilities.Constants;
 import com.staging.utilities.NetworkConnectivity;
 import com.staging.utilities.UtilitiesClass;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-
 /**
  * Created by Neelmani.Karn on 1/11/2017.
  */
-public class FundsAdapter extends BaseAdapter implements View.OnClickListener {
+public class DeactivatedFundsAdapter extends BaseAdapter implements View.OnClickListener {
 
     String userType, fragmentName;
     public DisplayImageOptions options;
@@ -51,12 +38,11 @@ public class FundsAdapter extends BaseAdapter implements View.OnClickListener {
     private UtilitiesClass utilitiesClass;
     private static int pos = 0;
 
-    public FundsAdapter(Context context/*, ArrayList<JobListObject> list*/, String userType, String fragmentName) {
+    public DeactivatedFundsAdapter(Context context/*, ArrayList<JobListObject> list*/, String userType) {
         l_Inflater = LayoutInflater.from(context);
         this.context = context;
         //this.list = list;
         this.userType = userType;
-        this.fragmentName = fragmentName;
         this.networkConnectivity = NetworkConnectivity.getInstance(context);
         this.utilitiesClass = UtilitiesClass.getInstance(context);
 
@@ -110,11 +96,19 @@ public class FundsAdapter extends BaseAdapter implements View.OnClickListener {
             holder.tv_deactivate = (TextView) convertView.findViewById(R.id.tv_deactivate);
             holder.tv_delete = (TextView) convertView.findViewById(R.id.tv_delete);
             holder.layoutButtons = (LinearLayout) convertView.findViewById(R.id.layoutButtons);
-            if (fragmentName.equals("MyFunds")) {
-                holder.layoutButtons.setVisibility(View.VISIBLE);
-            } else {
-                holder.layoutButtons.setVisibility(View.GONE);
-            }
+            holder.layoutButtons.setVisibility(View.VISIBLE);
+
+            holder.tv_archive.setVisibility(View.VISIBLE);
+            holder.tv_deactivate.setVisibility(View.GONE);
+            holder.tv_delete.setVisibility(View.GONE);
+
+
+            LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            buttonParams.gravity = Gravity.RIGHT;
+            holder.tv_archive.setLayoutParams(buttonParams);
+
+            //holder.tv_archive.setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
+            holder.tv_archive.setText(context.getString(R.string.activate));
             convertView.setTag(holder);
 
         } else {
@@ -182,7 +176,7 @@ public class FundsAdapter extends BaseAdapter implements View.OnClickListener {
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 
                     alertDialogBuilder
-                            .setMessage("Do you want to archive this Fund?")
+                            .setMessage("Do you want to activate this Fund?")
                             .setCancelable(false)
                             .setNegativeButton("No", new DialogInterface.OnClickListener() {
                                 @Override

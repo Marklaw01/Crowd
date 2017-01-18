@@ -42,8 +42,7 @@
 
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme.NoActionBar">
+        android:label="@string/app_name">
 
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
@@ -88,7 +87,7 @@
         <activity
             android:name=".SplashActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.Transparent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -124,50 +123,50 @@
 
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
 
         <activity
             android:name=".activities.OurMissionActivity"
             android:label="@string/title_activity_home"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.IndependentContractorActivity"
             android:label="@string/title_activity_home"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
 
         <activity
             android:name=".activities.LeanStartupRoadmap"
             android:label="@string/title_activity_home"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.AccreditedInvesterActivity"
             android:label="@string/title_activity_home"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.OurValuesActivity"
             android:label="@string/title_activity_home"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.OurVisionActivity"
             android:label="@string/title_activity_home"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".filebrowser.FilePicker"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
 
         <activity
             android:name="com.google.android.gms.ads.AdActivity"

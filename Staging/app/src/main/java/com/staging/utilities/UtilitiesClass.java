@@ -15,12 +15,14 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.Settings;
 import android.support.annotation.ColorInt;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.staging.R;
+import com.staging.logger.CrowdBootstrapLogger;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -45,12 +47,18 @@ import org.apache.http.protocol.HTTP;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
+import java.net.URL;
 import java.net.UnknownHostException;
 import java.security.KeyManagementException;
 import java.security.KeyStore;
@@ -432,6 +440,12 @@ public class UtilitiesClass {
         return url;
     }
 
+    /**
+     * Check download manager is present in device or not.
+     *
+     * @param context to get the package name of the download manager
+     * @return either true of false
+     */
     public static boolean isDownloadManagerAvailable(Context context) {
         try {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.GINGERBREAD) {
@@ -448,6 +462,12 @@ public class UtilitiesClass {
         }
     }
 
+    /**
+     * Download a file from URL
+     *
+     * @param url      URL of a file to be downloaded
+     * @param fileName Name of the file while storing into sdcard.
+     */
     public void downloadFile(String url, String fileName) {
         String DownloadUrl = url.replaceAll(" ", "%20");
 
@@ -496,6 +516,88 @@ public class UtilitiesClass {
         return drawable;
     }
 
+
+    /**
+     * Sending JsonObject data to server
+     *
+     * @param uri         is the url for the api
+     * @param json        data come from UI in JsonObject form.
+     * @param requestType it would be either GET or POST
+     * @return String object in jsonFormat
+     * @throws UnknownHostException   if internet connection is not there or may be bandwidth of internet is low.
+     * @throws SocketTimeoutException when user connection is slow and it takes much time to execute then user get timeout message
+     */
+    public String makeRequest(String uri, JSONObject json, String requestType) throws UnknownHostException, SocketTimeoutException {
+        HttpURLConnection urlConnection;
+        // String url;
+        //String data = json;
+        String result = "";
+        SSLContext sc;
+        try {
+
+
+            URL url = new URL(Constants.APP_BASE_URL + uri);
+            CrowdBootstrapLogger.logInfo("url: " + url.toString());
+            if (json != null) {
+                CrowdBootstrapLogger.logInfo("postData" + json.toString());
+            }
+            //disableSSLCertificateChecking();
+            //Connect
+            urlConnection = (HttpURLConnection) url.openConnection();
+
+            /*sc = SSLContext.getInstance("TLS");
+            sc.init(null, null, new java.security.SecureRandom());
+            urlConnection.setSSLSocketFactory(sc.getSocketFactory());*/
+
+
+            urlConnection.setDoOutput(true);
+            urlConnection.setRequestProperty("Content-Type", "application/json");
+            urlConnection.setRequestProperty("Accept", "application/json");
+
+            urlConnection.setReadTimeout(15000);
+            urlConnection.setConnectTimeout(15000);
+            urlConnection.setRequestMethod(requestType);
+            urlConnection.connect();
+
+            //Write
+            if (json != null) {
+                OutputStream outputStream = urlConnection.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                writer.write(json.toString());
+                writer.close();
+                outputStream.close();
+            }
+
+            //Read
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "UTF-8"));
+
+            String line = null;
+            StringBuilder sb = new StringBuilder();
+
+            while ((line = bufferedReader.readLine()) != null) {
+                sb.append(line);
+            }
+
+            bufferedReader.close();
+            result = sb.toString();
+
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+            throw e;
+        } catch (SocketTimeoutException e) {
+            throw e;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        /* catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (KeyManagementException e) {
+            e.printStackTrace();
+        }*/
+        return result;
+    }
     /*public String truncateIntValueUpto2DecimalPlaces(int value){
         return String.format("%.2f",value);
     }*/

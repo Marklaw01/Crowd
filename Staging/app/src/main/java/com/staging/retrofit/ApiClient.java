@@ -1,14 +1,5 @@
 package com.staging.retrofit;
 
-import com.staging.BuildConfig;
-import com.staging.utilities.Constants;
-
-import java.util.concurrent.TimeUnit;
-
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 
 /**
@@ -17,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
-    private static Retrofit retrofit = null;
+   /* private static Retrofit retrofit = null;
 
 
     public static Retrofit getClient() {
@@ -40,10 +31,10 @@ public class ApiClient {
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(httpClient.build())
                     .build();
-            /*retrofit.client().interceptors().add(new LoggingInterceptor());*/
+            *//*retrofit.client().interceptors().add(new LoggingInterceptor());*//*
         }
         return retrofit;
     }
-
+*/
 
 }

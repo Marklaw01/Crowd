@@ -442,6 +442,26 @@ public final class Constants {
     public static final String LIST_OF_ALL_NOTIFICATIONS_URL = "UserNotifications";
     public static final String LIST_OF_ALL_NOTIFICATIONS_TAG = "UserNotifications_tag";
 
+    public static final String SPONSORS_LIST = "sponsorsList?user_id=";
+    public static final String SPONSORS_LIST_TAG = "sponsorsList_tag";
+
+    public static final String FUND_MANAGERS_LIST = "fundsManagerLists?user_id=";
+    public static final String FUND_MANAGERS_TAG = "fundsManagerLists_tag";
+
+    public static final String FUND_KEYWORDS_LIST = "fundsKeywordList";
+    public static final String FUND_KEYWORDS_TAG = "fundsKeywordList_tag";
+
+    public static final String FUND_INDUSTRY_LIST = "fundIndustryLists";
+    public static final String FUND_INDUSTRY_TAG = "fundIndustryLists_tag";
+
+    public static final String FUND_PORTFOLIO_LIST = "fundPortfolioList?user_id=";
+    public static final String FUND_PORTFOLIO_TAG = "fundPortfolioList_tag";
+
+
+
+
+
+
     //Password regex pattern for validation.
     public static final String PASSWORD_REGEX_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[$@$!%*?&])(?=\\S+$).{8,25}$";
     public static final String EXTRACT_FLOAT_FROM_STRING_REGEX_PATTERN = "[^\\d.]+|\\.(?!\\d)";
@@ -494,6 +514,9 @@ public final class Constants {
     public static final String LIKE_DISLIKE = "like_dislike_tag";
     public static final String LIKE = "Likes";
     public static final String DISLIKE = "Dislikes";
+    public static final String LOGGED_USER = "logged_user";
+    public static final String NOT_LOGGED_USER = "not_logged_user";
+    public static final String TIMEOUT_EXCEPTION = "timeout";
 
     //Passing data constants using intent
     public static String COMMING_FROM_INTENT = "";
@@ -528,6 +551,9 @@ public final class Constants {
     //HTTP request type constants
     public final static int HTTP_GET = 1;
     public final static int HTTP_POST = 2;
+
+    public final static String HTTP_GET_REQUEST = "GET";
+    public final static String HTTP_POST_REQUEST = "POST";
 
     //Code comming from Server side.
     public final static String RESPONSE_STATUS_CODE = "code";

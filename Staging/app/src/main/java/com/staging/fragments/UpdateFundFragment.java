@@ -1,6 +1,7 @@
 package com.staging.fragments;
 
 import android.Manifest;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -11,6 +12,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -29,6 +31,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -46,6 +50,7 @@ import com.staging.filebrowser.FilePicker;
 import com.staging.listeners.AsyncTaskCompleteListener;
 import com.staging.listeners.onActivityResultListener;
 import com.staging.logger.CrowdBootstrapLogger;
+import com.staging.models.AudioObject;
 import com.staging.models.GenericObject;
 import com.staging.models.Mediabeans;
 import com.staging.utilities.AndroidMultipartEntity;
@@ -58,7 +63,6 @@ import org.apache.http.StatusLine;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.content.ContentBody;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
@@ -83,7 +87,21 @@ import java.util.Locale;
 /**
  * Created by Neelmani.Karn on 1/11/2017.
  */
-public class CreateFundFragment extends Fragment implements onActivityResultListener, View.OnClickListener, AsyncTaskCompleteListener<String> {
+public class UpdateFundFragment extends Fragment implements onActivityResultListener, View.OnClickListener, AsyncTaskCompleteListener<String> {
+
+    private ImageView viewDocumentArrow, viewplayAudioArrow, viewplayVideoArrow;
+    private LinearLayout btn_playAudio, btn_viewDocument, btn_playVideo;
+    private LinearLayout expandable_playAudio, expandable_viewDocument, expandable_playVideo;
+    private DocumentListAdapter docAdapter;
+    private AudioAdapter audioAdapter;
+    private VideoListAdapter videoAdapter;
+    private ValueAnimator mAnimatorForDoc, mAnimatorForAudio, mAnimatorForVideo;
+    private ListView list_audios, list_docs, list_video;
+
+    ArrayList<String> delFiles = new ArrayList<String>();
+    private ArrayList<AudioObject> audioObjectsList, documentObjectList, videoObjectList;
+    ArrayList<GenericObject> tempArray;
+    private ArrayList<String> selectedFundManagersList;
 
     private String selectedFundManagersIDs = "", selectedSponsorsIDs = "", selectedIndustriesIDs = "", selectedPortfolioIDs = "", selectedKeywordsIDs = "";
     private ArrayList<GenericObject> fundManagersList, sponsersList, fundKeywordsList, fundIndustryList, fundPotfolioList;
@@ -119,7 +137,7 @@ public class CreateFundFragment extends Fragment implements onActivityResultList
     public static int selection;
     int tagno, deleteNumber;
 
-    public CreateFundFragment() {
+    public UpdateFundFragment() {
         super();
     }
 
@@ -153,12 +171,15 @@ public class CreateFundFragment extends Fragment implements onActivityResultList
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        selectedFundManagersList = new ArrayList<>();
         fundManagersList = new ArrayList<>();
         fundKeywordsList = new ArrayList<>();
         fundIndustryList = new ArrayList<>();
         sponsersList = new ArrayList<>();
         fundPotfolioList = new ArrayList<>();
+        audioObjectsList = new ArrayList<>();
+        videoObjectList = new ArrayList<>();
+        documentObjectList = new ArrayList<>();
         if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
             ((HomeActivity) getActivity()).showProgressDialog();
             AsyncNew a = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FUND_MANAGERS_TAG, Constants.FUND_MANAGERS_LIST + ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID), Constants.HTTP_GET_REQUEST, null);
@@ -210,8 +231,26 @@ public class CreateFundFragment extends Fragment implements onActivityResultList
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.create_fund_fragment, container, false);
-        ((HomeActivity) getActivity()).setActionBarTitle(getString(R.string.createFund));
+        View rootView = inflater.inflate(R.layout.update_fund_fragment, container, false);
+        ((HomeActivity) getActivity()).setActionBarTitle(getString(R.string.update_fund));
+
+        list_audios = (ListView) rootView.findViewById(R.id.list_audios);
+        list_docs = (ListView) rootView.findViewById(R.id.list_docs);
+
+
+        list_video = (ListView) rootView.findViewById(R.id.list_video);
+
+        expandable_playAudio = (LinearLayout) rootView.findViewById(R.id.expandable_playAudio);
+        expandable_playVideo = (LinearLayout) rootView.findViewById(R.id.expandable_playVideo);
+        expandable_viewDocument = (LinearLayout) rootView.findViewById(R.id.expandable_viewDocument);
+
+        btn_playAudio = (LinearLayout) rootView.findViewById(R.id.btn_playAudio);
+        btn_playVideo = (LinearLayout) rootView.findViewById(R.id.btn_playVideo);
+        btn_viewDocument = (LinearLayout) rootView.findViewById(R.id.btn_viewDocument);
+
+        viewDocumentArrow = (ImageView) rootView.findViewById(R.id.viewDocumentArrow);
+        viewplayAudioArrow = (ImageView) rootView.findViewById(R.id.viewplayAudioArrow);
+        viewplayVideoArrow = (ImageView) rootView.findViewById(R.id.viewplayVideoArrow);
 
 
         et_fundTitle = (EditText) rootView.findViewById(R.id.et_fundTitle);
@@ -277,6 +316,61 @@ public class CreateFundFragment extends Fragment implements onActivityResultList
             }
         };
 
+        expandable_playAudio.getViewTreeObserver().addOnPreDrawListener(
+                new ViewTreeObserver.OnPreDrawListener() {
+
+                    @Override
+                    public boolean onPreDraw() {
+                        expandable_playAudio.getViewTreeObserver().removeOnPreDrawListener(this);
+                        expandable_playAudio.setVisibility(View.GONE);
+
+                        final int widthSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+                        final int heightSpec = View.MeasureSpec.makeMeasureSpec(list_audios.getHeight(), View.MeasureSpec.UNSPECIFIED);
+                        System.out.println(heightSpec);
+                        expandable_playAudio.measure(widthSpec, heightSpec);
+
+                        mAnimatorForAudio = slideAnimatorForAudio(0, expandable_playAudio.getMeasuredHeight());
+                        return true;
+                    }
+                });
+
+        expandable_viewDocument.getViewTreeObserver().addOnPreDrawListener(
+                new ViewTreeObserver.OnPreDrawListener() {
+
+                    @Override
+                    public boolean onPreDraw() {
+                        expandable_viewDocument.getViewTreeObserver().removeOnPreDrawListener(this);
+                        expandable_viewDocument.setVisibility(View.GONE);
+
+                        final int widthSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+                        final int heightSpec = View.MeasureSpec.makeMeasureSpec(list_docs.getHeight(), View.MeasureSpec.UNSPECIFIED);
+                        System.out.println(heightSpec);
+                        expandable_viewDocument.measure(widthSpec, heightSpec);
+
+                        mAnimatorForDoc = slideAnimatorForDocument(0, expandable_viewDocument.getMeasuredHeight());
+                        return true;
+                    }
+
+                });
+        expandable_playVideo.getViewTreeObserver().addOnPreDrawListener(
+                new ViewTreeObserver.OnPreDrawListener() {
+
+                    @Override
+                    public boolean onPreDraw() {
+                        expandable_playVideo.getViewTreeObserver().removeOnPreDrawListener(this);
+                        expandable_playVideo.setVisibility(View.GONE);
+
+                        final int widthSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+                        final int heightSpec = View.MeasureSpec.makeMeasureSpec(list_video.getHeight(), View.MeasureSpec.UNSPECIFIED);
+                        System.out.println(heightSpec);
+                        expandable_playVideo.measure(widthSpec, heightSpec);
+
+                        mAnimatorForVideo = slideAnimatorForVideo(0, expandable_playVideo.getMeasuredHeight());
+                        return true;
+                    }
+                });
+
+
 
         btn_browse.setTag(0);
         btn_browse.setOnClickListener(this);
@@ -293,6 +387,11 @@ public class CreateFundFragment extends Fragment implements onActivityResultList
         et_industry.setOnClickListener(this);
         et_portfolio.setOnClickListener(this);
         et_keywords.setOnClickListener(this);
+
+        btn_playAudio.setOnClickListener(this);
+        btn_viewDocument.setOnClickListener(this);
+        btn_playVideo.setOnClickListener(this);
+
         return rootView;
     }
 
@@ -469,17 +568,16 @@ public class CreateFundFragment extends Fragment implements onActivityResultList
 
     protected void alertDialogForPicture() {
         try {
-            if ((ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                requestPermission();
-            } else {
-                AlertDialog.Builder builderSingle = new AlertDialog.Builder(getActivity()/*new ContextThemeWrapper(getActivity(), android.R.style.Theme_Holo_Light_Dialog)*/);
-                final CharSequence[] opsChars = {"Upload Image", "Take Picture"};
-                builderSingle.setCancelable(true);
-                builderSingle.setItems(opsChars, new DialogInterface.OnClickListener() {
+            AlertDialog.Builder builderSingle = new AlertDialog.Builder(getActivity()/*new ContextThemeWrapper(getActivity(), android.R.style.Theme_Holo_Light_Dialog)*/);
+            final CharSequence[] opsChars = {"Upload Image", "Take Picture"};
+            builderSingle.setCancelable(true);
+            builderSingle.setItems(opsChars, new DialogInterface.OnClickListener() {
 
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    if ((ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                        requestPermission();
+                    } else {
                         switch (which) {
 
                             case 0:
@@ -506,11 +604,10 @@ public class CreateFundFragment extends Fragment implements onActivityResultList
                                     e.printStackTrace();
                                 }
                         }
-
                     }
-                });
-                builderSingle.show();
-            }
+                }
+            });
+            builderSingle.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -541,11 +638,11 @@ public class CreateFundFragment extends Fragment implements onActivityResultList
                         })
                         .show();
             } else {
-                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE}, Constants.APP_PERMISSION);
+
                 // Camera permission has not been granted yet. Request it directly.
 
             }
-            //ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE}, Constants.APP_PERMISSION);
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE}, Constants.APP_PERMISSION);
             // END_INCLUDE(camera_permission_request)
         } catch (Exception e) {
             e.printStackTrace();
@@ -682,8 +779,26 @@ public class CreateFundFragment extends Fragment implements onActivityResultList
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_submit:
-
+            case R.id.btn_playAudio:
+                if (expandable_playAudio.getVisibility() == View.GONE) {
+                    expandForAudio();
+                } else {
+                    collapseForAudio();
+                }
+                break;
+            case R.id.btn_playVideo:
+                if (expandable_playVideo.getVisibility() == View.GONE) {
+                    expandForVideo();
+                } else {
+                    collapseForVideo();
+                }
+                break;
+            case R.id.btn_viewDocument:
+                if (expandable_viewDocument.getVisibility() == View.GONE) {
+                    expandForDocument();
+                } else {
+                    collapseForDoc();
+                }
                 break;
             case R.id.et_investmentStartDate:
                 new DatePickerDialog(getActivity(), investmentStartdate, myCalendarInvestmentStartDate
@@ -702,6 +817,7 @@ public class CreateFundFragment extends Fragment implements onActivityResultList
                         myCalendarFuncClosedDate.get(Calendar.DAY_OF_MONTH)).show();
                 break;
             case R.id.btn_browse:
+
                 try {
                     if ((ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                         requestPermission();
@@ -843,6 +959,7 @@ public class CreateFundFragment extends Fragment implements onActivityResultList
             case R.id.et_fundsponsers:
                 showKeywordsDialog(sponsersList, getString(R.string.sponsers), R.id.et_fundsponsers);
                 break;
+
         }
     }
 
@@ -947,8 +1064,6 @@ public class CreateFundFragment extends Fragment implements onActivityResultList
             dialog.show();
         }
     }
-
-
     @Override
     public void onTaskComplete(String result, String tag) {
         if (result.equalsIgnoreCase(Constants.NOINTERNET)) {
@@ -981,6 +1096,7 @@ public class CreateFundFragment extends Fragment implements onActivityResultList
                             ((HomeActivity) getActivity()).dismissProgressDialog();
                             ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
                         }
+
 
                     } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
                         ((HomeActivity) getActivity()).dismissProgressDialog();
@@ -1192,8 +1308,7 @@ public class CreateFundFragment extends Fragment implements onActivityResultList
                             entity.addPart("returnformat", new StringBody("json"));
                             entity.addPart("campaign_image", cbFile);
                             for (String key : map.keySet()) {
-                                entity.addPart(key, new StringBody(map.get(key), ContentType.MULTIPART_FORM_DATA));
-                                //entity.addPart(key, new StringBody(map.get(key), "text/plain", Charset.forName("UTF-8")));
+                                entity.addPart(key, new StringBody(map.get(key), "text/plain", Charset.forName("UTF-8")));
                             }
                             for (int i = 0; i < bin.size(); i++) {
                                 entity.addPart("docs[]", bin.get(i));
@@ -1262,4 +1377,503 @@ public class CreateFundFragment extends Fragment implements onActivityResultList
         }
     }
 
+    class DocumentListAdapter extends BaseAdapter {
+        private LayoutInflater l_Inflater;
+
+        class ViewHolder {
+            TextView tv_name;
+            ImageView view;
+            LinearLayout row_layout;
+        }
+
+        public DocumentListAdapter() {
+            l_Inflater = LayoutInflater.from(getActivity());
+        }
+
+        @Override
+        public int getCount() {
+            return documentObjectList.size();
+        }
+
+
+        @Override
+        public Object getItem(int position) {
+            return documentObjectList.get(position);
+        }
+
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            ViewHolder holder;
+
+
+            try {
+                if (convertView == null) {
+                    convertView = l_Inflater.inflate(R.layout.row_item, null);
+                    holder = new ViewHolder();
+                    holder.row_layout = (LinearLayout) convertView.findViewById(R.id.row_layout);
+                    holder.tv_name = (TextView) convertView.findViewById(R.id.text1);
+                    holder.view = (ImageView) convertView.findViewById(R.id.view);
+                    holder.view.setBackground(getResources().getDrawable(R.drawable.delete_file));
+                    convertView.setTag(holder);
+
+                } else {
+                    holder = (ViewHolder) convertView.getTag();
+                }
+                try {
+                    holder.tv_name.setText(documentObjectList.get(position).getName());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                holder.view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        delFiles.add(documentObjectList.get(position).getOrignalName());
+                        documentObjectList.remove(position);
+                        notifyDataSetChanged();
+                    }
+                });
+
+                holder.row_layout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Fragment rateContributor = new WebViewFragment();
+
+
+                        Bundle bundle = new Bundle();
+
+                        bundle.putString("url", documentObjectList.get(position).getAudioUrl());
+                        rateContributor.setArguments(bundle);
+                        ((HomeActivity) getActivity()).replaceFragment(rateContributor);
+                        /*FragmentTransaction transactionRate = getFragmentManager().beginTransaction();
+                        transactionRate.replace(R.id.container, rateContributor);
+                        transactionRate.addToBackStack(null);
+
+                        transactionRate.commit();*/
+                    }
+                });
+            } catch (Resources.NotFoundException e) {
+                e.printStackTrace();
+            }
+
+            return convertView;
+        }
+    }
+
+    class AudioAdapter extends BaseAdapter {
+        private LayoutInflater l_Inflater;
+
+        class ViewHolder {
+            TextView tv_name;
+            ImageView view;
+            LinearLayout row_layout;
+        }
+
+        public AudioAdapter() {
+            l_Inflater = LayoutInflater.from(getActivity());
+        }
+
+        @Override
+        public int getCount() {
+            return audioObjectsList.size();
+        }
+
+
+        @Override
+        public Object getItem(int position) {
+            return audioObjectsList.get(position);
+        }
+
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            ViewHolder holder;
+
+
+            try {
+                if (convertView == null) {
+                    convertView = l_Inflater.inflate(R.layout.row_item, null);
+                    holder = new ViewHolder();
+                    holder.row_layout = (LinearLayout) convertView.findViewById(R.id.row_layout);
+                    holder.tv_name = (TextView) convertView.findViewById(R.id.text1);
+                    holder.view = (ImageView) convertView.findViewById(R.id.view);
+                    holder.view.setBackground(getResources().getDrawable(R.drawable.delete_file));
+                    convertView.setTag(holder);
+
+                } else {
+                    holder = (ViewHolder) convertView.getTag();
+                }
+                try {
+                    holder.tv_name.setText(audioObjectsList.get(position).getName());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                holder.view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        delFiles.add(audioObjectsList.get(position).getOrignalName());
+                        audioObjectsList.remove(position);
+                        notifyDataSetChanged();
+                    }
+                });
+
+                holder.row_layout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Fragment rateContributor = new WebViewFragment();
+
+
+                        Bundle bundle = new Bundle();
+
+                        bundle.putString("url", audioObjectsList.get(position).getAudioUrl());
+                        rateContributor.setArguments(bundle);
+                        ((HomeActivity) getActivity()).replaceFragment(rateContributor);
+                        /*FragmentTransaction transactionRate = getFragmentManager().beginTransaction();
+                        transactionRate.replace(R.id.container, rateContributor);
+                        transactionRate.addToBackStack(null);
+
+                        transactionRate.commit();*/
+                    }
+                });
+            } catch (Resources.NotFoundException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return convertView;
+        }
+    }
+
+    class VideoListAdapter extends BaseAdapter {
+        private LayoutInflater l_Inflater;
+
+        class ViewHolder {
+            TextView tv_name;
+            ImageView view;
+            LinearLayout row_layout;
+        }
+
+        public VideoListAdapter() {
+            l_Inflater = LayoutInflater.from(getActivity());
+        }
+
+        @Override
+        public int getCount() {
+            return videoObjectList.size();
+        }
+
+
+        @Override
+        public Object getItem(int position) {
+            return videoObjectList.get(position);
+        }
+
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            ViewHolder holder;
+
+
+            try {
+                if (convertView == null) {
+                    convertView = l_Inflater.inflate(R.layout.row_item, null);
+                    holder = new ViewHolder();
+                    holder.row_layout = (LinearLayout) convertView.findViewById(R.id.row_layout);
+                    holder.tv_name = (TextView) convertView.findViewById(R.id.text1);
+                    holder.view = (ImageView) convertView.findViewById(R.id.view);
+                    holder.view.setBackground(getResources().getDrawable(R.drawable.delete_file));
+                    convertView.setTag(holder);
+
+                } else {
+                    holder = (ViewHolder) convertView.getTag();
+                }
+                try {
+                    holder.tv_name.setText(videoObjectList.get(position).getName());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                holder.view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        delFiles.add(videoObjectList.get(position).getOrignalName());
+                        videoObjectList.remove(position);
+                        notifyDataSetChanged();
+                    }
+                });
+                holder.row_layout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Fragment rateContributor = new WebViewFragment();
+
+
+                        Bundle bundle = new Bundle();
+
+                        bundle.putString("url", videoObjectList.get(position).getAudioUrl());
+                        rateContributor.setArguments(bundle);
+                        ((HomeActivity) getActivity()).replaceFragment(rateContributor);
+                        /*FragmentTransaction transactionRate = getFragmentManager().beginTransaction();
+                        transactionRate.replace(R.id.container, rateContributor);
+                        transactionRate.addToBackStack(null);
+
+                        transactionRate.commit();*/
+                    }
+                });
+            } catch (Resources.NotFoundException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return convertView;
+        }
+    }
+
+    public ValueAnimator slideAnimatorForDocument(int start, int end) {
+
+        ValueAnimator animator = ValueAnimator.ofInt(start, end);
+
+
+        try {
+            animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                    //Update Height
+                    int value = (Integer) valueAnimator.getAnimatedValue();
+                    ViewGroup.LayoutParams layoutParams = expandable_viewDocument.getLayoutParams();
+                    layoutParams.height = value;
+                    expandable_viewDocument.setLayoutParams(layoutParams);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return animator;
+    }
+
+
+    ValueAnimator slideAnimatorForAudio(int start, int end) {
+
+        ValueAnimator animator = ValueAnimator.ofInt(start, end);
+
+
+        try {
+            animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                    //Update Height
+                    int value = (Integer) valueAnimator.getAnimatedValue();
+
+                    ViewGroup.LayoutParams layoutParams = expandable_playAudio.getLayoutParams();
+                    layoutParams.height = value;
+                    expandable_playAudio.setLayoutParams(layoutParams);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return animator;
+    }
+
+    ValueAnimator slideAnimatorForVideo(int start, int end) {
+
+        ValueAnimator animator = null;
+        try {
+            animator = ValueAnimator.ofInt(start, end);
+
+
+            animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                    //Update Height
+                    int value = (Integer) valueAnimator.getAnimatedValue();
+
+                    ViewGroup.LayoutParams layoutParams = expandable_playVideo.getLayoutParams();
+                    layoutParams.height = value;
+                    expandable_playVideo.setLayoutParams(layoutParams);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return animator;
+    }
+
+
+    private void expandForDocument() {
+        //set Visible
+        try {
+            expandable_viewDocument.setVisibility(View.VISIBLE);
+            viewDocumentArrow.setBackground(getResources().getDrawable(R.drawable.arrow_upward));
+            Log.e("xxx", String.valueOf(docAdapter.getCount()));
+            Log.e("xxx", String.valueOf(expandable_viewDocument.getMeasuredHeight()));
+            // UtilityList.setListViewHeightBasedOnChildren(list_docs);
+            list_docs.setVisibility(View.VISIBLE);
+        } catch (Resources.NotFoundException e) {
+            e.printStackTrace();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        /* Remove and used in preDrawListener
+        final int widthSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+		final int heightSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+		mLinearLayout.measure(widthSpec, heightSpec);
+		mAnimator = slideAnimator(0, mLinearLayout.getMeasuredHeight());
+		*/
+
+        //mAnimatorForDoc.start();
+    }
+
+
+    private void expandForVideo() {
+        //set Visible
+        try {
+            expandable_playVideo.setVisibility(View.VISIBLE);
+            viewplayVideoArrow.setBackground(getResources().getDrawable(R.drawable.arrow_upward));
+            list_video.setVisibility(View.VISIBLE);
+        } catch (Resources.NotFoundException e) {
+            e.printStackTrace();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+//        UtilityList.setListViewHeightBasedOnChildren(list_video);
+        /* Remove and used in preDrawListener
+        final int widthSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+		final int heightSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+		mLinearLayout.measure(widthSpec, heightSpec);
+		mAnimator = slideAnimator(0, mLinearLayout.getMeasuredHeight());
+		*/
+
+        // mAnimatorForVideo.start();
+    }
+
+    private void expandForAudio() {
+        //set Visible
+        try {
+            expandable_playAudio.setVisibility(View.VISIBLE);
+            viewplayAudioArrow.setBackground(getResources().getDrawable(R.drawable.arrow_upward));
+            list_audios.setVisibility(View.VISIBLE);
+        } catch (Resources.NotFoundException e) {
+            e.printStackTrace();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        /* Remove and used in preDrawListener
+        final int widthSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+		final int heightSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+		mLinearLayout.measure(widthSpec, heightSpec);
+		mAnimator = slideAnimator(0, mLinearLayout.getMeasuredHeight());
+		*/
+
+        // mAnimatorForAudio.start();
+    }
+
+    private void collapseForDoc() {
+//        int finalHeight = expandable_viewDocument.getHeight();
+        try {
+            viewDocumentArrow.setBackground(getResources().getDrawable(R.drawable.arrow_downward));
+
+
+            expandable_viewDocument.getViewTreeObserver().addOnPreDrawListener(
+                    new ViewTreeObserver.OnPreDrawListener() {
+
+                        @Override
+                        public boolean onPreDraw() {
+                            expandable_viewDocument.getViewTreeObserver().removeOnPreDrawListener(this);
+                            expandable_viewDocument.setVisibility(View.GONE);
+
+                            final int widthSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+                            final int heightSpec = View.MeasureSpec.makeMeasureSpec(list_docs.getHeight(), View.MeasureSpec.UNSPECIFIED);
+                            System.out.println(heightSpec);
+                            expandable_viewDocument.measure(widthSpec, heightSpec);
+
+                            mAnimatorForDoc = slideAnimatorForDocument(0, expandable_viewDocument.getMeasuredHeight());
+                            return true;
+                        }
+
+                    });
+        } catch (Resources.NotFoundException e) {
+            e.printStackTrace();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void collapseForAudio() {
+//        int finalHeight = expandable_playAudio.getHeight();
+        try {
+            viewplayAudioArrow.setBackground(getResources().getDrawable(R.drawable.arrow_downward));
+
+
+            expandable_playAudio.getViewTreeObserver().addOnPreDrawListener(
+                    new ViewTreeObserver.OnPreDrawListener() {
+
+                        @Override
+                        public boolean onPreDraw() {
+                            expandable_playAudio.getViewTreeObserver().removeOnPreDrawListener(this);
+                            expandable_playAudio.setVisibility(View.GONE);
+
+                            final int widthSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+                            final int heightSpec = View.MeasureSpec.makeMeasureSpec(list_audios.getHeight(), View.MeasureSpec.UNSPECIFIED);
+                            System.out.println(heightSpec);
+                            expandable_playAudio.measure(widthSpec, heightSpec);
+
+                            mAnimatorForAudio = slideAnimatorForAudio(0, expandable_playAudio.getMeasuredHeight());
+                            return true;
+                        }
+                    });
+        } catch (Resources.NotFoundException e) {
+            e.printStackTrace();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void collapseForVideo() {
+//        int finalHeight = expandable_playVideo.getHeight();
+        try {
+            viewplayVideoArrow.setBackground(getResources().getDrawable(R.drawable.arrow_downward));
+
+            expandable_playVideo.getViewTreeObserver().addOnPreDrawListener(
+                    new ViewTreeObserver.OnPreDrawListener() {
+
+                        @Override
+                        public boolean onPreDraw() {
+                            expandable_playVideo.getViewTreeObserver().removeOnPreDrawListener(this);
+                            expandable_playVideo.setVisibility(View.GONE);
+
+                            final int widthSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+                            final int heightSpec = View.MeasureSpec.makeMeasureSpec(list_video.getHeight(), View.MeasureSpec.UNSPECIFIED);
+                            System.out.println(heightSpec);
+                            expandable_playVideo.measure(widthSpec, heightSpec);
+
+                            mAnimatorForVideo = slideAnimatorForVideo(0, expandable_playVideo.getMeasuredHeight());
+                            return true;
+                        }
+                    });
+        } catch (Resources.NotFoundException e) {
+            e.printStackTrace();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
 }

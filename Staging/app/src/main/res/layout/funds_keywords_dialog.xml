@@ -18,7 +18,6 @@
         android:ems="10"
         android:imeOptions="actionDone"
         android:imeActionLabel="Search"
-        android:hint="Enter keyword"
         android:inputType="text"
         android:paddingLeft="30sp"
         android:paddingRight="10sp"

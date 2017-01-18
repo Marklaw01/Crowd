@@ -21,13 +21,13 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-        /*debug{
+        debug{
             defaultConfig {
                 debuggable true
 
-                versionNameSuffix "-DEBUG"
+
             }
-        }*/
+        }
         applicationVariants.all { variant ->
             variant.outputs.each { output ->
                 output.outputFile = file("$project.buildDir/apk/crowd_bootstrap.apk")
@@ -105,9 +105,9 @@ dependencies {
 
     /*compile files('libs/rollbar-android-0.1.2.jar')*/
     /*library for retrofit added by neel*/
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    /*compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'*/
 
 
 }

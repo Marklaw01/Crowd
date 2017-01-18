@@ -45,17 +45,17 @@ public final class NetworkConnectivity {
 
 
     //created by Neel on 10th Jan 2017
+
     /**
      * Check if internet connection is available or not
      *
-     * @param mContext calling context of the application
      * @return true if internet is available else false
      */
-    public boolean isInternetConnectionAvaliable(Context mContext) {
-        if (null == mContext) {
+    public boolean isInternetConnectionAvaliable() {
+        if (null == context) {
             return true;
         }
-        ConnectivityManager connectivityManager = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         // test for connection
         NetworkInfo netInfo = null;
         if (null != connectivityManager) {
@@ -64,7 +64,7 @@ public final class NetworkConnectivity {
         if (null != netInfo && netInfo.isAvailable() && netInfo.isConnected()) {
             return true;
         } else {
-            CrowdBootstrapLogger.logInfo(mContext.getString(R.string.no_internet_connection));
+            CrowdBootstrapLogger.logInfo(context.getString(R.string.no_internet_connection));
             return false;
         }
     }

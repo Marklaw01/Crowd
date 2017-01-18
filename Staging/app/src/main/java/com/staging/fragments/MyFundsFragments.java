@@ -11,12 +11,14 @@ import android.widget.Button;
 import com.staging.R;
 import com.staging.activities.HomeActivity;
 import com.staging.adapter.FundsAdapter;
+import com.staging.listeners.AsyncTaskCompleteListener;
 import com.staging.loadmore_listview.LoadMoreListView;
+import com.staging.utilities.Constants;
 
 /**
  * Created by Neelmani.Karn on 1/11/2017.
  */
-public class MyFundsFragments extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener{
+public class MyFundsFragments extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener, AsyncTaskCompleteListener<String> {
     private static int TOTAL_ITEMS = 0;
     int current_page = 1;
     private Button btn_addCampaign;
@@ -28,6 +30,16 @@ public class MyFundsFragments extends Fragment implements AdapterView.OnItemClic
     }
 
     @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            // we check that the fragment is becoming visible
+
+            ((HomeActivity) getActivity()).setOnBackPressedListener(this);
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.funds_fragment, container, false);
 
@@ -35,10 +47,17 @@ public class MyFundsFragments extends Fragment implements AdapterView.OnItemClic
 
         list_funds = (LoadMoreListView) rootView.findViewById(R.id.list_funds);
 
-        adapter = new FundsAdapter(getActivity());
+        adapter = new FundsAdapter(getActivity(), Constants.LOGGED_USER, "MyFunds");
         list_funds.setAdapter(adapter);
         btn_addCampaign.setOnClickListener(this);
         list_funds.setOnItemClickListener(this);
+
+        list_funds.setOnLoadMoreListener(new LoadMoreListView.OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                list_funds.onLoadMoreComplete();
+            }
+        });
         return rootView;
     }
 
@@ -57,7 +76,7 @@ public class MyFundsFragments extends Fragment implements AdapterView.OnItemClic
      */
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        ((HomeActivity) getActivity()).replaceFragment(new FundDetailFragment());
+        ((HomeActivity) getActivity()).replaceFragment(new UpdateFundFragment());
     }
 
     /**
@@ -67,10 +86,21 @@ public class MyFundsFragments extends Fragment implements AdapterView.OnItemClic
      */
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_createFund:
-                ((HomeActivity)getActivity()).replaceFragment(new CreateFundFragment());
+                ((HomeActivity) getActivity()).replaceFragment(new CreateFundFragment());
                 break;
         }
+    }
+
+    /**
+     * When network give response in this.
+     *
+     * @param result
+     * @param tag
+     */
+    @Override
+    public void onTaskComplete(String result, String tag) {
+
     }
 }

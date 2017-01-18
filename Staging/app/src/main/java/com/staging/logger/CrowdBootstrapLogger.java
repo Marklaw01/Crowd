@@ -11,9 +11,6 @@ import com.staging.BuildConfig;
  */
 public class CrowdBootstrapLogger {
 
-    private static String EXCEPTON_TAG = "CrowdBootstrapException"; // Tag to log the exception in stack trace
-    private static String INFO_TAG = "CrowdBootstrapInfo"; // Tag to log the information in stack trace
-
     private CrowdBootstrapLogger(){
         // Private Constructor to hide the implicit public one
     }
@@ -27,6 +24,7 @@ public class CrowdBootstrapLogger {
     public static void logError(Context applicationContext, String methodName,Exception exceptionMessage, String className){
 
         if(BuildConfig.DEBUG){     //If application in debug mode then log the exception in logcat
+            String EXCEPTON_TAG = "CrowdBootstrapException";
             Log.e(EXCEPTON_TAG, "Error:" + exceptionMessage + " Method " + methodName + " Class Name " + className);
         }
        
@@ -39,6 +37,7 @@ public class CrowdBootstrapLogger {
      */
     public static void logInfo(String infoMessage){
         if(BuildConfig.DEBUG){
+            String INFO_TAG = "CrowdBootstrapInfo";
             Log.i(INFO_TAG, infoMessage);
         }
     }
