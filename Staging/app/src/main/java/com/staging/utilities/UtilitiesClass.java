@@ -554,8 +554,8 @@ public class UtilitiesClass {
             urlConnection.setRequestProperty("Content-Type", "application/json");
             urlConnection.setRequestProperty("Accept", "application/json");
 
-            urlConnection.setReadTimeout(15000);
-            urlConnection.setConnectTimeout(15000);
+            urlConnection.setReadTimeout(Constants.API_CONNECTION_TIME_OUT_DURATION);
+            urlConnection.setConnectTimeout(Constants.API_CONNECTION_TIME_OUT_DURATION);
             urlConnection.setRequestMethod(requestType);
             urlConnection.connect();
 

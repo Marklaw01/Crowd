@@ -321,7 +321,7 @@
     <string name="deslike">Deslike</string>
     <string name="funds_title">Fund\'s Title</string>
     <string name="funds_managers">Fund\'s Managers</string>
-    <string name="sponsers">Sponsers</string>
+    <string name="sponsers">Sponsors</string>
     <string name="industry">Industry</string>
     <string name="portfolio_companies">Portfolio Companies</string>
     <string name="investment_start_date">Investment Start Date</string>
@@ -332,5 +332,19 @@
     <string name="donot_like_dislike_own_funds">You cannot like or dislike your own funds.</string>
     <string name="activate">Activate</string>
     <string name="update_fund">Update Fund</string>
+    <string name="fund_title_required">Fund\'s title cannot be left blank!</string>
+    <string name="description_required">Description cannot be left blank!</string>
+    <string name="fund_managers_required">Select at least one Fund Managers!</string>
+    <string name="fund_sponsors_required">Select at least one Fund Sponsors!</string>
+    <string name="fund_industry_required">Select at least one Industry!</string>
+    <string name="fund_portfolio_required">Select at least one Portfolio Company!</string>
+    <string name="fund_startDate_required">Fund\'s investment start date cannot be left blank!</string>
+    <string name="fund_endDate_required">Fund\'s investment end date cannot be left blank!!</string>
+    <string name="fund_close_required">Fund\'s close date cannot be left blank!</string>
+    <string name="fund_keyword_required">Select at least one Keyword!</string>
+    <string name="fund_startdate_validation">Fund\'s Investment start date cannot be present or past date!</string>
+    <string name="fund_end_date_validation">Fund\'s Investment end date cannot be present or past date!</string>
+    <string name="fund_close_date_validation">Fund\'s close date cannot be present or past date!</string>
+    <string name="noFunds">No Funds Available</string>
 
 </resources>

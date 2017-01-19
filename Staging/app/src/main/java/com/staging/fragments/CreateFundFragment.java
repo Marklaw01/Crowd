@@ -29,6 +29,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -51,12 +52,15 @@ import com.staging.models.Mediabeans;
 import com.staging.utilities.AndroidMultipartEntity;
 import com.staging.utilities.AsyncNew;
 import com.staging.utilities.Constants;
+import com.staging.utilities.DateTimeFormatClass;
 import com.staging.utilities.UtilitiesClass;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
 import org.apache.http.client.ClientProtocolException;
+
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.content.ContentBody;
@@ -68,10 +72,18 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.SocketTimeoutException;
+import java.net.URL;
+import java.net.UnknownHostException;
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -683,6 +695,85 @@ public class CreateFundFragment extends Fragment implements onActivityResultList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_submit:
+                InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+                if (et_fundTitle.getText().toString().isEmpty()) {
+                    Toast.makeText(getActivity(), getString(R.string.fund_title_required), Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if (et_fundDescription.getText().toString().isEmpty()) {
+                    Toast.makeText(getActivity(), getString(R.string.description_required), Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if (et_fundManagers.getText().toString().isEmpty()) {
+                    Toast.makeText(getActivity(), getString(R.string.fund_managers_required), Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if (et_fundsponsers.getText().toString().isEmpty()) {
+                    Toast.makeText(getActivity(), getString(R.string.fund_sponsors_required), Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if (et_industry.getText().toString().isEmpty()) {
+                    Toast.makeText(getActivity(), getString(R.string.fund_industry_required), Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if (et_portfolio.getText().toString().isEmpty()) {
+                    Toast.makeText(getActivity(), getString(R.string.fund_portfolio_required), Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if (et_investmentStartDate.getText().toString().isEmpty()) {
+                    Toast.makeText(getActivity(), getString(R.string.fund_startDate_required), Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if (DateTimeFormatClass.compareDates(myCalendarInvestmentStartDate.getTime())) {
+                    Toast.makeText(getActivity(), getString(R.string.fund_startdate_validation), Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if (et_investmentEndDate.getText().toString().isEmpty()) {
+                    Toast.makeText(getActivity(), getString(R.string.fund_endDate_required), Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if (DateTimeFormatClass.compareDates(myCalendarInvestmentEndDate.getTime())) {
+                    Toast.makeText(getActivity(), getString(R.string.fund_end_date_validation), Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if (et_fundsClosedDate.getText().toString().isEmpty()) {
+                    Toast.makeText(getActivity(), getString(R.string.fund_close_required), Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if (DateTimeFormatClass.compareDates(myCalendarFuncClosedDate.getTime())) {
+                    Toast.makeText(getActivity(), getString(R.string.fund_close_date_validation), Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if (et_keywords.getText().toString().isEmpty()) {
+                    Toast.makeText(getActivity(), getString(R.string.fund_keyword_required), Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                HashMap<String, String> map = new HashMap<String, String>();
+                map.put("user_id", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
+                map.put("title", et_fundTitle.getText().toString().trim());
+                map.put("description", et_fundDescription.getText().toString().trim());
+                map.put("managers_id", selectedFundManagersIDs);
+                map.put("sponsors_id", selectedSponsorsIDs);
+                map.put("indusries_id", selectedIndustriesIDs);
+                map.put("portfolios_id", selectedPortfolioIDs);
+                map.put("start_date", et_investmentStartDate.getText().toString().trim());
+                map.put("end_date", et_investmentEndDate.getText().toString().trim());
+                map.put("close_date", et_fundsClosedDate.getText().toString().trim());
+                map.put("keywords_id", selectedKeywordsIDs);
+                for (int j = 0; j < pathofmedia.size(); j++) {
+                    CrowdBootstrapLogger.logInfo("file path" + pathofmedia.get(j).getPath());
+                    CrowdBootstrapLogger.logInfo("file size" + pathofmedia.get(j).getFilesize());
+                    CrowdBootstrapLogger.logInfo("file type" + pathofmedia.get(j).getType());
+                }
+
+                if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
+                    createFund(map, Constants.CREATE_FUND_URL);
+                } else {
+                    ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
+                }
+                CrowdBootstrapLogger.logInfo("map" + map.toString());
 
                 break;
             case R.id.et_investmentStartDate:
@@ -823,9 +914,6 @@ public class CreateFundFragment extends Fragment implements onActivityResultList
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-                break;
-            case R.id.btn_createFund:
 
                 break;
             case R.id.et_fundManagers:
@@ -1150,28 +1238,16 @@ public class CreateFundFragment extends Fragment implements onActivityResultList
 
                 @Override
                 protected String doInBackground(Integer... params) {
-                    return uploadFile();
-                }
-
-                private String uploadFile() {
-                    StringBuilder responseString = new StringBuilder();
-
-
-                    HttpClient httpclient = ((HomeActivity) getActivity()).utilitiesClass.createHttpClient();
-                    String url = Constants.APP_BASE_URL + createUrl;
-                    HttpPost httppost = new HttpPost(url);
-                    HttpContext localContext = new BasicHttpContext();
-                    ArrayList<File> files = new ArrayList<File>();
-                    ArrayList<FileBody> bin = new ArrayList<FileBody>();
-                    for (int i = 0; i < pathofmedia.size(); i++) {
-                        files.add(new File(pathofmedia.get(i).getPath()));
-                    }
-
-                    for (int i = 0; i < files.size(); i++) {
-                        bin.add(new FileBody(files.get(i)));
-                    }
                     try {
+                        ArrayList<File> files = new ArrayList<File>();
+                        ArrayList<FileBody> bin = new ArrayList<FileBody>();
+                        for (int i = 0; i < pathofmedia.size(); i++) {
+                            files.add(new File(pathofmedia.get(i).getPath()));
+                        }
 
+                        for (int i = 0; i < files.size(); i++) {
+                            bin.add(new FileBody(files.get(i)));
+                        }
                         AndroidMultipartEntity entity = new AndroidMultipartEntity(
                                 new AndroidMultipartEntity.ProgressListener() {
 
@@ -1183,78 +1259,140 @@ public class CreateFundFragment extends Fragment implements onActivityResultList
                         if (bitmap != null) {
                             ByteArrayOutputStream bos = new ByteArrayOutputStream();
                             File file = new File(filepath);
-                            System.out.println(file);
+                            CrowdBootstrapLogger.logInfo(file.getAbsolutePath());
 
                             ContentBody cbFile = new FileBody(file);
 
                             bitmap.compress(Bitmap.CompressFormat.JPEG, 0, bos);
 
                             entity.addPart("returnformat", new StringBody("json"));
-                            entity.addPart("campaign_image", cbFile);
+                            entity.addPart("image", cbFile);
                             for (String key : map.keySet()) {
-                                entity.addPart(key, new StringBody(map.get(key), ContentType.MULTIPART_FORM_DATA));
+                                entity.addPart(key, new StringBody(map.get(key), "text/plain", Charset.forName("UTF-8")));
                                 //entity.addPart(key, new StringBody(map.get(key), "text/plain", Charset.forName("UTF-8")));
                             }
-                            for (int i = 0; i < bin.size(); i++) {
-                                entity.addPart("docs[]", bin.get(i));
-                            }
+                                /*for (int i = 0; i < bin.size(); i++) {
+                                    entity.addPart("docs[]", bin.get(i));
+                                }*/
 
                         } else {
                             for (String key : map.keySet()) {
                                 entity.addPart(key, new StringBody(map.get(key), "text/plain", Charset.forName("UTF-8")));
                             }
-                            for (int i = 0; i < bin.size(); i++) {
-                                entity.addPart("docs[]", bin.get(i));
-                            }
+                               /* for (int i = 0; i < bin.size(); i++) {
+                                    entity.addPart("docs[]", bin.get(i));
+                                }*/
 
                         }
-                        httppost.setEntity(entity);
-                        totalSize = entity.getContentLength();
 
-                        HttpResponse response = httpclient.execute(httppost, localContext);
-                        StatusLine statusLine = response.getStatusLine();
-                        int statusCode = statusLine.getStatusCode();
-                        System.out.println(statusCode + " neel");
-
-                        if (statusCode == HttpURLConnection.HTTP_OK) {
-                            responseString.append(EntityUtils.toString(response.getEntity()));
-                        } else if (statusCode == HttpURLConnection.HTTP_ENTITY_TOO_LARGE) {
-                            JSONObject obj = new JSONObject();
-                            obj.put("code", "404");
-                            obj.put("message", "Invalid File Size!");
-                            responseString.append(obj.toString());
+                        try {
+                            return multipost(createUrl, entity);
+                        } catch (UnknownHostException e) {
+                            e.printStackTrace();
+                            return Constants.NOINTERNET;
+                        } catch (SocketTimeoutException e) {
+                            e.printStackTrace();
+                            return Constants.TIMEOUT_EXCEPTION;
                         }
-
-                        Log.d("response", responseString.toString());
-
-                    } catch (ClientProtocolException e) {
-                        Log.e("Debug", "error: " + e.getMessage(), e);
-                    } catch (IOException e) {
-                        Log.e("Debug", "error: " + e.getMessage(), e);
-                    } catch (Exception e) {
-                        Log.e("Debug", "error: " + e.getMessage(), e);
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
                     }
+                    return Constants.SERVEREXCEPTION;
+                    //return uploadFile();
+                }
 
-                    return responseString.toString();
+                private String multipost(String urlString, AndroidMultipartEntity reqEntity) throws UnknownHostException, SocketTimeoutException {
+                    try {
+                        URL url = new URL(Constants.APP_BASE_URL + urlString);
+                        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                        conn.setReadTimeout(Constants.API_CONNECTION_TIME_OUT_DURATION);
+                        conn.setConnectTimeout(Constants.API_CONNECTION_TIME_OUT_DURATION);
+                        conn.setRequestMethod(Constants.HTTP_POST_REQUEST);
+                        conn.setUseCaches(false);
+                        conn.setDoInput(true);
+                        conn.setDoOutput(true);
+
+                        conn.setRequestProperty("Connection", "Keep-Alive");
+                        conn.addRequestProperty("Content-length", reqEntity.getContentLength() + "");
+                        conn.addRequestProperty(reqEntity.getContentType().getName(), reqEntity.getContentType().getValue());
+
+                        OutputStream os = conn.getOutputStream();
+                        reqEntity.writeTo(conn.getOutputStream());
+                        os.close();
+                        conn.connect();
+
+                        if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                            return readStream(conn.getInputStream());
+                        } else {
+                            return Constants.SERVEREXCEPTION;
+                        }
+
+                    } catch (UnknownHostException e) {
+                        e.printStackTrace();
+                        throw e;
+                    } catch (SocketTimeoutException e) {
+                        throw e;
+                    } catch (Exception e) {
+                        Log.e("TAG", "multipart post error " + e + "(" + urlString + ")");
+                        return Constants.SERVEREXCEPTION;
+                    }
+                    //return Constants.SERVEREXCEPTION;
+                }
+
+                private String readStream(InputStream in) {
+                    BufferedReader reader = null;
+                    StringBuilder builder = new StringBuilder();
+                    try {
+                        reader = new BufferedReader(new InputStreamReader(in));
+                        String line = "";
+                        while ((line = reader.readLine()) != null) {
+                            builder.append(line);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } finally {
+                        if (reader != null) {
+                            try {
+                                reader.close();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                    return builder.toString();
                 }
 
                 @Override
                 protected void onPostExecute(String result) {
                     super.onPostExecute(result);
                     pDialog.dismiss();
-                    try {
-                        JSONObject jsonObject = new JSONObject(result);
+                    if (result.equals(Constants.NOINTERNET)) {
+                        Toast.makeText(getActivity(), getString(R.string.check_internet), Toast.LENGTH_LONG).show();
+                    } else if (result.equals(Constants.SERVEREXCEPTION)) {
+                        Toast.makeText(getActivity(), getString(R.string.server_down), Toast.LENGTH_LONG).show();
+                    } else if (result.equals(Constants.TIMEOUT_EXCEPTION)) {
+                        UtilitiesClass.getInstance(getActivity()).alertDialogSingleButton(getString(R.string.time_out));
+                    } else {
+                        if (result.isEmpty()) {
+                            Toast.makeText(getActivity(), getString(R.string.server_down), Toast.LENGTH_LONG).show();
+                        } else {
+                            try {
+                                JSONObject jsonObject = new JSONObject(result);
+                                CrowdBootstrapLogger.logInfo(result);
+                                if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
+                                    pathofmedia.clear();
+                                    Toast.makeText(getActivity(), "Your fund is created successfully.", Toast.LENGTH_LONG).show();
+                                    getActivity().onBackPressed();
+                                } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
 
-                        if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
-                            pathofmedia.clear();
-                            Toast.makeText(getActivity(), "Your campaign is created successfully.", Toast.LENGTH_LONG).show();
-                            getActivity().onBackPressed();
-                        } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
-
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+
                     }
+
                 }
             }.execute();
         } catch (Exception e) {

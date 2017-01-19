@@ -26,6 +26,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.staging.R;
 import com.staging.activities.HomeActivity;
 import com.staging.fragments.ViewFollowers;
+import com.staging.models.FundsObject;
 import com.staging.models.JobListObject;
 import com.staging.utilities.Constants;
 import com.staging.utilities.NetworkConnectivity;
@@ -46,21 +47,19 @@ public class FundsAdapter extends BaseAdapter implements View.OnClickListener {
     private LayoutInflater l_Inflater;
     private View convertView1;
     private Context context;
-    //private ArrayList<JobListObject> list;
+    private ArrayList<FundsObject> list;
     private NetworkConnectivity networkConnectivity;
     private UtilitiesClass utilitiesClass;
     private static int pos = 0;
 
-    public FundsAdapter(Context context/*, ArrayList<JobListObject> list*/, String userType, String fragmentName) {
+    public FundsAdapter(Context context, ArrayList<FundsObject> list, String userType, String fragmentName) {
         l_Inflater = LayoutInflater.from(context);
         this.context = context;
-        //this.list = list;
+        this.list = list;
         this.userType = userType;
         this.fragmentName = fragmentName;
         this.networkConnectivity = NetworkConnectivity.getInstance(context);
         this.utilitiesClass = UtilitiesClass.getInstance(context);
-
-
         options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.drawable.image)
                 .showImageForEmptyUri(R.drawable.image)
@@ -75,12 +74,12 @@ public class FundsAdapter extends BaseAdapter implements View.OnClickListener {
 
     @Override
     public int getCount() {
-        return 10;
+        return list.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return new Object();
+        return list.get(position);
     }
 
     @Override
@@ -121,9 +120,17 @@ public class FundsAdapter extends BaseAdapter implements View.OnClickListener {
             holder = (ViewHolder) convertView.getTag();
         }
         try {
+
+
+            holder.fundTitle.setText(list.get(position).getFund_title());
+            holder.fundDescription.setText(list.get(position).getFund_description());
+            holder.tv_postedDate.setText(list.get(position).getFund_start_date());
+            holder.tv_Likes.setText(list.get(position).getFund_likes() + " Likes");
+            holder.tv_dislikes.setText(list.get(position).getFund_dislike() + " Dislikes");
+
             holder.likeBtn.setOnClickListener(this);
             holder.dislikeBtn.setOnClickListener(this);
-            //ImageLoader.getInstance().displayImage(Constants.APP_IMAGE_URL + list.get(position).getCompanyLogoImage(), holder.fund_icon, options);
+            ImageLoader.getInstance().displayImage(Constants.APP_IMAGE_URL + list.get(position).getFund_image(), holder.fund_icon, options);
 
 
             holder.tv_dislikes.setOnClickListener(this);
@@ -159,8 +166,6 @@ public class FundsAdapter extends BaseAdapter implements View.OnClickListener {
                                     } else {
                                         utilitiesClass.alertDialogSingleButton(context.getString(R.string.no_internet_connection));
                                     }
-
-
                                     //list.remove(position);
                                     notifyDataSetChanged();
                                 }
@@ -169,7 +174,6 @@ public class FundsAdapter extends BaseAdapter implements View.OnClickListener {
                     AlertDialog alertDialog = alertDialogBuilder.create();
 
                     alertDialog.show();
-
 
                 }
             });

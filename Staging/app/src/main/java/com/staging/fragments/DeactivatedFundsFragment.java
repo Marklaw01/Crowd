@@ -7,18 +7,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.staging.R;
 import com.staging.activities.HomeActivity;
 import com.staging.adapter.DeactivatedFundsAdapter;
 import com.staging.adapter.FundsAdapter;
+import com.staging.listeners.AsyncTaskCompleteListener;
 import com.staging.loadmore_listview.LoadMoreListView;
+import com.staging.logger.CrowdBootstrapLogger;
 import com.staging.utilities.Constants;
+import com.staging.utilities.UtilitiesClass;
 
 /**
  * Created by Neelmani.Karn on 1/11/2017.
  */
-public class DeactivatedFundsFragment extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener {
+public class DeactivatedFundsFragment extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener, AsyncTaskCompleteListener<String> {
     private static int TOTAL_ITEMS = 0;
     int current_page = 1;
     private Button btn_addCampaign;
@@ -28,13 +32,21 @@ public class DeactivatedFundsFragment extends Fragment implements AdapterView.On
     public DeactivatedFundsFragment() {
         super();
     }
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            // we check that the fragment is becoming visible
 
+            ((HomeActivity) getActivity()).setOnBackPressedListener(this);
+        }
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.funds_fragment, container, false);
 
         btn_addCampaign = (Button) rootView.findViewById(R.id.btn_createFund);
-
+        btn_addCampaign.setVisibility(View.GONE);
         list_funds = (LoadMoreListView) rootView.findViewById(R.id.list_funds);
 
         adapter = new DeactivatedFundsAdapter(getActivity(), Constants.LOGGED_USER);
@@ -79,6 +91,28 @@ public class DeactivatedFundsFragment extends Fragment implements AdapterView.On
             case R.id.btn_createFund:
                 ((HomeActivity) getActivity()).replaceFragment(new CreateFundFragment());
                 break;
+        }
+    }
+
+    /**
+     * When network give response in this.
+     *
+     * @param result
+     * @param tag
+     */
+    @Override
+    public void onTaskComplete(String result, String tag) {
+        if (result.equalsIgnoreCase(Constants.NOINTERNET)) {
+            ((HomeActivity) getActivity()).dismissProgressDialog();
+            Toast.makeText(getActivity(), getString(R.string.check_internet), Toast.LENGTH_LONG).show();
+        } else if (result.equalsIgnoreCase(Constants.TIMEOUT_EXCEPTION)) {
+            ((HomeActivity) getActivity()).dismissProgressDialog();
+            UtilitiesClass.getInstance(getActivity()).alertDialogSingleButton(getString(R.string.time_out));
+        } else if (result.equalsIgnoreCase(Constants.SERVEREXCEPTION)) {
+            ((HomeActivity) getActivity()).dismissProgressDialog();
+            Toast.makeText(getActivity(), getString(R.string.server_down), Toast.LENGTH_LONG).show();
+        } else {
+            CrowdBootstrapLogger.logInfo(result);
         }
     }
 }

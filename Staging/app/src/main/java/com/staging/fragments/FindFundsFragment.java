@@ -18,9 +18,12 @@ import com.staging.adapter.FundsAdapter;
 import com.staging.listeners.AsyncTaskCompleteListener;
 import com.staging.loadmore_listview.LoadMoreListView;
 import com.staging.logger.CrowdBootstrapLogger;
+import com.staging.models.FundsObject;
 import com.staging.utilities.AsyncNew;
 import com.staging.utilities.Constants;
 import com.staging.utilities.UtilitiesClass;
+
+import java.util.ArrayList;
 
 /**
  * Created by Neelmani.Karn on 1/11/2017.
@@ -34,6 +37,7 @@ public class FindFundsFragment extends Fragment implements AdapterView.OnItemCli
     private LoadMoreListView list_funds;
     private FundsAdapter adapter;
     private TextView btn_search;
+    private ArrayList<FundsObject> fundsList;
 
     public FindFundsFragment() {
         super();
@@ -48,6 +52,7 @@ public class FindFundsFragment extends Fragment implements AdapterView.OnItemCli
             ((HomeActivity) getActivity()).setOnBackPressedListener(this);
         }
     }
+
     /**
      * Called when the fragment is visible to the user and actively running.
      * This is generally
@@ -68,8 +73,8 @@ public class FindFundsFragment extends Fragment implements AdapterView.OnItemCli
         btn_createFund = (Button) rootView.findViewById(R.id.btn_createFund);
         btn_createFund.setVisibility(View.GONE);
         list_funds = (LoadMoreListView) rootView.findViewById(R.id.list_funds);
-
-        adapter = new FundsAdapter(getActivity(), Constants.NOT_LOGGED_USER, "FindFunds");
+        fundsList = new ArrayList<>();
+        adapter = new FundsAdapter(getActivity(), fundsList, Constants.NOT_LOGGED_USER, "FindFunds");
         list_funds.setAdapter(adapter);
 
         btn_search.setOnClickListener(this);
@@ -112,6 +117,8 @@ public class FindFundsFragment extends Fragment implements AdapterView.OnItemCli
             case R.id.btn_search:
                 if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
 
+                } else {
+                    ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
                 }
                 break;
         }

@@ -538,7 +538,7 @@
 
                 android:background="@drawable/blue_button"
                 android:gravity="center"
-                android:text="@string/apply"
+                android:text="@string/update"
                 android:textColor="@color/white"
                 android:textSize="@dimen/mediumTextStyle" />
         </LinearLayout>

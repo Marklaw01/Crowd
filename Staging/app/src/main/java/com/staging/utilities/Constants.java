@@ -13,6 +13,8 @@ public final class Constants {
     public static final String APP_BASE_URL = "http://stage.crowdbootstrap.com/api/";
     public static final String APP_IMAGE_URL = "http://stage.crowdbootstrap.com";
 
+    public static final int API_CONNECTION_TIME_OUT_DURATION = 30000;
+
     public static final String NOTIFICATION_CONSTANT = "notifications";
 
     public static final String NOTIFICATION_TAG = "tag";
@@ -457,8 +459,11 @@ public final class Constants {
     public static final String FUND_PORTFOLIO_LIST = "fundPortfolioList?user_id=";
     public static final String FUND_PORTFOLIO_TAG = "fundPortfolioList_tag";
 
+    public static final String CREATE_FUND_URL = "addFunds";
+    public static final String EDIT_FUND_URL = "editFunds";
 
-
+    public static final String MY_FUND_LIST = "myFunds";
+    public static final String MY_FUND_TAG = "myFunds_tag";
 
 
 
