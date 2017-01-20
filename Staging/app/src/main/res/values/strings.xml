@@ -346,5 +346,8 @@
     <string name="fund_end_date_validation">Fund\'s Investment end date cannot be present or past date!</string>
     <string name="fund_close_date_validation">Fund\'s close date cannot be present or past date!</string>
     <string name="noFunds">No Funds Available</string>
+    <string name="fund_deleted">Your fund is deleted successfully.</string>
+    <string name="fund_archived">Your fund is archived successfully</string>
+    <string name="fund_deactivated">Your fund deactivated successfully</string>
 
 </resources>

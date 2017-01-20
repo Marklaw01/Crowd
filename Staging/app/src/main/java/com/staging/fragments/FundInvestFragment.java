@@ -11,18 +11,30 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.staging.R;
+import com.staging.activities.HomeActivity;
+import com.staging.listeners.AsyncTaskCompleteListener;
 import com.staging.utilities.NonSwipeableViewPager;
 
 /**
  * Created by Neelmani.Karn on 1/11/2017.
  */
-public class FundInvestFragment extends Fragment {
+public class FundInvestFragment extends Fragment implements AsyncTaskCompleteListener<String> {
     public TabLayout tabLayout;
     public NonSwipeableViewPager viewPager;
     public int int_items = 3;
 
     public FundInvestFragment() {
         super();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            // we check that the fragment is becoming visible
+
+            ((HomeActivity) getActivity()).setOnBackPressedListener(this);
+        }
     }
 
     @Override
@@ -47,6 +59,17 @@ public class FundInvestFragment extends Fragment {
         }
 
         return rootView;
+    }
+
+    /**
+     * When network give response in this.
+     *
+     * @param result
+     * @param tag
+     */
+    @Override
+    public void onTaskComplete(String result, String tag) {
+
     }
 
 

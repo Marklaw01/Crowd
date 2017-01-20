@@ -26,15 +26,20 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.staging.R;
 import com.staging.activities.HomeActivity;
 import com.staging.fragments.ViewFollowers;
+import com.staging.listeners.AsyncTaskCompleteListener;
+import com.staging.logger.CrowdBootstrapLogger;
 import com.staging.models.FundsObject;
 import com.staging.models.JobListObject;
 import com.staging.utilities.Constants;
 import com.staging.utilities.NetworkConnectivity;
+import com.staging.utilities.PrefManager;
 import com.staging.utilities.UtilitiesClass;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 /**
@@ -68,8 +73,9 @@ public class FundsAdapter extends BaseAdapter implements View.OnClickListener {
                 .cacheOnDisk(true)
                 .considerExifParams(true)
                 .bitmapConfig(Bitmap.Config.RGB_565)
-
                 .build();
+
+
     }
 
     @Override
@@ -121,7 +127,6 @@ public class FundsAdapter extends BaseAdapter implements View.OnClickListener {
         }
         try {
 
-
             holder.fundTitle.setText(list.get(position).getFund_title());
             holder.fundDescription.setText(list.get(position).getFund_description());
             holder.tv_postedDate.setText(list.get(position).getFund_start_date());
@@ -132,15 +137,13 @@ public class FundsAdapter extends BaseAdapter implements View.OnClickListener {
             holder.dislikeBtn.setOnClickListener(this);
             ImageLoader.getInstance().displayImage(Constants.APP_IMAGE_URL + list.get(position).getFund_image(), holder.fund_icon, options);
 
-
+            holder.tv_dislikes.setTag(R.integer.selected_index, position);
             holder.tv_dislikes.setOnClickListener(this);
             holder.tv_Likes.setOnClickListener(this);
 
             holder.tv_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 
                     alertDialogBuilder
@@ -158,15 +161,18 @@ public class FundsAdapter extends BaseAdapter implements View.OnClickListener {
                                 public void onClick(DialogInterface dialog, int arg1) {
                                     dialog.cancel();
                                     if (networkConnectivity.isInternetConnectionAvaliable()) {
-                                        pos = position;
-                                        //new DeleteJob().execute(list.get(position).getJobID());
-
-                                        /*Async a = new Async(context, (AsyncTaskCompleteListener<String>) context, Constants.DELETE_CAMPAIGN_TAG, Constants.DELETE_CAMPAIGN_TAG + list.get(position).getId(), Constants.HTTP_GET);
-                                        a.execute();*/
+                                        //pos = position;
+                                        try {
+                                            JSONObject obj = new JSONObject();
+                                            obj.put("user_id", PrefManager.getInstance(context).getString(Constants.USER_ID));
+                                            obj.put("fund_id", list.get(position).getId());
+                                            doJob(context.getString(R.string.fund_deleted), position, Constants.FUND_DELETE_URL, Constants.HTTP_POST_REQUEST, obj);
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
                                     } else {
                                         utilitiesClass.alertDialogSingleButton(context.getString(R.string.no_internet_connection));
                                     }
-                                    //list.remove(position);
                                     notifyDataSetChanged();
                                 }
                             });
@@ -200,11 +206,15 @@ public class FundsAdapter extends BaseAdapter implements View.OnClickListener {
                                 public void onClick(DialogInterface dialog, int arg1) {
                                     dialog.cancel();
                                     if (networkConnectivity.isInternetConnectionAvaliable()) {
-                                        pos = position;
-                                        //new ArchiveJob().execute(list.get(position).getJobID());
-
-                                        /*Async a = new Async(context, (AsyncTaskCompleteListener<String>) context, Constants.DELETE_CAMPAIGN_TAG, Constants.DELETE_CAMPAIGN_TAG + list.get(position).getId(), Constants.HTTP_GET);
-                                        a.execute();*/
+                                        //pos = position;
+                                        try {
+                                            JSONObject obj = new JSONObject();
+                                            obj.put("user_id", PrefManager.getInstance(context).getString(Constants.USER_ID));
+                                            obj.put("fund_id", list.get(position).getId());
+                                            doJob(context.getString(R.string.fund_archived), position, Constants.FUND_ARCHIEVE_URL, Constants.HTTP_POST_REQUEST, obj);
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
                                     } else {
                                         utilitiesClass.alertDialogSingleButton(context.getString(R.string.no_internet_connection));
                                     }
@@ -244,11 +254,14 @@ public class FundsAdapter extends BaseAdapter implements View.OnClickListener {
                                 public void onClick(DialogInterface dialog, int arg1) {
                                     dialog.cancel();
                                     if (networkConnectivity.isInternetConnectionAvaliable()) {
-                                        pos = position;
-                                        // new DeactivateJob().execute(list.get(position).getJobID());
-
-                                        /*Async a = new Async(context, (AsyncTaskCompleteListener<String>) context, Constants.DELETE_CAMPAIGN_TAG, Constants.DELETE_CAMPAIGN_TAG + list.get(position).getId(), Constants.HTTP_GET);
-                                        a.execute();*/
+                                        try {
+                                            JSONObject obj = new JSONObject();
+                                            obj.put("user_id", PrefManager.getInstance(context).getString(Constants.USER_ID));
+                                            obj.put("fund_id", list.get(position).getId());
+                                            doJob(context.getString(R.string.fund_deactivated), position, Constants.FUND_DEACTIVATE_URL, Constants.HTTP_POST_REQUEST, obj);
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
                                     } else {
                                         utilitiesClass.alertDialogSingleButton(context.getString(R.string.no_internet_connection));
                                     }
@@ -304,12 +317,15 @@ public class FundsAdapter extends BaseAdapter implements View.OnClickListener {
                 break;
 
             case R.id.tv_dislike:
-                Bundle dislike = new Bundle();
-                dislike.putInt(Constants.FUND_ID, 1);
-                dislike.putString(Constants.LIKE_DISLIKE, Constants.DISLIKE);
-                Fragment dislikeFragment = new LikeDislikeFragment();
-                dislikeFragment.setArguments(dislike);
-                (((HomeActivity) context)).replaceFragment(dislikeFragment);
+                int tagId = (int) v.getTag(R.integer.selected_index);
+                if (list.get(tagId).getFund_dislike() != 0) {
+                    Bundle dislike = new Bundle();
+                    dislike.putInt(Constants.FUND_ID, 1);
+                    dislike.putString(Constants.LIKE_DISLIKE, Constants.DISLIKE);
+                    Fragment dislikeFragment = new LikeDislikeFragment();
+                    dislikeFragment.setArguments(dislike);
+                    (((HomeActivity) context)).replaceFragment(dislikeFragment);
+                }
                 break;
         }
     }
@@ -321,5 +337,79 @@ public class FundsAdapter extends BaseAdapter implements View.OnClickListener {
         LinearLayout layoutButtons, layoutLikeDeslikeButtons;
     }
 
+    private void doJob(final String message, final int position, final String url, final String requestType, final JSONObject jsonObject) {
+
+        new AsyncTask<Void, Void, String>() {
+
+            ProgressDialog pDialog;
+
+            @Override
+            protected void onPreExecute() {
+                // TODO Auto-generated method stub
+                super.onPreExecute();
+
+                pDialog = new ProgressDialog(context);
+                pDialog.setMessage("Please wait...");
+                pDialog.setIndeterminate(true);
+                pDialog.setCancelable(false);
+                pDialog.show();
+
+
+            }
+
+            @Override
+            protected String doInBackground(Void... params) {
+                String response = "";
+                try {
+                    response = utilitiesClass.makeRequest(url, jsonObject, requestType);
+                    return response;
+                } catch (UnknownHostException e) {
+                    return Constants.NOINTERNET;
+                } catch (SocketTimeoutException e) {
+                    return Constants.TIMEOUT_EXCEPTION;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return Constants.SERVEREXCEPTION;
+                }
+            }
+
+
+            @Override
+            protected void onPostExecute(String result) {
+                super.onPostExecute(result);
+
+                pDialog.dismiss();
+
+                if (result.equals(Constants.NOINTERNET)) {
+                    Toast.makeText(context, context.getString(R.string.check_internet), Toast.LENGTH_LONG).show();
+                } else if (result.equals(Constants.SERVEREXCEPTION)) {
+                    Toast.makeText(context, context.getString(R.string.server_down), Toast.LENGTH_LONG).show();
+                } else if (result.equals(Constants.TIMEOUT_EXCEPTION)) {
+                    utilitiesClass.alertDialogSingleButton(context.getString(R.string.time_out));
+                } else {
+                    if (result.isEmpty()) {
+                        Toast.makeText(context, context.getString(R.string.server_down), Toast.LENGTH_LONG).show();
+                    } else {
+                        try {
+                            JSONObject jsonObject = new JSONObject(result);
+                            CrowdBootstrapLogger.logInfo(result);
+                            if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
+                                Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+                                list.remove(position);
+                                notifyDataSetChanged();
+                            } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
+                                Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+                            }
+                        } catch (JSONException e) {
+                            Toast.makeText(context, context.getString(R.string.server_down), Toast.LENGTH_LONG).show();
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }.execute();
+
+
+    }
 
 }

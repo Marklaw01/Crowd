@@ -49,4 +49,21 @@ public class GenericObject<T> {
         this.id = id;
 
     }
+
+    @Override
+    public String toString() {
+        return title;
+    }
+
+    public boolean equals(Object o) {
+        if (!(o instanceof GenericObject)) {
+            return false;
+        }
+        GenericObject other = (GenericObject) o;
+        return title.equalsIgnoreCase(other.getTitle());
+    }
+
+    public int hashCode() {
+        return title.hashCode();
+    }
 }

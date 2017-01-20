@@ -44,6 +44,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.staging.R;
 import com.staging.activities.HomeActivity;
 import com.staging.adapter.FundsKeywordsAdapter;
@@ -60,17 +61,11 @@ import com.staging.utilities.Constants;
 import com.staging.utilities.DateTimeFormatClass;
 import com.staging.utilities.UtilitiesClass;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.StatusLine;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.content.ContentBody;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
-import org.apache.http.protocol.BasicHttpContext;
-import org.apache.http.protocol.HttpContext;
-import org.apache.http.util.EntityUtils;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -146,6 +141,8 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
     public ArrayList<Mediabeans> pathofmedia;
     public static int selection;
     int tagno, deleteNumber;
+    private String fund_id = "0";
+    private Bundle bundle;
 
     public UpdateFundFragment() {
         super();
@@ -190,6 +187,8 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
         audioObjectsList = new ArrayList<>();
         videoObjectList = new ArrayList<>();
         documentObjectList = new ArrayList<>();
+        bundle = this.getArguments();
+        fund_id = bundle.getString(Constants.FUND_ID);
         if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
             ((HomeActivity) getActivity()).showProgressDialog();
             AsyncNew a = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FUND_MANAGERS_TAG, Constants.FUND_MANAGERS_LIST + ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID), Constants.HTTP_GET_REQUEST, null);
@@ -379,7 +378,6 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
                         return true;
                     }
                 });
-
 
 
         btn_browse.setTag(0);
@@ -847,7 +845,7 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
 
                 HashMap<String, String> map = new HashMap<String, String>();
                 map.put("user_id", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
-                map.put("fund_id","1");
+                map.put("fund_id", fund_id);
                 map.put("title", et_fundTitle.getText().toString().trim());
                 map.put("description", et_fundDescription.getText().toString().trim());
                 map.put("managers_id", selectedFundManagersIDs);
@@ -865,7 +863,7 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
                 }
 
                 if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
-                    createFund(map, Constants.EDIT_FUND_URL);
+                    updateFund(map, Constants.EDIT_FUND_URL);
                 } else {
                     ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
                 }
@@ -1156,6 +1154,7 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
             dialog.show();
         }
     }
+
     @Override
     public void onTaskComplete(String result, String tag) {
         if (result.equalsIgnoreCase(Constants.NOINTERNET)) {
@@ -1305,8 +1304,16 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
                             obj.setPosition(i);
                             fundPotfolioList.add(obj);
                         }
-                        ((HomeActivity) getActivity()).dismissProgressDialog();
-
+                        if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
+                            JSONObject object = new JSONObject();
+                            object.put("user_id", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
+                            object.put("fund_id", fund_id);
+                            AsyncNew a = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FUND_DETAILS_TAG, Constants.FUND_DETAILS_URL, Constants.HTTP_POST_REQUEST, object);
+                            a.execute();
+                        } else {
+                            ((HomeActivity) getActivity()).dismissProgressDialog();
+                            ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
+                        }
 
                     } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
                         ((HomeActivity) getActivity()).dismissProgressDialog();
@@ -1316,10 +1323,200 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
                     ((HomeActivity) getActivity()).dismissProgressDialog();
                     e.printStackTrace();
                 }
+            } else if (tag.equals(Constants.FUND_DETAILS_TAG)) {
+                CrowdBootstrapLogger.logInfo(result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+
+
+                    if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
+                        ((HomeActivity) getActivity()).dismissProgressDialog();
+                        et_fundDescription.setText(jsonObject.getString("fund_description"));
+                        et_fundTitle.setText(jsonObject.getString("fund_title"));
+                        et_fundsClosedDate.setText(jsonObject.getString("fund_close_date"));
+                        et_investmentStartDate.setText(jsonObject.getString("fund_start_date"));
+                        et_investmentEndDate.setText(jsonObject.getString("fund_end_date"));
+                        ImageLoader.getInstance().displayImage(Constants.APP_IMAGE_URL + "/" + jsonObject.getString("fund_image").trim(), image_fundImage);
+
+
+                        //fund managers
+                        preChecked(jsonObject.getJSONArray("fund_mangers"), fundManagersList, R.id.et_fundManagers);
+                       /* for (int i = 0; i < jsonObject.getJSONArray("fund_mangers").length(); i++) {
+                            JSONObject fundManager = jsonObject.getJSONArray("fund_mangers").getJSONObject(i);
+                            GenericObject obj = new GenericObject();
+                            obj.setId(fundManager.getString("id"));
+                            obj.setTitle(fundManager.getString("name"));
+                            if (stringBuilder.length() > 0) {
+                                stringBuilder.append(", ");
+                                stringBuilderIds.append(",");
+                            }
+                            stringBuilder.append(obj.getTitle());
+                            stringBuilderIds.append(obj.getId());
+
+                            int position = fundManagersList.indexOf(obj);
+                            if (position >= 0)
+                                fundManagersList.get(position).setIschecked(true);
+                        }
+
+                        et_fundManagers.setText(stringBuilder);
+                        selectedFundManagersIDs = stringBuilderIds.toString();*/
+
+                        //fund sponsors
+                        preChecked(jsonObject.getJSONArray("fund_sponsors"), sponsersList, R.id.et_fundsponsers);
+                        /*stringBuilder = new StringBuilder();
+                        stringBuilderIds = new StringBuilder();
+                        for (int i = 0; i < jsonObject.getJSONArray("fund_sponsors").length(); i++) {
+                            JSONObject fundManager = jsonObject.getJSONArray("fund_sponsors").getJSONObject(i);
+                            GenericObject obj = new GenericObject();
+                            obj.setId(fundManager.getString("id"));
+                            obj.setTitle(fundManager.getString("name"));
+                            if (stringBuilder.length() > 0) {
+                                stringBuilder.append(", ");
+                                stringBuilderIds.append(",");
+                            }
+                            stringBuilder.append(obj.getTitle());
+                            stringBuilderIds.append(obj.getId());
+
+                            int position = sponsersList.indexOf(obj);
+                            if (position >= 0)
+                                sponsersList.get(position).setIschecked(true);
+                        }
+
+                        et_fundsponsers.setText(stringBuilder);
+                        selectedSponsorsIDs = stringBuilderIds.toString();*/
+
+                        //fund industry
+                        preChecked(jsonObject.getJSONArray("fund_industries"), fundIndustryList, R.id.et_industry);
+                        /*stringBuilder = new StringBuilder();
+                        stringBuilderIds = new StringBuilder();
+                        for (int i = 0; i < jsonObject.getJSONArray("fund_industries").length(); i++) {
+                            JSONObject fundManager = jsonObject.getJSONArray("fund_industries").getJSONObject(i);
+                            GenericObject obj = new GenericObject();
+                            obj.setId(fundManager.getString("id"));
+                            obj.setTitle(fundManager.getString("name"));
+                            if (stringBuilder.length() > 0) {
+                                stringBuilder.append(", ");
+                                stringBuilderIds.append(",");
+                            }
+                            stringBuilder.append(obj.getTitle());
+                            stringBuilderIds.append(obj.getId());
+
+                            int position = fundIndustryList.indexOf(obj);
+                            if (position >= 0)
+                                fundIndustryList.get(position).setIschecked(true);
+                        }
+
+                        et_industry.setText(stringBuilder);
+                        selectedIndustriesIDs = stringBuilderIds.toString();*/
+
+                        //fund portfolio
+                        preChecked(jsonObject.getJSONArray("fund_portfolios"), fundPotfolioList, R.id.et_portfolio);
+                        /*stringBuilder = new StringBuilder();
+                        stringBuilderIds = new StringBuilder();
+                        for (int i = 0; i < jsonObject.getJSONArray("fund_portfolios").length(); i++) {
+                            JSONObject fundManager = jsonObject.getJSONArray("fund_portfolios").getJSONObject(i);
+                            GenericObject obj = new GenericObject();
+                            obj.setId(fundManager.getString("id"));
+                            obj.setTitle(fundManager.getString("name"));
+                            if (stringBuilder.length() > 0) {
+                                stringBuilder.append(", ");
+                                stringBuilderIds.append(",");
+                            }
+                            stringBuilder.append(obj.getTitle());
+                            stringBuilderIds.append(obj.getId());
+
+                            int position = fundPotfolioList.indexOf(obj);
+                            if (position >= 0)
+                                fundPotfolioList.get(position).setIschecked(true);
+                        }
+
+                        et_portfolio.setText(stringBuilder);
+                        selectedPortfolioIDs = stringBuilderIds.toString();*/
+
+                        //fund keywords
+
+                        preChecked(jsonObject.getJSONArray("fund_keywords"), fundKeywordsList, R.id.et_keywords);
+                        /*stringBuilder = new StringBuilder();
+                        stringBuilderIds = new StringBuilder();
+                        for (int i = 0; i < jsonObject.getJSONArray("fund_keywords").length(); i++) {
+                            JSONObject fundManager = jsonObject.getJSONArray("fund_keywords").getJSONObject(i);
+                            GenericObject obj = new GenericObject();
+                            obj.setId(fundManager.getString("id"));
+                            obj.setTitle(fundManager.getString("name"));
+                            if (stringBuilder.length() > 0) {
+                                stringBuilder.append(", ");
+                                stringBuilderIds.append(",");
+                            }
+                            stringBuilder.append(obj.getTitle());
+                            stringBuilderIds.append(obj.getId());
+
+                            int position = fundKeywordsList.indexOf(obj);
+                            if (position >= 0)
+                                fundKeywordsList.get(position).setIschecked(true);
+                        }
+
+                        et_keywords.setText(stringBuilder);
+                        selectedKeywordsIDs = stringBuilderIds.toString();*/
+
+                    } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
+                        ((HomeActivity) getActivity()).dismissProgressDialog();
+                    }
+                } catch (JSONException e) {
+                    ((HomeActivity) getActivity()).dismissProgressDialog();
+                    e.printStackTrace();
+                }
             }
         }
     }
 
+    private void preChecked(JSONArray jsonArray, ArrayList<GenericObject> list, int id) {
+        try {
+
+            StringBuilder stringBuilder = new StringBuilder();
+            StringBuilder stringBuilderIds = new StringBuilder();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject fundManager = jsonArray.getJSONObject(i);
+                GenericObject obj = new GenericObject();
+                obj.setId(fundManager.getString("id"));
+                obj.setTitle(fundManager.getString("name"));
+                if (stringBuilder.length() > 0) {
+                    stringBuilder.append(", ");
+                    stringBuilderIds.append(",");
+                }
+                stringBuilder.append(obj.getTitle());
+                stringBuilderIds.append(obj.getId());
+
+                int position = list.indexOf(obj);
+                if (position >= 0)
+                    list.get(position).setIschecked(true);
+            }
+            switch (id) {
+                case R.id.et_fundManagers:
+                    et_fundManagers.setText(stringBuilder);
+                    selectedFundManagersIDs = stringBuilderIds.toString();
+                    break;
+                case R.id.et_fundsponsers:
+                    et_fundsponsers.setText(stringBuilder);
+                    selectedSponsorsIDs = stringBuilderIds.toString();
+                    break;
+                case R.id.et_keywords:
+                    et_keywords.setText(stringBuilder);
+                    selectedKeywordsIDs = stringBuilderIds.toString();
+                    break;
+                case R.id.et_industry:
+                    et_industry.setText(stringBuilder);
+                    selectedIndustriesIDs = stringBuilderIds.toString();
+                    break;
+                case R.id.et_portfolio:
+                    et_portfolio.setText(stringBuilder);
+                    selectedPortfolioIDs = stringBuilderIds.toString();
+                    break;
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Save fund to database.
@@ -1327,7 +1524,7 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
      * @param map
      * @param createUrl
      */
-    private void createFund(final HashMap<String, String> map, final String createUrl) {
+    private void updateFund(final HashMap<String, String> map, final String createUrl) {
 
         try {
             new AsyncTask<Integer, Integer, String>() {
@@ -1501,7 +1698,7 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
                                 CrowdBootstrapLogger.logInfo(result);
                                 if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
                                     pathofmedia.clear();
-                                    Toast.makeText(getActivity(), "Your fund is created successfully.", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getActivity(), "Your fund is updated successfully.", Toast.LENGTH_LONG).show();
                                     getActivity().onBackPressed();
                                 } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
 
@@ -1871,7 +2068,7 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
             list_docs.setVisibility(View.VISIBLE);
         } catch (Resources.NotFoundException e) {
             e.printStackTrace();
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         /* Remove and used in preDrawListener
@@ -1893,7 +2090,7 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
             list_video.setVisibility(View.VISIBLE);
         } catch (Resources.NotFoundException e) {
             e.printStackTrace();
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 //        UtilityList.setListViewHeightBasedOnChildren(list_video);
@@ -1915,7 +2112,7 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
             list_audios.setVisibility(View.VISIBLE);
         } catch (Resources.NotFoundException e) {
             e.printStackTrace();
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         /* Remove and used in preDrawListener
@@ -1954,7 +2151,7 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
                     });
         } catch (Resources.NotFoundException e) {
             e.printStackTrace();
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -1984,7 +2181,7 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
                     });
         } catch (Resources.NotFoundException e) {
             e.printStackTrace();
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -2013,7 +2210,7 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
                     });
         } catch (Resources.NotFoundException e) {
             e.printStackTrace();
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

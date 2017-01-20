@@ -465,6 +465,12 @@ public final class Constants {
     public static final String MY_FUND_LIST = "myFunds";
     public static final String MY_FUND_TAG = "myFunds_tag";
 
+    public static final String FUND_DETAILS_URL = "fundDetails";
+    public static final String FUND_DETAILS_TAG = "fundDetails_tag";
+
+    public static final String FUND_DELETE_URL = "deleteFund";
+    public static final String FUND_ARCHIEVE_URL = "archiveFund";
+    public static final String FUND_DEACTIVATE_URL = "deactivateFund";
 
 
     //Password regex pattern for validation.
@@ -522,6 +528,7 @@ public final class Constants {
     public static final String LOGGED_USER = "logged_user";
     public static final String NOT_LOGGED_USER = "not_logged_user";
     public static final String TIMEOUT_EXCEPTION = "timeout";
+    public static final int POSITION = 1001;
 
     //Passing data constants using intent
     public static String COMMING_FROM_INTENT = "";

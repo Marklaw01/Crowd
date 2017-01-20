@@ -141,8 +141,11 @@ public class MyFundsFragments extends Fragment implements AdapterView.OnItemClic
      */
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-        ((HomeActivity) getActivity()).replaceFragment(new UpdateFundFragment());
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.FUND_ID, fundsList.get(position).getId());
+        UpdateFundFragment updateFundFragment = new UpdateFundFragment();
+        updateFundFragment.setArguments(bundle);
+        ((HomeActivity) getActivity()).replaceFragment(updateFundFragment);
     }
 
     /**
