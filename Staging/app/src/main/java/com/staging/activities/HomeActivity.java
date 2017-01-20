@@ -2080,7 +2080,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                         notificationManager.cancelAll();
                         QbUsersHolder.getInstance().clear();
                         prefManager.clearAllPreferences();
-                        startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+                        startActivity(new Intent(HomeActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                         finish();
                     } else if (jsonObject.getString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase("404")) {
                         utilitiesClass.alertDialogSingleButton(jsonObject.getString("message"));

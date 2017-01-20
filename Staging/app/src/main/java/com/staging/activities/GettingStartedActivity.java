@@ -191,8 +191,9 @@ public class GettingStartedActivity extends BaseActivity implements View.OnClick
 
 
                 Intent go = new Intent(GettingStartedActivity.this, HomeActivity.class);
+                go.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(go);
-
+                finish();
 
                 break;
             case R.id.imageViewGettingStarted:
