@@ -8,21 +8,19 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.TextView;
 
-import com.crowdbootstrapapp.chat.QbAuthUtils;
-import com.crowdbootstrapapp.chat.interfaces.QbSessionStateCallback;
-import com.crowdbootstrapapp.utilities.PrefManager;
 import com.quickblox.auth.QBAuth;
 import com.quickblox.auth.model.QBSession;
 import com.quickblox.chat.QBChatService;
 import com.quickblox.core.QBEntityCallback;
 import com.quickblox.core.exception.QBResponseException;
 import com.quickblox.users.model.QBUser;
+import com.crowdbootstrapapp.chat.QbAuthUtils;
+import com.crowdbootstrapapp.chat.interfaces.QbSessionStateCallback;
+import com.crowdbootstrapapp.utilities.PrefManager;
 
 
 /**
  * Created by neelmani.karn on 1/6/2016.
- *
- *test
  */
 public abstract class BaseActivity extends AppCompatActivity implements QbSessionStateCallback {
     private static final String TAG = BaseActivity.class.getSimpleName();

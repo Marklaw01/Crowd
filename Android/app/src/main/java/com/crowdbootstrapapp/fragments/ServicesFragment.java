@@ -12,7 +12,7 @@ import com.crowdbootstrapapp.R;
 /**
  * Created by neelmani.karn on 3/14/2016.
  */
-public class ServicesFragment extends Fragment{
+public class ServicesFragment extends Fragment {
     private TextView dummyText;
     public ServicesFragment() {
         super();

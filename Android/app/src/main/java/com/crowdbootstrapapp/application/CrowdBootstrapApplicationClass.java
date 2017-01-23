@@ -2,18 +2,22 @@ package com.crowdbootstrapapp.application;
 
 import android.app.Application;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.multidex.MultiDex;
 import android.util.Log;
 
-import com.crowdbootstrapapp.utilities.Constants;
-import com.crowdbootstrapapp.utilities.NetworkConnectivity;
-import com.crowdbootstrapapp.utilities.PrefManager;
-import com.crowdbootstrapapp.utilities.UtilitiesClass;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.quickblox.core.QBSettings;
+import com.crowdbootstrapapp.BuildConfig;
+import com.crowdbootstrapapp.R;
+import com.crowdbootstrapapp.utilities.Constants;
+import com.crowdbootstrapapp.utilities.NetworkConnectivity;
+import com.crowdbootstrapapp.utilities.PrefManager;
+import com.crowdbootstrapapp.utilities.UtilitiesClass;
 //import com.quickblox.core.QBSettings;
 
 /**
@@ -22,12 +26,12 @@ import com.quickblox.core.QBSettings;
 public class CrowdBootstrapApplicationClass extends Application {
 
     private static final String TAG = CrowdBootstrapApplicationClass.class.getSimpleName();
-    private static Context context;
+    private Context context;
     private static CrowdBootstrapApplicationClass instance;
 
-    private static PrefManager prefManager;
-    private static NetworkConnectivity networkConnectivity;
-    private static UtilitiesClass utilitiesClass;
+     PrefManager prefManager;
+    NetworkConnectivity networkConnectivity;
+    UtilitiesClass utilitiesClass;
 
     public static CrowdBootstrapApplicationClass getInstance() {
         return instance;
@@ -38,11 +42,11 @@ public class CrowdBootstrapApplicationClass extends Application {
         MultiDex.install(this);
     }
 
-    public static Context getContext() {
+    public Context getContext() {
         return context;
     }
 
-    public static void setContext(Context mContext) {
+    public void setContext(Context mContext) {
         context = mContext;
     }
 
@@ -60,9 +64,6 @@ public class CrowdBootstrapApplicationClass extends Application {
             utilitiesClass = UtilitiesClass.getInstance(getApplicationContext());
             initImageLoader(getApplicationContext());
 
-
-            // Initialise Rollbar
-            //Rollbar.init(this, Constants.ROLLBAR_CLIENT_SIDE_TOKEN, "production");
             // Initialise QuickBlox SDK
             initCredentials(Constants.QUICKBLOX_APP_ID, Constants.QUICKBLOX_AUTH_KEY, Constants.QUICKBLOX_AUTH_SECRET, Constants.QUICKBLOX_ACCOUNT_KEY);
         } catch (Exception e) {
@@ -82,6 +83,17 @@ public class CrowdBootstrapApplicationClass extends Application {
 
     public static void initImageLoader(Context context) {
         try {
+
+            DisplayImageOptions options = new DisplayImageOptions.Builder()
+                    .showImageOnLoading(R.drawable.image)
+                    .showImageForEmptyUri(R.drawable.image)
+                    .showImageOnFail(R.drawable.image)
+                    .cacheInMemory(true)
+                    .cacheOnDisk(true)
+                    .considerExifParams(true)
+                    .bitmapConfig(Bitmap.Config.RGB_565)
+                    .build();
+
             // This configuration tuning is custom. You can tune every option, you may tune some of them,
             // or you can create default configuration by
             //  ImageLoaderConfiguration.createDefault(this);
@@ -92,7 +104,11 @@ public class CrowdBootstrapApplicationClass extends Application {
             config.diskCacheFileNameGenerator(new Md5FileNameGenerator());
             config.diskCacheSize(50 * 1024 * 1024); // 50 MiB
             config.tasksProcessingOrder(QueueProcessingType.LIFO);
-            config.writeDebugLogs(); // Remove for release app
+            config.defaultDisplayImageOptions(options);
+            if (BuildConfig.DEBUG)
+                config.writeDebugLogs(); // Remove for release app
+            // Initialize ImageLoader with configuration.
+            ImageLoader.getInstance().init(config.build());
 
             // Initialize ImageLoader with configuration.
             ImageLoader.getInstance().init(config.build());
@@ -101,15 +117,15 @@ public class CrowdBootstrapApplicationClass extends Application {
         }
     }
 
-    public static PrefManager getPref() {
+    public PrefManager getPref() {
         return prefManager;
     }
 
-    public static UtilitiesClass getUtilities() {
+    public UtilitiesClass getUtilities() {
         return utilitiesClass;
     }
 
-    public static NetworkConnectivity getNetork() {
+    public NetworkConnectivity getNetork() {
         return networkConnectivity;
     }
 

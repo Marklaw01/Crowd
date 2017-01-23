@@ -12,6 +12,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.crowdbootstrapapp.R;
 import com.crowdbootstrapapp.activities.HomeActivity;
 import com.crowdbootstrapapp.helper.CircleImageView;
@@ -19,7 +20,6 @@ import com.crowdbootstrapapp.listeners.AsyncTaskCompleteListener;
 import com.crowdbootstrapapp.models.ExcellenceAwardObject;
 import com.crowdbootstrapapp.utilities.Async;
 import com.crowdbootstrapapp.utilities.Constants;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.json.JSONException;
 import org.json.JSONObject;

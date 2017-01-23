@@ -18,7 +18,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,7 +30,14 @@ import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.google.android.gms.iid.InstanceID;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.quickblox.chat.QBChatService;
+import com.quickblox.core.QBEntityCallback;
+import com.quickblox.core.exception.QBResponseException;
 import com.crowdbootstrapapp.R;
 import com.crowdbootstrapapp.adapter.ExpandableAdapter;
 import com.crowdbootstrapapp.chat.QbUsersHolder;
@@ -68,6 +74,8 @@ import com.crowdbootstrapapp.fragments.MeetUpFragment;
 import com.crowdbootstrapapp.fragments.MessagesFragment;
 import com.crowdbootstrapapp.fragments.NotesFragment;
 import com.crowdbootstrapapp.fragments.NotifictaionsListFragment;
+import com.crowdbootstrapapp.fragments.OrganizationSearchFragment;
+import com.crowdbootstrapapp.fragments.OrgnizationVideoFragment;
 import com.crowdbootstrapapp.fragments.ProductivityFragment;
 import com.crowdbootstrapapp.fragments.ProfileFragment;
 import com.crowdbootstrapapp.fragments.RecruitersFragment;
@@ -87,19 +95,13 @@ import com.crowdbootstrapapp.helper.BadgeDrawable;
 import com.crowdbootstrapapp.helper.CircleImageView;
 import com.crowdbootstrapapp.listeners.AsyncTaskCompleteListener;
 import com.crowdbootstrapapp.listeners.onActivityResultListener;
+import com.crowdbootstrapapp.logger.CrowdBootstrapLogger;
 import com.crowdbootstrapapp.models.NavDrawerItem;
 import com.crowdbootstrapapp.utilities.Async;
 import com.crowdbootstrapapp.utilities.Constants;
 import com.crowdbootstrapapp.utilities.NetworkConnectivity;
 import com.crowdbootstrapapp.utilities.PrefManager;
 import com.crowdbootstrapapp.utilities.UtilitiesClass;
-import com.google.android.gms.gcm.GoogleCloudMessaging;
-
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.quickblox.chat.QBChatService;
-import com.quickblox.core.QBEntityCallback;
-import com.quickblox.core.exception.QBResponseException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -110,7 +112,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
-import static com.mikepenz.actionitembadge.library.ActionItemBadge.*;
+import static com.mikepenz.actionitembadge.library.ActionItemBadge.BadgeStyles;
+import static com.mikepenz.actionitembadge.library.ActionItemBadge.update;
 
 //import com.quickblox.users.model.QBUser;
 
@@ -131,7 +134,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     private Handler mHandler;
     public onActivityResultListener activytresultListener;
     public AsyncTaskCompleteListener<String> mListener;
-    private ArrayList<NavDrawerItem> contributorNavigationArray, contributiorChildNavigationArrayStartup, contributiorChildNavigationArrayMessages, contributiorChildNavigationArrayContractor;
+    private ArrayList<NavDrawerItem> contributorNavigationArray, contributiorChildNavigationArrayStartup, contributiorChildNavigationArrayMessages, contributiorChildNavigationArrayContractor, contributorOrganizations;
     private ArrayList<NavDrawerItem> contributorNavigationProfileArray, contributorNavigationEvents, contributorNavigationResource, contributorNavigationOpportunities;
     private HashMap<Integer, ArrayList<NavDrawerItem>> contributiorChildArray = new HashMap<>();
     //private int DRAWER_ITEM_POSITION = 0;
@@ -148,10 +151,16 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     private int lastExpandedGroupPositionfourth;
     private int lastExpandedGroupPositionfifth;
     private int lastExpandedGroupPositionsixth;
+    private int lastExpandedGroupPositionseventh;
     private TextView referTextView;
     String StartupId = "";
     String notification_id = "";
     String ExtraMessageForAddTeamMember = "";
+    String connectionNotificationStatus = "";
+    String connectionUserId = "";
+    String connectionConnectionID = "";
+    String connectionStatus = "";
+
     public DisplayImageOptions options;
     private MenuItem itemMessages;
 
@@ -208,6 +217,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             addDrawerItemsForEntrepreneur();
 
             Bundle data = getIntent().getExtras();
+
 
             if (data != null) {
                 if (data.containsKey(Constants.NOTIFICATION_TAG)) {
@@ -384,6 +394,79 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                         fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                         fragmentTransaction.commit();
                     }*/
+                    } else if (data.getString(Constants.NOTIFICATION_TAG).equalsIgnoreCase(Constants.NOTIFICATION_ADD_CONNECTION)) {
+
+
+                        try {
+                            connectionNotificationStatus = data.getString("status");
+                            JSONObject values = new JSONObject(data.getString("values"));
+                            Log.e("values", "" + data.get("values"));
+                            Log.e("connectionstatus", "" + connectionNotificationStatus);
+
+                            connectionUserId = values.getString("user_id");
+                            connectionConnectionID = values.getString("connection_id");
+                            connectionStatus = values.getString("status");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+
+                        }
+
+                        if (connectionNotificationStatus.compareTo("1") == 0) {
+                            utilitiesClass.alertDialogSingleButton("You have already performed the action.");
+                        } else {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
+                            builder.setTitle("Connection Request");
+                            builder.setMessage("Do you want to connect with this user?")
+                                    .setCancelable(false)
+
+                                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int arg1) {
+                                            //dialog.cancel();
+                                            if (networkConnectivity.isOnline()) {
+                                                showProgressDialog();
+                                                Async a = new Async(HomeActivity.this, (AsyncTaskCompleteListener<String>) HomeActivity.this, Constants.ACCEPT_CONNECTION_USER_TAG, Constants.ACCEPT_CONNECTION_USER_URL + "?user_id=" + connectionUserId + "&connection_id=" + connectionConnectionID + "&status=1", Constants.HTTP_GET, "Home Activity");
+                                                a.execute();
+                                                dialog.dismiss();
+                                            } else {
+                                                utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
+                                            }
+
+                                        }
+                                    })
+                                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int arg1) {
+                                            if (networkConnectivity.isOnline()) {
+                                                showProgressDialog();
+                                                Async a = new Async(HomeActivity.this, (AsyncTaskCompleteListener<String>) HomeActivity.this, Constants.DISCONNECT_USER_TAG, Constants.DISCONNECT_USER_URL + "?user_id=" + connectionUserId + "&connection_id=" + connectionConnectionID, Constants.HTTP_GET, "Home Activity");
+                                                a.execute();
+                                                dialog.dismiss();
+                                            } else {
+                                                dialog.dismiss();
+                                                utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
+                                            }
+                                        }
+                                    });
+
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
+
+                        }
+
+
+                    /*Fragment fragment = new NotifictaionsListFragment();
+
+                    if (fragment != null) {
+                        FragmentManager fragmentManager = getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.container, fragment);
+                        fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                        fragmentTransaction.commit();
+                    }*/
+
                     } else if (data.getString(Constants.NOTIFICATION_TAG).equalsIgnoreCase(Constants.NOTIFICATION_REPORT_ABUSE_FORUM_MEMBER)) {
                         Fragment fragment = new ForumDetailsFragment();
                         Bundle bundle = new Bundle();
@@ -421,6 +504,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                         }
 
                         fragment.setArguments(bundle);
+
                         replaceFragment(fragment);
                     } else {
                         if (savedInstanceState == null) {
@@ -469,7 +553,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                     // TODO Auto-generated method stub
                     while (true) {
                         try {
-                            Thread.sleep(5000);// 5 seconds lag
+                            Thread.sleep(160000);// 5 seconds lag
                             mHandler.post(new Runnable() {
 
                                 @Override
@@ -511,6 +595,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             contributorNavigationArray.add(new NavDrawerItem(getString(R.string.myProfile), R.drawable.ic_profile));
             contributorNavigationArray.add(new NavDrawerItem(getString(R.string.startup), R.drawable.ic_startups));
             contributorNavigationArray.add(new NavDrawerItem(getString(R.string.contractor), R.drawable.ic_contractor));
+            contributorNavigationArray.add(new NavDrawerItem(getString(R.string.organization), R.drawable.ic_contractor));
+
             contributorNavigationArray.add(new NavDrawerItem(getString(R.string.messaging), R.drawable.ic_messaging));
             contributorNavigationArray.add(new NavDrawerItem(getString(R.string.resources), R.drawable.ic_resources));
             contributorNavigationArray.add(new NavDrawerItem(getString(R.string.events), R.drawable.ic_event));
@@ -545,8 +631,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             contributorNavigationOpportunities.add(new NavDrawerItem(getString(R.string.early_adopters), R.drawable.dummy_ic_earlyadopter));
             contributorNavigationOpportunities.add(new NavDrawerItem(getString(R.string.endorsers), R.drawable.dummy_ic_betatester));
             contributorNavigationOpportunities.add(new NavDrawerItem(getString(R.string.focus_groups), R.drawable.dummy_ic_focusgroup));
-            contributorNavigationOpportunities.add(new NavDrawerItem(getString(R.string.jobs), R.drawable.dummy_ic_jobs));
-            contributorNavigationOpportunities.add(new NavDrawerItem(getString(R.string.recruiter), R.drawable.dummy_recruiterimg));
+            contributorNavigationOpportunities.add(new NavDrawerItem(getString(R.string.jobs), R.drawable.ic_jobs));
+            contributorNavigationOpportunities.add(new NavDrawerItem(getString(R.string.recruiter), R.drawable.recruiterimg));
 
 
             contributorNavigationEvents = new ArrayList<NavDrawerItem>();
@@ -579,16 +665,22 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             contributiorChildNavigationArrayMessages.add(new NavDrawerItem(getString(R.string.messages), R.drawable.ic_messages));
             contributiorChildNavigationArrayMessages.add(new NavDrawerItem(getString(R.string.notes), R.drawable.ic_note));
 
+            contributorOrganizations = new ArrayList<>();
+            contributorOrganizations.add(new NavDrawerItem(getString(R.string.organizationvideo), R.drawable.ic_archived_forum));
+            contributorOrganizations.add(new NavDrawerItem(getString(R.string.organizationsearch), R.drawable.ic_archived_forum));
+
+
             contributiorChildArray.put(0, new ArrayList<NavDrawerItem>());
             contributiorChildArray.put(1, contributorNavigationProfileArray);
             contributiorChildArray.put(2, contributiorChildNavigationArrayStartup);
             contributiorChildArray.put(3, contributiorChildNavigationArrayContractor);
-            contributiorChildArray.put(4, contributiorChildNavigationArrayMessages);
-            contributiorChildArray.put(5, contributorNavigationResource);
-            contributiorChildArray.put(6, contributorNavigationEvents);
-            contributiorChildArray.put(7, contributorNavigationOpportunities);
-            contributiorChildArray.put(8, new ArrayList<NavDrawerItem>());
+            contributiorChildArray.put(4, contributorOrganizations);
+            contributiorChildArray.put(5, contributiorChildNavigationArrayMessages);
+            contributiorChildArray.put(6, contributorNavigationResource);
+            contributiorChildArray.put(7, contributorNavigationEvents);
+            contributiorChildArray.put(8, contributorNavigationOpportunities);
             contributiorChildArray.put(9, new ArrayList<NavDrawerItem>());
+            contributiorChildArray.put(10, new ArrayList<NavDrawerItem>());
 
             //=-============Created the Header for the Side Navigation Drawer====================================
             inflater = getLayoutInflater();
@@ -662,6 +754,9 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                         } else if (groupPosition == 7) {
                             lastExpandedGroupPositionsixth = 7;
                             mDrawerList.setItemChecked(8, true);
+                        } else if (groupPosition == 8) {
+                            lastExpandedGroupPositionseventh = 8;
+                            mDrawerList.setItemChecked(9, true);
                         }
                     } else {
 
@@ -698,12 +793,14 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                             case 7:
                                 break;
                             case 8:
+                                break;
+                            case 9:
                                 setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
-                                mDrawerList.setItemChecked(9, true);
+                                mDrawerList.setItemChecked(10, true);
                                 toolbarTitle.setText("Shopping Cart");
                                 fragment = new ChoosePaymentGatewayFragment();
                                 break;
-                            case 9:
+                            case 10:
                                 showLogoutAlert();
                                 break;
 
@@ -756,6 +853,10 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                         mDrawerList.collapseGroup(lastExpandedGroupPositionsixth);
                         lastExpandedGroupPositionsixth = groupPosition;
                     }
+                    if (lastExpandedGroupPositionseventh != -1 && groupPosition != lastExpandedGroupPositionseventh) {
+                        mDrawerList.collapseGroup(lastExpandedGroupPositionseventh);
+                        lastExpandedGroupPositionseventh = groupPosition;
+                    }
 
 
                 }
@@ -769,6 +870,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                 public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                     ArrayList<NavDrawerItem> list = contributiorChildArray.get(groupPosition);
                     FragmentManager fragmentManager = getSupportFragmentManager();
+
                     int backStackEntryCount;
                     //toolbarTitle.setText(list.get(childPosition - 1).getName());
                     Fragment fragment = null;
@@ -786,7 +888,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                     fragment = new EntrepreneurVideoFragment();
                                 } else {
                                     mDrawerLayout.closeDrawer(mDrawerList);
-                                    onBackPressed();
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                     return false;
                                 }
 
@@ -803,7 +905,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                     fragment = new ProfileFragment();
                                 } else {
                                     mDrawerLayout.closeDrawer(mDrawerList);
-                                    onBackPressed();
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                     return false;
                                 }
                                 break;
@@ -820,7 +922,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                     fragment = new ConnectionsFragment();
                                 } else {
                                     mDrawerLayout.closeDrawer(mDrawerList);
-                                    onBackPressed();
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                     return false;
                                 }
 
@@ -838,7 +940,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                     fragment = new SuggestKeywordsFragment();
                                 } else {
                                     mDrawerLayout.closeDrawer(mDrawerList);
-                                    onBackPressed();
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                     return false;
                                 }
                                 break;
@@ -854,7 +956,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                     fragment = new SettingsFragment();
                                 } else {
                                     mDrawerLayout.closeDrawer(mDrawerList);
-                                    onBackPressed();
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                     return false;
                                 }
                                 break;
@@ -870,7 +972,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                     fragment = new RoadmapVideoFragment();
                                 } else {
                                     mDrawerLayout.closeDrawer(mDrawerList);
-                                    onBackPressed();
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                     return false;
                                 }
                                 break;
@@ -885,7 +987,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                     fragment = new AddStartupFragment();
                                 } else {
                                     mDrawerLayout.closeDrawer(mDrawerList);
-                                    onBackPressed();
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                     return false;
                                 }
                                 break;
@@ -901,7 +1003,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                     fragment = new StartupApplicatioFragment();
                                 } else {
                                     mDrawerLayout.closeDrawer(mDrawerList);
-                                    onBackPressed();
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                     return false;
                                 }
                                 break;
@@ -916,7 +1018,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                     fragment = new StartupProfileFragment();
                                 } else {
                                     mDrawerLayout.closeDrawer(mDrawerList);
-                                    onBackPressed();
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                     return false;
                                 }
                                 break;
@@ -953,7 +1055,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 //                                            fragmentManager.popBackStackImmediate();
 //                                        }
                                         mDrawerLayout.closeDrawer(mDrawerList);
-                                        onBackPressed();
+                                        fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 //                                        onBackPressed();
                                         Log.e("XXX", "BACKSTACKVALUE" + String.valueOf(backStackEntryCount));
 
@@ -984,7 +1086,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                     fragment = new FundsFragment();
                                 } else {
                                     mDrawerLayout.closeDrawer(mDrawerList);
-                                    onBackPressed();
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                     return false;
                                 }
                                 break;
@@ -1003,7 +1105,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                     fragment.setArguments(bundle1);
                                 } else {
                                     mDrawerLayout.closeDrawer(mDrawerList);
-                                    onBackPressed();
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                     return false;
                                 }
                                 break;
@@ -1019,7 +1121,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                     fragment = new SearchCampaignFragment();
                                 } else {
                                     mDrawerLayout.closeDrawer(mDrawerList);
-                                    onBackPressed();
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                     return false;
                                 }
                                 break;
@@ -1034,7 +1136,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                     fragment = new ManageWorkOrdersFragment();
                                 } else {
                                     mDrawerLayout.closeDrawer(mDrawerList);
-                                    onBackPressed();
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                     return false;
                                 }
                                 break;
@@ -1052,7 +1154,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                     fragment = new ContractorVideoFragment();
                                 } else {
                                     mDrawerLayout.closeDrawer(mDrawerList);
-                                    onBackPressed();
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                     return false;
                                 }
 
@@ -1069,7 +1171,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                     fragment = new SearchContractorsFragment();
                                 } else {
                                     mDrawerLayout.closeDrawer(mDrawerList);
-                                    onBackPressed();
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                     return false;
                                 }
                                 break;
@@ -1087,7 +1189,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                     fragment.setArguments(bundle);
                                 } else {
                                     mDrawerLayout.closeDrawer(mDrawerList);
-                                    onBackPressed();
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                     return false;
                                 }
                                 break;
@@ -1105,14 +1207,13 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                     fragment.setArguments(bundle);
                                 } else {
                                     mDrawerLayout.closeDrawer(mDrawerList);
-                                    onBackPressed();
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                     return false;
                                 }
                                 break;
 
                         }
                     } else if (groupPosition == 4) {
-
                         switch (childPosition) {
                             case 0:
                                 setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
@@ -1121,11 +1222,11 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
                                 if (backStackEntryCount == 0) {
                                     mDrawerList.setItemChecked(6, true);
-                                    toolbarTitle.setText("Archived Forums");
-                                    fragment = new ArchivedForumsFragment();
+                                    toolbarTitle.setText("Organization Video");
+                                    fragment = new OrgnizationVideoFragment();
                                 } else {
                                     mDrawerLayout.closeDrawer(mDrawerList);
-                                    onBackPressed();
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                     return false;
                                 }
                                 break;
@@ -1137,11 +1238,47 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
                                 if (backStackEntryCount == 0) {
                                     mDrawerList.setItemChecked(7, true);
+                                    toolbarTitle.setText("Organization Search");
+                                    fragment = new OrganizationSearchFragment();
+                                } else {
+                                    mDrawerLayout.closeDrawer(mDrawerList);
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                                    return false;
+                                }
+                                break;
+                        }
+
+                    } else if (groupPosition == 5) {
+
+                        switch (childPosition) {
+                            case 0:
+                                setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
+
+                                backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
+
+                                if (backStackEntryCount == 0) {
+                                    mDrawerList.setItemChecked(7, true);
+                                    toolbarTitle.setText("Archived Forums");
+                                    fragment = new ArchivedForumsFragment();
+                                } else {
+                                    mDrawerLayout.closeDrawer(mDrawerList);
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                                    return false;
+                                }
+                                break;
+
+                            case 1:
+                                setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
+
+                                backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
+
+                                if (backStackEntryCount == 0) {
+                                    mDrawerList.setItemChecked(8, true);
                                     toolbarTitle.setText("Archived Messages");
                                     fragment = new ArchivedNotificationFragment();
                                 } else {
                                     mDrawerLayout.closeDrawer(mDrawerList);
-                                    onBackPressed();
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                     return false;
                                 }
                                 break;
@@ -1152,12 +1289,12 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(8, true);
+                                    mDrawerList.setItemChecked(9, true);
                                     toolbarTitle.setText("Notifications");
                                     fragment = new NotifictaionsListFragment();
                                 } else {
                                     mDrawerLayout.closeDrawer(mDrawerList);
-                                    onBackPressed();
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                     return false;
                                 }
                                 break;
@@ -1168,12 +1305,12 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(9, true);
+                                    mDrawerList.setItemChecked(10, true);
                                     toolbarTitle.setText("Chat");
                                     fragment = new ChatTabFragment();
                                 } else {
                                     mDrawerLayout.closeDrawer(mDrawerList);
-                                    onBackPressed();
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                     return false;
                                 }
                                 break;
@@ -1183,12 +1320,12 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(10, true);
+                                    mDrawerList.setItemChecked(11, true);
                                     toolbarTitle.setText("Forums");
                                     fragment = new ForumsTabFragment();
                                 } else {
                                     mDrawerLayout.closeDrawer(mDrawerList);
-                                    onBackPressed();
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                     return false;
                                 }
                                 break;
@@ -1199,12 +1336,12 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(11, true);
+                                    mDrawerList.setItemChecked(12, true);
                                     toolbarTitle.setText(getString(R.string.groups));
                                     fragment = new GroupsFragment();
                                 } else {
                                     mDrawerLayout.closeDrawer(mDrawerList);
-                                    onBackPressed();
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                     return false;
                                 }
 
@@ -1216,288 +1353,288 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(12, true);
+                                    mDrawerList.setItemChecked(13, true);
                                     toolbarTitle.setText(R.string.messages);
                                     fragment = new MessagesFragment();
                                 } else {
                                     mDrawerLayout.closeDrawer(mDrawerList);
-                                    onBackPressed();
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                     return false;
                                 }
                                 break;
 
                             case 7:
-                                setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
-
-                                backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
-
-                                if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(13, true);
-                                    toolbarTitle.setText("Notes");
-                                    fragment = new NotesFragment();
-                                } else {
-                                    mDrawerLayout.closeDrawer(mDrawerList);
-                                    onBackPressed();
-                                    return false;
-                                }
-                                break;
-
-                        }
-                    } else if (groupPosition == 5) {
-                        switch (childPosition) {
-                            case 0:
-                                setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
-
-                                backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
-
-                                if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(7, true);
-                                    toolbarTitle.setText(getString(R.string.hardware));
-                                    fragment = new HardwarFragment();
-                                } else {
-                                    mDrawerLayout.closeDrawer(mDrawerList);
-                                    onBackPressed();
-                                    return false;
-                                }
-                                break;
-                            case 1:
-                                setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
-
-                                backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
-
-                                if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(8, true);
-                                    toolbarTitle.setText(getString(R.string.software));
-                                    fragment = new SoftwareFragment();
-                                } else {
-                                    mDrawerLayout.closeDrawer(mDrawerList);
-                                    onBackPressed();
-                                    return false;
-                                }
-                                break;
-                            case 2:
-                                setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
-
-                                backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
-
-                                if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(9, true);
-                                    toolbarTitle.setText(getString(R.string.services));
-                                    fragment = new ServicesFragment();
-                                } else {
-                                    mDrawerLayout.closeDrawer(mDrawerList);
-                                    onBackPressed();
-                                    return false;
-                                }
-                                break;
-                            case 3:
-                                setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
-
-                                backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
-
-                                if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(10, true);
-                                    toolbarTitle.setText(getString(R.string.audioVideo));
-                                    fragment = new AudioVideoFragment();
-                                } else {
-                                    mDrawerLayout.closeDrawer(mDrawerList);
-                                    onBackPressed();
-                                    return false;
-                                }
-                                break;
-                            case 4:
-                                setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
-
-
-                                backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
-
-                                if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(11, true);
-                                    toolbarTitle.setText(getString(R.string.information));
-                                    fragment = new InformationFragment();
-                                } else {
-                                    mDrawerLayout.closeDrawer(mDrawerList);
-                                    onBackPressed();
-                                    return false;
-                                }
-                                break;
-
-                            case 5:
-                                setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
-
-
-                                backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
-
-                                if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(12, true);
-                                    toolbarTitle.setText(getString(R.string.productivity));
-                                    fragment = new ProductivityFragment();
-                                } else {
-                                    mDrawerLayout.closeDrawer(mDrawerList);
-                                    onBackPressed();
-                                    return false;
-                                }
-                                break;
-                        }
-                    } else if (groupPosition == 6) {
-
-                        switch (childPosition) {
-                            case 0:
-                                setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
-
-                                backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
-
-                                if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(8, true);
-                                    toolbarTitle.setText(getString(R.string.conferences));
-                                    fragment = new ConferencesFragment();
-                                } else {
-                                    mDrawerLayout.closeDrawer(mDrawerList);
-                                    onBackPressed();
-                                    return false;
-                                }
-                                break;
-                            case 1:
-                                setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
-
-
-                                backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
-
-                                if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(9, true);
-                                    toolbarTitle.setText(getString(R.string.demo_days));
-
-                                    fragment = new DemoDaysFragment();
-                                } else {
-                                    mDrawerLayout.closeDrawer(mDrawerList);
-                                    onBackPressed();
-                                    return false;
-                                }
-                                break;
-                            case 2:
-                                setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
-
-                                backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
-
-                                if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(10, true);
-                                    toolbarTitle.setText(getString(R.string.meet_ups));
-                                    fragment = new MeetUpFragment();
-                                } else {
-                                    mDrawerLayout.closeDrawer(mDrawerList);
-                                    onBackPressed();
-                                    return false;
-                                }
-                                break;
-                            case 3:
-                                setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
-
-
-                                backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
-
-                                if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(11, true);
-                                    toolbarTitle.setText(getString(R.string.webinars));
-                                    fragment = new WebinarFragment();
-                                } else {
-                                    mDrawerLayout.closeDrawer(mDrawerList);
-                                    onBackPressed();
-                                    return false;
-                                }
-                                break;
-                        }
-                    } else if (groupPosition == 7) {
-                        switch (childPosition) {
-                            case 0:
-                                setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
-
-
-                                backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
-
-                                if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(9, true);
-                                    toolbarTitle.setText(getString(R.string.beta_testers));
-                                    fragment = new BetaTestersFragment();
-                                } else {
-                                    mDrawerLayout.closeDrawer(mDrawerList);
-                                    onBackPressed();
-                                    return false;
-                                }
-                                break;
-                            case 1:
-                                setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
-
-
-                                backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
-
-                                if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(10, true);
-                                    toolbarTitle.setText(getString(R.string.board_members));
-                                    fragment = new BoardMembersFragment();
-                                } else {
-                                    mDrawerLayout.closeDrawer(mDrawerList);
-                                    onBackPressed();
-                                    return false;
-                                }
-                                break;
-                            case 2:
-                                setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
-
-                                backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
-
-                                if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(11, true);
-                                    toolbarTitle.setText(getString(R.string.communal_assets));
-                                    fragment = new CommunalAssetsFragment();
-                                } else {
-                                    mDrawerLayout.closeDrawer(mDrawerList);
-                                    onBackPressed();
-                                    return false;
-                                }
-                                break;
-                            case 3:
-                                setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
-
-
-                                backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
-
-                                if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(12, true);
-                                    toolbarTitle.setText(getString(R.string.consulting));
-                                    fragment = new ConsultingFragment();
-                                } else {
-                                    mDrawerLayout.closeDrawer(mDrawerList);
-                                    onBackPressed();
-                                    return false;
-                                }
-                                break;
-                            case 4:
-                                setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
-
-                                backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
-
-                                if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(13, true);
-                                    toolbarTitle.setText(getString(R.string.early_adopters));
-                                    fragment = new EarlyAdatorsFragment();
-                                } else {
-                                    mDrawerLayout.closeDrawer(mDrawerList);
-                                    onBackPressed();
-                                    return false;
-                                }
-                                break;
-                            case 5:
                                 setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
                                     mDrawerList.setItemChecked(14, true);
+                                    toolbarTitle.setText("Notes");
+                                    fragment = new NotesFragment();
+                                } else {
+                                    mDrawerLayout.closeDrawer(mDrawerList);
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                                    return false;
+                                }
+                                break;
+
+                        }
+                    } else if (groupPosition == 6) {
+                        switch (childPosition) {
+                            case 0:
+                                setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
+
+                                backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
+
+                                if (backStackEntryCount == 0) {
+                                    mDrawerList.setItemChecked(8, true);
+                                    toolbarTitle.setText(getString(R.string.hardware));
+                                    fragment = new HardwarFragment();
+                                } else {
+                                    mDrawerLayout.closeDrawer(mDrawerList);
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                                    return false;
+                                }
+                                break;
+                            case 1:
+                                setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
+
+                                backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
+
+                                if (backStackEntryCount == 0) {
+                                    mDrawerList.setItemChecked(9, true);
+                                    toolbarTitle.setText(getString(R.string.software));
+                                    fragment = new SoftwareFragment();
+                                } else {
+                                    mDrawerLayout.closeDrawer(mDrawerList);
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                                    return false;
+                                }
+                                break;
+                            case 2:
+                                setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
+
+                                backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
+
+                                if (backStackEntryCount == 0) {
+                                    mDrawerList.setItemChecked(10, true);
+                                    toolbarTitle.setText(getString(R.string.services));
+                                    fragment = new ServicesFragment();
+                                } else {
+                                    mDrawerLayout.closeDrawer(mDrawerList);
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                                    return false;
+                                }
+                                break;
+                            case 3:
+                                setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
+
+                                backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
+
+                                if (backStackEntryCount == 0) {
+                                    mDrawerList.setItemChecked(11, true);
+                                    toolbarTitle.setText(getString(R.string.audioVideo));
+                                    fragment = new AudioVideoFragment();
+                                } else {
+                                    mDrawerLayout.closeDrawer(mDrawerList);
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                                    return false;
+                                }
+                                break;
+                            case 4:
+                                setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
+
+
+                                backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
+
+                                if (backStackEntryCount == 0) {
+                                    mDrawerList.setItemChecked(12, true);
+                                    toolbarTitle.setText(getString(R.string.information));
+                                    fragment = new InformationFragment();
+                                } else {
+                                    mDrawerLayout.closeDrawer(mDrawerList);
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                                    return false;
+                                }
+                                break;
+
+                            case 5:
+                                setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
+
+
+                                backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
+
+                                if (backStackEntryCount == 0) {
+                                    mDrawerList.setItemChecked(13, true);
+                                    toolbarTitle.setText(getString(R.string.productivity));
+                                    fragment = new ProductivityFragment();
+                                } else {
+                                    mDrawerLayout.closeDrawer(mDrawerList);
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                                    return false;
+                                }
+                                break;
+                        }
+                    } else if (groupPosition == 7) {
+
+                        switch (childPosition) {
+                            case 0:
+                                setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
+
+                                backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
+
+                                if (backStackEntryCount == 0) {
+                                    mDrawerList.setItemChecked(9, true);
+                                    toolbarTitle.setText(getString(R.string.conferences));
+                                    fragment = new ConferencesFragment();
+                                } else {
+                                    mDrawerLayout.closeDrawer(mDrawerList);
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                                    return false;
+                                }
+                                break;
+                            case 1:
+                                setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
+
+
+                                backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
+
+                                if (backStackEntryCount == 0) {
+                                    mDrawerList.setItemChecked(10, true);
+                                    toolbarTitle.setText(getString(R.string.demo_days));
+
+                                    fragment = new DemoDaysFragment();
+                                } else {
+                                    mDrawerLayout.closeDrawer(mDrawerList);
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                                    return false;
+                                }
+                                break;
+                            case 2:
+                                setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
+
+                                backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
+
+                                if (backStackEntryCount == 0) {
+                                    mDrawerList.setItemChecked(11, true);
+                                    toolbarTitle.setText(getString(R.string.meet_ups));
+                                    fragment = new MeetUpFragment();
+                                } else {
+                                    mDrawerLayout.closeDrawer(mDrawerList);
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                                    return false;
+                                }
+                                break;
+                            case 3:
+                                setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
+
+
+                                backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
+
+                                if (backStackEntryCount == 0) {
+                                    mDrawerList.setItemChecked(12, true);
+                                    toolbarTitle.setText(getString(R.string.webinars));
+                                    fragment = new WebinarFragment();
+                                } else {
+                                    mDrawerLayout.closeDrawer(mDrawerList);
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                                    return false;
+                                }
+                                break;
+                        }
+                    } else if (groupPosition == 8) {
+                        switch (childPosition) {
+                            case 0:
+                                setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
+
+
+                                backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
+
+                                if (backStackEntryCount == 0) {
+                                    mDrawerList.setItemChecked(10, true);
+                                    toolbarTitle.setText(getString(R.string.beta_testers));
+                                    fragment = new BetaTestersFragment();
+                                } else {
+                                    mDrawerLayout.closeDrawer(mDrawerList);
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                                    return false;
+                                }
+                                break;
+                            case 1:
+                                setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
+
+
+                                backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
+
+                                if (backStackEntryCount == 0) {
+                                    mDrawerList.setItemChecked(11, true);
+                                    toolbarTitle.setText(getString(R.string.board_members));
+                                    fragment = new BoardMembersFragment();
+                                } else {
+                                    mDrawerLayout.closeDrawer(mDrawerList);
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                                    return false;
+                                }
+                                break;
+                            case 2:
+                                setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
+
+                                backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
+
+                                if (backStackEntryCount == 0) {
+                                    mDrawerList.setItemChecked(12, true);
+                                    toolbarTitle.setText(getString(R.string.communal_assets));
+                                    fragment = new CommunalAssetsFragment();
+                                } else {
+                                    mDrawerLayout.closeDrawer(mDrawerList);
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                                    return false;
+                                }
+                                break;
+                            case 3:
+                                setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
+
+
+                                backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
+
+                                if (backStackEntryCount == 0) {
+                                    mDrawerList.setItemChecked(13, true);
+                                    toolbarTitle.setText(getString(R.string.consulting));
+                                    fragment = new ConsultingFragment();
+                                } else {
+                                    mDrawerLayout.closeDrawer(mDrawerList);
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                                    return false;
+                                }
+                                break;
+                            case 4:
+                                setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
+
+                                backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
+
+                                if (backStackEntryCount == 0) {
+                                    mDrawerList.setItemChecked(14, true);
+                                    toolbarTitle.setText(getString(R.string.early_adopters));
+                                    fragment = new EarlyAdatorsFragment();
+                                } else {
+                                    mDrawerLayout.closeDrawer(mDrawerList);
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                                    return false;
+                                }
+                                break;
+                            case 5:
+                                setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
+
+                                backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
+
+                                if (backStackEntryCount == 0) {
+                                    mDrawerList.setItemChecked(15, true);
                                     toolbarTitle.setText(getString(R.string.endorsers));
                                     fragment = new EndorsersFragment();
                                 } else {
                                     mDrawerLayout.closeDrawer(mDrawerList);
-                                    onBackPressed();
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                     return false;
                                 }
                                 break;
@@ -1507,12 +1644,12 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(15, true);
+                                    mDrawerList.setItemChecked(16, true);
                                     toolbarTitle.setText(getString(R.string.focus_groups));
                                     fragment = new FocusGroupsFragment();
                                 } else {
                                     mDrawerLayout.closeDrawer(mDrawerList);
-                                    onBackPressed();
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                     return false;
                                 }
                                 break;
@@ -1522,12 +1659,12 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(16, true);
+                                    mDrawerList.setItemChecked(17, true);
                                     toolbarTitle.setText(getString(R.string.jobs));
                                     fragment = new JobsFragment();
                                 } else {
                                     mDrawerLayout.closeDrawer(mDrawerList);
-                                    onBackPressed();
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                     return false;
                                 }
                                 break;
@@ -1537,12 +1674,12 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(17, true);
+                                    mDrawerList.setItemChecked(18, true);
                                     toolbarTitle.setText(getString(R.string.recruiter));
                                     fragment = new RecruitersFragment();
                                 } else {
                                     mDrawerLayout.closeDrawer(mDrawerList);
-                                    onBackPressed();
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                     return false;
                                 }
                                 break;
@@ -1742,7 +1879,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     public void onTaskComplete(String result, String tag) {
 
-        Log.e("result", result);
+        CrowdBootstrapLogger.logInfo(result);
         if (result.equalsIgnoreCase(Constants.NOINTERNET)) {
             dismissProgressDialog();
             Toast.makeText(HomeActivity.this, getString(R.string.check_internet), Toast.LENGTH_LONG).show();
@@ -1803,6 +1940,42 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                 }
 
 
+            } else if (tag.equalsIgnoreCase(Constants.DISCONNECT_USER_TAG)) {
+                (HomeActivity.this).dismissProgressDialog();
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    //System.out.println(jsonObject);
+
+                    if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
+                        Toast.makeText(HomeActivity.this, "User disconnected successfully.", Toast.LENGTH_SHORT).show();
+
+
+                    } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
+                        Toast.makeText(HomeActivity.this, "Could not send request. Please Try after some time.", Toast.LENGTH_SHORT).show();
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else if (tag.equalsIgnoreCase(Constants.ACCEPT_CONNECTION_USER_TAG)) {
+                (HomeActivity.this).dismissProgressDialog();
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    //System.out.println(jsonObject);
+
+                    if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
+                        Toast.makeText(HomeActivity.this, "User connected successfully.", Toast.LENGTH_SHORT).show();
+
+
+                    } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
+                        Toast.makeText(HomeActivity.this, "Could not send request. Please Try after some time.", Toast.LENGTH_SHORT).show();
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             } else {
                 mListener.onTaskComplete(result, tag);
             }
@@ -1844,7 +2017,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
                 try {
                     JSONObject jsonObject = new JSONObject(result);
-                    System.out.println(jsonObject);
+                    CrowdBootstrapLogger.logInfo(jsonObject.toString());
 
                     if (jsonObject.getString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase("200")) {
 
@@ -1904,7 +2077,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                         notificationManager.cancelAll();
                         QbUsersHolder.getInstance().clear();
                         prefManager.clearAllPreferences();
-                        startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+                        startActivity(new Intent(HomeActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                         finish();
                     } else if (jsonObject.getString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase("404")) {
                         utilitiesClass.alertDialogSingleButton(jsonObject.getString("message"));
@@ -1924,17 +2097,18 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                     logout.put("access_token", prefManager.getString(Constants.GCM_REGISTRATION_ID));
                     logout.put("device_token", prefManager.getString(Constants.DEVICE_TOKEN));
                     logout.put("device_type", "android");
-                    System.out.println(logout);
+                    CrowdBootstrapLogger.logInfo(logout.toString());
 
                     result = utilitiesClass.postJsonObject(Constants.LOGOUT_URL, logout);
                     if (result.contains("200")) {
                         GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(getBaseContext());
                         try {
-                            gcm.unregister();
+                            InstanceID.getInstance(HomeActivity.this).deleteInstanceID();
+                            //gcm.unregister();
                             Log.d("unregister", "unregister");
                             // Toast.makeText(HomeActivity.this, "unregister", Toast.LENGTH_LONG).show();
                         } catch (IOException e) {
-                            System.out.println("Error Message: " + e.getMessage());
+                            CrowdBootstrapLogger.logInfo("Error Message: " + e.getMessage());
                         }
                     }
 
@@ -2071,6 +2245,5 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         }
         return super.onOptionsItemSelected(item);
     }
-
 
 }

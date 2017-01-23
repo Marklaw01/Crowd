@@ -83,12 +83,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by neelmani.karn on 1/22/2016.
  */
-public class AddCampaignFragment extends Fragment implements /*View.OnClickListener,*/ onActivityResultListener, AsyncTaskCompleteListener<String> {
+public class AddCampaignFragment extends Fragment implements onActivityResultListener, AsyncTaskCompleteListener<String> {
 
     private ScrollView scrollView;
     private ImageView tv_deleteFile;
@@ -804,19 +803,6 @@ public class AddCampaignFragment extends Fragment implements /*View.OnClickListe
                 }
 
             });
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

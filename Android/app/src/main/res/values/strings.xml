@@ -40,6 +40,11 @@
     <string name="post">Post</string>
     <string name="termsandconditions">Terms And Conditions</string>
     <string name="privacypolicy">Privacy Policy</string>
+    <string name="facebook">Facebook</string>
+    <string name="linkedin">LinkedIn</string>
+    <string name="google">Google</string>
+
+    <string name="server_client_id">502919930015-0ft1i40ev21ddu751q703kj5kl4se2uo.apps.googleusercontent.com</string>
 
     <!--Strings related to setting Screen-->
     <string name="notification">Notifications</string>
@@ -49,6 +54,9 @@
     <string name="chooseSecurityQuestion">Choose Security Question</string>
     <string name="resetPassword">Reset Password</string>
 
+    <!--strings related to App IDS-->
+
+    <string name="facebook_app_id">1772822902981170</string>
     <!--strings related to campaigns screen-->
     <string name="addCampaings">Add Campaign</string>
     <string name="viewDocument">View Document</string>
@@ -163,6 +171,7 @@
     <string name="city">City</string>
     <string name="securityquestion">Choose Security Question</string>
     <string name="addcontributor">Add Contractor</string>
+    <string name="addjob">Post Job</string>
     <string name="ratecontributor">Rate Contractor</string>
 
     <string name="updateWorkorder">Update Work Orders</string>
@@ -192,8 +201,6 @@
     <string name="hoursapproved">Work Units Approved</string>
     <string name="assign">Assign</string>
     <string name="targetcompletetext">Target Completion Date</string>
-
-
 
     <!--strings related to Rate Contributor screen-->
     <string name="description">Description</string>
@@ -227,6 +234,10 @@
     <string name="entrepreneur">Entrepreneur</string>
     <string name="temmember">Team Member</string>
     <string name="contractor">Contractor</string>
+    <string name="organization">Organizations</string>
+    <string name="organizationvideo">Organization Video</string>
+    <string name="organizationsearch">Organization Search</string>
+
     <string name="membername">Member Name</string>
     <string name="designation">Designation</string>
 
@@ -273,4 +284,71 @@
     <string name="connection_error">Chat connection has been dropped</string>
     <string name="reconnect_alert">Reconnecting in %s seconds</string>
     <string name="select_users_choose_users">Please, choose at least two participant.</string>
+
+
+
+
+
+
+    <string name="cancelled">Cancelled</string>
+    <string name="permission_not_granted">Unable to perform selected action because permissions were not granted.</string>
+    <string name="ok">OK</string>
+    <string name="hello_user">Hello %1$s!</string>
+    <string name="success">Success</string>
+    <string name="successfully_posted_post">Post ID: %1$s</string>
+    <string name="error">Error</string>
+    <string name="status_update">Updating status for %1$s at %2$s</string>
+    <string name="photo_post">Photo Post</string>
+    <string name="you_picked">You picked:</string>
+    <string name="no_friends_selected">&lt;No friends selected&gt;</string>
+    <string name="no_place_selected">&lt;No place selected&gt;</string>
+    <string name="pick_seattle_place">Pick a Seattle Place</string>
+    <string name="app_id">1772822902981170</string>
+    <string name="exception">Exception: %1$s</string>
+    <string name="time_out">Your request has timed out. Please check your Internet connection then try again.</string>
+    <!--constants used in milestone 4-->
+    <string name="findFunds">Find Funds</string>
+    <string name="fundInvest">Fund/Invest</string>
+    <string name="myfunds">My Funds</string>
+    <string name="archived">Archived</string>
+    <string name="deactivated">Deactivated</string>
+    <string name="search">Search</string>
+    <string name="createFund">Create Fund</string>
+    <string name="archive">Archive</string>
+    <string name="deactivate">Deactivate</string>
+    <string name="delete">Delete</string>
+    <string name="like">Like</string>
+    <string name="deslike">Deslike</string>
+    <string name="funds_title">Fund\'s Title</string>
+    <string name="funds_managers">Fund\'s Managers</string>
+    <string name="sponsers">Sponsors</string>
+    <string name="industry">Industry</string>
+    <string name="portfolio_companies">Portfolio Companies</string>
+    <string name="investment_start_date">Investment Start Date</string>
+    <string name="investment_end_date">Investment End Date</string>
+    <string name="funds_closed_date">Fund\'s Closed Date</string>
+    <string name="apply">Apply</string>
+    <string name="funds_image">Fund\'s Image</string>
+    <string name="donot_like_dislike_own_funds">You cannot like or dislike your own funds.</string>
+    <string name="activate">Activate</string>
+    <string name="update_fund">Update Fund</string>
+    <string name="fund_title_required">Fund\'s title cannot be left blank!</string>
+    <string name="description_required">Description cannot be left blank!</string>
+    <string name="fund_managers_required">Select at least one Fund Managers!</string>
+    <string name="fund_sponsors_required">Select at least one Fund Sponsors!</string>
+    <string name="fund_industry_required">Select at least one Industry!</string>
+    <string name="fund_portfolio_required">Select at least one Portfolio Company!</string>
+    <string name="fund_startDate_required">Fund\'s investment start date cannot be left blank!</string>
+    <string name="fund_endDate_required">Fund\'s investment end date cannot be left blank!!</string>
+    <string name="fund_close_required">Fund\'s close date cannot be left blank!</string>
+    <string name="fund_keyword_required">Select at least one Keyword!</string>
+    <string name="fund_startdate_validation">Fund\'s Investment start date cannot be present or past date!</string>
+    <string name="fund_end_date_validation">Fund\'s Investment end date cannot be present or past date!</string>
+    <string name="fund_close_date_validation">Fund\'s close date cannot be present or past date!</string>
+    <string name="noFunds">No Funds Available</string>
+    <string name="fund_deleted">Your fund is deleted successfully.</string>
+    <string name="fund_archived">Your fund is archived successfully</string>
+    <string name="fund_deactivated">Your fund deactivated successfully</string>
+    <string name="fundActivated">Your fund activated successfully.</string>
+
 </resources>

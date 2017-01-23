@@ -80,6 +80,7 @@ public class SendMessageFragment extends Fragment implements AsyncTaskCompleteLi
                             obj.put("from_team_memberid", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
                             obj.put("sender_role_id", TeamStartUpFragment.LOGGEDIN_USER_ROLE);
                             obj.put("to_team_memberid", to_team_memberid);
+                            obj.put("msg_type", "team");
                             obj.put("subject", et_subject.getText().toString().trim());
                             obj.put("message_text", et_message.getText().toString().trim());
                         } catch (JSONException e) {

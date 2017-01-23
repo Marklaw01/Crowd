@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
 import com.crowdbootstrapapp.R;
 import com.crowdbootstrapapp.activities.HomeActivity;
 
@@ -43,15 +42,15 @@ public class CurrentStartUpDetailFragment extends Fragment {
             from = getArguments().getString("from");
             Log.e("startup_id", getArguments().getString("id"));
             titleSTartup = getArguments().getString("STARTUP_NAME");
-
             ENTREPRENEUR_ID = getArguments().getString("entrepreneur_id");
+
             viewPager = (ViewPager) rootView.findViewById(R.id.viewpager);
 
             tabLayout = (TabLayout) rootView.findViewById(R.id.tabs);
             if (from.compareTo("mystartup") == 0) {
 
 
-                if(CurrentStartUpFragment.strCommingFrom.compareTo("WORK_ORDERS") == 0){
+                if (CurrentStartUpFragment.strCommingFrom.compareTo("WORK_ORDERS") == 0) {
                     Fragment workOrderEntrepreneur = new WorkOrderStartUpEntrepreneur();
 
 
@@ -61,8 +60,7 @@ public class CurrentStartUpDetailFragment extends Fragment {
                     getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                     ft.commit();
 
-                }
-                else{
+                } else {
                     setupViewPagerEntrepreneur(viewPager);
                     tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
                     tabLayout.post(new Runnable() {
@@ -115,9 +113,9 @@ public class CurrentStartUpDetailFragment extends Fragment {
         return rootView;
     }
 
-    void selectPage(int pageIndex){
+    void selectPage(int pageIndex) {
         try {
-            tabLayout.setScrollPosition(pageIndex,0f,true);
+            tabLayout.setScrollPosition(pageIndex, 0f, true);
             viewPager.setCurrentItem(pageIndex);
         } catch (Exception e) {
             e.printStackTrace();

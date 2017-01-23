@@ -171,8 +171,8 @@ public class WorkOrderStartUpEntrepreneur extends Fragment implements AsyncTaskC
                     Fragment WorkOrderStartupEntrepreneurDetailsFragment = new WorkOrderStartupEntrepreneurDetails();
 
                     Bundle args = new Bundle();
-                    args.putString("week_no", listContractor.get(position).getWeek_no());
-                    args.putString("contractor_id", listContractor.get(position).getContactor_id());
+                    args.putString("week_no", listContractor.get(position).getWeek_no() );
+                    args.putString("contractor_id",  listContractor.get(position).getContactor_id());
                     args.putString("startup_id", listContractor.get(position).getStartup_id());
                     args.putString("startup_teamid", listContractor.get(position).getStartup_teamid());
                     WorkOrderStartupEntrepreneurDetailsFragment.setArguments(args);

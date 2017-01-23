@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.crowdbootstrapapp.R;
 import com.crowdbootstrapapp.activities.HomeActivity;
 import com.crowdbootstrapapp.adapter.StartupsExpandableListAdapter;
@@ -18,7 +19,6 @@ import com.crowdbootstrapapp.models.StartupItemsObject;
 import com.crowdbootstrapapp.models.StartupsObject;
 import com.crowdbootstrapapp.utilities.Async;
 import com.crowdbootstrapapp.utilities.Constants;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -93,6 +93,8 @@ public class StartUpsOtherPublicProfileFragment extends Fragment implements View
         } else if (Constants.COMMING_FROM_INTENT.equalsIgnoreCase("campaignsearch")) {
             btn_addStartup.setVisibility(View.GONE);
         } else if (Constants.COMMING_FROM_INTENT.compareTo("home") == 0) {
+            btn_addStartup.setVisibility(View.GONE);
+        } else if (Constants.COMMING_FROM_INTENT.compareTo(Constants.LIKE_DISLIKE) == 0) {
             btn_addStartup.setVisibility(View.GONE);
         } else {
             btn_addStartup.setVisibility(View.VISIBLE);

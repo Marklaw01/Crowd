@@ -1,5 +1,7 @@
 package com.crowdbootstrapapp.fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,12 +10,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.crowdbootstrapapp.R;
 import com.crowdbootstrapapp.activities.HomeActivity;
 import com.crowdbootstrapapp.listeners.AsyncTaskCompleteListener;
 import com.crowdbootstrapapp.utilities.Async;
 import com.crowdbootstrapapp.utilities.Constants;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -63,7 +65,7 @@ public class ViewOtherBasicPublicProfileFragment extends Fragment implements Asy
                 }
             }
             // _hasLoadedOnce = true;
-        }
+       }
     }
 
     @Override
@@ -162,7 +164,7 @@ public class ViewOtherBasicPublicProfileFragment extends Fragment implements Asy
                     if (ViewOtherContractorPublicProfileFragment.connectionOption.getText().toString().trim().compareTo("Connect") == 0) {
                         if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
                             ((HomeActivity) getActivity()).showProgressDialog();
-                            Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.CONNECT_USER_TAG, Constants.CONNECT_USER_URL + "?connection_by=" + ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID) + "&connection_to=" + ViewOtherContractorPublicProfileFragment.userId + "&status=0", Constants.HTTP_GET, "Home Activity");
+                            Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.CONNECT_USER_TAG, Constants.CONNECT_USER_URL+"?connection_by="+ ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID)+"&connection_to="+ ViewOtherContractorPublicProfileFragment.userId + "&status=0", Constants.HTTP_GET, "Home Activity");
                             a.execute();
                         } else {
                             //((HomeActivity) getActivity()).dismissProgressDialog();
@@ -172,17 +174,7 @@ public class ViewOtherBasicPublicProfileFragment extends Fragment implements Asy
                     } else if (ViewOtherContractorPublicProfileFragment.connectionOption.getText().toString().trim().compareTo("Disconnect") == 0) {
                         if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
                             ((HomeActivity) getActivity()).showProgressDialog();
-                            Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.DISCONNECT_USER_TAG, Constants.DISCONNECT_USER_URL + "?user_id=" + ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID) + "&connection_id=" + connectionID, Constants.HTTP_GET, "Home Activity");
-                            a.execute();
-                        } else {
-                            //((HomeActivity) getActivity()).dismissProgressDialog();
-                            ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
-                        }
-
-                    } else if (ViewOtherContractorPublicProfileFragment.connectionOption.getText().toString().trim().compareTo("Request Sent") == 0) {
-                        if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
-                            ((HomeActivity) getActivity()).showProgressDialog();
-                            Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.DISCONNECT_USER_TAG, Constants.DISCONNECT_USER_URL + "?user_id=" + ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID) + "&connection_id=" + connectionID, Constants.HTTP_GET, "Home Activity");
+                            Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.DISCONNECT_USER_TAG, Constants.DISCONNECT_USER_URL+"?user_id="+ ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID)+"&connection_id="+ connectionID, Constants.HTTP_GET, "Home Activity");
                             a.execute();
                         } else {
                             //((HomeActivity) getActivity()).dismissProgressDialog();
@@ -191,6 +183,65 @@ public class ViewOtherBasicPublicProfileFragment extends Fragment implements Asy
 
                     }
 
+                    else if (ViewOtherContractorPublicProfileFragment.connectionOption.getText().toString().trim().compareTo("Request Sent") == 0) {
+                        if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
+                            ((HomeActivity) getActivity()).showProgressDialog();
+                            Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.DISCONNECT_USER_TAG, Constants.DISCONNECT_USER_URL+"?user_id="+ ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID)+"&connection_id="+ connectionID, Constants.HTTP_GET, "Home Activity");
+                            a.execute();
+                        } else {
+                            //((HomeActivity) getActivity()).dismissProgressDialog();
+                            ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
+                        }
+
+                    }
+                    else if (ViewOtherContractorPublicProfileFragment.connectionOption.getText().toString().trim().compareTo("Respond") == 0) {
+
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+
+                        alertDialogBuilder
+                                .setMessage("Do you want to accept the connection request")
+                                .setCancelable(false)
+                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int arg1) {
+                                        dialog.cancel();
+
+                                        if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
+                                            ((HomeActivity) getActivity()).showProgressDialog();
+                                            Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.DISCONNECT_USER_TAG, Constants.DISCONNECT_USER_URL+"?user_id="+ ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID)+"&connection_id="+ connectionID, Constants.HTTP_GET, "Home Activity");
+                                            a.execute();
+                                        } else {
+                                            //((HomeActivity) getActivity()).dismissProgressDialog();
+                                            ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
+                                        }
+                                    }
+                                })
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int arg1) {
+                                        dialog.cancel();
+                                        if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
+                                            ((HomeActivity) getActivity()).showProgressDialog();
+                                            Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.ACCEPT_CONNECTION_USER_TAG, Constants.ACCEPT_CONNECTION_USER_URL+"?user_id="+ ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID)+"&connection_id="+ connectionID+ "&status=1", Constants.HTTP_GET, "Home Activity");
+                                            a.execute();
+                                        } else {
+                                            //((HomeActivity) getActivity()).dismissProgressDialog();
+                                            ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
+                                        }
+
+                                    }
+                                });
+
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+
+                        alertDialog.show();
+
+
+
+
+                    }
 
                 }
             });
@@ -260,6 +311,7 @@ public class ViewOtherBasicPublicProfileFragment extends Fragment implements Asy
     private String connectionSent;
     private String connectionStatus;
     private String connectionID;
+    private String connectionRecieved;
     @Override
     public void onTaskComplete(String result, String tag) {
         if (result.equalsIgnoreCase(Constants.NOINTERNET)) {
@@ -305,18 +357,25 @@ public class ViewOtherBasicPublicProfileFragment extends Fragment implements Asy
                         connectionSent = jsonObject.optString("connection_sent").trim();
                         connectionStatus = jsonObject.optString("connection_status").trim();
                         connectionID = jsonObject.optString("connection_id").trim();
+                        connectionRecieved = jsonObject.optString("connection_received").trim();
 
 
 
-                        if (connectionSent.compareTo("0") == 0) {
+
+                        if ((connectionRecieved.compareTo("1") == 0) && (connectionSent.compareTo("0") == 0) && (connectionStatus.compareTo("0") == 0)) {
+                            ViewOtherContractorPublicProfileFragment.connectionOption.setText("Respond");
+                        }
+                        else if((connectionRecieved.compareTo("1") == 0) && (connectionSent.compareTo("0") == 0) && (connectionStatus.compareTo("1") == 0)){
+                            ViewOtherContractorPublicProfileFragment.connectionOption.setText("Disconnect");
+                        }
+                        else if((connectionRecieved.compareTo("0") == 0) && (connectionSent.compareTo("1") == 0) && (connectionStatus.compareTo("0") == 0)){
+                            ViewOtherContractorPublicProfileFragment.connectionOption.setText("Request Sent");
+                        }
+                        else if((connectionRecieved.compareTo("0") == 0) && (connectionSent.compareTo("1") == 0) && (connectionStatus.compareTo("1") == 0)){
+                            ViewOtherContractorPublicProfileFragment.connectionOption.setText("Disconnect");
+                        }
+                        else if((connectionRecieved.compareTo("0") == 0) && (connectionSent.compareTo("0") == 0) && (connectionStatus.compareTo("0") == 0)){
                             ViewOtherContractorPublicProfileFragment.connectionOption.setText("Connect");
-                        } else {
-
-                            if (connectionStatus.compareTo("0") == 0) {
-                                ViewOtherContractorPublicProfileFragment.connectionOption.setText("Request Sent");
-                            } else {
-                                ViewOtherContractorPublicProfileFragment.connectionOption.setText("Disconnect");
-                            }
                         }
 
                         ViewOtherContractorPublicProfileFragment.tv_username.setText(basic_information.optString("name").trim());
@@ -452,6 +511,25 @@ public class ViewOtherBasicPublicProfileFragment extends Fragment implements Asy
                     if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
                         Toast.makeText(getActivity(), "User disconnected successfully.", Toast.LENGTH_SHORT).show();
                         ViewOtherContractorPublicProfileFragment.connectionOption.setText("Connect");
+
+                    } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
+                        Toast.makeText(getActivity(), "Could not send request. Please Try after some time.", Toast.LENGTH_SHORT).show();
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            else if (tag.equalsIgnoreCase(Constants.ACCEPT_CONNECTION_USER_TAG)) {
+                ((HomeActivity) getActivity()).dismissProgressDialog();
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    System.out.println(jsonObject);
+
+                    if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
+                        Toast.makeText(getActivity(), "User connected successfully.", Toast.LENGTH_SHORT).show();
+                        ViewOtherContractorPublicProfileFragment.connectionOption.setText("Disconnect");
 
                     } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
                         Toast.makeText(getActivity(), "Could not send request. Please Try after some time.", Toast.LENGTH_SHORT).show();

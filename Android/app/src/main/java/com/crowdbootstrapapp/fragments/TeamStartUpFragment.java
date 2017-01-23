@@ -16,20 +16,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-
-import com.crowdbootstrapapp.R;
-import com.crowdbootstrapapp.activities.HomeActivity;
-import com.crowdbootstrapapp.adapter.TeamMemberAdapter;
-import com.crowdbootstrapapp.chat.callback.QbEntityCallbackWrapper;
-import com.crowdbootstrapapp.helper.ListViewForEmbeddingInScrollView;
-import com.crowdbootstrapapp.listeners.AsyncTaskCompleteListener;
-import com.crowdbootstrapapp.models.TeamMemberObject;
-import com.crowdbootstrapapp.swipelistview_withoutscrollview.SwipeMenu;
-import com.crowdbootstrapapp.swipelistview_withoutscrollview.SwipeMenuCreator;
-import com.crowdbootstrapapp.swipelistview_withoutscrollview.SwipeMenuItem;
-import com.crowdbootstrapapp.swipelistview_withoutscrollview.SwipeMenuListView;
-import com.crowdbootstrapapp.utilities.Async;
-import com.crowdbootstrapapp.utilities.Constants;
 import com.quickblox.chat.QBChatService;
 import com.quickblox.chat.model.QBDialog;
 import com.quickblox.chat.model.QBDialogType;
@@ -42,6 +28,19 @@ import com.quickblox.core.request.QBRequestGetBuilder;
 import com.quickblox.core.request.QueryRule;
 import com.quickblox.customobjects.QBCustomObjects;
 import com.quickblox.customobjects.model.QBCustomObject;
+import com.crowdbootstrapapp.R;
+import com.crowdbootstrapapp.activities.HomeActivity;
+import com.crowdbootstrapapp.adapter.TeamMemberAdapter;
+import com.crowdbootstrapapp.chat.callback.QbEntityCallbackWrapper;
+import com.crowdbootstrapapp.helper.ListViewForEmbeddingInScrollView;
+import com.crowdbootstrapapp.listeners.AsyncTaskCompleteListener;
+import com.crowdbootstrapapp.models.TeamMemberObject;
+import com.crowdbootstrapapp.swipelistviewinscrollview.SwipeMenu;
+import com.crowdbootstrapapp.swipelistviewinscrollview.SwipeMenuCreator;
+import com.crowdbootstrapapp.swipelistviewinscrollview.SwipeMenuItem;
+import com.crowdbootstrapapp.swipelistviewinscrollview.SwipeMenuListView;
+import com.crowdbootstrapapp.utilities.Async;
+import com.crowdbootstrapapp.utilities.Constants;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -1087,7 +1086,7 @@ public class TeamStartUpFragment extends Fragment implements AsyncTaskCompleteLi
                         requestBuilder.addUsers(usersIds.get(i));
                     }
 
-                    // QBRequestUpdateBuilder requestBuilder = new QBRequestUpdateBuilder();
+                   // QBRequestUpdateBuilder requestBuilder = new QBRequestUpdateBuilder();
                     //requestBuilder.pushAll("occupants_ids", usersIds);
                     //dialogToBeUpdated.setOccupantsIds(usersIds);
                     dialogToBeUpdated.setName(CurrentStartUpDetailFragment.titleSTartup + " Group");

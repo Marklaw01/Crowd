@@ -41,7 +41,7 @@
 
             <RatingBar
                 android:id="@+id/profileRating"
-                style="@style/RatingBarSmallAppTheme"
+                style="?android:attr/ratingBarStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_height="wrap_content"

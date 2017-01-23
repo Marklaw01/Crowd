@@ -25,7 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
+import com.inqbarna.tablefixheaders.TableFixHeaders;
 import com.crowdbootstrapapp.R;
 import com.crowdbootstrapapp.activities.HomeActivity;
 import com.crowdbootstrapapp.adapter.WorkOrderContractorTableUpdateAdapter;
@@ -35,7 +35,6 @@ import com.crowdbootstrapapp.models.WorkOrderItem;
 import com.crowdbootstrapapp.utilities.Async;
 import com.crowdbootstrapapp.utilities.Constants;
 import com.crowdbootstrapapp.utilities.UtilitiesClass;
-import com.inqbarna.tablefixheaders.TableFixHeaders;
 
 import org.json.JSONArray;
 import org.json.JSONException;

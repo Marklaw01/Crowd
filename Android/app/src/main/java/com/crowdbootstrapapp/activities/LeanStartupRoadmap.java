@@ -29,7 +29,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.crowdbootstrapapp.R;
 import com.crowdbootstrapapp.listeners.AsyncTaskCompleteListener;
 import com.crowdbootstrapapp.models.LeanRoadmapObject;
@@ -40,7 +39,6 @@ import com.crowdbootstrapapp.utilities.UtilitiesClass;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -168,7 +166,7 @@ public class LeanStartupRoadmap extends BaseActivity implements AsyncTaskComplet
                 wv.getSettings().setLoadsImagesAutomatically(true);
                 wv.getSettings().setJavaScriptEnabled(true);
                 wv.getSettings().setAllowContentAccess(true);
-                wv.loadUrl("http://crowdbootstrap.com/contractors/roadmap-template-apps");
+                wv.loadUrl("http://stage.crowdbootstrap.com/contractors/roadmap-template-apps");
 
                 wv.setWebViewClient(new WebViewClient() {
                     @Override
@@ -222,7 +220,7 @@ public class LeanStartupRoadmap extends BaseActivity implements AsyncTaskComplet
                 wv.getSettings().setLoadsImagesAutomatically(true);
                 wv.getSettings().setJavaScriptEnabled(true);
                 wv.getSettings().setAllowContentAccess(true);
-                wv.loadUrl("http://crowdbootstrap.com/contractors/venture-capital-apps");
+                wv.loadUrl("http://stage.crowdbootstrap.com/contractors/venture-capital-apps");
 
                 wv.setWebViewClient(new WebViewClient() {
                     @Override
@@ -387,7 +385,7 @@ public class LeanStartupRoadmap extends BaseActivity implements AsyncTaskComplet
             });
 
             layoutLin.setGravity(Gravity.BOTTOM);
-            // belowlayout.addView(mView);s
+            // belowlayout.addView(mView);
             mainRoadmapViewabove.addView(aboveView);
 
 
@@ -458,7 +456,7 @@ public class LeanStartupRoadmap extends BaseActivity implements AsyncTaskComplet
                     });
 
 
-                    TextView templateText = new TextView(LeanStartupRoadmap.this);
+                    final TextView templateText = new TextView(LeanStartupRoadmap.this);
                     templateText.setBackgroundColor(Color.parseColor("#056a1f"));
                     templateText.setText("Template\t");
 

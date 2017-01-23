@@ -8,15 +8,15 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.crowdbootstrapapp.R;
 import com.crowdbootstrapapp.helper.CircleImageView;
 import com.crowdbootstrapapp.models.UserCommentObject;
 import com.crowdbootstrapapp.swipelistviewinscrollview.BaseSwipListAdapter;
 import com.crowdbootstrapapp.utilities.Constants;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import java.util.ArrayList;
 

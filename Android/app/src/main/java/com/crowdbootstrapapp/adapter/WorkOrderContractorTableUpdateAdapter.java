@@ -3,25 +3,20 @@ package com.crowdbootstrapapp.adapter;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.graphics.Color;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.crowdbootstrapapp.R;
-import com.crowdbootstrapapp.chat.adapter.UsersAdapter;
-import com.crowdbootstrapapp.fragments.WorkOrderStartUpFragment;
-import com.crowdbootstrapapp.fragments.WorkOrderStartupUpdateFragment.ViewHolderItems;
-import com.crowdbootstrapapp.fragments.WorkOrderStartupUpdateFragment;
-import com.crowdbootstrapapp.utilities.DateTimeFormatClass;
 import com.inqbarna.tablefixheaders.adapters.BaseTableAdapter;
+import com.crowdbootstrapapp.R;
+import com.crowdbootstrapapp.fragments.WorkOrderStartupUpdateFragment;
+import com.crowdbootstrapapp.fragments.WorkOrderStartupUpdateFragment.ViewHolderItems;
+import com.crowdbootstrapapp.utilities.DateTimeFormatClass;
 
 import java.util.Calendar;
 

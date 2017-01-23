@@ -9,13 +9,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.crowdbootstrapapp.R;
 import com.crowdbootstrapapp.helper.CircleImageView;
 import com.crowdbootstrapapp.models.GenericObject;
 import com.crowdbootstrapapp.models.UserCommentObject;
 import com.crowdbootstrapapp.utilities.Constants;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 

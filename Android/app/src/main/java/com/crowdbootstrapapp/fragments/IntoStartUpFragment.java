@@ -44,6 +44,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.crowdbootstrapapp.R;
 import com.crowdbootstrapapp.activities.HomeActivity;
 import com.crowdbootstrapapp.adapter.KeywordsAdapter;
@@ -56,8 +58,6 @@ import com.crowdbootstrapapp.models.RoadMapObject;
 import com.crowdbootstrapapp.utilities.Async;
 import com.crowdbootstrapapp.utilities.Constants;
 import com.crowdbootstrapapp.utilities.UtilityList;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
@@ -850,7 +850,7 @@ public class IntoStartUpFragment extends Fragment implements onActivityResultLis
 
                         case 0:
                             try {
-                                Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                                Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
                                 getActivity().startActivityForResult(i, Constants.FILE_PICKER);
                             } catch (Exception e) {

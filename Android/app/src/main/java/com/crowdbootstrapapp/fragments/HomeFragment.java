@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.crowdbootstrapapp.R;
 import com.crowdbootstrapapp.activities.HomeActivity;
 import com.crowdbootstrapapp.activities.IndependentContractorActivity;
@@ -19,9 +22,6 @@ import com.crowdbootstrapapp.activities.OurMissionActivity;
 import com.crowdbootstrapapp.activities.OurValuesActivity;
 import com.crowdbootstrapapp.activities.OurVisionActivity;
 import com.crowdbootstrapapp.utilities.Constants;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
 
 /**
  * Created by neelmani.karn on 1/15/2016.

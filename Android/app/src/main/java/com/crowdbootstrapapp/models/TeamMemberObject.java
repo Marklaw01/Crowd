@@ -14,6 +14,7 @@ public class TeamMemberObject {
     private String memberRoleId;
     private int quickbloxid;
     private String isPublicProfile;
+
     public String getStartup_teamID() {
         return startup_teamID;
     }

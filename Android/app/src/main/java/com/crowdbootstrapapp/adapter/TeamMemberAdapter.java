@@ -20,6 +20,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.quickblox.chat.QBChatService;
+import com.quickblox.chat.QBPrivateChatManager;
+import com.quickblox.chat.model.QBDialog;
+import com.quickblox.core.QBEntityCallback;
+import com.quickblox.core.exception.QBResponseException;
 import com.crowdbootstrapapp.R;
 import com.crowdbootstrapapp.activities.HomeActivity;
 import com.crowdbootstrapapp.fragments.ChatFragment;
@@ -28,11 +33,6 @@ import com.crowdbootstrapapp.fragments.SendMessageFragment;
 import com.crowdbootstrapapp.models.TeamMemberObject;
 import com.crowdbootstrapapp.utilities.Constants;
 import com.crowdbootstrapapp.utilities.PrefManager;
-import com.quickblox.chat.QBChatService;
-import com.quickblox.chat.QBPrivateChatManager;
-import com.quickblox.chat.model.QBDialog;
-import com.quickblox.core.QBEntityCallback;
-import com.quickblox.core.exception.QBResponseException;
 
 import java.util.ArrayList;
 import java.util.List;

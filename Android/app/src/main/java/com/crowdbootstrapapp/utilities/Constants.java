@@ -5,13 +5,15 @@ package com.crowdbootstrapapp.utilities;
  */
 public final class Constants {
 
-    //Live app url
+    //Live URL
     public static final String APP_BASE_URL = "http://crowdbootstrap.com/Api/";
     public static final String APP_IMAGE_URL = "http://crowdbootstrap.com";
 
-    //App url
-    //public static final String APP_BASE_URL = "http://crowdbootstrap.trantorinc.com/api/";
-    //public static final String APP_IMAGE_URL = "http://crowdbootstrap.trantorinc.com";
+    //Staging URL
+    //public static final String APP_BASE_URL = "http://stage.crowdbootstrap.com/api/";
+    //public static final String APP_IMAGE_URL = "http://stage.crowdbootstrap.com";
+
+    public static final int API_CONNECTION_TIME_OUT_DURATION = 30000;
 
     public static final String NOTIFICATION_CONSTANT = "notifications";
 
@@ -35,6 +37,8 @@ public final class Constants {
     public static final String NOTIFICATION_ADD_TEAM_MEMBER = "Add_member";
     public static final String NOTIFICATION_REPORT_ABUSE_FORUM_MEMBER = "Report_Abuse_User";
     public static final String NOTIFICATION_REPORT_ABUSE_FORUM = "Report_Abuse_Forum";
+
+    public static final String NOTIFICATION_ADD_CONNECTION = "Add_Connection";
 
 
     //Campaigns Type
@@ -81,11 +85,6 @@ public final class Constants {
     public static final String FORGOT_PASSWORD_MAX_NUMBER_OF_LIMIT_URL = "maxLimitResetPass";
     public static final String FORGOT_PASSWORD_MAX_NUMBER_OF_LIMIT_TAG = "maxLimitResetPass_tag";
 
-    public static final String CONNECT_USER_URL = "addConnection";
-    public static final String CONNECT_USER_TAG = "addConnection_tag";
-
-    public static final String DISCONNECT_USER_URL = "rejectConnection";
-    public static final String DISCONNECT_USER_TAG = "rejectConnection_tag";
 
     public static final String CONTRACTOR_BASIC_PROFILE_URL = "userContractorBasic?user_id=";
     public static final String CONTRACTOR_BASIC_PROFILE_TAG = "userContractorBasic_profile";
@@ -102,9 +101,6 @@ public final class Constants {
     public static final String ENTREPRENEUR_BASIC_PROFILE_URL = "userEntrepreneurBasic?user_id=";
     public static final String ENTREPRENEUR_BASIC_PROFILE_TAG = "userEntrepreneurBasic_profile";
 
-    public static final String ENTREPRENEUR_STARTUP_WORKORDER_URL = "entrepreneurStartupWorkorders";
-    public static final String ENTREPRENEUR_STARTUP_WORKORDER_TAG = "entrepreneurStartupWorkorders_tag";
-
     public static final String ENTREPRENEUR_EDIT_BASIC_PROFILE_URL = "editEntrepreneurBasic";
     //public static final String ENTREPRENEUR_EDIT_BASIC_PROFILE_TAG = "editEntrepreneurBasic_profile";
 
@@ -120,12 +116,43 @@ public final class Constants {
     public static final String USER_STARTUPS_URL = "userStartup";
     public static final String USER_STARTUPS_TAG = "userStartup_tag";
 
+
+    public static final String JOB_ROLES_URL = "jobRoleLists";
+    public static final String JOB_ROLES_TAG = "jobRoleLists_tag";
+
+
+    public static final String GET_JOBEXPERIENCE_LIST_URL = "getUserExperiences";
+    public static final String GET_JOBEXPERIENCE_LIST_TAG = "getUserExperiences_tag";
+
+
+    public static final String JOB_DUTIES_URL = "jobDutiesLists";
+    public static final String JOB_DUTIES_TAG = "jobDutiesLists_tag";
+
+    public static final String JOB_ACHIEVEMENTS_URL = "jobAchievementLists";
+    public static final String JOB_ACHIEVEMENTS_TAG = "jobAchievementLists_tag";
+
+
+    public static final String USER_COMPANY_URL = "hiredCompanyList";
+    public static final String USER_COMPANY_TAG = "hiredCompanyList_tag";
+
+    public static final String USER_EDIT_EXPERIENCE_URL = "editExperiences";
+    public static final String USER_EDIT_EXPERIENCE_TAG = "editExperiences_tag";
+
+    public static final String KEYWORDTYPE_URL = "keywordTypeList";
+    public static final String KEYWORDTYPE_TAG = "keywordTypeList_tag";
+
+    public static final String ADD_EXPERIENCE_URL = "addExperiences";
+    public static final String ADD_EXPERIENCE_TAG = "addExperiences_tag";
+
+
+    public static final String ADDKEYWORD_KEYWORDTYPE_URL = "addSuggestKeywords";
+    public static final String ADDKEYWORD_KEYWORDTYPE_TAG = "addSuggestKeywords_tag";
+
+    public static final String DELETE_KEYWORDTYPE_URL = "deleteSuggestKeywords";
+    public static final String DELETE_KEYWORDTYPE_TAG = "deleteSuggestKeywords_tag";
+
     public static final String USER_SELECTED_STARTUPS_URL = "userSelectedStartup";
     public static final String USER_SELECTED_STARTUPS_TAG = "userSelectedStartup_tag";
-
-
-    public static final String STARTUP_WORKORDER_COMMENT_URL = "startupWorkorderRatings";
-    public static final String STARTUP_WORKORDER_COMMENT_TAG = "startupWorkorderRatings_tag";
 
     public static final String ADD_STARTUPS_LIST_TO_PROFILE_URL = "addStartupList";
     public static final String ADD_STARTUPS_LIST_TO_PROFILE_TAG = "addStartupList_tag";
@@ -141,6 +168,21 @@ public final class Constants {
 
     public static final String KEYWORDS_URL = "keywords";
     public static final String KEYWORDS_TAG = "keywords_tag";
+
+
+    public static final String JOB_INDUSTRIES_KEYWORDS_URL = "jobIndustrieLists";
+    public static final String JOB_INDUSTRIES_KEYWORDS_TAG = "jobIndustrieLists_tag";
+
+
+    public static final String EDIT_JOB_URL = "editJob";
+    public static final String EDIT_JOB_TAG = "editJob_tag";
+
+
+    public static final String JOB_TYPE_KEYWORDS_URL = "jobTypeLists";
+    public static final String JOB_TYPE_KEYWORDS_TAG = "jobTypeLists_tag";
+
+    public static final String JOB_POSTING_KEYWORDS_URL = "companyKeywordList";
+    public static final String JOB_POSTING_KEYWORDS_TAG = "companyKeywordList_tag";
 
     public static final String CAMPAIGN_KEYWORDS_URL = "campaignKeywords";
     public static final String CAMPAIGN_KEYWORDS_TAG = "campaignKeywords_tag";
@@ -167,14 +209,32 @@ public final class Constants {
     public static final String FOLLOW_CAMPAIGN_URL = "followCampaign";
     public static final String FOLLOW_CAMPAIGN_TAG = "followCampaign_tag";
 
-    public static final String ADD_CAMPAIGN_URL = "addCampaign";
 
+    public static final String FOLLOW_JOB_URL = "followJob";
+    public static final String FOLLOW_JOB_TAG = "followJob_tag";
+
+    public static final String UN_FOLLOW_JOB_URL = "unfollowJob";
+    public static final String UN_FOLLOW_JOB_TAG = "unfollowJob_tag";
+
+
+    public static final String ADD_CAMPAIGN_URL = "addCampaign";
+    public static final String APPLY_JOB_URL = "applyForJob";
+    public static final String ADD_JOB_URL = "addJobs";
     public static final String EDIT_CAMPAIGN_URL = "editCampaign";
+
+    public static final String ACTIVATE_JOB_URL = "activateJob";
+    public static final String ACTIVATE_JOB_TAG = "activateJob_tag";
 
     public static final String DELETE_CAMPAIGN_URL = "deleteCampaign";
 
     public static final String CAMPAIGN_DETAILS_URL = "singleCampaignDetail";
     public static final String CAMPAIGN_DETAILS_TAG = "singleCampaignDetail_tag";
+
+    public static final String VIEW_FOLLOWERS_URL = "jobFollowerLists";
+    public static final String VIEW_FOLLOWERS_TAG = "jobFollowerLists_tag";
+
+    public static final String JOB_DETAILS_URL = "viewJob";
+    public static final String JOB_DETAILS_TAG = "viewJob_tag";
 
     public static final String CAMPAIGN_CONTRIBUTORS_LIST_URL = "campaignContributorsList";
     public static final String CAMPAIGN_CONTRIBUTORS_LIST_TAG = "campaignContributorsList_tag";
@@ -187,6 +247,10 @@ public final class Constants {
 
     public static final String DELETE_STARTUPS_URL = "deleteStartup";
 
+    public static final String DELETE_JOB_URL = "deleteJob";
+    public static final String ARCHIVE_JOB_URL = "archiveJob";
+    public static final String DEACTIVATE_JOB_URL = "deactivateJob";
+
     public static final String STARTUP_OVERVIEW_URL = "startupOverview";
     public static final String STARTUP_OVERVIEW_TAG = "startupOverview_tag";
 
@@ -195,8 +259,14 @@ public final class Constants {
     public static final String STARTUP_TEAM_URL = "startupTeam";
     public static final String STARTUP_TEAM_TAG = "startupTeam_tag";
 
+    public static final String MYJOBS_LIST_URL = "myJobLists";
+    public static final String MYJOBS_LIST_TAG = "myJobLists_tag";
+
     public static final String STARTUP_WORKORDER_URL = "startupWorkorders";
     public static final String STARTUP_WORKORDER_TAG = "startupWorkorders_tag";
+
+    public static final String ENTREPRENEUR_STARTUP_WORKORDER_URL = "entrepreneurStartupWorkorders";
+    public static final String ENTREPRENEUR_STARTUP_WORKORDER_TAG = "entrepreneurStartupWorkorders_tag";
 
     public static final String STARTUP_WORKORDER_SAVED_URL = "startupSavedWorkorders";
     public static final String STARTUP_WORKORDER_SAVED_TAG = "startupSavedWorkorders_tag";
@@ -207,6 +277,9 @@ public final class Constants {
     public static final String STARTUP_WORKORDER_UPDATE_URL = "saveSubmitWorkorder";
     public static final String STARTUP_WORKORDER_UPDATE_TAG = "saveSubmitWorkorder_tag";
 
+    public static final String STARTUP_WORKORDER_COMMENT_URL = "startupWorkorderRatings";
+    public static final String STARTUP_WORKORDER_COMMENT_TAG = "startupWorkorderRatings_tag";
+
     public static final String STARTUP_SEND_MESSAGE_URL = "sendMessage";
     public static final String STARTUP_SEND_MESSAGE_TAG = "sendMessage_tag";
 
@@ -216,6 +289,10 @@ public final class Constants {
 
     public static final String STARTUP_ENTREPRENEUR_WORKORDERS_URL = "approveWorkorderEntrepreneur";
     public static final String STARTUP_ENTREPRENEUR_WORKORDERS_TAG = "approveWorkorderEntrepreneur_tag";
+
+
+    public static final String USER_SUGGESTED_KEYWORDS_URL = "suggestKeywordLists";
+    public static final String USER_SUGGESTED_KEYWORDS_TAG = "suggestKeywordLists_tag";
 
     public static final String USER_NOTIFICATION_COUNT_URL = "notificationsCount";
     public static final String USER_NOTIFICATION_COUNT_TAG = "notificationsCount_tag";
@@ -252,6 +329,31 @@ public final class Constants {
     public static final String SEARCH_CONTRACTORS_URL = "searchContractors";
     public static final String SEARCH_CONTRACTORS_TAG = "searchContractors_tag";
 
+
+    public static final String SEARCH_JOBLIST_URL = "jobLists";
+    public static final String SEARCH_JOBLIST_TAG = "jobLists_tag";
+
+    public static final String MY_ARCHIVED_JOBS_URL = "archiveJobLists";
+    public static final String MY_ARCHIVED_JOBS_TAG = "archiveJobLists_tag";
+
+    public static final String MY_DEACTIVATED_JOBS_URL = "deactivatedJobLists";
+    public static final String MY_DEACTIVATED_JOBS_TAG = "deactivatedJobLists_tag";
+
+    public static final String SEARCH_CONNECTIONS_URL = "searchConnections";
+    public static final String SEARCH_CONNECTIONS_TAG = "searchConnections_tag";
+
+    public static final String MY_CONNECTIONS_URL = "myConnections";
+    public static final String MY_CONNECTIONS_TAG = "myConnections_tag";
+
+    public static final String SEARCH_ORGANIZATION_URL = "searchCompany";
+    public static final String SEARCH_ORGANIZATION_TAG = "searchCompany_tag";
+
+    public static final String DETAIL_ORGANIZATION_URL = "viewCompany";
+    public static final String DETAIL_ORGANIZATION_TAG = "viewCompany_tag";
+
+    public static final String CONNECTIONS_SENDMESSAGE_URL = "sendMessage";
+    public static final String CONNECTIONS_SENDMESSAGE_TAG = "sendMessage_tag";
+
     public static final String TEAM_MEMBER_ROLES_URL = "teamMembersRoles";
     public static final String TEAM_MEMBER_ROLES_TAG = "teamMembersRoles_tag";
 
@@ -273,8 +375,20 @@ public final class Constants {
     public static final String FOLLOW_USER_URL = "userFollow";
     public static final String FOLLOW_USER_TAG = "userFollow_tag";
 
+    public static final String CONNECT_USER_URL = "addConnection";
+    public static final String CONNECT_USER_TAG = "addConnection_tag";
+
+    public static final String DISCONNECT_USER_URL = "rejectConnection";
+    public static final String DISCONNECT_USER_TAG = "rejectConnection_tag";
+
+    public static final String ACCEPT_CONNECTION_USER_URL = "acceptConnection";
+    public static final String ACCEPT_CONNECTION_USER_TAG = "acceptConnection_tag";
+
     public static final String USER_MESSAGES_URL = "messagesList";
     public static final String USER_MESSAGES_TAG = "messagesList_tag";
+
+    public static final String MYCONNECTIONS_MESSAGES_URL = "myMessages";
+    public static final String MYCONNECTIONS_MESSAGES_TAG = "myMessages_tag";
 
     public static final String USER_ARCHIEVED_MESSAGES_URL = "messagesArchiveList";
     public static final String USER_ARCHIEVED_MESSAGES_TAG = "messagesArchiveList_tag";
@@ -327,9 +441,45 @@ public final class Constants {
     public static final String COMPLETE_LISTOF_STARTUPS_OF_USER_TAG = "startupListForUser_tag";
 
 
-
     public static final String LIST_OF_ALL_NOTIFICATIONS_URL = "UserNotifications";
     public static final String LIST_OF_ALL_NOTIFICATIONS_TAG = "UserNotifications_tag";
+
+    public static final String SPONSORS_LIST = "sponsorsList?user_id=";
+    public static final String SPONSORS_LIST_TAG = "sponsorsList_tag";
+
+    public static final String FUND_MANAGERS_LIST = "fundsManagerLists?user_id=";
+    public static final String FUND_MANAGERS_TAG = "fundsManagerLists_tag";
+
+    public static final String FUND_KEYWORDS_LIST = "fundsKeywordList";
+    public static final String FUND_KEYWORDS_TAG = "fundsKeywordList_tag";
+
+    public static final String FUND_INDUSTRY_LIST = "fundIndustryLists";
+    public static final String FUND_INDUSTRY_TAG = "fundIndustryLists_tag";
+
+    public static final String FUND_PORTFOLIO_LIST = "fundPortfolioList?user_id=";
+    public static final String FUND_PORTFOLIO_TAG = "fundPortfolioList_tag";
+
+    public static final String CREATE_FUND_URL = "addFunds";
+    public static final String EDIT_FUND_URL = "editFunds";
+
+    public static final String MY_FUND_LIST = "myFunds";
+    public static final String MY_FUND_TAG = "myFunds_tag";
+
+    public static final String ARCHIVED_FUND_LIST = "archiveFundList";
+    public static final String ARCHIVED_FUND_TAG = "archiveFundList_tag";
+
+    public static final String DEACTIVATED_FUND_LIST = "deactivateFundList";
+    public static final String DEACTIVATED_FUND_TAG = "deactivateFundList_tag";
+
+
+    public static final String FUND_DETAILS_URL = "fundDetails";
+    public static final String FUND_DETAILS_TAG = "fundDetails_tag";
+
+    public static final String FUND_DELETE_URL = "deleteFund";
+    public static final String FUND_ARCHIEVE_URL = "archiveFund";
+    public static final String FUND_DEACTIVATE_URL = "deactivateFund";
+    public static final String FUND_ACTIVATE_URL = "activateFund";
+
 
     //Password regex pattern for validation.
     public static final String PASSWORD_REGEX_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[$@$!%*?&])(?=\\S+$).{8,25}$";
@@ -354,6 +504,9 @@ public final class Constants {
     public static final String USER_FIRST_NAME = "first_name";
     public static final String USER_LAST_NAME = "last_name";
     public static final String USER_ID = "user_id";
+    public static final String USER_SELECTED_COUNTRY_ID = "country_id";
+    public static final String USER_SELECTED_STATE_ID = "state_id";
+    public static final String USER_SELECTED_SEARCH_TEXT = "search_text";
     public static final String USER_PROFILE_IMAGE_URL = "user_profile_image_url";
     // public static final String ENTREPRENEUR_PROFILE_IMAGE_URL = "ENTREPRENEUR_profile_image_url";
     public static final String USER_PHONE_NUMBER = "phoneno";
@@ -376,12 +529,21 @@ public final class Constants {
     //Html tags
     public static final String HTTP_PREFIX_TAX = "<html><style>body{background:#F0F0F0;}div {text-align: justify;}</style><body><div>";
     public static final String HTTP_SUFFIX_TAX = "</div></body></html>";
+    public static final String FUND_ID = "fund_id";
+    public static final String LIKE_DISLIKE = "like_dislike_tag";
+    public static final String LIKE = "Likes";
+    public static final String DISLIKE = "Dislikes";
+    public static final String LOGGED_USER = "logged_user";
+    public static final String NOT_LOGGED_USER = "not_logged_user";
+    public static final String TIMEOUT_EXCEPTION = "timeout";
+    public static final int POSITION = 1001;
 
     //Passing data constants using intent
     public static String COMMING_FROM_INTENT = "";
 
     //Either file of camera open intent constants
     public static final int FILE_PICKER = 1;
+    public static final int FILE_PICKER_RESUME = 12;
     public static final int FILE_BROWSER = 4;
     public static final int CAMERA_CAPTURE_IMAGE_REQUEST_CODE = 2;
     public static final int IMAGE_PICKER = 3;
@@ -410,52 +572,13 @@ public final class Constants {
     public final static int HTTP_GET = 1;
     public final static int HTTP_POST = 2;
 
+    public final static String HTTP_GET_REQUEST = "GET";
+    public final static String HTTP_POST_REQUEST = "POST";
+
     //Code comming from Server side.
     public final static String RESPONSE_STATUS_CODE = "code";
     public final static String RESPONSE_SUCESS_STATUS_CODE = "200";
     public final static String RESPONSE_ERROR_STATUS_CODE = "404";
-
-    /*-----------------------Rollbar Tags---------------------------------*/
-   /* public final static String ROLLBAR_CLIENT_SIDE_TOKEN = "c36c4567bfe34ecdbaec10984d016965";
-
-    // boolean variable to set the rollbar mode. i.e. true in case of log in rollbar, false when not to log in rollbar
-    public static final boolean IS_IN_ROLLBAR_MODE = true;
-
-    // Tag for user id
-    public static final String ROLLBAR_USER_ID_TAG = "UserID";
-
-    // Tag for UserName
-    public static final String ROLLBAR_USER_NAME_TAG = "UserName";
-
-    // Tag for ClassName
-    public static final String ROLLBAR_CLASS_NAME_TAG = "ClassName";
-
-    // Tag for MethodName
-    public static final String ROLLBAR_METHOD_NAME_TAG = "MethodName";
-
-    // Tag for Exception Message
-    public static final String ROLLBAR_EXCEPTION_MESSAGE_TAG = "Exception Message";
-
-    // Tag for Exception Name in Rollbar
-    public static final String ROLLBAR_EXCEPTION_TAG = "HandledException";
-
-    // Tag for Exception Category in Rollbar
-    public static final String ROLLBAR_EXCEPTION_CATEGORY_TAG = "critical";
-
-    // Variable to define the rollbar for production
-    public static final String ROLLBAR_PRODUCTION = "production";
-
-    // Variable to define the rollbar for Staging
-    public static final String ROLLBAR_STAGING="staging";
-
-    // Variable to define the rollbar message when user id is not defined
-    public static final String ROLLBAR_USER_ID_NOT_AVAILABLE = "UserID not defined";
-
-    // Variable to define the rollbar message when user id is not defined
-    public static final String ROLLBAR_USER_NAME_NOT_AVAILABLE = "UserName not defined";
-
-
-*/
 
 
     //Constants for QuickBlox chat for live app created under crowdbootstrap2016@gmail.com account

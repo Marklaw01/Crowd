@@ -4,22 +4,18 @@ package com.crowdbootstrapapp.adapter;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.TextView;
 
+import com.inqbarna.tablefixheaders.adapters.BaseTableAdapter;
 import com.crowdbootstrapapp.R;
 import com.crowdbootstrapapp.fragments.WorkOrderStartUpFragment;
 import com.crowdbootstrapapp.fragments.WorkOrderStartUpFragment.ViewHolder;
-
 import com.crowdbootstrapapp.utilities.DateTimeFormatClass;
-import com.inqbarna.tablefixheaders.adapters.BaseTableAdapter;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 
 /**

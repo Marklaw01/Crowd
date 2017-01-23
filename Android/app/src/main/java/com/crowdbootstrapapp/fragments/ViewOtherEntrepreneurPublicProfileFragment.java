@@ -14,14 +14,14 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.crowdbootstrapapp.R;
-import com.crowdbootstrapapp.activities.HomeActivity;
-import com.crowdbootstrapapp.utilities.Constants;
 import com.quickblox.chat.QBChatService;
 import com.quickblox.chat.QBPrivateChatManager;
 import com.quickblox.chat.model.QBDialog;
 import com.quickblox.core.QBEntityCallback;
 import com.quickblox.core.exception.QBResponseException;
+import com.crowdbootstrapapp.R;
+import com.crowdbootstrapapp.activities.HomeActivity;
+import com.crowdbootstrapapp.utilities.Constants;
 
 
 public class ViewOtherEntrepreneurPublicProfileFragment extends Fragment implements View.OnClickListener {

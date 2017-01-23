@@ -36,13 +36,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.crowdbootstrapapp.R;
 import com.crowdbootstrapapp.activities.HomeActivity;
 import com.crowdbootstrapapp.helper.CircleImageView;
 import com.crowdbootstrapapp.listeners.onActivityResultListener;
 import com.crowdbootstrapapp.utilities.Constants;
 import com.crowdbootstrapapp.utilities.ExifUtil;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.io.File;
 import java.text.NumberFormat;

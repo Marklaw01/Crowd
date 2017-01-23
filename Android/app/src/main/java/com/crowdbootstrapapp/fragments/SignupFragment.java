@@ -1,9 +1,15 @@
 package com.crowdbootstrapapp.fragments;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -28,13 +34,44 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.share.Sharer;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.OptionalPendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.plus.PlusShare;
+import com.linkedin.platform.LISession;
+import com.linkedin.platform.LISessionManager;
+import com.linkedin.platform.errors.LIAuthError;
+import com.linkedin.platform.listeners.AuthListener;
+import com.linkedin.platform.utils.Scope;
+import com.quickblox.auth.QBAuth;
+import com.quickblox.auth.model.QBSession;
+import com.quickblox.chat.QBChatService;
+import com.quickblox.core.QBEntityCallback;
+import com.quickblox.core.exception.QBResponseException;
+import com.quickblox.users.QBUsers;
+import com.quickblox.users.model.QBUser;
 import com.crowdbootstrapapp.R;
+import com.crowdbootstrapapp.activities.HomeActivity;
 import com.crowdbootstrapapp.activities.LoginActivity;
 import com.crowdbootstrapapp.dropdownadapter.CountryAdapter;
 import com.crowdbootstrapapp.dropdownadapter.SpinnerAdapter;
 import com.crowdbootstrapapp.dropdownadapter.StatesAdapter;
 import com.crowdbootstrapapp.helper.CustomEditTextView;
 import com.crowdbootstrapapp.listeners.AsyncTaskCompleteListener;
+import com.crowdbootstrapapp.listeners.onActivityResultListener;
 import com.crowdbootstrapapp.models.CountryObject;
 import com.crowdbootstrapapp.models.GenericObject;
 import com.crowdbootstrapapp.models.StatesObject;
@@ -43,19 +80,14 @@ import com.crowdbootstrapapp.utilities.Constants;
 import com.crowdbootstrapapp.utilities.DateTimeFormatClass;
 import com.crowdbootstrapapp.utilities.UsPhoneNumberFormatter;
 import com.crowdbootstrapapp.utilities.UtilitiesClass;
-import com.quickblox.auth.QBAuth;
-import com.quickblox.auth.model.QBSession;
-import com.quickblox.chat.QBChatService;
-import com.quickblox.core.QBEntityCallback;
-import com.quickblox.core.exception.QBResponseException;
-import com.quickblox.users.QBUsers;
-import com.quickblox.users.model.QBUser;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
@@ -63,7 +95,7 @@ import java.util.Locale;
 /**
  * Created by neelmani.karn on 1/6/2016.
  */
-public class SignupFragment extends Fragment implements AsyncTaskCompleteListener<String> {
+public class SignupFragment extends Fragment implements AsyncTaskCompleteListener<String>, onActivityResultListener, GoogleApiClient.OnConnectionFailedListener {
 
     CountryAdapter countryAdapter;
     StatesAdapter stateAdapter;
@@ -95,18 +127,49 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
 
     private ArrayList<CustomEditTextView> editTextsForCustomQuestions;
     private ArrayList<CustomEditTextView> editTextsForCustomAnswer;
-
     private TextView termsAndconditions;
     private TextView privacyPolicy;
+    private TextView facebookRequest;
+    private TextView googleRequest;
+    private static final String TAG = HomeActivity.class.getSimpleName();
+    public static final String PACKAGE_MOBILE_SDK_SAMPLE_APP = "com.crowdbootstrapapp.fragments";
+
+    private TextView linkedinRequest;
+    private Activity thisActivity;
+
+
+    private static final int SIGN_IN_CODE = 9001;
+    private GoogleApiClient mGoogleApiClient;
+
+    private GoogleSignInAccount account;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_signup, container, false);
 
+        thisActivity = getActivity();
+
+        try {
+            PackageInfo info = thisActivity.getPackageManager().getPackageInfo(getActivity().getPackageName(),
+                    PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+
+
+        } catch (NoSuchAlgorithmException e) {
+
+        }
         states = new ArrayList<StatesObject>();
         countries = new ArrayList<CountryObject>();
         /*countriesList = new ArrayList<GenericObject>();
         statesList = new ArrayList<GenericObject>();*/
         agreeTermsAndConditions = (CheckBox) rootView.findViewById(R.id.cbx_agree);
+        termsAndconditions = (TextView) rootView.findViewById(R.id.tv_termsAndConditions);
+        privacyPolicy = (TextView) rootView.findViewById(R.id.tv_privacypolicy);
         spinner_chooseSecurityQuestion = (Spinner) rootView.findViewById(R.id.spinner_chooseSecurityQuestion);
         et_city = (CustomEditTextView) rootView.findViewById(R.id.et_city);
         layout_customQuestions = (LinearLayout) rootView.findViewById(R.id.layout_customQuestions);
@@ -115,15 +178,16 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
         btn_addMorePredefinedQuestion = (ImageView) rootView.findViewById(R.id.btn_addMorePredefinedQuestion);
         btn_addMoreCustomQuestion = (ImageView) rootView.findViewById(R.id.btn_addMoreCustomQuestion);
 
-
-
-        termsAndconditions = (TextView) rootView.findViewById(R.id.tv_termsAndConditions);
-        privacyPolicy  = (TextView) rootView.findViewById(R.id.tv_privacypolicy);
         btn_signup = (Button) rootView.findViewById(R.id.btn_signup);
 
         et_answer = (CustomEditTextView) rootView.findViewById(R.id.et_answer);
         et_question = (CustomEditTextView) rootView.findViewById(R.id.et_question);
         et_customanswer = (CustomEditTextView) rootView.findViewById(R.id.et_customanswer);
+
+
+        facebookRequest = (TextView) rootView.findViewById(R.id.tv_facebook);
+        linkedinRequest = (TextView) rootView.findViewById(R.id.tv_linkedin);
+        googleRequest = (TextView) rootView.findViewById(R.id.tv_google);
 
         et_bestAvailability = (CustomEditTextView) rootView.findViewById(R.id.et_bestAvailability);
         spinner_city = (Spinner) rootView.findViewById(R.id.spinner_city);
@@ -141,7 +205,7 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
         ((LoginActivity) getActivity()).showProgressDialog();
         if (((LoginActivity) getActivity()).networkConnectivity.isOnline()) {
 
-            Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.GET_COUNTRIES_LIST_WITH_STATES_TAG, Constants.GET_COUNTRIES_LIST_WITH_STATES, Constants.HTTP_POST,"Home Activity");
+            Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.GET_COUNTRIES_LIST_WITH_STATES_TAG, Constants.GET_COUNTRIES_LIST_WITH_STATES, Constants.HTTP_POST, "Home Activity");
             a.execute();
         } else {
             ((LoginActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
@@ -149,11 +213,218 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
 
 
         if (((LoginActivity) getActivity()).networkConnectivity.isOnline()) {
-            Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.PREDEFINED_QUESTIONS_TAG, Constants.PREDEFINED_QUESTIONS_URL, Constants.HTTP_POST,"Home Activity");
+            Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.PREDEFINED_QUESTIONS_TAG, Constants.PREDEFINED_QUESTIONS_URL, Constants.HTTP_POST, "Home Activity");
             a.execute();
         } else {
             ((LoginActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
         }
+
+        termsAndconditions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+                alert.setTitle("Terms And Conditions");
+
+
+                LinearLayout layoutHorizontal = new LinearLayout(getActivity());
+                layoutHorizontal.setOrientation(LinearLayout.HORIZONTAL);
+                layoutHorizontal.setGravity(Gravity.RIGHT);
+                LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                layoutHorizontal.setLayoutParams(parms);
+
+
+                LinearLayout layout = new LinearLayout(getActivity());
+                layout.setOrientation(LinearLayout.VERTICAL);
+                layout.addView(layoutHorizontal);
+                WebView wv = new WebView(getActivity());
+
+                wv.getSettings().setLoadsImagesAutomatically(true);
+                wv.getSettings().setJavaScriptEnabled(true);
+                wv.getSettings().setAllowContentAccess(true);
+                wv.loadUrl("http://stage.crowdbootstrap.com/users/terms--and-conditions");
+
+                wv.setWebViewClient(new WebViewClient() {
+                    @Override
+                    public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                        view.loadUrl(url);
+
+                        return true;
+                    }
+                });
+                layout.addView(wv);
+                alert.setView(layout);
+                alert.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+                alert.show();
+            }
+        });
+// GOOGLE SHARING TO BE IMPLEMENTED BELOW++++++++++++++++++++++++++
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
+                .enableAutoManage(getActivity(), this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+
+
+        googleRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(isGoogleAppInstalled()) {
+                    signIn();
+                }
+                else{
+
+                    Toast.makeText(getActivity(), "Google Plus App Not Installed, Kindly install the App from Google Playstore", Toast.LENGTH_LONG).show();
+
+
+                }
+            }
+        });
+
+
+        facebookRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                if (isFacebookAppInstalled()) {
+                    FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
+                    CallbackManager callbackManager = CallbackManager.Factory.create();
+                    final ShareDialog shareDialog = new ShareDialog(getActivity());
+
+                    shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
+
+                        @Override
+                        public void onSuccess(Sharer.Result result) {
+                            Log.d("XXX", "success");
+                        }
+
+                        @Override
+                        public void onError(FacebookException error) {
+                            Log.d("XXX", "error");
+                        }
+
+                        @Override
+                        public void onCancel() {
+                            Log.d("XXX", "cancel");
+                        }
+                    });
+
+
+                    if (shareDialog.canShow(ShareLinkContent.class)) {
+                        ShareLinkContent content = new ShareLinkContent.Builder()
+                                .setContentTitle("Crowd Bootstrap Invitation")
+                                .setImageUrl(Uri.parse("http://stage.crowdbootstrap.com/img/small-logo.png"))
+                                .setContentUrl(Uri.parse("http://crowdbootstrap.com/"))
+                                .setContentDescription(
+                                        "Crowd Bootstrap helps entrepreneurs accelerate their journey from a startup idea to initial revenues. It is a free App that enables you to benefit as an entrepreneur or help as an expert." +
+                                                "Please click the following link to sign-up and help an entrepreneur realize their dream.\n" +
+                                                "Regards,\n" +
+                                                "The Crowd Bootstrap Team")
+                                .build();
+                        ShareDialog shareDialogContent = new ShareDialog(getActivity());
+                        shareDialogContent.show(content);
+
+                    }
+
+
+                } else {
+
+                    Toast.makeText(getActivity(), "Facebook App Not Installed, Kindly install the App from Google Playstore", Toast.LENGTH_LONG).show();
+
+                }
+            }
+        });
+
+//Linked in Tasks++++++++++++++++++++++++++
+
+        setUpdateState();
+
+        linkedinRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (isSessionValidLinkedin == false) {
+                    LISessionManager.getInstance(getActivity().getApplicationContext()).init(getActivity(), buildScope(), new AuthListener() {
+                        @Override
+                        public void onAuthSuccess() {
+                            setUpdateState();
+                            Toast.makeText(getActivity(), "Connected with LinkedIn", Toast.LENGTH_LONG).show();
+
+
+                        }
+
+                        @Override
+                        public void onAuthError(LIAuthError error) {
+                            setUpdateState();
+                            Toast.makeText(getActivity(), "Failed to connect with LinkedIn", Toast.LENGTH_LONG).show();
+                        }
+                    }, true);
+
+
+                } else {
+                    android.app.FragmentManager fm = ((LoginActivity) getActivity()).getFragmentManager();
+                    LinkedinPopUpFragment dialogFragment = new LinkedinPopUpFragment();
+                    dialogFragment.show(fm, "LinkedIn Fragment");
+                }
+            }
+
+        });
+
+
+        privacyPolicy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+                alert.setTitle("Privacy Policy");
+
+
+                LinearLayout layoutHorizontal = new LinearLayout(getActivity());
+                layoutHorizontal.setOrientation(LinearLayout.HORIZONTAL);
+                layoutHorizontal.setGravity(Gravity.RIGHT);
+                LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                layoutHorizontal.setLayoutParams(parms);
+
+
+                LinearLayout layout = new LinearLayout(getActivity());
+                layout.setOrientation(LinearLayout.VERTICAL);
+                layout.addView(layoutHorizontal);
+                WebView wv = new WebView(getActivity());
+
+                wv.getSettings().setLoadsImagesAutomatically(true);
+                wv.getSettings().setJavaScriptEnabled(true);
+                wv.getSettings().setAllowContentAccess(true);
+                wv.loadUrl("http://stage.crowdbootstrap.com/users/privacy-policy");
+
+                wv.setWebViewClient(new WebViewClient() {
+                    @Override
+                    public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                        view.loadUrl(url);
+
+                        return true;
+                    }
+                });
+                layout.addView(wv);
+                alert.setView(layout);
+                alert.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+                alert.show();
+            }
+        });
+
 
         spinner_country.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -228,101 +499,6 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
         et_phoneNumber.addTextChangedListener(addLineNumberFormatter);
 
 
-
-        termsAndconditions.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-                alert.setTitle("Terms And Conditions");
-
-
-                LinearLayout layoutHorizontal = new LinearLayout(getActivity());
-                layoutHorizontal.setOrientation(LinearLayout.HORIZONTAL);
-                layoutHorizontal.setGravity(Gravity.RIGHT);
-                LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                layoutHorizontal.setLayoutParams(parms);
-
-
-                LinearLayout layout = new LinearLayout(getActivity());
-                layout.setOrientation(LinearLayout.VERTICAL);
-                layout.addView(layoutHorizontal);
-                WebView wv = new WebView(getActivity());
-
-                wv.getSettings().setLoadsImagesAutomatically(true);
-                wv.getSettings().setJavaScriptEnabled(true);
-                wv.getSettings().setAllowContentAccess(true);
-                wv.loadUrl("http://crowdbootstrap.com/users/terms--and-conditions");
-
-                wv.setWebViewClient(new WebViewClient() {
-                    @Override
-                    public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                        view.loadUrl(url);
-
-                        return true;
-                    }
-                });
-                layout.addView(wv);
-                alert.setView(layout);
-                alert.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.dismiss();
-                    }
-                });
-                alert.show();
-            }
-        });
-
-
-
-        privacyPolicy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-                alert.setTitle("Privacy Policy");
-
-
-                LinearLayout layoutHorizontal = new LinearLayout(getActivity());
-                layoutHorizontal.setOrientation(LinearLayout.HORIZONTAL);
-                layoutHorizontal.setGravity(Gravity.RIGHT);
-                LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                layoutHorizontal.setLayoutParams(parms);
-
-
-                LinearLayout layout = new LinearLayout(getActivity());
-                layout.setOrientation(LinearLayout.VERTICAL);
-                layout.addView(layoutHorizontal);
-                WebView wv = new WebView(getActivity());
-
-                wv.getSettings().setLoadsImagesAutomatically(true);
-                wv.getSettings().setJavaScriptEnabled(true);
-                wv.getSettings().setAllowContentAccess(true);
-                wv.loadUrl("http://crowdbootstrap.com/users/privacy-policy");
-
-                wv.setWebViewClient(new WebViewClient() {
-                    @Override
-                    public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                        view.loadUrl(url);
-
-                        return true;
-                    }
-                });
-                layout.addView(wv);
-                alert.setView(layout);
-                alert.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.dismiss();
-                    }
-                });
-                alert.show();
-            }
-        });
-
-
-
-
-
         btn_signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -361,10 +537,10 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
                 }
 
                 System.out.println(COUNTRY_ID);
-                if(agreeTermsAndConditions.isChecked()) {
+                if (agreeTermsAndConditions.isChecked()) {
                     submitForm();
-                }else{
-                   Toast.makeText(getActivity(), "Please Agree to the Terms And Conditions before proceeding.", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getActivity(), "Please Agree to the Terms And Conditions before proceeding.", Toast.LENGTH_LONG).show();
 
                 }
             }
@@ -444,6 +620,105 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
         return rootView;
     }
 
+    public boolean isFacebookAppInstalled() {
+        try {
+            thisActivity.getApplicationContext().getPackageManager().getApplicationInfo("com.facebook.katana", 0);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+    }
+
+
+
+
+
+    private static Scope buildScope() {
+        return Scope.build(Scope.R_BASICPROFILE, Scope.W_SHARE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == Activity.RESULT_OK) {
+            LISessionManager.getInstance(getActivity().getApplicationContext()).onActivityResult(getActivity(), requestCode, resultCode, data);
+        }
+
+
+        if (requestCode == SIGN_IN_CODE) {
+            Log.e("XXX", "ONACTIVITY RESULT");
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            handleSignInResult(result);
+        }
+    }
+
+
+    private void handleSignInResult(GoogleSignInResult result) {
+        Log.d(TAG, "handleSignInResult:" + result.isSuccess());
+        if (result.isSuccess()) {
+            updateUI(true);
+            account = result.getSignInAccount();
+        } else {
+            updateUI(false);
+        }
+    }
+
+
+    private void updateUI(boolean signedIn) {
+        if (signedIn) {
+            Intent shareIntent = new PlusShare.Builder(getActivity())
+                    .setType("text/plain")
+                    .setText("\n" +
+                            "[Name]:\n" +
+                            "\n" +
+                            "Crowd Bootstrap helps entrepreneurs accelerate their journey from a startup idea to initial revenues. It is a free App that enables you to benefit as an entrepreneur or help as an expert.\n" +
+                            "\n" +
+                            "Please click the following link to sign-up and help an entrepreneur realize their dream.\n" +
+                            "\n" +
+                            "\n" +
+                            "Regards,\n" +
+                            "\n" +
+                            "The Crowd Bootstrap Team")
+                    .setContentUrl(Uri.parse("http://crowdbootstrap.com/"))
+                    .getIntent();
+            startActivityForResult(shareIntent, 0);
+        } else {
+
+        }
+    }
+
+    private void signIn() {
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        startActivityForResult(signInIntent, SIGN_IN_CODE);
+    }
+
+    private void signOut() {
+        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(Status status) {
+                        updateUI(false);
+                    }
+                });
+    }
+
+    private boolean isSessionValidLinkedin;
+
+    private void setUpdateState() {
+        LISessionManager sessionManager = LISessionManager.getInstance(getActivity().getApplicationContext());
+        LISession session = sessionManager.getSession();
+        boolean accessTokenValid = session.isValid();
+        Log.e("XXX", String.valueOf(accessTokenValid));
+        if (accessTokenValid == true) {
+
+            isSessionValidLinkedin = true;
+        } else {
+            isSessionValidLinkedin = false;
+        }
+    }
+
     private void updateLabel() {
         et_DOB.setText(DateTimeFormatClass.convertDateObjectToMMDDYYYFormat(myCalendar.getTime()));
     }
@@ -458,16 +733,47 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
     public void onResume() {
         super.onResume();
         ((LoginActivity) getActivity()).setOnBackPressedListener(this);
+        ((LoginActivity) getActivity()).setOnActivityResultListener(this);
+
+
+    }
+
+
+
+
+
+    public boolean isGoogleAppInstalled() {
+        try {
+            thisActivity.getApplicationContext().getPackageManager().getApplicationInfo("om.google.android.apps.plus", 0);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        Log.e("XXX", "ONSTART");
+        OptionalPendingResult<GoogleSignInResult> optPenRes = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
+        if (optPenRes.isDone()) {
+            Log.d(TAG, "Yayy!");
+            GoogleSignInResult result = optPenRes.get();
+            // handleSignInResult(result);
+        } else {
+            optPenRes.setResultCallback(new ResultCallback<GoogleSignInResult>() {
+                @Override
+                public void onResult(GoogleSignInResult googleSignInResult) {
+                    //handleSignInResult(googleSignInResult);
+                }
+            });
+        }
     }
 
     public SignupFragment() {
+        super();
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
 
     JSONObject signup = null;
 
@@ -534,7 +840,7 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
 
                 if (((LoginActivity) getActivity()).networkConnectivity.isOnline()) {
 
-                    Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.SIGNUP_TAG, Constants.SIGNUP_URL, Constants.HTTP_POST, signup,"Home Activity");
+                    Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.SIGNUP_TAG, Constants.SIGNUP_URL, Constants.HTTP_POST, signup, "Home Activity");
                     a.execute();
                 } else {
                     ((LoginActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
@@ -652,7 +958,7 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
                             ((LoginActivity) getActivity()).utilitiesClass.alertDialogSingleButton(jsonObject.optJSONObject("errors").optString("phoneno"));
                         } else if (!jsonObject.optJSONObject("errors").optString("best_availablity").isEmpty()) {
                             //deleteUser(registeredUser, jsonObject.optJSONObject("errors").optString("best_availablity"));
-                             ((LoginActivity) getActivity()).utilitiesClass.alertDialogSingleButton(jsonObject.optJSONObject("errors").optString("best_availablity"));
+                            ((LoginActivity) getActivity()).utilitiesClass.alertDialogSingleButton(jsonObject.optJSONObject("errors").optString("best_availablity"));
                         }
                         ((LoginActivity) getActivity()).dismissProgressDialog();
                     }
@@ -781,7 +1087,7 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                            Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.SIGNUP_TAG, Constants.SIGNUP_URL, Constants.HTTP_POST, signup,"Home Activity");
+                            Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.SIGNUP_TAG, Constants.SIGNUP_URL, Constants.HTTP_POST, signup, "Home Activity");
                             a.execute();
                         } else {
                             //deleteUser(qbUser, getString(R.string.no_internet_connection));
@@ -818,5 +1124,10 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
                 ((LoginActivity) getActivity()).utilitiesClass.alertDialogSingleButton(message);
             }
         });
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        Log.d(TAG, "onConnectionFailed:" + connectionResult);
     }
 }

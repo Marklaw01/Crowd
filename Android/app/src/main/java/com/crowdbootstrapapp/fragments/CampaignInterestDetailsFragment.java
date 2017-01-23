@@ -22,6 +22,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.crowdbootstrapapp.R;
 import com.crowdbootstrapapp.activities.HomeActivity;
 import com.crowdbootstrapapp.listeners.AsyncTaskCompleteListener;
@@ -29,8 +31,6 @@ import com.crowdbootstrapapp.models.AudioObject;
 import com.crowdbootstrapapp.utilities.Async;
 import com.crowdbootstrapapp.utilities.Constants;
 import com.crowdbootstrapapp.utilities.UtilityList;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,7 +39,6 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -589,9 +588,9 @@ public class CampaignInterestDetailsFragment extends Fragment implements View.On
 
     private void collapseForSummary() {
         try {
-            int finalHeight = expandable_viewDocument.getHeight();
+            int finalHeight = expandable_Summary.getHeight();
             viewsummaryArrow.setBackground(getResources().getDrawable(R.drawable.arrow_downward));
-            ValueAnimator mAnimator = slideAnimatorForDocument(finalHeight, 0);
+            ValueAnimator mAnimator = slideAnimatorForSummary(finalHeight, 0);
 
             mAnimator.addListener(new Animator.AnimatorListener() {
                 @Override

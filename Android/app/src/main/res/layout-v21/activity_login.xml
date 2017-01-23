@@ -19,6 +19,9 @@
             android:layout_below="@+id/view"
             tools:context="com.crowdbootstrapapp.activities.LoginActivity"
             tools:ignore="MergeRootFrame" />
+
+
+
     </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

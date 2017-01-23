@@ -1,1 +1,1 @@
-include ':app', ':TableLibrary', ':library'
+include ':app', ':TableLibrary', ':linkedin-sdk', ':facebook'

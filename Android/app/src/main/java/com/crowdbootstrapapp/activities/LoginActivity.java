@@ -10,16 +10,16 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.crowdbootstrapapp.R;
-import com.crowdbootstrapapp.application.CrowdBootstrapApplicationClass;
 import com.crowdbootstrapapp.fragments.LoginFragment;
 import com.crowdbootstrapapp.listeners.AsyncTaskCompleteListener;
+import com.crowdbootstrapapp.listeners.onActivityResultListener;
 import com.crowdbootstrapapp.utilities.Constants;
 import com.crowdbootstrapapp.utilities.NetworkConnectivity;
 import com.crowdbootstrapapp.utilities.PrefManager;
 import com.crowdbootstrapapp.utilities.UtilitiesClass;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
 
 
 public class LoginActivity extends AppCompatActivity implements AsyncTaskCompleteListener<String> {
@@ -28,6 +28,7 @@ public class LoginActivity extends AppCompatActivity implements AsyncTaskComplet
     private BroadcastReceiver mRegistrationBroadcastReceiver;
 
     public NetworkConnectivity networkConnectivity;
+    public onActivityResultListener activytresultListener;
     public UtilitiesClass utilitiesClass;
     public PrefManager prefManager;
 
@@ -36,9 +37,11 @@ public class LoginActivity extends AppCompatActivity implements AsyncTaskComplet
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        networkConnectivity = CrowdBootstrapApplicationClass.getNetork();
-        utilitiesClass = CrowdBootstrapApplicationClass.getUtilities();
-        prefManager = CrowdBootstrapApplicationClass.getPref();
+        networkConnectivity = NetworkConnectivity.getInstance(LoginActivity.this);
+        utilitiesClass = UtilitiesClass.getInstance(LoginActivity.this);
+        prefManager = PrefManager.getInstance(LoginActivity.this);
+
+
 
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override
@@ -57,7 +60,7 @@ public class LoginActivity extends AppCompatActivity implements AsyncTaskComplet
     /*@Override
     public void setActionBarTitle(String title) {
     }*/
-    public void showProgressDialog(){
+    public void showProgressDialog() {
         pd = new ProgressDialog(LoginActivity.this);
         pd.setMessage(Html.fromHtml("<b>" + getString(R.string.please_wait) + "</b>"));
         pd.setIndeterminate(true);
@@ -66,10 +69,11 @@ public class LoginActivity extends AppCompatActivity implements AsyncTaskComplet
         pd.show();
     }
 
-    public boolean isShowingProgressDialog(){
+    public boolean isShowingProgressDialog() {
         return pd.isShowing();
     }
-    public void dismissProgressDialog(){
+
+    public void dismissProgressDialog() {
         pd.dismiss();
     }
 
@@ -85,6 +89,11 @@ public class LoginActivity extends AppCompatActivity implements AsyncTaskComplet
         LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver, new IntentFilter(Constants.REGISTRATION_COMPLETE));
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        activytresultListener.onActivityResult(requestCode, resultCode, data);
+    }
     /*
      * Check device has google play service enabled or not
      * @param context
@@ -123,7 +132,10 @@ public class LoginActivity extends AppCompatActivity implements AsyncTaskComplet
         }
         return true;
     }
-	
+
+    public void setOnActivityResultListener(onActivityResultListener listner) {
+        this.activytresultListener = listner;
+    }
 
     @Override
     public void onTaskComplete(String result, String tag) {

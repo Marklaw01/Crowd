@@ -107,7 +107,16 @@ public class ExpandableAdapter  extends BaseExpandableListAdapter {
                 v = inflater.inflate(R.layout.navigation_child_item_dummy, parent, false);
             }
             else if(groupPosition == 7){
-                v = inflater.inflate(R.layout.navigation_child_item_dummy, parent, false);
+                if(childPosition == 7){
+                    v = inflater.inflate(R.layout.navigation_child_item, parent, false);
+                }
+                else if(childPosition == 8){
+                    v = inflater.inflate(R.layout.navigation_child_item, parent, false);
+                }
+                else
+                {
+                    v = inflater.inflate(R.layout.navigation_child_item_dummy, parent, false);
+                }
             }
             else if(groupPosition == 4){
 

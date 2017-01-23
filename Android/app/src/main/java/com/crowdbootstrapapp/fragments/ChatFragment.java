@@ -15,20 +15,6 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.crowdbootstrapapp.R;
-import com.crowdbootstrapapp.activities.HomeActivity;
-import com.crowdbootstrapapp.application.CrowdBootstrapApplicationClass;
-import com.crowdbootstrapapp.chat.GroupChatImpl;
-import com.crowdbootstrapapp.chat.PrivateChatImpl;
-import com.crowdbootstrapapp.chat.QbDialogUtils;
-import com.crowdbootstrapapp.chat.QbUsersHolder;
-import com.crowdbootstrapapp.chat.adapter.ChatAdapter;
-import com.crowdbootstrapapp.chat.adapter.UsersAdapter;
-import com.crowdbootstrapapp.chat.callback.QbEntityCallbackTwoTypeWrapper;
-import com.crowdbootstrapapp.chat.callback.QbEntityCallbackWrapper;
-import com.crowdbootstrapapp.chat.interfaces.Chat;
-import com.crowdbootstrapapp.chat.interfaces.PaginationHistoryListener;
-import com.crowdbootstrapapp.chat.interfaces.QBChatMessageListener;
 import com.quickblox.chat.QBChat;
 import com.quickblox.chat.QBChatService;
 import com.quickblox.chat.model.QBAttachment;
@@ -41,6 +27,20 @@ import com.quickblox.core.request.QBPagedRequestBuilder;
 import com.quickblox.core.request.QBRequestGetBuilder;
 import com.quickblox.users.QBUsers;
 import com.quickblox.users.model.QBUser;
+import com.crowdbootstrapapp.R;
+import com.crowdbootstrapapp.activities.HomeActivity;
+import com.crowdbootstrapapp.chat.GroupChatImpl;
+import com.crowdbootstrapapp.chat.PrivateChatImpl;
+import com.crowdbootstrapapp.chat.QbDialogUtils;
+import com.crowdbootstrapapp.chat.QbUsersHolder;
+import com.crowdbootstrapapp.chat.adapter.ChatAdapter;
+import com.crowdbootstrapapp.chat.adapter.UsersAdapter;
+import com.crowdbootstrapapp.chat.callback.QbEntityCallbackTwoTypeWrapper;
+import com.crowdbootstrapapp.chat.callback.QbEntityCallbackWrapper;
+import com.crowdbootstrapapp.chat.interfaces.Chat;
+import com.crowdbootstrapapp.chat.interfaces.PaginationHistoryListener;
+import com.crowdbootstrapapp.chat.interfaces.QBChatMessageListener;
+import com.crowdbootstrapapp.utilities.PrefManager;
 
 import org.jivesoftware.smack.ConnectionListener;
 import org.jivesoftware.smack.SmackException;
@@ -105,6 +105,7 @@ public class ChatFragment extends Fragment {
     public void addConnectionListener(ConnectionListener listener) {
         QBChatService.getInstance().addConnectionListener(listener);
     }
+
     ArrayList<QBUser> users = new ArrayList<QBUser>();
 
     @Override
@@ -128,7 +129,7 @@ public class ChatFragment extends Fragment {
                 chatInfoLayout.setVisibility(View.GONE);
             }
 
-            ((HomeActivity)getActivity()).showProgressDialog();
+            ((HomeActivity) getActivity()).showProgressDialog();
             initChat();
             chatInfoLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -138,7 +139,7 @@ public class ChatFragment extends Fragment {
                         dialog.setContentView(R.layout.create_group_chat_dialog);
                         dialog.setTitle(qbDialog.getName() + " Members");
                         dialog.setCancelable(false);
-    //                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                        //                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                         //((HomeActivity)getActivity()).showProgressDialog();
                         final ProgressBar progressBar = (ProgressBar) dialog.findViewById(R.id.progress_chat);
                         final EditText name = (EditText) dialog.findViewById(R.id.groupName);
@@ -228,7 +229,7 @@ public class ChatFragment extends Fragment {
                             public void onSuccess(ArrayList<QBUser> qbUsers, Bundle bundle) {
                                 try {
                                     for (int i = 0; i < qbUsers.size(); i++) {
-                                        if (qbUsers.get(i).getId().equals(CrowdBootstrapApplicationClass.getPref().getQbUser().getId())) {
+                                        if (qbUsers.get(i).getId().equals(PrefManager.getInstance(getActivity()).getQbUser().getId())) {
                                             continue;
                                         }
                                         users.add(qbUsers.get(i));
@@ -295,7 +296,7 @@ public class ChatFragment extends Fragment {
                                         try {
                                             for (int i = 0; i < qbUsers.size(); i++) {
                                                 try {
-                                                    if (qbUsers.get(i).getId().equals(CrowdBootstrapApplicationClass.getPref().getQbUser().getId())) {
+                                                    if (qbUsers.get(i).getId().equals(PrefManager.getInstance(getActivity()).getQbUser().getId())) {
                                                         continue;
                                                     }
                                                 } catch (Exception e) {
@@ -322,10 +323,10 @@ public class ChatFragment extends Fragment {
                                 messagesListView.setAdapter(chatAdapter);
                                 messagesListView.setAreHeadersSticky(false);
                                 messagesListView.setDivider(null);
-                                if (((HomeActivity)getActivity()).isShowingProgressDialog()){
-                                    ((HomeActivity)getActivity()).dismissProgressDialog();
+                                if (((HomeActivity) getActivity()).isShowingProgressDialog()) {
+                                    ((HomeActivity) getActivity()).dismissProgressDialog();
                                 }
-                                messagesListView.setSelection(messages.size()-1);
+                                messagesListView.setSelection(messages.size() - 1);
                                 //progressBar.setVisibility(View.GONE);
                             } catch (Exception e) {
                                 e.printStackTrace();
@@ -333,7 +334,7 @@ public class ChatFragment extends Fragment {
                         } else {
                             try {
                                 chatAdapter.addList(messages);
-                                messagesListView.setSelection(messages.size()-1);
+                                messagesListView.setSelection(messages.size() - 1);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -346,8 +347,8 @@ public class ChatFragment extends Fragment {
 
                 @Override
                 public void onError(QBResponseException e) {
-                    if (((HomeActivity)getActivity()).isShowingProgressDialog()){
-                        ((HomeActivity)getActivity()).dismissProgressDialog();
+                    if (((HomeActivity) getActivity()).isShowingProgressDialog()) {
+                        ((HomeActivity) getActivity()).dismissProgressDialog();
                     }
                     skipPagination -= CHAT_HISTORY_ITEMS_PER_PAGE;
                 }
@@ -469,8 +470,8 @@ public class ChatFragment extends Fragment {
                         messagesListView.setAdapter(chatAdapter);
                         messagesListView.setAreHeadersSticky(false);
                         messagesListView.setDivider(null);
-                        if (((HomeActivity)getActivity()).isShowingProgressDialog()){
-                            ((HomeActivity)getActivity()).dismissProgressDialog();
+                        if (((HomeActivity) getActivity()).isShowingProgressDialog()) {
+                            ((HomeActivity) getActivity()).dismissProgressDialog();
                         }
                     } else {
                         chatAdapter.addList(messages);
@@ -480,8 +481,8 @@ public class ChatFragment extends Fragment {
 
                 @Override
                 public void onError(QBResponseException e) {
-                    if (((HomeActivity)getActivity()).isShowingProgressDialog()){
-                        ((HomeActivity)getActivity()).dismissProgressDialog();
+                    if (((HomeActivity) getActivity()).isShowingProgressDialog()) {
+                        ((HomeActivity) getActivity()).dismissProgressDialog();
                     }
                     skipPagination -= CHAT_HISTORY_ITEMS_PER_PAGE;
                     //snackbar = showErrorSnackbar(R.string.connection_error, e, null);
@@ -693,8 +694,8 @@ public class ChatFragment extends Fragment {
         ((GroupChatImpl) chat).joinGroupChat(qbDialog, new QBEntityCallback<Void>() {
             @Override
             public void onSuccess(Void result, Bundle b) {
-                if (((HomeActivity)getActivity()).isShowingProgressDialog()){
-                    ((HomeActivity)getActivity()).dismissProgressDialog();
+                if (((HomeActivity) getActivity()).isShowingProgressDialog()) {
+                    ((HomeActivity) getActivity()).dismissProgressDialog();
                 }
                 /*if (snackbar != null) {
                     snackbar.dismiss();
@@ -705,8 +706,8 @@ public class ChatFragment extends Fragment {
             @Override
             public void onError(QBResponseException e) {
                 //progressBar.setVisibility(View.GONE);
-                if (((HomeActivity)getActivity()).isShowingProgressDialog()){
-                    ((HomeActivity)getActivity()).dismissProgressDialog();
+                if (((HomeActivity) getActivity()).isShowingProgressDialog()) {
+                    ((HomeActivity) getActivity()).dismissProgressDialog();
                 }
                 //snackbar = showErrorSnackbar(R.string.connection_error, e, null);
             }

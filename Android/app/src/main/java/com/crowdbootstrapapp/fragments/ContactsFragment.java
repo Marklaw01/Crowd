@@ -10,6 +10,12 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.quickblox.chat.QBChatService;
+import com.quickblox.chat.QBPrivateChatManager;
+import com.quickblox.chat.model.QBDialog;
+import com.quickblox.core.QBEntityCallback;
+import com.quickblox.core.exception.QBResponseException;
+import com.quickblox.core.request.QBPagedRequestBuilder;
 import com.crowdbootstrapapp.R;
 import com.crowdbootstrapapp.activities.HomeActivity;
 import com.crowdbootstrapapp.adapter.ContactsAdapter;
@@ -17,12 +23,6 @@ import com.crowdbootstrapapp.listeners.AsyncTaskCompleteListener;
 import com.crowdbootstrapapp.models.ContactsObject;
 import com.crowdbootstrapapp.utilities.Async;
 import com.crowdbootstrapapp.utilities.Constants;
-import com.quickblox.chat.QBChatService;
-import com.quickblox.chat.QBPrivateChatManager;
-import com.quickblox.chat.model.QBDialog;
-import com.quickblox.core.QBEntityCallback;
-import com.quickblox.core.exception.QBResponseException;
-import com.quickblox.core.request.QBPagedRequestBuilder;
 
 import org.json.JSONException;
 import org.json.JSONObject;

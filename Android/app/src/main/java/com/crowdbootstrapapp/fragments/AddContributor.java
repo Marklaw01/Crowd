@@ -108,6 +108,9 @@ public class AddContributor extends Fragment implements View.OnClickListener, As
             targetCompletionDate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+
+
                     DatePickerDialog dialog = new DatePickerDialog(getActivity(), date, myCalendar
                             .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                             myCalendar.get(Calendar.DAY_OF_MONTH));
@@ -337,6 +340,7 @@ public class AddContributor extends Fragment implements View.OnClickListener, As
                     String WorkUnitsApproved = NumberTextWatcherForThousand.trimCommaOfString(hoursapproved.getText().toString());
                     String WorkUnitsAllocated = NumberTextWatcherForThousand.trimCommaOfString(hoursallowed.getText().toString());
                     String TargetDate =  targetCompletionDate.getText().toString();
+
                     if (role_id.equalsIgnoreCase("0")) {
                         Toast.makeText(getActivity(), "Select Role", Toast.LENGTH_LONG).show();
                     } else if (((HomeActivity) getActivity()).utilitiesClass.extractFloatValueFromStrin(hoursrate.getText().toString().trim()).equalsIgnoreCase("0.00")) {
@@ -356,7 +360,7 @@ public class AddContributor extends Fragment implements View.OnClickListener, As
                     } else {
                         JSONObject addContractorObj = new JSONObject();
                         try {
-                        if (!ViewOtherContractorPublicProfileFragment.TEAM_STARTUP_ID.trim().isEmpty()) {
+                            if (!ViewOtherContractorPublicProfileFragment.TEAM_STARTUP_ID.trim().isEmpty()) {
                                 addContractorObj.put("startup_id", ViewOtherContractorPublicProfileFragment.TEAM_STARTUP_ID.trim());
                             } else {
                                 addContractorObj.put("startup_id", startup_id);

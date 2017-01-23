@@ -12,6 +12,7 @@ public class CurrentStartUpObject {
     private String entrenprenuerName;
     private boolean is_entrepreneur;
     private boolean is_contractor;
+    private String startup_teamID;
 
     public String getStartup_teamID() {
         return startup_teamID;
@@ -20,8 +21,6 @@ public class CurrentStartUpObject {
     public void setStartup_teamID(String startup_teamID) {
         this.startup_teamID = startup_teamID;
     }
-
-    private String startup_teamID;
 
     public String getEntrenprenuer_id() {
         return entrenprenuer_id;

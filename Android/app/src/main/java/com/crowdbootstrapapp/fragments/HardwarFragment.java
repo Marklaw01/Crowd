@@ -9,8 +9,6 @@ import android.widget.TextView;
 
 import com.crowdbootstrapapp.R;
 
-import org.w3c.dom.Text;
-
 /**
  * Created by neelmani.karn on 3/14/2016.
  */

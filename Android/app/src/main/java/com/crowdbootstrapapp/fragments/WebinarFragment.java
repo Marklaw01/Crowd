@@ -12,7 +12,7 @@ import com.crowdbootstrapapp.R;
 /**
  * Created by neelmani.karn on 3/14/2016.
  */
-public class WebinarFragment extends Fragment{
+public class WebinarFragment extends Fragment {
     private TextView dummyText;
     public WebinarFragment() {
         super();

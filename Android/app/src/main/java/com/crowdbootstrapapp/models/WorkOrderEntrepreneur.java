@@ -32,20 +32,20 @@ public class WorkOrderEntrepreneur {
         this.week_no = week_no;
     }
 
-    public String getStartup_teamid() {
-        return startup_teamid;
-    }
-
-    public void setStartup_teamid(String startup_teamid) {
-        this.startup_teamid = startup_teamid;
-    }
-
     public String getStartup_id() {
         return startup_id;
     }
 
     public void setStartup_id(String startup_id) {
         this.startup_id = startup_id;
+    }
+
+    public String getStartup_teamid() {
+        return startup_teamid;
+    }
+
+    public void setStartup_teamid(String startup_teamid) {
+        this.startup_teamid = startup_teamid;
     }
 
     public String getTeam_memberid() {

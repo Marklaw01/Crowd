@@ -892,7 +892,9 @@ public class WorkOrderStartupEntrepreneurDetails extends Fragment implements Asy
                     } else {
                         entrepreneursComment.setEnabled(false);
                     }
-                     entrepreneurRating.setRating(Float.parseFloat(ratingValue));
+
+
+                    entrepreneurRating.setRating(Float.parseFloat(ratingValue));
 //                    spnrDeliverable_Name.setAdapter(contributorTypeAdapter);
                 } catch (JSONException e) {
                     ((HomeActivity) getActivity()).dismissProgressDialog();

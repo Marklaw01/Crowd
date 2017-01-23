@@ -5,17 +5,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
 import android.widget.TextView;
 
 import com.crowdbootstrapapp.R;
-import com.crowdbootstrapapp.utilities.Constants;
 
 /**
  * Created by neelmani.karn on 3/14/2016.
  */
-public class ConsultingFragment  extends Fragment{
+public class ConsultingFragment  extends Fragment {
     private TextView dummyText;
     public ConsultingFragment() {
         super();

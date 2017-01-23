@@ -15,6 +15,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.crowdbootstrapapp.R;
 import com.crowdbootstrapapp.activities.HomeActivity;
 import com.crowdbootstrapapp.helper.CircleImageView;
@@ -27,7 +28,6 @@ import com.crowdbootstrapapp.swipelistview_withoutscrollview.SwipeMenuItem;
 import com.crowdbootstrapapp.swipelistview_withoutscrollview.SwipeMenuListView;
 import com.crowdbootstrapapp.utilities.Async;
 import com.crowdbootstrapapp.utilities.Constants;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -236,7 +236,7 @@ public class ViewContractorsFragment extends Fragment implements AdapterView.OnI
 
 
                     } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
-                        Toast.makeText(getActivity(), "No Contributors available", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "No Contractor available", Toast.LENGTH_LONG).show();
                     }
                     adapter = new ViewContratorsAdapter();
                     list.setAdapter(adapter);

@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 
-import com.crowdbootstrapapp.activities.HomeActivity;
+import com.crowdbootstrapapp.activities.GettingStartedActivity;
 import com.crowdbootstrapapp.activities.LoginActivity;
 import com.crowdbootstrapapp.utilities.Constants;
 import com.crowdbootstrapapp.utilities.PrefManager;
@@ -45,12 +45,11 @@ public class SplashActivity extends AppCompatActivity {
         prefManager = PrefManager.getInstance(SplashActivity.this);
 
         View decorView = getWindow().getDecorView();
-// Hide both the navigation bar and the status bar.
-// SYSTEM_UI_FLAG_FULLSCREEN is only available on Android 4.1 and higher, but as
-// a general rule, you should design your app to hide the status bar whenever you
-// hide the navigation bar.
-        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_FULLSCREEN;
+        // Hide both the navigation bar and the status bar.
+        // SYSTEM_UI_FLAG_FULLSCREEN is only available on Android 4.1 and higher, but as
+        // a general rule, you should design your app to hide the status bar whenever you
+        // hide the navigation bar.
+        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
 
 
@@ -59,7 +58,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 if (prefManager.getBoolean(Constants.ISLOGGEDIN)) {
-                    startActivity(new Intent(SplashActivity.this, HomeActivity.class));
+                    startActivity(new Intent(SplashActivity.this, GettingStartedActivity.class));
                     finish();
                 } else {
                     startActivity(new Intent(SplashActivity.this, LoginActivity.class));
@@ -68,6 +67,4 @@ public class SplashActivity extends AppCompatActivity {
             }
         };
     }
-
-
 }

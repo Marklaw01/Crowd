@@ -3,6 +3,7 @@ package com.crowdbootstrapapp.fragments;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -173,7 +174,14 @@ public class SearchContractorsFragment extends Fragment implements AdapterView.O
                 args.putString("COMMING_FROM", "SEARCH_CONTRACTOR_DETAILS");
                 currentStartUPDetails.setArguments(args);
 
-                ((HomeActivity)getActivity()).replaceFragment(currentStartUPDetails);
+
+
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.container, currentStartUPDetails);
+                fragmentTransaction.addToBackStack(HomeFragment.class.getName());
+
+                fragmentTransaction.commit();
             }else {
                 Toast.makeText(getActivity(),"This user's profile can't be viewed as it is a private profile.", Toast.LENGTH_LONG).show();
             }

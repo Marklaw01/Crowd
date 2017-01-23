@@ -24,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.crowdbootstrapapp.R;
 import com.crowdbootstrapapp.activities.HomeActivity;
 import com.crowdbootstrapapp.dropdownadapter.CountryAdapter;
@@ -35,7 +36,6 @@ import com.crowdbootstrapapp.utilities.Async;
 import com.crowdbootstrapapp.utilities.Constants;
 import com.crowdbootstrapapp.utilities.DateTimeFormatClass;
 import com.crowdbootstrapapp.utilities.UsPhoneNumberFormatter;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;

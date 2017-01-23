@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +38,9 @@ public class NotifictaionsListFragment extends Fragment implements AsyncTaskComp
     private PushNotificationAdapter adapter;
     private LoadMoreListView list_notifications;
     private ArrayList<PushNotificationObject> notificationObjectArrayList;
+    String connectionUserId = "";
+    String connectionConnectionID = "";
+    String connectionStatus = "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -182,7 +184,70 @@ public class NotifictaionsListFragment extends Fragment implements AsyncTaskComp
 
 
 
-                    } else if (notificationObjectArrayList.get(position).getNotificationType().equalsIgnoreCase(Constants.NOTIFICATION_REPORT_ABUSE_FORUM_MEMBER)) {
+                    }
+
+                    else if (notificationObjectArrayList.get(position).getNotificationType().equalsIgnoreCase(Constants.NOTIFICATION_ADD_CONNECTION)) {
+                        if (!notificationObjectArrayList.get(position).getNotificationStatus().trim().isEmpty()){
+                            Toast.makeText(getActivity(),"You have already perfomed this operation", Toast.LENGTH_LONG).show();
+                        }else{
+                            JSONObject values;
+                            try {
+                                values = notificationObjectArrayList.get(position).getValues();
+                                connectionUserId = values.getString("user_id");
+                                connectionConnectionID = values.getString("connection_id");
+                                connectionStatus = values.getString("status");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                            builder.setTitle("Connection Request");
+                            builder.setMessage("Do you want to connect with this user?")
+                                    .setCancelable(false)
+
+                                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int arg1) {
+                                            //dialog.cancel();
+                                            if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
+                                                ((HomeActivity) getActivity()).showProgressDialog();
+                                                Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.ACCEPT_CONNECTION_USER_TAG, Constants.ACCEPT_CONNECTION_USER_URL + "?user_id=" + connectionUserId + "&connection_id=" + connectionConnectionID + "&status=1", Constants.HTTP_GET, "Home Activity");
+                                                a.execute();
+                                                dialog.dismiss();
+                                            } else {
+                                                ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
+                                            }
+
+                                        }
+                                    })
+                                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int arg1) {
+                                            if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
+                                                ((HomeActivity) getActivity()).showProgressDialog();
+                                                Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.DISCONNECT_USER_TAG, Constants.DISCONNECT_USER_URL + "?user_id=" + connectionUserId + "&connection_id=" + connectionConnectionID, Constants.HTTP_GET, "Home Activity");
+                                                a.execute();
+                                                dialog.dismiss();
+                                            } else {
+                                                dialog.dismiss();
+                                                ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
+                                            }
+                                        }
+                                    });
+
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
+                        }
+
+
+
+                    }
+
+
+
+                    else if (notificationObjectArrayList.get(position).getNotificationType().equalsIgnoreCase(Constants.NOTIFICATION_REPORT_ABUSE_FORUM_MEMBER)) {
                         Fragment fragment = new ForumDetailsFragment();
                         Bundle bundle = new Bundle();
 
@@ -369,6 +434,45 @@ public class NotifictaionsListFragment extends Fragment implements AsyncTaskComp
                         e.printStackTrace();
                     }
                 }
+                else if (tag.equalsIgnoreCase(Constants.DISCONNECT_USER_TAG)) {
+                    ((HomeActivity)getActivity()).dismissProgressDialog();
+                    try {
+                        JSONObject jsonObject = new JSONObject(result);
+                        System.out.println(jsonObject);
+
+                        if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
+                            Toast.makeText(getActivity(), "User disconnected successfully.", Toast.LENGTH_SHORT).show();
+
+
+                        } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
+                            Toast.makeText(getActivity(), "Could not send request. Please Try after some time.", Toast.LENGTH_SHORT).show();
+                        }
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else if (tag.equalsIgnoreCase(Constants.ACCEPT_CONNECTION_USER_TAG)) {
+                    ((HomeActivity)getActivity()).dismissProgressDialog();
+                    try {
+                        JSONObject jsonObject = new JSONObject(result);
+                        System.out.println(jsonObject);
+
+                        if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
+                            Toast.makeText(getActivity(), "User connected successfully.", Toast.LENGTH_SHORT).show();
+
+
+                        } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
+                            Toast.makeText(getActivity(), "Could not send request. Please Try after some time.", Toast.LENGTH_SHORT).show();
+                        }
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+
             }
         } catch (NumberFormatException e) {
             e.printStackTrace();
