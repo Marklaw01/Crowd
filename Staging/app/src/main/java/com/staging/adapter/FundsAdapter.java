@@ -25,6 +25,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.staging.R;
 import com.staging.activities.HomeActivity;
+import com.staging.exception.CrowdException;
 import com.staging.fragments.ViewFollowers;
 import com.staging.listeners.AsyncTaskCompleteListener;
 import com.staging.logger.CrowdBootstrapLogger;
@@ -139,6 +140,7 @@ public class FundsAdapter extends BaseAdapter implements View.OnClickListener {
 
             holder.tv_dislikes.setTag(R.integer.selected_index, position);
             holder.tv_dislikes.setOnClickListener(this);
+            holder.tv_Likes.setTag(R.integer.selected_index, position);
             holder.tv_Likes.setOnClickListener(this);
 
             holder.tv_delete.setOnClickListener(new View.OnClickListener() {
@@ -308,17 +310,20 @@ public class FundsAdapter extends BaseAdapter implements View.OnClickListener {
                 }
                 break;
             case R.id.tv_Like:
-                Bundle like = new Bundle();
-                like.putInt(Constants.FUND_ID, 1);
-                like.putString(Constants.LIKE_DISLIKE, Constants.LIKE);
-                Fragment likeFragment = new LikeDislikeFragment();
-                likeFragment.setArguments(like);
-                (((HomeActivity) context)).replaceFragment(likeFragment);
+                int tagLikeId = (int) v.getTag(R.integer.selected_index);
+                if (list.get(tagLikeId).getFund_likes() != 0) {
+                    Bundle like = new Bundle();
+                    like.putInt(Constants.FUND_ID, 1);
+                    like.putString(Constants.LIKE_DISLIKE, Constants.LIKE);
+                    Fragment likeFragment = new LikeDislikeFragment();
+                    likeFragment.setArguments(like);
+                    (((HomeActivity) context)).replaceFragment(likeFragment);
+                }
                 break;
 
             case R.id.tv_dislike:
-                int tagId = (int) v.getTag(R.integer.selected_index);
-                if (list.get(tagId).getFund_dislike() != 0) {
+                int tagDislikeId = (int) v.getTag(R.integer.selected_index);
+                if (list.get(tagDislikeId).getFund_dislike() != 0) {
                     Bundle dislike = new Bundle();
                     dislike.putInt(Constants.FUND_ID, 1);
                     dislike.putString(Constants.LIKE_DISLIKE, Constants.DISLIKE);
@@ -367,6 +372,8 @@ public class FundsAdapter extends BaseAdapter implements View.OnClickListener {
                     return Constants.NOINTERNET;
                 } catch (SocketTimeoutException e) {
                     return Constants.TIMEOUT_EXCEPTION;
+                } catch (CrowdException e) {
+                    return Constants.SERVEREXCEPTION;
                 } catch (Exception e) {
                     e.printStackTrace();
                     return Constants.SERVEREXCEPTION;

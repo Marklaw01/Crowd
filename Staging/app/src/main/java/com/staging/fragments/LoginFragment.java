@@ -29,6 +29,7 @@ import com.staging.activities.LoginActivity;
 import com.staging.helper.CustomEditTextView;
 import com.staging.listeners.AsyncTaskCompleteListener;
 import com.staging.utilities.Async;
+import com.staging.utilities.AsyncNew;
 import com.staging.utilities.Constants;
 import com.staging.utilities.UtilitiesClass;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
@@ -142,8 +143,11 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Asy
             if (((LoginActivity) getActivity()).networkConnectivity.isOnline()) {
                 ((LoginActivity) getActivity()).showProgressDialog();
                 Log.e("startTime", String.valueOf(System.currentTimeMillis()));
-                Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.LOGIN_TAG, Constants.LOGIN_URL, Constants.HTTP_POST, login, "Login Activity");
+
+                AsyncNew a = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.LOGIN_TAG, Constants.LOGIN_URL, Constants.HTTP_POST_REQUEST, login);
                 a.execute();
+                /*Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.LOGIN_TAG, Constants.LOGIN_URL, Constants.HTTP_POST, login, "Login Activity");
+                a.execute();*/
             } else {
                 utils.alertDialogSingleButton(getString(R.string.no_internet_connection));
             }
@@ -217,10 +221,21 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Asy
         if (result.equalsIgnoreCase(Constants.NOINTERNET)) {
             ((LoginActivity) getActivity()).dismissProgressDialog();
             Toast.makeText(getActivity(), getString(R.string.check_internet), Toast.LENGTH_LONG).show();
+        } else if (result.equalsIgnoreCase(Constants.TIMEOUT_EXCEPTION)) {
+            ((LoginActivity) getActivity()).dismissProgressDialog();
+            UtilitiesClass.getInstance(getActivity()).alertDialogSingleButton(getString(R.string.time_out));
         } else if (result.equalsIgnoreCase(Constants.SERVEREXCEPTION)) {
             ((LoginActivity) getActivity()).dismissProgressDialog();
             Toast.makeText(getActivity(), getString(R.string.server_down), Toast.LENGTH_LONG).show();
-        } else {
+        }
+        /*if (result.equalsIgnoreCase(Constants.NOINTERNET)) {
+            ((LoginActivity) getActivity()).dismissProgressDialog();
+            Toast.makeText(getActivity(), getString(R.string.check_internet), Toast.LENGTH_LONG).show();
+        } else if (result.equalsIgnoreCase(Constants.SERVEREXCEPTION)) {
+            ((LoginActivity) getActivity()).dismissProgressDialog();
+            Toast.makeText(getActivity(), getString(R.string.server_down), Toast.LENGTH_LONG).show();
+        }*/
+        else {
             if (tag.equalsIgnoreCase(Constants.LOGIN_TAG)) {
                 try {
                     final JSONObject jsonObject = new JSONObject(result);

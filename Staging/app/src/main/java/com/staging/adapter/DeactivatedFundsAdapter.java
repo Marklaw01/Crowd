@@ -1,9 +1,11 @@
 package com.staging.adapter;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Gravity;
@@ -17,11 +19,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.staging.R;
 import com.staging.activities.HomeActivity;
+import com.staging.exception.CrowdException;
+import com.staging.logger.CrowdBootstrapLogger;
+import com.staging.models.FundsObject;
 import com.staging.utilities.Constants;
 import com.staging.utilities.NetworkConnectivity;
+import com.staging.utilities.PrefManager;
 import com.staging.utilities.UtilitiesClass;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
 
 /**
  * Created by Neelmani.Karn on 1/11/2017.
@@ -33,15 +47,15 @@ public class DeactivatedFundsAdapter extends BaseAdapter implements View.OnClick
     private LayoutInflater l_Inflater;
     private View convertView1;
     private Context context;
-    //private ArrayList<JobListObject> list;
+    private ArrayList<FundsObject> list;
     private NetworkConnectivity networkConnectivity;
     private UtilitiesClass utilitiesClass;
     private static int pos = 0;
 
-    public DeactivatedFundsAdapter(Context context/*, ArrayList<JobListObject> list*/, String userType) {
+    public DeactivatedFundsAdapter(Context context, ArrayList<FundsObject> list, String userType) {
         l_Inflater = LayoutInflater.from(context);
         this.context = context;
-        //this.list = list;
+        this.list = list;
         this.userType = userType;
         this.networkConnectivity = NetworkConnectivity.getInstance(context);
         this.utilitiesClass = UtilitiesClass.getInstance(context);
@@ -61,12 +75,12 @@ public class DeactivatedFundsAdapter extends BaseAdapter implements View.OnClick
 
     @Override
     public int getCount() {
-        return 10;
+        return list.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return new Object();
+        return list.get(position);
     }
 
     @Override
@@ -117,56 +131,17 @@ public class DeactivatedFundsAdapter extends BaseAdapter implements View.OnClick
         try {
             holder.likeBtn.setOnClickListener(this);
             holder.dislikeBtn.setOnClickListener(this);
-            //ImageLoader.getInstance().displayImage(Constants.APP_IMAGE_URL + list.get(position).getCompanyLogoImage(), holder.fund_icon, options);
+            holder.fundTitle.setText(list.get(position).getFund_title());
+            holder.fundDescription.setText(list.get(position).getFund_description());
+            holder.tv_postedDate.setText(list.get(position).getFund_start_date());
+            holder.tv_Likes.setText(list.get(position).getFund_likes() + " Likes");
+            holder.tv_dislikes.setText(list.get(position).getFund_dislike() + " Dislikes");
 
-
+            holder.likeBtn.setOnClickListener(this);
+            holder.dislikeBtn.setOnClickListener(this);
+            ImageLoader.getInstance().displayImage(Constants.APP_IMAGE_URL + list.get(position).getFund_image(), holder.fund_icon, options);
             holder.tv_dislikes.setOnClickListener(this);
             holder.tv_Likes.setOnClickListener(this);
-
-            holder.tv_delete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-
-                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-
-                    alertDialogBuilder
-                            .setMessage("Do you want to delete this Fund?")
-                            .setCancelable(false)
-                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int arg1) {
-                                    dialog.cancel();
-                                }
-                            })
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-
-                                @Override
-                                public void onClick(DialogInterface dialog, int arg1) {
-                                    dialog.cancel();
-                                    if (networkConnectivity.isInternetConnectionAvaliable()) {
-                                        pos = position;
-                                        //new DeleteJob().execute(list.get(position).getJobID());
-
-                                        /*Async a = new Async(context, (AsyncTaskCompleteListener<String>) context, Constants.DELETE_CAMPAIGN_TAG, Constants.DELETE_CAMPAIGN_TAG + list.get(position).getId(), Constants.HTTP_GET);
-                                        a.execute();*/
-                                    } else {
-                                        utilitiesClass.alertDialogSingleButton(context.getString(R.string.no_internet_connection));
-                                    }
-
-
-                                    //list.remove(position);
-                                    notifyDataSetChanged();
-                                }
-                            });
-
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-
-                    alertDialog.show();
-
-
-                }
-            });
 
 
             holder.tv_archive.setOnClickListener(new View.OnClickListener() {
@@ -190,55 +165,15 @@ public class DeactivatedFundsAdapter extends BaseAdapter implements View.OnClick
                                 public void onClick(DialogInterface dialog, int arg1) {
                                     dialog.cancel();
                                     if (networkConnectivity.isInternetConnectionAvaliable()) {
-                                        pos = position;
-                                        //new ArchiveJob().execute(list.get(position).getJobID());
+                                        try {
+                                            JSONObject obj = new JSONObject();
+                                            obj.put("user_id", PrefManager.getInstance(context).getString(Constants.USER_ID));
+                                            obj.put("fund_id", list.get(position).getId());
+                                            doJob(context.getString(R.string.fundActivated), position, Constants.FUND_ACTIVATE_URL, Constants.HTTP_POST_REQUEST, obj);
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
 
-                                        /*Async a = new Async(context, (AsyncTaskCompleteListener<String>) context, Constants.DELETE_CAMPAIGN_TAG, Constants.DELETE_CAMPAIGN_TAG + list.get(position).getId(), Constants.HTTP_GET);
-                                        a.execute();*/
-                                    } else {
-                                        utilitiesClass.alertDialogSingleButton(context.getString(R.string.no_internet_connection));
-                                    }
-
-
-                                    //list.remove(position);
-                                    notifyDataSetChanged();
-                                }
-                            });
-
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-
-                    alertDialog.show();
-
-
-                }
-            });
-
-
-            holder.tv_deactivate.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-
-                    alertDialogBuilder
-                            .setMessage("Do you want to deactivate this Fund?")
-                            .setCancelable(false)
-                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int arg1) {
-                                    dialog.cancel();
-                                }
-                            })
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-
-                                @Override
-                                public void onClick(DialogInterface dialog, int arg1) {
-                                    dialog.cancel();
-                                    if (networkConnectivity.isInternetConnectionAvaliable()) {
-                                        pos = position;
-                                        // new DeactivateJob().execute(list.get(position).getJobID());
-
-                                        /*Async a = new Async(context, (AsyncTaskCompleteListener<String>) context, Constants.DELETE_CAMPAIGN_TAG, Constants.DELETE_CAMPAIGN_TAG + list.get(position).getId(), Constants.HTTP_GET);
-                                        a.execute();*/
                                     } else {
                                         utilitiesClass.alertDialogSingleButton(context.getString(R.string.no_internet_connection));
                                     }
@@ -312,4 +247,80 @@ public class DeactivatedFundsAdapter extends BaseAdapter implements View.OnClick
     }
 
 
+    private void doJob(final String message, final int position, final String url, final String requestType, final JSONObject jsonObject) {
+
+        new AsyncTask<Void, Void, String>() {
+
+            ProgressDialog pDialog;
+
+            @Override
+            protected void onPreExecute() {
+                // TODO Auto-generated method stub
+                super.onPreExecute();
+
+                pDialog = new ProgressDialog(context);
+                pDialog.setMessage("Please wait...");
+                pDialog.setIndeterminate(true);
+                pDialog.setCancelable(false);
+                pDialog.show();
+
+
+            }
+
+            @Override
+            protected String doInBackground(Void... params) {
+                String response = "";
+                try {
+                    response = utilitiesClass.makeRequest(url, jsonObject, requestType);
+                    return response;
+                } catch (UnknownHostException e) {
+                    return Constants.NOINTERNET;
+                } catch (SocketTimeoutException e) {
+                    return Constants.TIMEOUT_EXCEPTION;
+                } catch (CrowdException e) {
+                    return Constants.SERVEREXCEPTION;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return Constants.SERVEREXCEPTION;
+                }
+            }
+
+
+            @Override
+            protected void onPostExecute(String result) {
+                super.onPostExecute(result);
+
+                pDialog.dismiss();
+
+                if (result.equals(Constants.NOINTERNET)) {
+                    Toast.makeText(context, context.getString(R.string.check_internet), Toast.LENGTH_LONG).show();
+                } else if (result.equals(Constants.SERVEREXCEPTION)) {
+                    Toast.makeText(context, context.getString(R.string.server_down), Toast.LENGTH_LONG).show();
+                } else if (result.equals(Constants.TIMEOUT_EXCEPTION)) {
+                    utilitiesClass.alertDialogSingleButton(context.getString(R.string.time_out));
+                } else {
+                    if (result.isEmpty()) {
+                        Toast.makeText(context, context.getString(R.string.server_down), Toast.LENGTH_LONG).show();
+                    } else {
+                        try {
+                            JSONObject jsonObject = new JSONObject(result);
+                            CrowdBootstrapLogger.logInfo(result);
+                            if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
+                                Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+                                list.remove(position);
+                                notifyDataSetChanged();
+                            } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
+                                Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+                            }
+                        } catch (JSONException e) {
+                            Toast.makeText(context, context.getString(R.string.server_down), Toast.LENGTH_LONG).show();
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }.execute();
+
+
+    }
 }

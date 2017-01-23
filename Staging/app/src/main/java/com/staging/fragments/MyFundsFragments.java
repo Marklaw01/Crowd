@@ -215,6 +215,7 @@ public class MyFundsFragments extends Fragment implements AdapterView.OnItemClic
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    Toast.makeText(getActivity(), getString(R.string.server_down), Toast.LENGTH_LONG).show();
                 }
 
                 if (adapter == null) {

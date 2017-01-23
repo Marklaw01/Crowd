@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.staging.R;
+import com.staging.exception.CrowdException;
 import com.staging.logger.CrowdBootstrapLogger;
 
 import org.apache.http.HttpEntity;
@@ -527,7 +528,7 @@ public class UtilitiesClass {
      * @throws UnknownHostException   if internet connection is not there or may be bandwidth of internet is low.
      * @throws SocketTimeoutException when user connection is slow and it takes much time to execute then user get timeout message
      */
-    public String makeRequest(String uri, JSONObject json, String requestType) throws UnknownHostException, SocketTimeoutException {
+    public String makeRequest(String uri, JSONObject json, String requestType) throws UnknownHostException, SocketTimeoutException, CrowdException {
         HttpURLConnection urlConnection;
         // String url;
         //String data = json;
@@ -559,6 +560,7 @@ public class UtilitiesClass {
             urlConnection.setRequestMethod(requestType);
             urlConnection.connect();
 
+
             //Write
             if (json != null) {
                 OutputStream outputStream = urlConnection.getOutputStream();
@@ -567,19 +569,25 @@ public class UtilitiesClass {
                 writer.close();
                 outputStream.close();
             }
+            if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
 
-            //Read
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "UTF-8"));
+                //Read
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "UTF-8"));
 
-            String line = null;
-            StringBuilder sb = new StringBuilder();
+                String line = null;
+                StringBuilder sb = new StringBuilder();
 
-            while ((line = bufferedReader.readLine()) != null) {
-                sb.append(line);
+                while ((line = bufferedReader.readLine()) != null) {
+                    sb.append(line);
+                }
+
+                bufferedReader.close();
+                result = sb.toString();
+            } else {
+                CrowdBootstrapLogger.logInfo("Status code: " + urlConnection.getResponseCode());
+                throw new CrowdException(Constants.SERVEREXCEPTION);
             }
 
-            bufferedReader.close();
-            result = sb.toString();
 
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
@@ -590,6 +598,8 @@ public class UtilitiesClass {
             throw e;
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (Exception e) {
+            throw e;
         }
         /* catch (NoSuchAlgorithmException e) {
             e.printStackTrace();

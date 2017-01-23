@@ -11,6 +11,7 @@ import android.support.v7.app.AlertDialog;
 import com.staging.activities.HomeActivity;
 import com.staging.activities.LeanStartupRoadmap;
 import com.staging.activities.LoginActivity;
+import com.staging.exception.CrowdException;
 import com.staging.listeners.AsyncTaskCompleteListener;
 
 import org.json.JSONObject;
@@ -68,6 +69,8 @@ public class AsyncNew extends AsyncTask<String, Integer, String> {
             return Constants.NOINTERNET;
         } catch (SocketTimeoutException e) {
             return Constants.TIMEOUT_EXCEPTION;
+        } catch (CrowdException e) {
+            return Constants.SERVEREXCEPTION;
         } catch (Exception e) {
             e.printStackTrace();
             return Constants.SERVEREXCEPTION;
