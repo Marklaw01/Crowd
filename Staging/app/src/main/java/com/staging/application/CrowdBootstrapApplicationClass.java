@@ -104,6 +104,7 @@ public class CrowdBootstrapApplicationClass extends Application {
             config.diskCacheFileNameGenerator(new Md5FileNameGenerator());
             config.diskCacheSize(50 * 1024 * 1024); // 50 MiB
             config.tasksProcessingOrder(QueueProcessingType.LIFO);
+            config.defaultDisplayImageOptions(options);
             if (BuildConfig.DEBUG)
                 config.writeDebugLogs(); // Remove for release app
             // Initialize ImageLoader with configuration.

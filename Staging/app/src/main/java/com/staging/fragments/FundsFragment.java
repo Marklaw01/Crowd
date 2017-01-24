@@ -39,6 +39,7 @@ public class FundsFragment extends Fragment {
             tabLayout.post(new Runnable() {
                 @Override
                 public void run() {
+                    viewPager.setOffscreenPageLimit(0);
                     tabLayout.setupWithViewPager(viewPager);
                 }
             });

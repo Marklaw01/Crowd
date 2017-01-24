@@ -83,7 +83,7 @@
             android:name=".RegistrationIntentService"
             android:exported="false" />
 
-
+        <activity android:name="com.facebook.FacebookActivity" />
         <activity
             android:name=".SplashActivity"
             android:screenOrientation="portrait"

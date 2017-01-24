@@ -147,58 +147,54 @@ public class DeactivatedFundsAdapter extends BaseAdapter implements View.OnClick
             holder.tv_archive.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-
-                    alertDialogBuilder
-                            .setMessage("Do you want to activate this Fund?")
-                            .setCancelable(false)
-                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int arg1) {
-                                    dialog.cancel();
-                                }
-                            })
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-
-                                @Override
-                                public void onClick(DialogInterface dialog, int arg1) {
-                                    dialog.cancel();
-                                    if (networkConnectivity.isInternetConnectionAvaliable()) {
-                                        try {
-                                            JSONObject obj = new JSONObject();
-                                            obj.put("user_id", PrefManager.getInstance(context).getString(Constants.USER_ID));
-                                            obj.put("fund_id", list.get(position).getId());
-                                            doJob(context.getString(R.string.fundActivated), position, Constants.FUND_ACTIVATE_URL, Constants.HTTP_POST_REQUEST, obj);
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-
-                                    } else {
-                                        utilitiesClass.alertDialogSingleButton(context.getString(R.string.no_internet_connection));
-                                    }
-
-
-                                    //list.remove(position);
-                                    notifyDataSetChanged();
-                                }
-                            });
-
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-
-                    alertDialog.show();
-
-
+                    showDialog(position, "Do you want to activate this Fund?", Constants.FUND_ACTIVATE_URL);
                 }
             });
-
-
         } catch (Exception e) {
 
             e.printStackTrace();
         }
 
         return convertView;
+    }
+
+
+    private void showDialog(final int position, String message, final String url) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+
+        alertDialogBuilder
+                .setMessage(message)
+                .setCancelable(false)
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int arg1) {
+                        dialog.cancel();
+                    }
+                })
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int arg1) {
+                        dialog.cancel();
+                        if (networkConnectivity.isInternetConnectionAvaliable()) {
+                            //pos = position;
+                            try {
+                                JSONObject obj = new JSONObject();
+                                obj.put("user_id", PrefManager.getInstance(context).getString(Constants.USER_ID));
+                                obj.put("fund_id", list.get(position).getId());
+                                doJob(position, url, Constants.HTTP_POST_REQUEST, obj);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            utilitiesClass.alertDialogSingleButton(context.getString(R.string.no_internet_connection));
+                        }
+                    }
+                });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        alertDialog.show();
     }
 
     /**
@@ -247,7 +243,7 @@ public class DeactivatedFundsAdapter extends BaseAdapter implements View.OnClick
     }
 
 
-    private void doJob(final String message, final int position, final String url, final String requestType, final JSONObject jsonObject) {
+    private void doJob(final int position, final String url, final String requestType, final JSONObject jsonObject) {
 
         new AsyncTask<Void, Void, String>() {
 
@@ -306,11 +302,11 @@ public class DeactivatedFundsAdapter extends BaseAdapter implements View.OnClick
                             JSONObject jsonObject = new JSONObject(result);
                             CrowdBootstrapLogger.logInfo(result);
                             if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
-                                Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+                                Toast.makeText(context, jsonObject.getString("message"), Toast.LENGTH_LONG).show();
                                 list.remove(position);
                                 notifyDataSetChanged();
                             } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
-                                Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+                                Toast.makeText(context, jsonObject.getString("message"), Toast.LENGTH_LONG).show();
                             }
                         } catch (JSONException e) {
                             Toast.makeText(context, context.getString(R.string.server_down), Toast.LENGTH_LONG).show();

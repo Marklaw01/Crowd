@@ -480,6 +480,12 @@ public final class Constants {
     public static final String FUND_DEACTIVATE_URL = "deactivateFund";
     public static final String FUND_ACTIVATE_URL = "activateFund";
 
+    public static final String FUND_LIKERS_LIST = "";
+    public static final String FUND_LIKERS_TAG = "fundLikesList_tag";
+
+    public static final String FUND_DISLIKERS_LIST = "";
+    public static final String FUND_DISLIKERS_FUND_TAG = "fundDislikesList_tag";
+
 
     //Password regex pattern for validation.
     public static final String PASSWORD_REGEX_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[$@$!%*?&])(?=\\S+$).{8,25}$";

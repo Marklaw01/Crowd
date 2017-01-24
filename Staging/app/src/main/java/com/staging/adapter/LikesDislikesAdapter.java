@@ -18,9 +18,12 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.staging.R;
 import com.staging.activities.HomeActivity;
 import com.staging.helper.CircleImageView;
+import com.staging.models.UserObject;
 import com.staging.utilities.Constants;
 import com.staging.utilities.NetworkConnectivity;
 import com.staging.utilities.UtilitiesClass;
+
+import java.util.ArrayList;
 
 /**
  * Created by Neelmani.Karn on 1/11/2017.
@@ -31,12 +34,14 @@ public class LikesDislikesAdapter extends BaseAdapter {
     private LayoutInflater l_Inflater;
     private View convertView1;
     private Context context;
+    private ArrayList<UserObject> list;
 
     private static int pos = 0;
 
-    public LikesDislikesAdapter(Context context/*, ArrayList<JobListObject> list*/) {
+    public LikesDislikesAdapter(Context context, ArrayList<UserObject> list) {
         l_Inflater = LayoutInflater.from(context);
         this.context = context;
+        this.list = list;
         options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.drawable.image)
                 .showImageForEmptyUri(R.drawable.image)
@@ -50,12 +55,12 @@ public class LikesDislikesAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 50;
+        return list.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return new Object();
+        return list.get(position);
     }
 
     @Override

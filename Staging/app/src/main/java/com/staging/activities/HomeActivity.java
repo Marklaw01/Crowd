@@ -128,6 +128,7 @@ import static com.mikepenz.actionitembadge.library.ActionItemBadge.*;
  */
 public class HomeActivity extends BaseActivity implements View.OnClickListener, AsyncTaskCompleteListener<String> {
 
+    Thread notificationThread;
     ProgressDialog pd;
     public static TextView userName;
     public static String filename;
@@ -550,7 +551,30 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             setBadgeData();
 
             // ADD TIMER AFTER EVERY 5 SECOND FOR THE NOTIFICATION TO BE UPDATED
-            new Thread(new Runnable() {
+
+
+            notificationThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    while (true) {
+                        try {
+                            Thread.sleep(160000);// 5 seconds lag
+                            mHandler.post(new Runnable() {
+
+                                @Override
+                                public void run() {
+                                    Log.e("XXX", "TIMERHIT");
+                                    setBadgeData();
+                                }
+                            });
+                        } catch (Exception e) {
+                            // TODO: handle exception
+                        }
+                    }
+                }
+            });
+            notificationThread.start();
+            /*new Thread(new Runnable() {
                 @Override
                 public void run() {
                     // TODO Auto-generated method stub
@@ -570,7 +594,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                         }
                     }
                 }
-            }).start();
+            }).start();*/
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -2023,7 +2047,9 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                     CrowdBootstrapLogger.logInfo(jsonObject.toString());
 
                     if (jsonObject.getString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase("200")) {
-
+                        if (notificationThread != null) {
+                            notificationThread.interrupt();
+                        }
                         QBChatService.getInstance().logout(new QBEntityCallback<Void>() {
                             @Override
                             public void onSuccess(Void aVoid, Bundle bundle) {

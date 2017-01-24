@@ -146,43 +146,7 @@ public class FundsAdapter extends BaseAdapter implements View.OnClickListener {
             holder.tv_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-
-                    alertDialogBuilder
-                            .setMessage("Do you want to delete this Fund?")
-                            .setCancelable(false)
-                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int arg1) {
-                                    dialog.cancel();
-                                }
-                            })
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-
-                                @Override
-                                public void onClick(DialogInterface dialog, int arg1) {
-                                    dialog.cancel();
-                                    if (networkConnectivity.isInternetConnectionAvaliable()) {
-                                        //pos = position;
-                                        try {
-                                            JSONObject obj = new JSONObject();
-                                            obj.put("user_id", PrefManager.getInstance(context).getString(Constants.USER_ID));
-                                            obj.put("fund_id", list.get(position).getId());
-                                            doJob(context.getString(R.string.fund_deleted), position, Constants.FUND_DELETE_URL, Constants.HTTP_POST_REQUEST, obj);
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-                                    } else {
-                                        utilitiesClass.alertDialogSingleButton(context.getString(R.string.no_internet_connection));
-                                    }
-                                    notifyDataSetChanged();
-                                }
-                            });
-
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-
-                    alertDialog.show();
-
+                    showDialog(position, "Do you want to delete this Fund?", Constants.FUND_DELETE_URL);
                 }
             });
 
@@ -190,48 +154,7 @@ public class FundsAdapter extends BaseAdapter implements View.OnClickListener {
             holder.tv_archive.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-
-                    alertDialogBuilder
-                            .setMessage("Do you want to archive this Fund?")
-                            .setCancelable(false)
-                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int arg1) {
-                                    dialog.cancel();
-                                }
-                            })
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-
-                                @Override
-                                public void onClick(DialogInterface dialog, int arg1) {
-                                    dialog.cancel();
-                                    if (networkConnectivity.isInternetConnectionAvaliable()) {
-                                        //pos = position;
-                                        try {
-                                            JSONObject obj = new JSONObject();
-                                            obj.put("user_id", PrefManager.getInstance(context).getString(Constants.USER_ID));
-                                            obj.put("fund_id", list.get(position).getId());
-                                            doJob(context.getString(R.string.fund_archived), position, Constants.FUND_ARCHIEVE_URL, Constants.HTTP_POST_REQUEST, obj);
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-                                    } else {
-                                        utilitiesClass.alertDialogSingleButton(context.getString(R.string.no_internet_connection));
-                                    }
-
-
-                                    //list.remove(position);
-                                    notifyDataSetChanged();
-                                }
-                            });
-
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-
-                    alertDialog.show();
-
-
+                    showDialog(position, "Do you want to archive this Fund?", Constants.FUND_ARCHIEVE_URL);
                 }
             });
 
@@ -239,46 +162,7 @@ public class FundsAdapter extends BaseAdapter implements View.OnClickListener {
             holder.tv_deactivate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-
-                    alertDialogBuilder
-                            .setMessage("Do you want to deactivate this Fund?")
-                            .setCancelable(false)
-                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int arg1) {
-                                    dialog.cancel();
-                                }
-                            })
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-
-                                @Override
-                                public void onClick(DialogInterface dialog, int arg1) {
-                                    dialog.cancel();
-                                    if (networkConnectivity.isInternetConnectionAvaliable()) {
-                                        try {
-                                            JSONObject obj = new JSONObject();
-                                            obj.put("user_id", PrefManager.getInstance(context).getString(Constants.USER_ID));
-                                            obj.put("fund_id", list.get(position).getId());
-                                            doJob(context.getString(R.string.fund_deactivated), position, Constants.FUND_DEACTIVATE_URL, Constants.HTTP_POST_REQUEST, obj);
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-                                    } else {
-                                        utilitiesClass.alertDialogSingleButton(context.getString(R.string.no_internet_connection));
-                                    }
-
-
-                                    //list.remove(position);
-                                    notifyDataSetChanged();
-                                }
-                            });
-
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-
-                    alertDialog.show();
-
-
+                    showDialog(position, "Do you want to deactivate this Fund?", Constants.FUND_DEACTIVATE_URL);
                 }
             });
 
@@ -290,6 +174,45 @@ public class FundsAdapter extends BaseAdapter implements View.OnClickListener {
 
         return convertView;
     }
+
+    private void showDialog(final int position, String message, final String url) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+
+        alertDialogBuilder
+                .setMessage(message)
+                .setCancelable(false)
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int arg1) {
+                        dialog.cancel();
+                    }
+                })
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int arg1) {
+                        dialog.cancel();
+                        if (networkConnectivity.isInternetConnectionAvaliable()) {
+                            //pos = position;
+                            try {
+                                JSONObject obj = new JSONObject();
+                                obj.put("user_id", PrefManager.getInstance(context).getString(Constants.USER_ID));
+                                obj.put("fund_id", list.get(position).getId());
+                                doJob(position, url, Constants.HTTP_POST_REQUEST, obj);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            utilitiesClass.alertDialogSingleButton(context.getString(R.string.no_internet_connection));
+                        }
+                    }
+                });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        alertDialog.show();
+    }
+
 
     /**
      * Called when a view has been clicked.
@@ -313,7 +236,7 @@ public class FundsAdapter extends BaseAdapter implements View.OnClickListener {
                 int tagLikeId = (int) v.getTag(R.integer.selected_index);
                 if (list.get(tagLikeId).getFund_likes() != 0) {
                     Bundle like = new Bundle();
-                    like.putInt(Constants.FUND_ID, 1);
+                    like.putInt(Constants.FUND_ID, Integer.parseInt(list.get(tagLikeId).getId()));
                     like.putString(Constants.LIKE_DISLIKE, Constants.LIKE);
                     Fragment likeFragment = new LikeDislikeFragment();
                     likeFragment.setArguments(like);
@@ -325,7 +248,7 @@ public class FundsAdapter extends BaseAdapter implements View.OnClickListener {
                 int tagDislikeId = (int) v.getTag(R.integer.selected_index);
                 if (list.get(tagDislikeId).getFund_dislike() != 0) {
                     Bundle dislike = new Bundle();
-                    dislike.putInt(Constants.FUND_ID, 1);
+                    dislike.putInt(Constants.FUND_ID, Integer.parseInt(list.get(tagDislikeId).getId()));
                     dislike.putString(Constants.LIKE_DISLIKE, Constants.DISLIKE);
                     Fragment dislikeFragment = new LikeDislikeFragment();
                     dislikeFragment.setArguments(dislike);
@@ -342,7 +265,7 @@ public class FundsAdapter extends BaseAdapter implements View.OnClickListener {
         LinearLayout layoutButtons, layoutLikeDeslikeButtons;
     }
 
-    private void doJob(final String message, final int position, final String url, final String requestType, final JSONObject jsonObject) {
+    private void doJob(final int position, final String url, final String requestType, final JSONObject jsonObject) {
 
         new AsyncTask<Void, Void, String>() {
 
@@ -401,11 +324,11 @@ public class FundsAdapter extends BaseAdapter implements View.OnClickListener {
                             JSONObject jsonObject = new JSONObject(result);
                             CrowdBootstrapLogger.logInfo(result);
                             if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
-                                Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+                                Toast.makeText(context, jsonObject.getString("message"), Toast.LENGTH_LONG).show();
                                 list.remove(position);
                                 notifyDataSetChanged();
                             } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
-                                Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+                                Toast.makeText(context, jsonObject.getString("message"), Toast.LENGTH_LONG).show();
                             }
                         } catch (JSONException e) {
                             Toast.makeText(context, context.getString(R.string.server_down), Toast.LENGTH_LONG).show();

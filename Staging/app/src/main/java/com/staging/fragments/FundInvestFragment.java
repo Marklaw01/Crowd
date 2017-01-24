@@ -18,7 +18,7 @@ import com.staging.utilities.NonSwipeableViewPager;
 /**
  * Created by Neelmani.Karn on 1/11/2017.
  */
-public class FundInvestFragment extends Fragment implements AsyncTaskCompleteListener<String> {
+public class FundInvestFragment extends Fragment  {
     public TabLayout tabLayout;
     public NonSwipeableViewPager viewPager;
     public int int_items = 3;
@@ -32,8 +32,14 @@ public class FundInvestFragment extends Fragment implements AsyncTaskCompleteLis
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
             // we check that the fragment is becoming visible
+            viewPager.setAdapter(new MyAdapter(getChildFragmentManager()));
+            tabLayout.post(new Runnable() {
+                @Override
+                public void run() {
+                    tabLayout.setupWithViewPager(viewPager);
+                }
+            });
 
-            ((HomeActivity) getActivity()).setOnBackPressedListener(this);
         }
     }
 
@@ -45,14 +51,9 @@ public class FundInvestFragment extends Fragment implements AsyncTaskCompleteLis
         try {
             tabLayout = (TabLayout) rootView.findViewById(R.id.tabs);
             viewPager = (NonSwipeableViewPager) rootView.findViewById(R.id.viewpager);
-            viewPager.setAdapter(new MyAdapter(getChildFragmentManager()));
 
-            tabLayout.post(new Runnable() {
-                @Override
-                public void run() {
-                    tabLayout.setupWithViewPager(viewPager);
-                }
-            });
+
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -61,16 +62,7 @@ public class FundInvestFragment extends Fragment implements AsyncTaskCompleteLis
         return rootView;
     }
 
-    /**
-     * When network give response in this.
-     *
-     * @param result
-     * @param tag
-     */
-    @Override
-    public void onTaskComplete(String result, String tag) {
 
-    }
 
 
     class MyAdapter extends FragmentPagerAdapter {

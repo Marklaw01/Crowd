@@ -77,13 +77,13 @@ public class ArchivedFundsFragment extends Fragment implements AdapterView.OnIte
      * tied to {@link Activity#onPause() Activity.onPause} of the containing
      * Activity's lifecycle.
      */
-    @Override
+    /*@Override
     public void onPause() {
         super.onPause();
         if (asyncNew.getStatus() == AsyncTask.Status.RUNNING) {
             asyncNew.cancel(true);
         }
-    }
+    }*/
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

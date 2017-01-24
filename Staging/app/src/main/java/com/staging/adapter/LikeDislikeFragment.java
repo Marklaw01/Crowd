@@ -9,27 +9,38 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.staging.R;
 import com.staging.activities.HomeActivity;
 import com.staging.fragments.FundDetailFragment;
 import com.staging.fragments.ViewOtherContractorPublicProfileFragment;
+import com.staging.listeners.AsyncTaskCompleteListener;
 import com.staging.loadmore_listview.LoadMoreListView;
+import com.staging.logger.CrowdBootstrapLogger;
+import com.staging.models.UserObject;
+import com.staging.utilities.AsyncNew;
 import com.staging.utilities.Constants;
+import com.staging.utilities.UtilitiesClass;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  * Created by Neelmani.Karn on 1/12/2017.
  */
-public class LikeDislikeFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class LikeDislikeFragment extends Fragment implements AdapterView.OnItemClickListener, AsyncTaskCompleteListener<String> {
 
     private Bundle bundle;
 
     private static int TOTAL_ITEMS = 0;
     int current_page = 1;
-    private Button btn_addCampaign;
     private LoadMoreListView list_persons;
     private LikesDislikesAdapter adapter;
-
+    private int mFundId;
+    private ArrayList<UserObject> list;
     public LikeDislikeFragment() {
         super();
     }
@@ -53,6 +64,20 @@ public class LikeDislikeFragment extends Fragment implements AdapterView.OnItemC
         super.onCreate(savedInstanceState);
         bundle = this.getArguments();
         ((HomeActivity) getActivity()).setActionBarTitle(bundle.getString(Constants.LIKE_DISLIKE));
+        mFundId = bundle.getInt(Constants.FUND_ID);
+    }
+
+
+    /**
+     * Called when the fragment is visible to the user and actively running.
+     * This is generally
+     * tied to {@link Activity#onResume() Activity.onResume} of the containing
+     * Activity's lifecycle.
+     */
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((HomeActivity) getActivity()).setOnBackPressedListener(this);
     }
 
     @Override
@@ -60,7 +85,7 @@ public class LikeDislikeFragment extends Fragment implements AdapterView.OnItemC
         View rootView = inflater.inflate(R.layout.likes_dislike_fragment, container, false);
 
         list_persons = (LoadMoreListView) rootView.findViewById(R.id.list_persons);
-        adapter = new LikesDislikesAdapter(getActivity());
+        adapter = new LikesDislikesAdapter(getActivity(), list);
         list_persons.setAdapter(adapter);
         list_persons.setOnItemClickListener(this);
         list_persons.setOnLoadMoreListener(new LoadMoreListView.OnLoadMoreListener() {
@@ -72,6 +97,20 @@ public class LikeDislikeFragment extends Fragment implements AdapterView.OnItemC
         return rootView;
     }
 
+    private void getLikersDislikers() {
+        if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
+            try {
+                JSONObject obj = new JSONObject();
+                obj.put("user_id", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
+                obj.put("page_no", current_page);
+                AsyncNew a = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FUND_LIKERS_TAG, Constants.FUND_LIKERS_LIST, Constants.HTTP_POST_REQUEST, obj);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        } else {
+            ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
+        }
+    }
 
     /**
      * Callback method to be invoked when an item in this AdapterView has
@@ -94,5 +133,30 @@ public class LikeDislikeFragment extends Fragment implements AdapterView.OnItemC
         ViewOtherContractorPublicProfileFragment profile = new ViewOtherContractorPublicProfileFragment();
         profile.setArguments(bundle);
         ((HomeActivity) getActivity()).replaceFragment(profile);
+    }
+
+    /**
+     * When network give response in this.
+     *
+     * @param result
+     * @param tag
+     */
+    @Override
+    public void onTaskComplete(String result, String tag) {
+        if (result.equalsIgnoreCase(Constants.NOINTERNET)) {
+            ((HomeActivity) getActivity()).dismissProgressDialog();
+            Toast.makeText(getActivity(), getString(R.string.check_internet), Toast.LENGTH_LONG).show();
+        } else if (result.equalsIgnoreCase(Constants.TIMEOUT_EXCEPTION)) {
+            ((HomeActivity) getActivity()).dismissProgressDialog();
+            UtilitiesClass.getInstance(getActivity()).alertDialogSingleButton(getString(R.string.time_out));
+        } else if (result.equalsIgnoreCase(Constants.SERVEREXCEPTION)) {
+            ((HomeActivity) getActivity()).dismissProgressDialog();
+            Toast.makeText(getActivity(), getString(R.string.server_down), Toast.LENGTH_LONG).show();
+        } else {
+
+
+            ((HomeActivity) getActivity()).dismissProgressDialog();
+            CrowdBootstrapLogger.logInfo(result);
+        }
     }
 }

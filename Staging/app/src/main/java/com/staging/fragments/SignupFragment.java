@@ -296,7 +296,7 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
             public void onClick(View v) {
 
 
-                if (isFacebookAppInstalled()) {
+               // if (isFacebookAppInstalled()) {
                     FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
                     CallbackManager callbackManager = CallbackManager.Factory.create();
                     final ShareDialog shareDialog = new ShareDialog(getActivity());
@@ -337,11 +337,11 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
                     }
 
 
-                } else {
+                /*} else {
 
                     Toast.makeText(getActivity(), "Facebook App Not Installed, Kindly install the App from Google Playstore", Toast.LENGTH_LONG).show();
 
-                }
+                }*/
             }
         });
 
@@ -620,14 +620,14 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
         return rootView;
     }
 
-    public boolean isFacebookAppInstalled() {
+    /*public boolean isFacebookAppInstalled() {
         try {
             thisActivity.getApplicationContext().getPackageManager().getApplicationInfo("com.facebook.katana", 0);
             return true;
         } catch (PackageManager.NameNotFoundException e) {
             return false;
         }
-    }
+    }*/
 
 
 
@@ -936,30 +936,35 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
 
                         Log.d("end Time", String.valueOf(System.currentTimeMillis()));
                     } else if (jsonObject.getString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
-                        if (!jsonObject.optJSONObject("errors").optString("username").isEmpty()) {
-                            requestFocus(et_userName);
-                            //deleteUser(registeredUser, jsonObject.optJSONObject("errors").optString("username"));
-                            ((LoginActivity) getActivity()).utilitiesClass.alertDialogSingleButton(jsonObject.optJSONObject("errors").optString("username"));
-                        } else if (!jsonObject.optJSONObject("errors").optString("email").isEmpty()) {
-                            requestFocus(et_email);
-                            //deleteUser(registeredUser, jsonObject.optJSONObject("errors").optString("email"));
-                            ((LoginActivity) getActivity()).utilitiesClass.alertDialogSingleButton(jsonObject.optJSONObject("errors").optString("email"));
-                        } else if (!jsonObject.optJSONObject("errors").optString("first_name").isEmpty()) {
-                            //deleteUser(registeredUser, jsonObject.optJSONObject("errors").optString("first_name"));
-                            ((LoginActivity) getActivity()).utilitiesClass.alertDialogSingleButton(jsonObject.optJSONObject("errors").optString("first_name"));
-                        } else if (!jsonObject.optJSONObject("errors").optString("last_name").isEmpty()) {
-                            //deleteUser(registeredUser, jsonObject.optJSONObject("errors").optString("last_name"));
-                            ((LoginActivity) getActivity()).utilitiesClass.alertDialogSingleButton(jsonObject.optJSONObject("errors").optString("last_name"));
-                        } else if (!jsonObject.optJSONObject("errors").optString("date_of_birth").isEmpty()) {
-                            //deleteUser(registeredUser, jsonObject.optJSONObject("errors").optString("date_of_birth"));
-                            ((LoginActivity) getActivity()).utilitiesClass.alertDialogSingleButton(jsonObject.optJSONObject("errors").optString("date_of_birth"));
-                        } else if (!jsonObject.optJSONObject("errors").optString("phoneno").isEmpty()) {
-                            //deleteUser(registeredUser, jsonObject.optJSONObject("errors").optString("phoneno"));
-                            ((LoginActivity) getActivity()).utilitiesClass.alertDialogSingleButton(jsonObject.optJSONObject("errors").optString("phoneno"));
-                        } else if (!jsonObject.optJSONObject("errors").optString("best_availablity").isEmpty()) {
-                            //deleteUser(registeredUser, jsonObject.optJSONObject("errors").optString("best_availablity"));
-                            ((LoginActivity) getActivity()).utilitiesClass.alertDialogSingleButton(jsonObject.optJSONObject("errors").optString("best_availablity"));
+                        if (jsonObject.has("errors")){
+                            if (!jsonObject.optJSONObject("errors").optString("username").isEmpty()) {
+                                requestFocus(et_userName);
+                                //deleteUser(registeredUser, jsonObject.optJSONObject("errors").optString("username"));
+                                ((LoginActivity) getActivity()).utilitiesClass.alertDialogSingleButton(jsonObject.optJSONObject("errors").optString("username"));
+                            } else if (!jsonObject.optJSONObject("errors").optString("email").isEmpty()) {
+                                requestFocus(et_email);
+                                //deleteUser(registeredUser, jsonObject.optJSONObject("errors").optString("email"));
+                                ((LoginActivity) getActivity()).utilitiesClass.alertDialogSingleButton(jsonObject.optJSONObject("errors").optString("email"));
+                            } else if (!jsonObject.optJSONObject("errors").optString("first_name").isEmpty()) {
+                                //deleteUser(registeredUser, jsonObject.optJSONObject("errors").optString("first_name"));
+                                ((LoginActivity) getActivity()).utilitiesClass.alertDialogSingleButton(jsonObject.optJSONObject("errors").optString("first_name"));
+                            } else if (!jsonObject.optJSONObject("errors").optString("last_name").isEmpty()) {
+                                //deleteUser(registeredUser, jsonObject.optJSONObject("errors").optString("last_name"));
+                                ((LoginActivity) getActivity()).utilitiesClass.alertDialogSingleButton(jsonObject.optJSONObject("errors").optString("last_name"));
+                            } else if (!jsonObject.optJSONObject("errors").optString("date_of_birth").isEmpty()) {
+                                //deleteUser(registeredUser, jsonObject.optJSONObject("errors").optString("date_of_birth"));
+                                ((LoginActivity) getActivity()).utilitiesClass.alertDialogSingleButton(jsonObject.optJSONObject("errors").optString("date_of_birth"));
+                            } else if (!jsonObject.optJSONObject("errors").optString("phoneno").isEmpty()) {
+                                //deleteUser(registeredUser, jsonObject.optJSONObject("errors").optString("phoneno"));
+                                ((LoginActivity) getActivity()).utilitiesClass.alertDialogSingleButton(jsonObject.optJSONObject("errors").optString("phoneno"));
+                            } else if (!jsonObject.optJSONObject("errors").optString("best_availablity").isEmpty()) {
+                                //deleteUser(registeredUser, jsonObject.optJSONObject("errors").optString("best_availablity"));
+                                ((LoginActivity) getActivity()).utilitiesClass.alertDialogSingleButton(jsonObject.optJSONObject("errors").optString("best_availablity"));
+                            }
+                        }else{
+                            ((LoginActivity) getActivity()).utilitiesClass.alertDialogSingleButton(jsonObject.optString("message"));
                         }
+
                         ((LoginActivity) getActivity()).dismissProgressDialog();
                     }
                 } catch (JSONException e) {
