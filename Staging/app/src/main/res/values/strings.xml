@@ -350,5 +350,6 @@
     <string name="fund_archived">Your fund is archived successfully</string>
     <string name="fund_deactivated">Your fund deactivated successfully</string>
     <string name="fundActivated">Your fund activated successfully.</string>
+    <string name="version">Version: Crowd Bootstrap v</string>
 
 </resources>

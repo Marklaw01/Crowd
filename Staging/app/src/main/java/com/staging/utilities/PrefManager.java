@@ -107,7 +107,7 @@ public final class PrefManager {
     /**
      * @return Application's version code from the {@code PackageManager}.
      */
-    private String getAppVersion(Context context) {
+    public String getAppVersion(Context context) {
         try {
             PackageInfo packageInfo = context.getPackageManager()
                     .getPackageInfo(context.getPackageName(), 0);

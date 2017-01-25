@@ -128,7 +128,7 @@ import static com.mikepenz.actionitembadge.library.ActionItemBadge.*;
  */
 public class HomeActivity extends BaseActivity implements View.OnClickListener, AsyncTaskCompleteListener<String> {
 
-    Thread notificationThread;
+    //Thread notificationThread;
     ProgressDialog pd;
     public static TextView userName;
     public static String filename;
@@ -553,7 +553,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             // ADD TIMER AFTER EVERY 5 SECOND FOR THE NOTIFICATION TO BE UPDATED
 
 
-            notificationThread = new Thread(new Runnable() {
+            /*notificationThread = new Thread(new Runnable() {
                 @Override
                 public void run() {
                     while (true) {
@@ -573,8 +573,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                     }
                 }
             });
-            notificationThread.start();
-            /*new Thread(new Runnable() {
+            notificationThread.start();*/
+            new Thread(new Runnable() {
                 @Override
                 public void run() {
                     // TODO Auto-generated method stub
@@ -594,7 +594,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                         }
                     }
                 }
-            }).start();*/
+            }).start();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -2047,9 +2047,9 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                     CrowdBootstrapLogger.logInfo(jsonObject.toString());
 
                     if (jsonObject.getString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase("200")) {
-                        if (notificationThread != null) {
+                       /* if (notificationThread != null) {
                             notificationThread.interrupt();
-                        }
+                        }*/
                         QBChatService.getInstance().logout(new QBEntityCallback<Void>() {
                             @Override
                             public void onSuccess(Void aVoid, Bundle bundle) {

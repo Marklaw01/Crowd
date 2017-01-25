@@ -23,6 +23,9 @@ import com.staging.utilities.AsyncNew;
 import com.staging.utilities.Constants;
 import com.staging.utilities.UtilitiesClass;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 /**
@@ -30,6 +33,7 @@ import java.util.ArrayList;
  */
 public class FindFundsFragment extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener, AsyncTaskCompleteListener<String> {
 
+    private AsyncNew asyncNew;
     private EditText et_search;
     private static int TOTAL_ITEMS = 0;
     int current_page = 1;
@@ -48,8 +52,26 @@ public class FindFundsFragment extends Fragment implements AdapterView.OnItemCli
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
             // we check that the fragment is becoming visible
-
             ((HomeActivity) getActivity()).setOnBackPressedListener(this);
+            current_page = 1;
+            fundsList = new ArrayList<>();
+            adapter = null;
+            if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
+                ((HomeActivity) getActivity()).showProgressDialog();
+                try {
+                    JSONObject obj = new JSONObject();
+                    obj.put("user_id", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
+                    obj.put("page_no", current_page);
+                    asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FIND_FUND_TAG, Constants.FIND_FUND_LIST, Constants.HTTP_POST_REQUEST, obj);
+                    asyncNew.execute();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    ((HomeActivity) getActivity()).dismissProgressDialog();
+                }
+
+            } else {
+                ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
+            }
         }
     }
 
@@ -72,6 +94,9 @@ public class FindFundsFragment extends Fragment implements AdapterView.OnItemCli
         btn_search = (TextView) rootView.findViewById(R.id.btn_search);
         btn_createFund = (Button) rootView.findViewById(R.id.btn_createFund);
         btn_createFund.setVisibility(View.GONE);
+
+        btn_search.setOnClickListener(this);
+
         list_funds = (LoadMoreListView) rootView.findViewById(R.id.list_funds);
         fundsList = new ArrayList<>();
         adapter = new FundsAdapter(getActivity(), fundsList, Constants.NOT_LOGGED_USER, "FindFunds");
@@ -82,7 +107,27 @@ public class FindFundsFragment extends Fragment implements AdapterView.OnItemCli
         list_funds.setOnLoadMoreListener(new LoadMoreListView.OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
-                list_funds.onLoadMoreComplete();
+                if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
+                    current_page += 1;
+                    if (TOTAL_ITEMS != adapter.getCount()) {
+                        JSONObject obj = new JSONObject();
+                        try {
+                            obj.put("user_id", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
+                            obj.put("page_no", current_page);
+                            asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FIND_FUND_TAG, Constants.FIND_FUND_LIST, Constants.HTTP_POST_REQUEST, obj);
+                            asyncNew.execute();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    } else {
+                        list_funds.onLoadMoreComplete();
+                    }
+                } else {
+                    list_funds.onLoadMoreComplete();
+                    adapter.notifyDataSetChanged();
+                    ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
+                }
             }
         });
         return rootView;
@@ -116,7 +161,23 @@ public class FindFundsFragment extends Fragment implements AdapterView.OnItemCli
         switch (v.getId()) {
             case R.id.btn_search:
                 if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
-
+                    if (!et_search.getText().toString().trim().isEmpty()) {
+                        try {
+                            JSONObject obj = new JSONObject();
+                            current_page = 1;
+                            fundsList = new ArrayList<>();
+                            adapter = null;
+                            obj.put("user_id", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
+                            obj.put("searchText", et_search.getText().toString().trim());
+                            obj.put("page_no", current_page);
+                            ((HomeActivity) getActivity()).showProgressDialog();
+                            AsyncNew asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FUND_SEARCH_TAG, Constants.FUND_SEARCH_LIST, Constants.HTTP_POST_REQUEST, obj);
+                            asyncNew.execute();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            ((HomeActivity) getActivity()).dismissProgressDialog();
+                        }
+                    }
                 } else {
                     ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
                 }
@@ -125,6 +186,13 @@ public class FindFundsFragment extends Fragment implements AdapterView.OnItemCli
 
     }
 
+
+    /**
+     * When network give response in this.
+     *
+     * @param result
+     * @param tag
+     */
     @Override
     public void onTaskComplete(String result, String tag) {
         if (result.equalsIgnoreCase(Constants.NOINTERNET)) {
@@ -137,8 +205,106 @@ public class FindFundsFragment extends Fragment implements AdapterView.OnItemCli
             ((HomeActivity) getActivity()).dismissProgressDialog();
             Toast.makeText(getActivity(), getString(R.string.server_down), Toast.LENGTH_LONG).show();
         } else {
-            CrowdBootstrapLogger.logInfo(result);
-        }
+            if (tag.equals(Constants.FIND_FUND_TAG)) {
+                ((HomeActivity) getActivity()).dismissProgressDialog();
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
 
+
+                    if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
+                        TOTAL_ITEMS = Integer.parseInt(jsonObject.optString("TotalItems"));
+
+                        if (jsonObject.optJSONArray("my_funds_list").length() != 0) {
+                            for (int i = 0; i < jsonObject.optJSONArray("my_funds_list").length(); i++) {
+                                JSONObject funds = jsonObject.optJSONArray("my_funds_list").getJSONObject(i);
+                                FundsObject fundsObject = new FundsObject();
+                                fundsObject.setId(funds.optString("id"));
+                                fundsObject.setFund_title(funds.optString("fund_title"));
+                                fundsObject.setFund_start_date(funds.optString("fund_start_date"));
+                                fundsObject.setFund_end_date(funds.optString("fund_end_date"));
+                                fundsObject.setFund_close_date(funds.optString("fund_close_date"));
+                                fundsObject.setFund_description(funds.optString("fund_description"));
+                                fundsObject.setFund_likes(funds.optInt("fund_likes"));
+                                fundsObject.setFund_dislike(funds.optInt("fund_dislike"));
+                                fundsObject.setFund_image(funds.optString("fund_image"));
+                                fundsObject.setFund_created_by(funds.optString("fund_created_by"));
+
+                                fundsList.add(fundsObject);
+                            }
+                        } else {
+                            Toast.makeText(getActivity(), getString(R.string.noFunds), Toast.LENGTH_LONG).show();
+                        }
+
+                    } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
+                        Toast.makeText(getActivity(), getString(R.string.noFunds), Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getActivity(), getString(R.string.server_down), Toast.LENGTH_LONG).show();
+                }
+
+                if (adapter == null) {
+                    adapter = new FundsAdapter(getActivity(), fundsList, Constants.NOT_LOGGED_USER, "FindFunds");
+                    list_funds.setAdapter(adapter);
+                }
+                list_funds.onLoadMoreComplete();
+                adapter.notifyDataSetChanged();
+
+                int index = list_funds.getLastVisiblePosition();
+                list_funds.smoothScrollToPosition(index);
+
+            } else if (tag.equals(Constants.FUND_SEARCH_TAG)) {
+
+                ((HomeActivity) getActivity()).dismissProgressDialog();
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+
+
+                    if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
+                        TOTAL_ITEMS = Integer.parseInt(jsonObject.optString("TotalItems"));
+
+                        if (jsonObject.optJSONArray("my_funds_list").length() != 0) {
+                            for (int i = 0; i < jsonObject.optJSONArray("my_funds_list").length(); i++) {
+                                JSONObject funds = jsonObject.optJSONArray("my_funds_list").getJSONObject(i);
+                                FundsObject fundsObject = new FundsObject();
+                                fundsObject.setId(funds.optString("id"));
+                                fundsObject.setFund_title(funds.optString("fund_title"));
+                                fundsObject.setFund_start_date(funds.optString("fund_start_date"));
+                                fundsObject.setFund_end_date(funds.optString("fund_end_date"));
+                                fundsObject.setFund_close_date(funds.optString("fund_close_date"));
+                                fundsObject.setFund_description(funds.optString("fund_description"));
+                                fundsObject.setFund_likes(funds.optInt("fund_likes"));
+                                fundsObject.setFund_dislike(funds.optInt("fund_dislike"));
+                                fundsObject.setFund_image(funds.optString("fund_image"));
+                                fundsObject.setFund_created_by(funds.optString("fund_created_by"));
+
+                                fundsList.add(fundsObject);
+                            }
+                        } else {
+                            Toast.makeText(getActivity(), getString(R.string.noFunds), Toast.LENGTH_LONG).show();
+                        }
+
+                    } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
+                        Toast.makeText(getActivity(), getString(R.string.noFunds), Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getActivity(), getString(R.string.server_down), Toast.LENGTH_LONG).show();
+                }
+
+                if (adapter == null) {
+                    adapter = new FundsAdapter(getActivity(), fundsList, Constants.NOT_LOGGED_USER, "FindFunds");
+                    list_funds.setAdapter(adapter);
+                }
+                list_funds.onLoadMoreComplete();
+                adapter.notifyDataSetChanged();
+
+                int index = list_funds.getLastVisiblePosition();
+                list_funds.smoothScrollToPosition(index);
+
+
+            }
+        }
+        CrowdBootstrapLogger.logInfo(result);
     }
 }

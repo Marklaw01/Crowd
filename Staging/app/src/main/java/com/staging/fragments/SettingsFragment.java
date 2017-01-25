@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.staging.R;
@@ -25,6 +26,7 @@ import org.json.JSONObject;
  */
 public class SettingsFragment extends Fragment implements CompoundButton.OnCheckedChangeListener, AsyncTaskCompleteListener<String> {
 
+    private TextView txtVersion;
     boolean isCheckedSwitch = false;
     private boolean profileChecked = false;
     private Switch switchNotification, switchPublicProfile;
@@ -47,7 +49,8 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
         switchNotification = (Switch) rootView.findViewById(R.id.switchNotification);
         switchPublicProfile = (Switch) rootView.findViewById(R.id.switchPublicProfile);
 
-
+        txtVersion = (TextView) rootView.findViewById(R.id.txtVersion);
+        txtVersion.setText(getString(R.string.version) + ((HomeActivity) getActivity()).prefManager.getAppVersion(getActivity()));
         if (((HomeActivity) getActivity()).prefManager.getBoolean(Constants.IS_NOTIFICATION_ON)) {
             switchNotification.setChecked(true);
         } else {
@@ -104,7 +107,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
                     ((HomeActivity) getActivity()).showProgressDialog();
 
                     profileChecked = isChecked;
-                    Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.PROFILE_SETTING_TAG, Constants.PROFILE_SETTING_URL + "?user_id=" + ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID) + "&public_profile=" + isChecked, Constants.HTTP_GET,"Home Activity");
+                    Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.PROFILE_SETTING_TAG, Constants.PROFILE_SETTING_URL + "?user_id=" + ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID) + "&public_profile=" + isChecked, Constants.HTTP_GET, "Home Activity");
                     a.execute();
                 } else {
 

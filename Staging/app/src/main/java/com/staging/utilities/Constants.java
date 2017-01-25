@@ -462,8 +462,14 @@ public final class Constants {
     public static final String CREATE_FUND_URL = "addFunds";
     public static final String EDIT_FUND_URL = "editFunds";
 
+    public static final String FUND_SEARCH_LIST = "fundsSearch";
+    public static final String FUND_SEARCH_TAG = "fundsSearch_tag";
+
     public static final String MY_FUND_LIST = "myFunds";
     public static final String MY_FUND_TAG = "myFunds_tag";
+
+    public static final String FIND_FUND_LIST = "findFunds";
+    public static final String FIND_FUND_TAG = "findFunds_tag";
 
     public static final String ARCHIVED_FUND_LIST = "archiveFundList";
     public static final String ARCHIVED_FUND_TAG = "archiveFundList_tag";

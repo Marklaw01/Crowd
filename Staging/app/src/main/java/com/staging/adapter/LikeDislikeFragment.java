@@ -34,13 +34,14 @@ import java.util.ArrayList;
 public class LikeDislikeFragment extends Fragment implements AdapterView.OnItemClickListener, AsyncTaskCompleteListener<String> {
 
     private Bundle bundle;
-
+    private AsyncNew asyncNew;
     private static int TOTAL_ITEMS = 0;
     int current_page = 1;
     private LoadMoreListView list_persons;
     private LikesDislikesAdapter adapter;
     private int mFundId;
     private ArrayList<UserObject> list;
+
     public LikeDislikeFragment() {
         super();
     }
@@ -78,6 +79,11 @@ public class LikeDislikeFragment extends Fragment implements AdapterView.OnItemC
     public void onResume() {
         super.onResume();
         ((HomeActivity) getActivity()).setOnBackPressedListener(this);
+
+        current_page = 1;
+        list = new ArrayList<>();
+        adapter = null;
+        getLikersDislikers(current_page, Constants.FUND_LIKERS_LIST, Constants.FUND_LIKERS_TAG);
     }
 
     @Override
@@ -91,19 +97,31 @@ public class LikeDislikeFragment extends Fragment implements AdapterView.OnItemC
         list_persons.setOnLoadMoreListener(new LoadMoreListView.OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
-                list_persons.onLoadMoreComplete();
+                if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
+                    current_page += 1;
+                    if (TOTAL_ITEMS != adapter.getCount()) {
+                        getLikersDislikers(current_page, Constants.FUND_LIKERS_LIST, Constants.FUND_LIKERS_TAG);
+                    } else {
+                        list_persons.onLoadMoreComplete();
+                    }
+                } else {
+                    list_persons.onLoadMoreComplete();
+                    adapter.notifyDataSetChanged();
+                    ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
+                }
             }
         });
         return rootView;
     }
 
-    private void getLikersDislikers() {
+    private void getLikersDislikers(int pageNumber, String url, String tag) {
         if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
             try {
                 JSONObject obj = new JSONObject();
-                obj.put("user_id", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
-                obj.put("page_no", current_page);
-                AsyncNew a = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FUND_LIKERS_TAG, Constants.FUND_LIKERS_LIST, Constants.HTTP_POST_REQUEST, obj);
+                obj.put("fund_id", mFundId);
+                obj.put("page_no", pageNumber);
+                asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), tag, url, Constants.HTTP_POST_REQUEST, obj);
+                asyncNew.execute();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -129,7 +147,7 @@ public class LikeDislikeFragment extends Fragment implements AdapterView.OnItemC
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Bundle bundle = new Bundle();
         bundle.putString("COMMING_FROM", Constants.LIKE_DISLIKE);
-        bundle.putString("id", "3");
+        bundle.putString("id", list.get(position).getId());
         ViewOtherContractorPublicProfileFragment profile = new ViewOtherContractorPublicProfileFragment();
         profile.setArguments(bundle);
         ((HomeActivity) getActivity()).replaceFragment(profile);
@@ -153,9 +171,32 @@ public class LikeDislikeFragment extends Fragment implements AdapterView.OnItemC
             ((HomeActivity) getActivity()).dismissProgressDialog();
             Toast.makeText(getActivity(), getString(R.string.server_down), Toast.LENGTH_LONG).show();
         } else {
+            if (tag.equals(Constants.FUND_LIKERS_TAG)) {
+                ((HomeActivity) getActivity()).dismissProgressDialog();
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
 
 
-            ((HomeActivity) getActivity()).dismissProgressDialog();
+                    if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
+                        TOTAL_ITEMS = Integer.parseInt(jsonObject.optString("TotalItems"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getActivity(), getString(R.string.server_down), Toast.LENGTH_LONG).show();
+                }
+                if (adapter == null) {
+                    adapter = new LikesDislikesAdapter(getActivity(), list);
+                    list_persons.setAdapter(adapter);
+                }
+                list_persons.onLoadMoreComplete();
+                adapter.notifyDataSetChanged();
+
+                int index = list_persons.getLastVisiblePosition();
+                list_persons.smoothScrollToPosition(index);
+
+            }
+
+
             CrowdBootstrapLogger.logInfo(result);
         }
     }
