@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "I:\\Live_Projects\\CrowdBootstrap\\Staging\\facebook\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-es\\values-es.xml",
+        "outputFile": "E:\\Trantor_projects\\Crowdbootstrap\\Staging\\facebook\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-es\\values-es.xml",
         "map": [
             {
                 "to": {
@@ -11,13 +11,13 @@
                     "endOffset": 150
                 },
                 "from": {
-                    "file": "I:\\Live_Projects\\CrowdBootstrap\\Staging\\facebook\\res\\values-es\\strings.xml",
+                    "file": "E:\\Trantor_projects\\Crowdbootstrap\\Staging\\facebook\\res\\values-es\\strings.xml",
                     "position": {
                         "startLine": 31,
                         "startColumn": 4,
-                        "startOffset": 1971,
+                        "startOffset": 2002,
                         "endColumn": 99,
-                        "endOffset": 2066
+                        "endOffset": 2097
                     }
                 }
             },
@@ -30,13 +30,13 @@
                     "endOffset": 276
                 },
                 "from": {
-                    "file": "I:\\Live_Projects\\CrowdBootstrap\\Staging\\facebook\\res\\values-es\\strings.xml",
+                    "file": "E:\\Trantor_projects\\Crowdbootstrap\\Staging\\facebook\\res\\values-es\\strings.xml",
                     "position": {
                         "startLine": 30,
                         "startColumn": 4,
-                        "startOffset": 1845,
+                        "startOffset": 1875,
                         "endColumn": 125,
-                        "endOffset": 1966
+                        "endOffset": 1996
                     }
                 }
             },
@@ -49,13 +49,13 @@
                     "endOffset": 374
                 },
                 "from": {
-                    "file": "I:\\Live_Projects\\CrowdBootstrap\\Staging\\facebook\\res\\values-es\\strings.xml",
+                    "file": "E:\\Trantor_projects\\Crowdbootstrap\\Staging\\facebook\\res\\values-es\\strings.xml",
                     "position": {
                         "startLine": 29,
                         "startColumn": 4,
-                        "startOffset": 1747,
+                        "startOffset": 1776,
                         "endColumn": 97,
-                        "endOffset": 1840
+                        "endOffset": 1869
                     }
                 }
             },
@@ -68,13 +68,13 @@
                     "endOffset": 432
                 },
                 "from": {
-                    "file": "I:\\Live_Projects\\CrowdBootstrap\\Staging\\facebook\\res\\values-es\\strings.xml",
+                    "file": "E:\\Trantor_projects\\Crowdbootstrap\\Staging\\facebook\\res\\values-es\\strings.xml",
                     "position": {
                         "startLine": 28,
                         "startColumn": 4,
-                        "startOffset": 1689,
+                        "startOffset": 1717,
                         "endColumn": 57,
-                        "endOffset": 1742
+                        "endOffset": 1770
                     }
                 }
             },
@@ -87,13 +87,13 @@
                     "endOffset": 506
                 },
                 "from": {
-                    "file": "I:\\Live_Projects\\CrowdBootstrap\\Staging\\facebook\\res\\values-es\\strings.xml",
+                    "file": "E:\\Trantor_projects\\Crowdbootstrap\\Staging\\facebook\\res\\values-es\\strings.xml",
                     "position": {
                         "startLine": 27,
                         "startColumn": 4,
-                        "startOffset": 1615,
+                        "startOffset": 1642,
                         "endColumn": 73,
-                        "endOffset": 1684
+                        "endOffset": 1711
                     }
                 }
             },
@@ -106,13 +106,13 @@
                     "endOffset": 599
                 },
                 "from": {
-                    "file": "I:\\Live_Projects\\CrowdBootstrap\\Staging\\facebook\\res\\values-es\\strings.xml",
+                    "file": "E:\\Trantor_projects\\Crowdbootstrap\\Staging\\facebook\\res\\values-es\\strings.xml",
                     "position": {
                         "startLine": 23,
                         "startColumn": 4,
-                        "startOffset": 1246,
+                        "startOffset": 1269,
                         "endColumn": 92,
-                        "endOffset": 1334
+                        "endOffset": 1357
                     }
                 }
             },
@@ -125,13 +125,13 @@
                     "endOffset": 679
                 },
                 "from": {
-                    "file": "I:\\Live_Projects\\CrowdBootstrap\\Staging\\facebook\\res\\values-es\\strings.xml",
+                    "file": "E:\\Trantor_projects\\Crowdbootstrap\\Staging\\facebook\\res\\values-es\\strings.xml",
                     "position": {
                         "startLine": 26,
                         "startColumn": 4,
-                        "startOffset": 1535,
+                        "startOffset": 1561,
                         "endColumn": 79,
-                        "endOffset": 1610
+                        "endOffset": 1636
                     }
                 }
             },
@@ -144,13 +144,13 @@
                     "endOffset": 759
                 },
                 "from": {
-                    "file": "I:\\Live_Projects\\CrowdBootstrap\\Staging\\facebook\\res\\values-es\\strings.xml",
+                    "file": "E:\\Trantor_projects\\Crowdbootstrap\\Staging\\facebook\\res\\values-es\\strings.xml",
                     "position": {
                         "startLine": 22,
                         "startColumn": 4,
-                        "startOffset": 1166,
+                        "startOffset": 1188,
                         "endColumn": 79,
-                        "endOffset": 1241
+                        "endOffset": 1263
                     }
                 }
             },
@@ -163,13 +163,13 @@
                     "endOffset": 850
                 },
                 "from": {
-                    "file": "I:\\Live_Projects\\CrowdBootstrap\\Staging\\facebook\\res\\values-es\\strings.xml",
+                    "file": "E:\\Trantor_projects\\Crowdbootstrap\\Staging\\facebook\\res\\values-es\\strings.xml",
                     "position": {
                         "startLine": 24,
                         "startColumn": 4,
-                        "startOffset": 1339,
+                        "startOffset": 1363,
                         "endColumn": 90,
-                        "endOffset": 1425
+                        "endOffset": 1449
                     }
                 }
             },
@@ -182,13 +182,13 @@
                     "endOffset": 955
                 },
                 "from": {
-                    "file": "I:\\Live_Projects\\CrowdBootstrap\\Staging\\facebook\\res\\values-es\\strings.xml",
+                    "file": "E:\\Trantor_projects\\Crowdbootstrap\\Staging\\facebook\\res\\values-es\\strings.xml",
                     "position": {
                         "startLine": 25,
                         "startColumn": 4,
-                        "startOffset": 1430,
+                        "startOffset": 1455,
                         "endColumn": 104,
-                        "endOffset": 1530
+                        "endOffset": 1555
                     }
                 }
             },
@@ -201,13 +201,13 @@
                     "endOffset": 1017
                 },
                 "from": {
-                    "file": "I:\\Live_Projects\\CrowdBootstrap\\Staging\\facebook\\res\\values-es\\messenger_button_strings.xml",
+                    "file": "E:\\Trantor_projects\\Crowdbootstrap\\Staging\\facebook\\res\\values-es\\messenger_button_strings.xml",
                     "position": {
                         "startLine": 22,
                         "startColumn": 2,
-                        "startOffset": 1164,
+                        "startOffset": 1186,
                         "endColumn": 59,
-                        "endOffset": 1221
+                        "endOffset": 1243
                     }
                 }
             }

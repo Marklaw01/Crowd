@@ -1,18 +1,18 @@
 [
     {
-        "merged": "I:\\Live_Projects\\CrowdBootstrap\\Staging\\TableLibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shadow_right.xml",
-        "source": "I:\\Live_Projects\\CrowdBootstrap\\Staging\\TableLibrary\\build\\intermediates\\bundles\\debug\\res\\drawable\\shadow_right.xml"
+        "merged": "E:\\Trantor_projects\\Crowdbootstrap\\Staging\\TableLibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shadow_left.xml",
+        "source": "E:\\Trantor_projects\\Crowdbootstrap\\Staging\\TableLibrary\\build\\intermediates\\bundles\\debug\\res\\drawable\\shadow_left.xml"
     },
     {
-        "merged": "I:\\Live_Projects\\CrowdBootstrap\\Staging\\TableLibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shadow_left.xml",
-        "source": "I:\\Live_Projects\\CrowdBootstrap\\Staging\\TableLibrary\\build\\intermediates\\bundles\\debug\\res\\drawable\\shadow_left.xml"
+        "merged": "E:\\Trantor_projects\\Crowdbootstrap\\Staging\\TableLibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shadow_right.xml",
+        "source": "E:\\Trantor_projects\\Crowdbootstrap\\Staging\\TableLibrary\\build\\intermediates\\bundles\\debug\\res\\drawable\\shadow_right.xml"
     },
     {
-        "merged": "I:\\Live_Projects\\CrowdBootstrap\\Staging\\TableLibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shadow_top.xml",
-        "source": "I:\\Live_Projects\\CrowdBootstrap\\Staging\\TableLibrary\\build\\intermediates\\bundles\\debug\\res\\drawable\\shadow_top.xml"
+        "merged": "E:\\Trantor_projects\\Crowdbootstrap\\Staging\\TableLibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shadow_bottom.xml",
+        "source": "E:\\Trantor_projects\\Crowdbootstrap\\Staging\\TableLibrary\\build\\intermediates\\bundles\\debug\\res\\drawable\\shadow_bottom.xml"
     },
     {
-        "merged": "I:\\Live_Projects\\CrowdBootstrap\\Staging\\TableLibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shadow_bottom.xml",
-        "source": "I:\\Live_Projects\\CrowdBootstrap\\Staging\\TableLibrary\\build\\intermediates\\bundles\\debug\\res\\drawable\\shadow_bottom.xml"
+        "merged": "E:\\Trantor_projects\\Crowdbootstrap\\Staging\\TableLibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shadow_top.xml",
+        "source": "E:\\Trantor_projects\\Crowdbootstrap\\Staging\\TableLibrary\\build\\intermediates\\bundles\\debug\\res\\drawable\\shadow_top.xml"
     }
 ]

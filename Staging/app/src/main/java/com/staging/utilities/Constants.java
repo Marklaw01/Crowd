@@ -468,6 +468,7 @@ public final class Constants {
     public static final String MY_FUND_LIST = "myFunds";
     public static final String MY_FUND_TAG = "myFunds_tag";
 
+
     public static final String FIND_FUND_LIST = "findFunds";
     public static final String FIND_FUND_TAG = "findFunds_tag";
 

@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="I:\Live_Projects\CrowdBootstrap\Staging\TableLibrary\src\main\shaders"/></dataSet><dataSet config="debug"><source path="I:\Live_Projects\CrowdBootstrap\Staging\TableLibrary\src\debug\shaders"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="E:\Trantor_projects\Crowdbootstrap\Staging\TableLibrary\src\main\shaders"/></dataSet><dataSet config="debug"><source path="E:\Trantor_projects\Crowdbootstrap\Staging\TableLibrary\src\debug\shaders"/></dataSet></merger>

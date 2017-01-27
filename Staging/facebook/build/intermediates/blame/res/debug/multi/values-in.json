@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "I:\\Live_Projects\\CrowdBootstrap\\Staging\\facebook\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-in\\values-in.xml",
+        "outputFile": "E:\\Trantor_projects\\Crowdbootstrap\\Staging\\facebook\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-in\\values-in.xml",
         "map": [
             {
                 "to": {
@@ -11,13 +11,13 @@
                     "endOffset": 111
                 },
                 "from": {
-                    "file": "I:\\Live_Projects\\CrowdBootstrap\\Staging\\facebook\\res\\values-in\\messenger_button_strings.xml",
+                    "file": "E:\\Trantor_projects\\Crowdbootstrap\\Staging\\facebook\\res\\values-in\\messenger_button_strings.xml",
                     "position": {
                         "startLine": 22,
                         "startColumn": 2,
-                        "startOffset": 1164,
+                        "startOffset": 1186,
                         "endColumn": 58,
-                        "endOffset": 1220
+                        "endOffset": 1242
                     }
                 }
             }

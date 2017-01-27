@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "I:\\Live_Projects\\CrowdBootstrap\\Staging\\facebook\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-pt-rPT\\values-pt-rPT.xml",
+        "outputFile": "E:\\Trantor_projects\\Crowdbootstrap\\Staging\\facebook\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-pt-rPT\\values-pt-rPT.xml",
         "map": [
             {
                 "to": {
@@ -11,13 +11,13 @@
                     "endOffset": 112
                 },
                 "from": {
-                    "file": "I:\\Live_Projects\\CrowdBootstrap\\Staging\\facebook\\res\\values-pt-rPT\\messenger_button_strings.xml",
+                    "file": "E:\\Trantor_projects\\Crowdbootstrap\\Staging\\facebook\\res\\values-pt-rPT\\messenger_button_strings.xml",
                     "position": {
                         "startLine": 22,
                         "startColumn": 2,
-                        "startOffset": 1164,
+                        "startOffset": 1186,
                         "endColumn": 59,
-                        "endOffset": 1221
+                        "endOffset": 1243
                     }
                 }
             }

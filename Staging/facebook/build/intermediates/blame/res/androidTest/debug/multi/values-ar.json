@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "I:\\Live_Projects\\CrowdBootstrap\\Staging\\facebook\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-ar\\values-ar.xml",
+        "outputFile": "E:\\Trantor_projects\\Crowdbootstrap\\Staging\\facebook\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-ar\\values-ar.xml",
         "map": [
             {
                 "to": {
@@ -11,7 +11,7 @@
                     "endOffset": 111
                 },
                 "from": {
-                    "file": "I:\\Live_Projects\\CrowdBootstrap\\Staging\\facebook\\build\\intermediates\\bundles\\debug\\res\\values-ar\\values-ar.xml",
+                    "file": "E:\\Trantor_projects\\Crowdbootstrap\\Staging\\facebook\\build\\intermediates\\bundles\\debug\\res\\values-ar\\values-ar.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,
