@@ -32,7 +32,7 @@ import java.util.ArrayList;
  * Created by Neelmani.Karn on 1/11/2017.
  */
 public class FindFundsFragment extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener, AsyncTaskCompleteListener<String> {
-
+    private String searchText = "";
     private AsyncNew asyncNew;
     private EditText et_search;
     private static int TOTAL_ITEMS = 0;
@@ -62,6 +62,7 @@ public class FindFundsFragment extends Fragment implements AdapterView.OnItemCli
                     JSONObject obj = new JSONObject();
                     obj.put("user_id", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
                     obj.put("page_no", current_page);
+                    obj.put("search_text", searchText);
                     asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FIND_FUND_TAG, Constants.FIND_FUND_LIST, Constants.HTTP_POST_REQUEST, obj);
                     asyncNew.execute();
                 } catch (JSONException e) {
@@ -90,7 +91,7 @@ public class FindFundsFragment extends Fragment implements AdapterView.OnItemCli
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.funds_fragment, container, false);
-
+        et_search = (EditText)rootView.findViewById(R.id.et_search);
         btn_search = (TextView) rootView.findViewById(R.id.btn_search);
         btn_createFund = (Button) rootView.findViewById(R.id.btn_createFund);
         btn_createFund.setVisibility(View.GONE);
@@ -99,7 +100,7 @@ public class FindFundsFragment extends Fragment implements AdapterView.OnItemCli
 
         list_funds = (LoadMoreListView) rootView.findViewById(R.id.list_funds);
         fundsList = new ArrayList<>();
-        adapter = new FundsAdapter(getActivity(), fundsList, Constants.NOT_LOGGED_USER, "FindFunds");
+        adapter = new FundsAdapter(getActivity(), fundsList, "FindFunds");
         list_funds.setAdapter(adapter);
 
         btn_search.setOnClickListener(this);
@@ -114,6 +115,7 @@ public class FindFundsFragment extends Fragment implements AdapterView.OnItemCli
                         try {
                             obj.put("user_id", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
                             obj.put("page_no", current_page);
+                            obj.put("search_text", searchText);
                             asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FIND_FUND_TAG, Constants.FIND_FUND_LIST, Constants.HTTP_POST_REQUEST, obj);
                             asyncNew.execute();
                         } catch (JSONException e) {
@@ -148,7 +150,12 @@ public class FindFundsFragment extends Fragment implements AdapterView.OnItemCli
      */
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        ((HomeActivity) getActivity()).replaceFragment(new FundDetailFragment());
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.FUND_ID, fundsList.get(position).getId());
+        bundle.putString(Constants.CALLED_FROM, Constants.FIND_FUND_TAG);
+        FundDetailFragment updateFundFragment = new FundDetailFragment();
+        updateFundFragment.setArguments(bundle);
+        ((HomeActivity) getActivity()).replaceFragment(updateFundFragment);
     }
 
     /**
@@ -162,13 +169,14 @@ public class FindFundsFragment extends Fragment implements AdapterView.OnItemCli
             case R.id.btn_search:
                 if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
                     if (!et_search.getText().toString().trim().isEmpty()) {
+                        searchText = et_search.getText().toString().trim();
                         try {
                             JSONObject obj = new JSONObject();
                             current_page = 1;
                             fundsList = new ArrayList<>();
                             adapter = null;
                             obj.put("user_id", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
-                            obj.put("searchText", et_search.getText().toString().trim());
+                            obj.put("search_text", searchText);
                             obj.put("page_no", current_page);
                             ((HomeActivity) getActivity()).showProgressDialog();
                             AsyncNew asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FUND_SEARCH_TAG, Constants.FUND_SEARCH_LIST, Constants.HTTP_POST_REQUEST, obj);
@@ -244,7 +252,7 @@ public class FindFundsFragment extends Fragment implements AdapterView.OnItemCli
                 }
 
                 if (adapter == null) {
-                    adapter = new FundsAdapter(getActivity(), fundsList, Constants.NOT_LOGGED_USER, "FindFunds");
+                    adapter = new FundsAdapter(getActivity(), fundsList, "FindFunds");
                     list_funds.setAdapter(adapter);
                 }
                 list_funds.onLoadMoreComplete();
@@ -293,7 +301,7 @@ public class FindFundsFragment extends Fragment implements AdapterView.OnItemCli
                 }
 
                 if (adapter == null) {
-                    adapter = new FundsAdapter(getActivity(), fundsList, Constants.NOT_LOGGED_USER, "FindFunds");
+                    adapter = new FundsAdapter(getActivity(), fundsList, "FindFunds");
                     list_funds.setAdapter(adapter);
                 }
                 list_funds.onLoadMoreComplete();

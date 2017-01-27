@@ -8,14 +8,10 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,11 +22,8 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.staging.R;
 import com.staging.activities.HomeActivity;
 import com.staging.exception.CrowdException;
-import com.staging.fragments.ViewFollowers;
-import com.staging.listeners.AsyncTaskCompleteListener;
 import com.staging.logger.CrowdBootstrapLogger;
 import com.staging.models.FundsObject;
-import com.staging.models.JobListObject;
 import com.staging.utilities.Constants;
 import com.staging.utilities.NetworkConnectivity;
 import com.staging.utilities.PrefManager;
@@ -48,7 +41,7 @@ import java.util.ArrayList;
  */
 public class FundsAdapter extends BaseAdapter implements View.OnClickListener {
 
-    String userType, fragmentName;
+    String fragmentName;
     public DisplayImageOptions options;
     private LayoutInflater l_Inflater;
     private View convertView1;
@@ -56,13 +49,12 @@ public class FundsAdapter extends BaseAdapter implements View.OnClickListener {
     private ArrayList<FundsObject> list;
     private NetworkConnectivity networkConnectivity;
     private UtilitiesClass utilitiesClass;
-    private static int pos = 0;
+    //private static int pos = 0;
 
-    public FundsAdapter(Context context, ArrayList<FundsObject> list, String userType, String fragmentName) {
+    public FundsAdapter(Context context, ArrayList<FundsObject> list, String fragmentName) {
         l_Inflater = LayoutInflater.from(context);
         this.context = context;
         this.list = list;
-        this.userType = userType;
         this.fragmentName = fragmentName;
         this.networkConnectivity = NetworkConnectivity.getInstance(context);
         this.utilitiesClass = UtilitiesClass.getInstance(context);
@@ -142,6 +134,12 @@ public class FundsAdapter extends BaseAdapter implements View.OnClickListener {
             holder.tv_dislikes.setOnClickListener(this);
             holder.tv_Likes.setTag(R.integer.selected_index, position);
             holder.tv_Likes.setOnClickListener(this);
+
+            holder.dislikeBtn.setTag(R.integer.selected_index, position);
+            holder.dislikeBtn.setOnClickListener(this);
+            holder.likeBtn.setTag(R.integer.selected_index, position);
+            holder.likeBtn.setOnClickListener(this);
+
 
             holder.tv_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -223,13 +221,25 @@ public class FundsAdapter extends BaseAdapter implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.like:
-                if (userType.equals(Constants.LOGGED_USER)) {
-                    Toast.makeText(context, context.getString(R.string.donot_like_dislike_own_funds), Toast.LENGTH_SHORT).show();
+                int tagLikePosition = (int) v.getTag(R.integer.selected_index);
+                try {
+                    JSONObject likeObj = new JSONObject();
+                    likeObj.put("like_by", PrefManager.getInstance(context).getString(Constants.USER_ID));
+                    likeObj.put("fund_id", list.get(tagLikePosition).getId());
+                    fundLikeDislike(tagLikePosition, Constants.FUND_LIKE_URL, Constants.HTTP_POST_REQUEST, likeObj);
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
                 break;
             case R.id.dislike:
-                if (userType.equals(Constants.LOGGED_USER)) {
-                    Toast.makeText(context, context.getString(R.string.donot_like_dislike_own_funds), Toast.LENGTH_SHORT).show();
+                int tagDislikeIdPosition = (int) v.getTag(R.integer.selected_index);
+                try {
+                    JSONObject dislikeObj = new JSONObject();
+                    dislikeObj.put("dislike_by", PrefManager.getInstance(context).getString(Constants.USER_ID));
+                    dislikeObj.put("fund_id", list.get(tagDislikeIdPosition).getId());
+                    fundLikeDislike(tagDislikeIdPosition, Constants.FUND_DISLIKE_URL, Constants.HTTP_POST_REQUEST, dislikeObj);
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
                 break;
             case R.id.tv_Like:
@@ -341,5 +351,85 @@ public class FundsAdapter extends BaseAdapter implements View.OnClickListener {
 
 
     }
+
+    private void fundLikeDislike(final int position, final String url, final String requestType, final JSONObject jsonObject) {
+
+        new AsyncTask<Void, Void, String>() {
+
+            ProgressDialog pDialog;
+
+            @Override
+            protected void onPreExecute() {
+                // TODO Auto-generated method stub
+                super.onPreExecute();
+
+                pDialog = new ProgressDialog(context);
+                pDialog.setMessage("Please wait...");
+                pDialog.setIndeterminate(true);
+                pDialog.setCancelable(false);
+                pDialog.show();
+
+
+            }
+
+            @Override
+            protected String doInBackground(Void... params) {
+                String response = "";
+                try {
+                    response = utilitiesClass.makeRequest(url, jsonObject, requestType);
+                    return response;
+                } catch (UnknownHostException e) {
+                    return Constants.NOINTERNET;
+                } catch (SocketTimeoutException e) {
+                    return Constants.TIMEOUT_EXCEPTION;
+                } catch (CrowdException e) {
+                    return Constants.SERVEREXCEPTION;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return Constants.SERVEREXCEPTION;
+                }
+            }
+
+
+            @Override
+            protected void onPostExecute(String result) {
+                super.onPostExecute(result);
+
+                pDialog.dismiss();
+
+                if (result.equals(Constants.NOINTERNET)) {
+                    Toast.makeText(context, context.getString(R.string.check_internet), Toast.LENGTH_LONG).show();
+                } else if (result.equals(Constants.SERVEREXCEPTION)) {
+                    Toast.makeText(context, context.getString(R.string.server_down), Toast.LENGTH_LONG).show();
+                } else if (result.equals(Constants.TIMEOUT_EXCEPTION)) {
+                    utilitiesClass.alertDialogSingleButton(context.getString(R.string.time_out));
+                } else {
+                    if (result.isEmpty()) {
+                        Toast.makeText(context, context.getString(R.string.server_down), Toast.LENGTH_LONG).show();
+                    } else {
+                        try {
+                            JSONObject jsonObject = new JSONObject(result);
+                            CrowdBootstrapLogger.logInfo(result);
+                            if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
+                                Toast.makeText(context, jsonObject.getString("message"), Toast.LENGTH_LONG).show();
+                                list.get(position).setFund_dislike(jsonObject.getInt("fund_dislikes"));
+                                list.get(position).setFund_likes(jsonObject.getInt("fund_likes"));
+                                //list.remove(position);
+                                notifyDataSetChanged();
+                            } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
+                                Toast.makeText(context, jsonObject.getString("message"), Toast.LENGTH_LONG).show();
+                            }
+                        } catch (JSONException e) {
+                            Toast.makeText(context, context.getString(R.string.server_down), Toast.LENGTH_LONG).show();
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }.execute();
+
+
+    }
+
 
 }

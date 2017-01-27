@@ -33,7 +33,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -64,7 +63,6 @@ import com.staging.utilities.UtilitiesClass;
 import org.apache.http.entity.mime.content.ContentBody;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -94,17 +92,18 @@ import java.util.Locale;
  */
 public class UpdateFundFragment extends Fragment implements onActivityResultListener, View.OnClickListener, AsyncTaskCompleteListener<String> {
 
+    private AudioObject docObject, audioObject, videoObject;
     private ImageView viewDocumentArrow, viewplayAudioArrow, viewplayVideoArrow;
     private LinearLayout btn_playAudio, btn_viewDocument, btn_playVideo;
     private LinearLayout expandable_playAudio, expandable_viewDocument, expandable_playVideo;
-    private DocumentListAdapter docAdapter;
+    /*private DocumentListAdapter docAdapter;
     private AudioAdapter audioAdapter;
-    private VideoListAdapter videoAdapter;
+    private VideoListAdapter videoAdapter;*/
     private ValueAnimator mAnimatorForDoc, mAnimatorForAudio, mAnimatorForVideo;
-    private ListView list_audios, list_docs, list_video;
+    private TextView list_audios, list_docs, list_video;
 
     ArrayList<String> delFiles = new ArrayList<String>();
-    private ArrayList<AudioObject> audioObjectsList, documentObjectList, videoObjectList;
+    //private ArrayList<AudioObject> audioObjectsList, documentObjectList, videoObjectList;
     ArrayList<GenericObject> tempArray;
     private ArrayList<String> selectedFundManagersList;
 
@@ -184,9 +183,12 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
         fundIndustryList = new ArrayList<>();
         sponsersList = new ArrayList<>();
         fundPotfolioList = new ArrayList<>();
-        audioObjectsList = new ArrayList<>();
+        audioObject = new AudioObject();
+        videoObject = new AudioObject();
+        docObject = new AudioObject();
+        /*audioObjectsList = new ArrayList<>();
         videoObjectList = new ArrayList<>();
-        documentObjectList = new ArrayList<>();
+        documentObjectList = new ArrayList<>();*/
         bundle = this.getArguments();
         fund_id = bundle.getString(Constants.FUND_ID);
         if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
@@ -243,11 +245,11 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
         View rootView = inflater.inflate(R.layout.update_fund_fragment, container, false);
         ((HomeActivity) getActivity()).setActionBarTitle(getString(R.string.update_fund));
 
-        list_audios = (ListView) rootView.findViewById(R.id.list_audios);
-        list_docs = (ListView) rootView.findViewById(R.id.list_docs);
+        list_audios = (TextView) rootView.findViewById(R.id.list_audios);
+        list_docs = (TextView) rootView.findViewById(R.id.list_docs);
 
 
-        list_video = (ListView) rootView.findViewById(R.id.list_video);
+        list_video = (TextView) rootView.findViewById(R.id.list_video);
 
         expandable_playAudio = (LinearLayout) rootView.findViewById(R.id.expandable_playAudio);
         expandable_playVideo = (LinearLayout) rootView.findViewById(R.id.expandable_playVideo);
@@ -399,6 +401,7 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
         btn_playAudio.setOnClickListener(this);
         btn_viewDocument.setOnClickListener(this);
         btn_playVideo.setOnClickListener(this);
+
 
         return rootView;
     }
@@ -1176,7 +1179,7 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
                         for (int i = 0; i < jsonObject.optJSONArray("fund_manager_list").length(); i++) {
                             GenericObject obj = new GenericObject();
                             obj.setId(jsonObject.optJSONArray("fund_manager_list").getJSONObject(i).optString("id"));
-                            obj.setTitle(jsonObject.optJSONArray("fund_manager_list").getJSONObject(i).optString("first_name") + " " + jsonObject.optJSONArray("fund_manager_list").getJSONObject(i).optString("last_name"));
+                            obj.setTitle(jsonObject.optJSONArray("fund_manager_list").getJSONObject(i).optString("name"));
                             obj.setPosition(i);
                             fundManagersList.add(obj);
                         }
@@ -1338,6 +1341,31 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
                         et_investmentEndDate.setText(jsonObject.getString("fund_end_date"));
                         ImageLoader.getInstance().displayImage(Constants.APP_IMAGE_URL + "/" + jsonObject.getString("fund_image").trim(), image_fundImage);
 
+                        if (!jsonObject.getString("fund_document").isEmpty()){
+
+                            docObject.setAudioUrl(Constants.APP_IMAGE_URL + "/" + jsonObject.getString("fund_document"));
+                            int a = jsonObject.getString("fund_document").lastIndexOf("/");
+                            docObject.setOrignalName(jsonObject.getString("fund_document").substring(a + 1));
+                            docObject.setName("Document 1");
+                            list_docs.setText(docObject.getName());
+                        }
+                        if (!jsonObject.getString("fund_video").isEmpty()){
+
+                            videoObject.setAudioUrl(Constants.APP_IMAGE_URL + "/" + jsonObject.getString("fund_video"));
+                            int a = jsonObject.getString("fund_video").lastIndexOf("/");
+                            videoObject.setOrignalName(jsonObject.getString("fund_video").substring(a + 1));
+                            videoObject.setName("Video 1" );
+                            list_video.setText(videoObject.getName());
+                        }
+
+                        if (!jsonObject.getString("fund_audio").isEmpty()){
+
+                            audioObject.setAudioUrl(Constants.APP_IMAGE_URL + "/" + jsonObject.getString("fund_audio"));
+                            int a = jsonObject.getString("fund_audio").lastIndexOf("/");
+                            audioObject.setOrignalName(jsonObject.getString("fund_audio").substring(a + 1));
+                            audioObject.setName("Audio 1" );
+                            list_audios.setText(audioObject.getName());
+                        }
 
                         //fund managers
                         preChecked(jsonObject.getJSONArray("fund_mangers"), fundManagersList, R.id.et_fundManagers);
@@ -1717,7 +1745,7 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
         }
     }
 
-    class DocumentListAdapter extends BaseAdapter {
+    /*class DocumentListAdapter extends BaseAdapter {
         private LayoutInflater l_Inflater;
 
         class ViewHolder {
@@ -1791,11 +1819,11 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
                         bundle.putString("url", documentObjectList.get(position).getAudioUrl());
                         rateContributor.setArguments(bundle);
                         ((HomeActivity) getActivity()).replaceFragment(rateContributor);
-                        /*FragmentTransaction transactionRate = getFragmentManager().beginTransaction();
+                        *//*FragmentTransaction transactionRate = getFragmentManager().beginTransaction();
                         transactionRate.replace(R.id.container, rateContributor);
                         transactionRate.addToBackStack(null);
 
-                        transactionRate.commit();*/
+                        transactionRate.commit();*//*
                     }
                 });
             } catch (Resources.NotFoundException e) {
@@ -1880,11 +1908,11 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
                         bundle.putString("url", audioObjectsList.get(position).getAudioUrl());
                         rateContributor.setArguments(bundle);
                         ((HomeActivity) getActivity()).replaceFragment(rateContributor);
-                        /*FragmentTransaction transactionRate = getFragmentManager().beginTransaction();
+                        *//*FragmentTransaction transactionRate = getFragmentManager().beginTransaction();
                         transactionRate.replace(R.id.container, rateContributor);
                         transactionRate.addToBackStack(null);
 
-                        transactionRate.commit();*/
+                        transactionRate.commit();*//*
                     }
                 });
             } catch (Resources.NotFoundException e) {
@@ -1969,11 +1997,11 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
                         bundle.putString("url", videoObjectList.get(position).getAudioUrl());
                         rateContributor.setArguments(bundle);
                         ((HomeActivity) getActivity()).replaceFragment(rateContributor);
-                        /*FragmentTransaction transactionRate = getFragmentManager().beginTransaction();
+                        *//*FragmentTransaction transactionRate = getFragmentManager().beginTransaction();
                         transactionRate.replace(R.id.container, rateContributor);
                         transactionRate.addToBackStack(null);
 
-                        transactionRate.commit();*/
+                        transactionRate.commit();*//*
                     }
                 });
             } catch (Resources.NotFoundException e) {
@@ -1984,7 +2012,7 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
 
             return convertView;
         }
-    }
+    }*/
 
     public ValueAnimator slideAnimatorForDocument(int start, int end) {
 
@@ -2062,8 +2090,7 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
         try {
             expandable_viewDocument.setVisibility(View.VISIBLE);
             viewDocumentArrow.setBackground(getResources().getDrawable(R.drawable.arrow_upward));
-            Log.e("xxx", String.valueOf(docAdapter.getCount()));
-            Log.e("xxx", String.valueOf(expandable_viewDocument.getMeasuredHeight()));
+
             // UtilityList.setListViewHeightBasedOnChildren(list_docs);
             list_docs.setVisibility(View.VISIBLE);
         } catch (Resources.NotFoundException e) {

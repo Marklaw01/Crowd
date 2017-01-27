@@ -6,39 +6,56 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.staging.R;
 import com.staging.activities.HomeActivity;
+import com.staging.listeners.AsyncTaskCompleteListener;
 import com.staging.models.AudioObject;
+import com.staging.utilities.AsyncNew;
+import com.staging.utilities.Constants;
+import com.staging.utilities.UtilitiesClass;
 
-import java.util.ArrayList;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by Neelmani.Karn on 1/11/2017.
  */
-public class FundDetailFragment extends Fragment implements View.OnClickListener {
-
-    private ArrayList<AudioObject> audioObjectsList, documentObjectList, videoObjectList;
+public class FundDetailFragment extends Fragment implements View.OnClickListener, AsyncTaskCompleteListener<String> {
+    private AudioObject docObject, audioObject, videoObject;
+    private LinearLayout layoutFundPostedBy;
+    private String calledFragment;
+    private Bundle bundle;
+    private String fund_id;
+    private TextView cbx_Follow, cbx_Like;
+    private EditText et_postedBy, et_title, et_fundDescription, et_fundManagers, et_fundsponsers, et_industry, et_portfolio, et_investmentStartDate, et_investmentEndDate, et_fundsClosedDate, et_keywords;
+    private ImageView image_roadmap;
 
     private ImageView viewDocumentArrow, viewplayAudioArrow, viewplayVideoArrow;
     private LinearLayout btn_playAudio, btn_viewDocument, btn_playVideo;
     private LinearLayout expandable_playAudio, expandable_viewDocument, expandable_playVideo;
 
     private ValueAnimator mAnimatorForDoc, mAnimatorForAudio, mAnimatorForVideo;
-    private ListView list_audios, list_docs, list_video;
+    private TextView list_audios, list_docs, list_video;
 
     public FundDetailFragment() {
         super();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((HomeActivity) getActivity()).setOnBackPressedListener(this);
     }
 
     /**
@@ -58,20 +75,48 @@ public class FundDetailFragment extends Fragment implements View.OnClickListener
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        audioObjectsList = new ArrayList<>();
+        /*audioObjectsList = new ArrayList<>();
         videoObjectList = new ArrayList<>();
-        documentObjectList = new ArrayList<>();
+        documentObjectList = new ArrayList<>();*/
+        audioObject = new AudioObject();
+        videoObject = new AudioObject();
+        docObject = new AudioObject();
+        bundle = this.getArguments();
+        if (bundle != null) {
+            fund_id = bundle.getString(Constants.FUND_ID);
+            calledFragment = bundle.getString(Constants.CALLED_FROM);
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fund_detail_fragment, container, false);
 
-        list_audios = (ListView) rootView.findViewById(R.id.list_audios);
-        list_docs = (ListView) rootView.findViewById(R.id.list_docs);
+        image_roadmap = (ImageView) rootView.findViewById(R.id.image_roadmap);
+        layoutFundPostedBy = (LinearLayout) rootView.findViewById(R.id.layoutFundPostedBy);
+        if (calledFragment.equals(Constants.FIND_FUND_TAG)) {
+            layoutFundPostedBy.setVisibility(View.VISIBLE);
+        } else {
+            layoutFundPostedBy.setVisibility(View.GONE);
+        }
+        list_audios = (TextView) rootView.findViewById(R.id.list_audios);
+        list_docs = (TextView) rootView.findViewById(R.id.list_docs);
+        list_video = (TextView) rootView.findViewById(R.id.list_video);
+        cbx_Follow = (TextView) rootView.findViewById(R.id.cbx_Follow);
+        cbx_Like = (TextView) rootView.findViewById(R.id.cbx_Like);
 
 
-        list_video = (ListView) rootView.findViewById(R.id.list_video);
+        et_postedBy = (EditText) rootView.findViewById(R.id.et_postedBy);
+        et_title = (EditText) rootView.findViewById(R.id.et_title);
+        et_fundDescription = (EditText) rootView.findViewById(R.id.et_fundDescription);
+        et_fundManagers = (EditText) rootView.findViewById(R.id.et_fundManagers);
+        et_fundsClosedDate = (EditText) rootView.findViewById(R.id.et_fundsClosedDate);
+        et_fundsponsers = (EditText) rootView.findViewById(R.id.et_fundsponsers);
+        et_investmentEndDate = (EditText) rootView.findViewById(R.id.et_investmentEndDate);
+        et_industry = (EditText) rootView.findViewById(R.id.et_industry);
+        et_keywords = (EditText) rootView.findViewById(R.id.et_keywords);
+        et_portfolio = (EditText) rootView.findViewById(R.id.et_portfolio);
+        et_investmentStartDate = (EditText) rootView.findViewById(R.id.et_investmentStartDate);
 
 
         expandable_playAudio = (LinearLayout) rootView.findViewById(R.id.expandable_playAudio);
@@ -86,6 +131,8 @@ public class FundDetailFragment extends Fragment implements View.OnClickListener
         viewplayAudioArrow = (ImageView) rootView.findViewById(R.id.viewplayAudioArrow);
         viewplayVideoArrow = (ImageView) rootView.findViewById(R.id.viewplayVideoArrow);
 
+        cbx_Follow.setOnClickListener(this);
+        cbx_Like.setOnClickListener(this);
         expandable_playAudio.getViewTreeObserver().addOnPreDrawListener(
                 new ViewTreeObserver.OnPreDrawListener() {
 
@@ -145,8 +192,26 @@ public class FundDetailFragment extends Fragment implements View.OnClickListener
         btn_viewDocument.setOnClickListener(this);
         btn_playVideo.setOnClickListener(this);
 
-
+        funDetials();
         return rootView;
+    }
+
+    private void funDetials() {
+        try {
+            if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
+                ((HomeActivity) getActivity()).showProgressDialog();
+                JSONObject object = new JSONObject();
+                object.put("user_id", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
+                object.put("fund_id", fund_id);
+                AsyncNew a = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FUND_DETAILS_TAG, Constants.FUND_DETAILS_URL, Constants.HTTP_POST_REQUEST, object);
+                a.execute();
+            } else {
+                ((HomeActivity) getActivity()).dismissProgressDialog();
+                ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -156,7 +221,65 @@ public class FundDetailFragment extends Fragment implements View.OnClickListener
      */
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
+            case R.id.cbx_Like:
+                if (cbx_Like.getText().toString().trim().equals("Like")) {
+                    try {
+                        JSONObject likeObj = new JSONObject();
+                        likeObj.put("like_by", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
+                        likeObj.put("fund_id", fund_id);
+                        if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
+                            ((HomeActivity) getActivity()).showProgressDialog();
+                            AsyncNew asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FUND_LIKE_TAG, Constants.FUND_LIKE_URL, Constants.HTTP_POST_REQUEST, likeObj);
+                            asyncNew.execute();
+                        } else {
+                            ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    try {
+                        JSONObject likeObj = new JSONObject();
+                        likeObj.put("dislike_by", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
+                        likeObj.put("fund_id", fund_id);
+                        if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
+                            ((HomeActivity) getActivity()).showProgressDialog();
+                            AsyncNew asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FUND_DISLIKE_TAG, Constants.FUND_DISLIKE_URL, Constants.HTTP_POST_REQUEST, likeObj);
+                            asyncNew.execute();
+                        } else {
+                            ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+
+                break;
+            case R.id.cbx_Follow:
+                JSONObject followObj = new JSONObject();
+                try {
+                    followObj.put("follow_by", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
+                    followObj.put("fund_id", fund_id);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
+                    if (cbx_Follow.getText().toString().trim().equalsIgnoreCase("Follow")) {
+                        ((HomeActivity) getActivity()).showProgressDialog();
+                        AsyncNew asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FUND_FOLLOW_TAG, Constants.FUND_FOLLOW_URL, Constants.HTTP_POST_REQUEST, followObj);
+                        asyncNew.execute();
+                    } else {
+                        ((HomeActivity) getActivity()).showProgressDialog();
+                        AsyncNew asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FUND_UNFOLLOW_TAG, Constants.FUND_UNFOLLOW_URL, Constants.HTTP_POST_REQUEST, followObj);
+                        asyncNew.execute();
+                    }
+                } else {
+                    ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
+                }
+                break;
             case R.id.btn_playAudio:
                 if (expandable_playAudio.getVisibility() == View.GONE) {
                     expandForAudio();
@@ -181,8 +304,200 @@ public class FundDetailFragment extends Fragment implements View.OnClickListener
         }
     }
 
+    @Override
+    public void onTaskComplete(String result, String tag) {
+        if (result.equalsIgnoreCase(Constants.NOINTERNET)) {
+            ((HomeActivity) getActivity()).dismissProgressDialog();
+            Toast.makeText(getActivity(), getString(R.string.check_internet), Toast.LENGTH_LONG).show();
+        } else if (result.equalsIgnoreCase(Constants.TIMEOUT_EXCEPTION)) {
+            ((HomeActivity) getActivity()).dismissProgressDialog();
+            UtilitiesClass.getInstance(getActivity()).alertDialogSingleButton(getString(R.string.time_out));
+        } else if (result.equalsIgnoreCase(Constants.SERVEREXCEPTION)) {
+            ((HomeActivity) getActivity()).dismissProgressDialog();
+            Toast.makeText(getActivity(), getString(R.string.server_down), Toast.LENGTH_LONG).show();
+        } else {
+            if (tag.equals(Constants.FUND_FOLLOW_TAG)) {
+                ((HomeActivity) getActivity()).dismissProgressDialog();
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
+                        cbx_Follow.setText("UnFollow");
+                        cbx_Follow.setBackgroundColor(getResources().getColor(R.color.darkGrey));
+                    } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
 
-    class DocumentListAdapter extends BaseAdapter {
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            } else if (tag.equals(Constants.FUND_LIKE_TAG)) {
+                ((HomeActivity) getActivity()).dismissProgressDialog();
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
+                        cbx_Like.setText("Liked");
+                        cbx_Like.setBackgroundColor(getResources().getColor(R.color.darkGrey));
+                    } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            } else if (tag.equals(Constants.FUND_DISLIKE_TAG)) {
+                ((HomeActivity) getActivity()).dismissProgressDialog();
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
+                        cbx_Like.setText("Like");
+                        cbx_Like.setBackgroundColor(getResources().getColor(R.color.darkGreen));
+                    } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            } else if (tag.equals(Constants.FUND_UNFOLLOW_TAG)) {
+                ((HomeActivity) getActivity()).dismissProgressDialog();
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
+                        cbx_Follow.setText("Follow");
+                        cbx_Follow.setBackgroundColor(getResources().getColor(R.color.darkGreen));
+                    } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            } else if (tag.equals(Constants.FUND_DETAILS_TAG)) {
+                ((HomeActivity) getActivity()).dismissProgressDialog();
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
+                        et_postedBy.setText(jsonObject.getString("fund_created_by"));
+                        et_investmentStartDate.setText(jsonObject.getString("fund_start_date"));
+                        et_fundDescription.setText(jsonObject.getString("fund_description"));
+                        et_investmentEndDate.setText(jsonObject.getString("fund_end_date"));
+                        et_fundsClosedDate.setText(jsonObject.getString("fund_close_date"));
+                        et_title.setText(jsonObject.getString("fund_title"));
+                        if (!jsonObject.getString("fund_document").isEmpty()){
+
+                            docObject.setAudioUrl(Constants.APP_IMAGE_URL + "/" + jsonObject.getString("fund_document"));
+                            int a = jsonObject.getString("fund_document").lastIndexOf("/");
+                            docObject.setOrignalName(jsonObject.getString("fund_document").substring(a + 1));
+                            docObject.setName("Document 1");
+                            list_docs.setText(docObject.getName());
+                        }
+                        if (!jsonObject.getString("fund_video").isEmpty()){
+
+                            videoObject.setAudioUrl(Constants.APP_IMAGE_URL + "/" + jsonObject.getString("fund_video"));
+                            int a = jsonObject.getString("fund_video").lastIndexOf("/");
+                            videoObject.setOrignalName(jsonObject.getString("fund_video").substring(a + 1));
+                            videoObject.setName("Video 1" );
+                            list_video.setText(videoObject.getName());
+                        }
+
+                        if (!jsonObject.getString("fund_audio").isEmpty()){
+
+                            audioObject.setAudioUrl(Constants.APP_IMAGE_URL + "/" + jsonObject.getString("fund_audio"));
+                            int a = jsonObject.getString("fund_audio").lastIndexOf("/");
+                            audioObject.setOrignalName(jsonObject.getString("fund_audio").substring(a + 1));
+                            audioObject.setName("Audio 1" );
+                            list_audios.setText(audioObject.getName());
+                        }
+
+                        ImageLoader.getInstance().displayImage(jsonObject.getString("fund_image"), image_roadmap);
+                        if (jsonObject.has("fund_mangers")) {
+                            StringBuilder sb = new StringBuilder();
+                            for (int i = 0; i < jsonObject.getJSONArray("fund_mangers").length(); i++) {
+                                if (sb.length() > 0) {
+                                    sb.append(", ");
+                                }
+                                sb.append(jsonObject.getJSONArray("fund_mangers").getJSONObject(i).getString("name"));
+                            }
+                            et_fundManagers.setText(sb.toString());
+                        }
+
+                        if (jsonObject.has("fund_sponsors")) {
+                            StringBuilder sb = new StringBuilder();
+                            for (int i = 0; i < jsonObject.getJSONArray("fund_sponsors").length(); i++) {
+                                if (sb.length() > 0) {
+                                    sb.append(", ");
+                                }
+                                sb.append(jsonObject.getJSONArray("fund_sponsors").getJSONObject(i).getString("name"));
+                            }
+                            et_fundsponsers.setText(sb.toString());
+                        }
+                        if (jsonObject.has("fund_portfolios")) {
+                            StringBuilder sb = new StringBuilder();
+                            for (int i = 0; i < jsonObject.getJSONArray("fund_portfolios").length(); i++) {
+                                if (sb.length() > 0) {
+                                    sb.append(", ");
+                                }
+                                sb.append(jsonObject.getJSONArray("fund_portfolios").getJSONObject(i).getString("name"));
+                            }
+                            et_portfolio.setText(sb.toString());
+                        }
+
+                        if (jsonObject.has("fund_industries")) {
+                            StringBuilder sb = new StringBuilder();
+                            for (int i = 0; i < jsonObject.getJSONArray("fund_industries").length(); i++) {
+                                if (sb.length() > 0) {
+                                    sb.append(", ");
+                                }
+                                sb.append(jsonObject.getJSONArray("fund_industries").getJSONObject(i).getString("name"));
+                            }
+                            et_industry.setText(sb.toString());
+                        }
+
+                        if (jsonObject.has("fund_keywords")) {
+                            StringBuilder sb = new StringBuilder();
+                            for (int i = 0; i < jsonObject.getJSONArray("fund_keywords").length(); i++) {
+                                if (sb.length() > 0) {
+                                    sb.append(", ");
+                                }
+                                sb.append(jsonObject.getJSONArray("fund_keywords").getJSONObject(i).getString("name"));
+                            }
+                            et_keywords.setText(sb.toString());
+                        }
+                        if (jsonObject.getString("is_liked_by_user").equals("1")) {
+                            cbx_Like.setText("Liked");
+                            cbx_Like.setBackgroundColor(getResources().getColor(R.color.darkGrey));
+                        } else {
+                            cbx_Like.setText("Like");
+                            cbx_Like.setBackgroundColor(getResources().getColor(R.color.darkGreen));
+                        }
+                        if (jsonObject.getString("is_follwed_by_user").equals("1")) {
+                            cbx_Follow.setText("UnFollow");
+                            cbx_Follow.setBackgroundColor(getResources().getColor(R.color.darkGrey));
+                        } else {
+                            cbx_Follow.setText("Follow");
+                            cbx_Follow.setBackgroundColor(getResources().getColor(R.color.darkGreen));
+                        }
+                    } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
+                        Toast.makeText(getActivity(), getString(R.string.noFunds), Toast.LENGTH_LONG).show();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        }
+
+
+    }
+
+
+    /*class DocumentListAdapter extends BaseAdapter {
         private LayoutInflater l_Inflater;
 
         class ViewHolder {
@@ -247,11 +562,11 @@ public class FundDetailFragment extends Fragment implements View.OnClickListener
                         bundle.putString("url", documentObjectList.get(position).getAudioUrl());
                         rateContributor.setArguments(bundle);
                         ((HomeActivity) getActivity()).replaceFragment(rateContributor);
-                        /*FragmentTransaction transactionRate = getFragmentManager().beginTransaction();
+                        *//*FragmentTransaction transactionRate = getFragmentManager().beginTransaction();
                         transactionRate.replace(R.id.container, rateContributor);
                         transactionRate.addToBackStack(null);
 
-                        transactionRate.commit();*/
+                        transactionRate.commit();*//*
                     }
                 });
                 holder.view.setOnClickListener(new View.OnClickListener() {
@@ -265,11 +580,11 @@ public class FundDetailFragment extends Fragment implements View.OnClickListener
                         bundle.putString("url", documentObjectList.get(position).getAudioUrl());
                         rateContributor.setArguments(bundle);
                         ((HomeActivity) getActivity()).replaceFragment(rateContributor);
-                        /*FragmentTransaction transactionRate = getFragmentManager().beginTransaction();
+                        *//*FragmentTransaction transactionRate = getFragmentManager().beginTransaction();
                         transactionRate.replace(R.id.container, rateContributor);
                         transactionRate.addToBackStack(null);
 
-                        transactionRate.commit();*/
+                        transactionRate.commit();*//*
                     }
                 });
             } catch (Exception e) {
@@ -347,11 +662,11 @@ public class FundDetailFragment extends Fragment implements View.OnClickListener
                         rateContributor.setArguments(bundle);
 
                         ((HomeActivity) getActivity()).replaceFragment(rateContributor);
-                        /*FragmentTransaction transactionRate = getFragmentManager().beginTransaction();
+                        *//*FragmentTransaction transactionRate = getFragmentManager().beginTransaction();
                         transactionRate.replace(R.id.container, rateContributor);
                         transactionRate.addToBackStack(null);
 
-                        transactionRate.commit();*/
+                        transactionRate.commit();*//*
                     }
                 });
 
@@ -366,11 +681,11 @@ public class FundDetailFragment extends Fragment implements View.OnClickListener
                         bundle.putString("url", videoObjectList.get(position).getAudioUrl());
                         rateContributor.setArguments(bundle);
                         ((HomeActivity) getActivity()).replaceFragment(rateContributor);
-                        /*FragmentTransaction transactionRate = getFragmentManager().beginTransaction();
+                        *//*FragmentTransaction transactionRate = getFragmentManager().beginTransaction();
                         transactionRate.replace(R.id.container, rateContributor);
                         transactionRate.addToBackStack(null);
 
-                        transactionRate.commit();*/
+                        transactionRate.commit();*//*
                     }
                 });
             } catch (Exception e) {
@@ -446,11 +761,11 @@ public class FundDetailFragment extends Fragment implements View.OnClickListener
                         bundle.putString("url", audioObjectsList.get(position).getAudioUrl());
                         rateContributor.setArguments(bundle);
                         ((HomeActivity) getActivity()).replaceFragment(rateContributor);
-                       /* FragmentTransaction transactionRate = getFragmentManager().beginTransaction();
+                       *//* FragmentTransaction transactionRate = getFragmentManager().beginTransaction();
                         transactionRate.replace(R.id.container, rateContributor);
                         transactionRate.addToBackStack(null);
 
-                        transactionRate.commit();*/
+                        transactionRate.commit();*//*
                     }
                 });
 
@@ -466,11 +781,11 @@ public class FundDetailFragment extends Fragment implements View.OnClickListener
                         rateContributor.setArguments(bundle);
 
                         ((HomeActivity) getActivity()).replaceFragment(rateContributor);
-                        /*FragmentTransaction transactionRate = getFragmentManager().beginTransaction();
+                        *//*FragmentTransaction transactionRate = getFragmentManager().beginTransaction();
                         transactionRate.replace(R.id.container, rateContributor);
                         transactionRate.addToBackStack(null);
 
-                        transactionRate.commit();*/
+                        transactionRate.commit();*//*
                     }
                 });
             } catch (Exception e) {
@@ -478,7 +793,7 @@ public class FundDetailFragment extends Fragment implements View.OnClickListener
             }
             return convertView;
         }
-    }
+    }*/
 
     public ValueAnimator slideAnimatorForDocument(int start, int end) {
 
@@ -561,7 +876,7 @@ public class FundDetailFragment extends Fragment implements View.OnClickListener
             list_docs.setVisibility(View.VISIBLE);
         } catch (Resources.NotFoundException e) {
             e.printStackTrace();
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -576,7 +891,7 @@ public class FundDetailFragment extends Fragment implements View.OnClickListener
             list_video.setVisibility(View.VISIBLE);
         } catch (Resources.NotFoundException e) {
             e.printStackTrace();
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -589,7 +904,7 @@ public class FundDetailFragment extends Fragment implements View.OnClickListener
             list_audios.setVisibility(View.VISIBLE);
         } catch (Resources.NotFoundException e) {
             e.printStackTrace();
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -621,7 +936,7 @@ public class FundDetailFragment extends Fragment implements View.OnClickListener
                     });
         } catch (Resources.NotFoundException e) {
             e.printStackTrace();
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -651,7 +966,7 @@ public class FundDetailFragment extends Fragment implements View.OnClickListener
                     });
         } catch (Resources.NotFoundException e) {
             e.printStackTrace();
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -680,7 +995,7 @@ public class FundDetailFragment extends Fragment implements View.OnClickListener
                     });
         } catch (Resources.NotFoundException e) {
             e.printStackTrace();
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

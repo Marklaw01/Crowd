@@ -1,7 +1,6 @@
 package com.staging.fragments;
 
 import android.app.Activity;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.staging.R;
@@ -31,6 +32,8 @@ import java.util.ArrayList;
  * Created by Neelmani.Karn on 1/11/2017.
  */
 public class MyFundsFragments extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener, AsyncTaskCompleteListener<String> {
+    private TextView btn_search;
+    private String searchText = "";
     private static int TOTAL_ITEMS = 0;
     int current_page = 1;
     private Button btn_addCampaign;
@@ -38,6 +41,7 @@ public class MyFundsFragments extends Fragment implements AdapterView.OnItemClic
     private FundsAdapter adapter;
     private ArrayList<FundsObject> fundsList;
     private AsyncNew asyncNew;
+    private EditText et_search;
 
     public MyFundsFragments() {
         super();
@@ -58,6 +62,7 @@ public class MyFundsFragments extends Fragment implements AdapterView.OnItemClic
                     JSONObject obj = new JSONObject();
                     obj.put("user_id", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
                     obj.put("page_no", current_page);
+                    obj.put("search_text", searchText);
                     asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.MY_FUND_TAG, Constants.MY_FUND_LIST, Constants.HTTP_POST_REQUEST, obj);
                     asyncNew.execute();
                 } catch (JSONException e) {
@@ -83,7 +88,6 @@ public class MyFundsFragments extends Fragment implements AdapterView.OnItemClic
             asyncNew.cancel(true);
         }
     }*/
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.funds_fragment, container, false);
@@ -91,11 +95,13 @@ public class MyFundsFragments extends Fragment implements AdapterView.OnItemClic
         btn_addCampaign = (Button) rootView.findViewById(R.id.btn_createFund);
 
         list_funds = (LoadMoreListView) rootView.findViewById(R.id.list_funds);
-
+        et_search = (EditText) rootView.findViewById(R.id.et_search);
+        btn_search = (TextView) rootView.findViewById(R.id.btn_search);
         /*adapter = new FundsAdapter(getActivity(), Constants.LOGGED_USER, "MyFunds");
         list_funds.setAdapter(adapter);*/
         btn_addCampaign.setOnClickListener(this);
         list_funds.setOnItemClickListener(this);
+        btn_search.setOnClickListener(this);
 
         list_funds.setOnLoadMoreListener(new LoadMoreListView.OnLoadMoreListener() {
             @Override
@@ -107,6 +113,7 @@ public class MyFundsFragments extends Fragment implements AdapterView.OnItemClic
                         try {
                             obj.put("user_id", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
                             obj.put("page_no", current_page);
+                            obj.put("search_text", searchText);
                             asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.MY_FUND_TAG, Constants.MY_FUND_LIST, Constants.HTTP_POST_REQUEST, obj);
                             asyncNew.execute();
                         } catch (JSONException e) {
@@ -158,6 +165,32 @@ public class MyFundsFragments extends Fragment implements AdapterView.OnItemClic
         switch (v.getId()) {
             case R.id.btn_createFund:
                 ((HomeActivity) getActivity()).replaceFragment(new CreateFundFragment());
+                break;
+            case R.id.btn_search:
+                if (!et_search.getText().toString().trim().isEmpty()) {
+                    searchText = et_search.getText().toString().trim();
+                    current_page = 1;
+                    fundsList = new ArrayList<>();
+                    adapter = null;
+                    if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
+                        ((HomeActivity) getActivity()).showProgressDialog();
+                        try {
+                            JSONObject obj = new JSONObject();
+                            obj.put("user_id", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
+                            obj.put("page_no", current_page);
+                            obj.put("search_text", searchText);
+                            asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.MY_FUND_TAG, Constants.MY_FUND_LIST, Constants.HTTP_POST_REQUEST, obj);
+                            asyncNew.execute();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            ((HomeActivity) getActivity()).dismissProgressDialog();
+                        }
+
+                    } else {
+                        ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
+                    }
+
+                }
                 break;
         }
     }
@@ -219,7 +252,7 @@ public class MyFundsFragments extends Fragment implements AdapterView.OnItemClic
                 }
 
                 if (adapter == null) {
-                    adapter = new FundsAdapter(getActivity(), fundsList, Constants.LOGGED_USER, "MyFunds");
+                    adapter = new FundsAdapter(getActivity(), fundsList, "MyFunds");
                     list_funds.setAdapter(adapter);
                 }
                 list_funds.onLoadMoreComplete();

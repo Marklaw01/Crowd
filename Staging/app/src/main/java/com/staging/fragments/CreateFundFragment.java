@@ -55,20 +55,9 @@ import com.staging.utilities.Constants;
 import com.staging.utilities.DateTimeFormatClass;
 import com.staging.utilities.UtilitiesClass;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.StatusLine;
-import org.apache.http.client.ClientProtocolException;
-
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.content.ContentBody;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
-import org.apache.http.protocol.BasicHttpContext;
-import org.apache.http.protocol.HttpContext;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -1058,7 +1047,7 @@ public class CreateFundFragment extends Fragment implements onActivityResultList
                         for (int i = 0; i < jsonObject.optJSONArray("fund_manager_list").length(); i++) {
                             GenericObject obj = new GenericObject();
                             obj.setId(jsonObject.optJSONArray("fund_manager_list").getJSONObject(i).optString("id"));
-                            obj.setTitle(jsonObject.optJSONArray("fund_manager_list").getJSONObject(i).optString("first_name") + " " + jsonObject.optJSONArray("fund_manager_list").getJSONObject(i).optString("last_name"));
+                            obj.setTitle(jsonObject.optJSONArray("fund_manager_list").getJSONObject(i).optString("name"));
                             obj.setPosition(i);
                             fundManagersList.add(obj);
                         }
@@ -1238,16 +1227,47 @@ public class CreateFundFragment extends Fragment implements onActivityResultList
 
                 @Override
                 protected String doInBackground(Integer... params) {
+                    File docFile = null;
+                    File audioFile = null;
+                    File videoFile = null;
+                    FileBody docFileBody = null;
+                    FileBody audioFileBody = null;
+                    FileBody videoFileBody = null;
                     try {
-                        ArrayList<File> files = new ArrayList<File>();
+                        /*ArrayList<File> files = new ArrayList<File>();
                         ArrayList<FileBody> bin = new ArrayList<FileBody>();
                         for (int i = 0; i < pathofmedia.size(); i++) {
                             files.add(new File(pathofmedia.get(i).getPath()));
+                        }*/
+
+                        /*for (int i = 0; i < files.size(); i++) {
+                            bin.add(new FileBody(files.get(i)));
+                        }*/
+
+                        for (int i = 0; i < pathofmedia.size(); i++) {
+                            if (pathofmedia.get(i).getPath().contains(".pdf")) {
+                                docFile = (new File(pathofmedia.get(i).getPath()));
+                            }
+                            if (pathofmedia.get(i).getPath().contains(".mp3")) {
+                                audioFile = (new File(pathofmedia.get(i).getPath()));
+                            }
+                            if (pathofmedia.get(i).getPath().contains(".mp4")) {
+                                videoFile = (new File(pathofmedia.get(i).getPath()));
+                            }
                         }
 
-                        for (int i = 0; i < files.size(); i++) {
-                            bin.add(new FileBody(files.get(i)));
+                        if (docFile != null) {
+                            docFileBody = new FileBody(docFile);
                         }
+
+                        if (audioFile != null) {
+                            audioFileBody = new FileBody(audioFile);
+                        }
+
+                        if (videoFile != null) {
+                            videoFileBody = new FileBody(videoFile);
+                        }
+
                         AndroidMultipartEntity entity = new AndroidMultipartEntity(
                                 new AndroidMultipartEntity.ProgressListener() {
 
@@ -1274,15 +1294,28 @@ public class CreateFundFragment extends Fragment implements onActivityResultList
                                 /*for (int i = 0; i < bin.size(); i++) {
                                     entity.addPart("docs[]", bin.get(i));
                                 }*/
-
+                            if (videoFileBody!= null) {
+                                entity.addPart("video", videoFileBody);
+                            }
+                            if (audioFileBody != null) {
+                                entity.addPart("audio", audioFileBody);
+                            }
+                            if (docFileBody != null) {
+                                entity.addPart("document", docFileBody);
+                            }
                         } else {
                             for (String key : map.keySet()) {
                                 entity.addPart(key, new StringBody(map.get(key), "text/plain", Charset.forName("UTF-8")));
                             }
-                               /* for (int i = 0; i < bin.size(); i++) {
-                                    entity.addPart("docs[]", bin.get(i));
-                                }*/
-
+                            if (videoFileBody!= null) {
+                                entity.addPart("video", videoFileBody);
+                            }
+                            if (audioFileBody != null) {
+                                entity.addPart("audio", audioFileBody);
+                            }
+                            if (docFileBody != null) {
+                                entity.addPart("document", docFileBody);
+                            }
                         }
 
                         try {
@@ -1305,8 +1338,8 @@ public class CreateFundFragment extends Fragment implements onActivityResultList
                     try {
                         URL url = new URL(Constants.APP_BASE_URL + urlString);
                         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                        conn.setReadTimeout(Constants.API_CONNECTION_TIME_OUT_DURATION);
-                        conn.setConnectTimeout(Constants.API_CONNECTION_TIME_OUT_DURATION);
+                        conn.setReadTimeout(1200000);
+                        conn.setConnectTimeout(1200000);
                         conn.setRequestMethod(Constants.HTTP_POST_REQUEST);
                         conn.setUseCaches(false);
                         conn.setDoInput(true);
@@ -1377,14 +1410,19 @@ public class CreateFundFragment extends Fragment implements onActivityResultList
                             Toast.makeText(getActivity(), getString(R.string.server_down), Toast.LENGTH_LONG).show();
                         } else {
                             try {
-                                JSONObject jsonObject = new JSONObject(result);
                                 CrowdBootstrapLogger.logInfo(result);
+                                JSONObject jsonObject = new JSONObject(result);
+
                                 if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
                                     pathofmedia.clear();
                                     Toast.makeText(getActivity(), "Your fund is created successfully.", Toast.LENGTH_LONG).show();
                                     getActivity().onBackPressed();
                                 } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
-
+                                    if (jsonObject.has("errors")) {
+                                       /* if (!jsonObject.optJSONObject("errors").optString("username").isEmpty()) {
+                                            Toast.makeText(getActivity(), jsonObject.optJSONObject("errors").optString("description"), Toast.LENGTH_LONG).show();
+                                        }*/
+                                    }
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();

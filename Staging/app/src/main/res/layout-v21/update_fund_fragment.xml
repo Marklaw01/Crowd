@@ -266,21 +266,14 @@
 
                     android:orientation="vertical">
 
-                    <ListView
+                    <TextView
                         android:id="@+id/list_docs"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@color/white"
-
-                        android:cacheColorHint="#FFFFFFFF"
-                        android:divider="@null"
-                        android:dividerHeight="@null"
-                        android:fadingEdge="none"
-                        android:fastScrollEnabled="true"
                         android:paddingLeft="@dimen/padding"
 
-                        android:scrollbars="vertical"
-                        android:scrollingCache="false" />
+                        android:textColor="@color/black" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -329,21 +322,14 @@
 
                     android:orientation="vertical">
 
-                    <ListView
+                    <TextView
                         android:id="@+id/list_audios"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:background="@color/white"
-
-                        android:cacheColorHint="#FFFFFFFF"
-                        android:divider="@null"
-                        android:dividerHeight="@null"
-                        android:fadingEdge="none"
-                        android:fastScrollEnabled="true"
                         android:paddingLeft="@dimen/padding"
 
-                        android:scrollbars="vertical"
-                        android:scrollingCache="false" />
+                        android:textColor="@color/black" />/>
 
 
                 </LinearLayout>
@@ -394,21 +380,14 @@
 
                     android:orientation="vertical">
 
-                    <ListView
+                    <TextView
                         android:id="@+id/list_video"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:background="@color/white"
-
-                        android:cacheColorHint="#FFFFFFFF"
-                        android:divider="@null"
-                        android:dividerHeight="@null"
-                        android:fadingEdge="none"
-                        android:fastScrollEnabled="true"
                         android:paddingLeft="@dimen/padding"
 
-                        android:scrollbars="vertical"
-                        android:scrollingCache="false" />
+                        android:textColor="@color/black" />/>
 
 
                 </LinearLayout>

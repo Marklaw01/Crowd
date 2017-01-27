@@ -478,7 +478,6 @@ public final class Constants {
     public static final String DEACTIVATED_FUND_LIST = "deactivateFundList";
     public static final String DEACTIVATED_FUND_TAG = "deactivateFundList_tag";
 
-
     public static final String FUND_DETAILS_URL = "fundDetails";
     public static final String FUND_DETAILS_TAG = "fundDetails_tag";
 
@@ -486,12 +485,22 @@ public final class Constants {
     public static final String FUND_ARCHIEVE_URL = "archiveFund";
     public static final String FUND_DEACTIVATE_URL = "deactivateFund";
     public static final String FUND_ACTIVATE_URL = "activateFund";
+    public static final String FUND_LIKE_URL = "likeFund";
+    public static final String FUND_LIKE_TAG = "likeFund_tag";
+    public static final String FUND_DISLIKE_URL = "disLikeFund";
+    public static final String FUND_DISLIKE_TAG = "disLikeFund_tag";
 
-    public static final String FUND_LIKERS_LIST = "";
+    public static final String FUND_LIKERS_LIST = "fundLikeList";
     public static final String FUND_LIKERS_TAG = "fundLikesList_tag";
 
-    public static final String FUND_DISLIKERS_LIST = "";
+    public static final String FUND_DISLIKERS_LIST = "fundDislikeList";
     public static final String FUND_DISLIKERS_FUND_TAG = "fundDislikesList_tag";
+
+    public static final String FUND_FOLLOW_URL = "followFund";
+    public static final String FUND_FOLLOW_TAG = "followFund_tag";
+
+    public static final String FUND_UNFOLLOW_URL = "unfollowFund";
+    public static final String FUND_UNFOLLOW_TAG = "unfollowFund_tag";
 
 
     //Password regex pattern for validation.
@@ -550,6 +559,8 @@ public final class Constants {
     public static final String NOT_LOGGED_USER = "not_logged_user";
     public static final String TIMEOUT_EXCEPTION = "timeout";
     public static final int POSITION = 1001;
+    public static final java.lang.String CALLED_FROM = "calledFrom";
+
 
     //Passing data constants using intent
     public static String COMMING_FROM_INTENT = "";

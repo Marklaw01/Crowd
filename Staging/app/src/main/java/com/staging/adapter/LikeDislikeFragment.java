@@ -8,12 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.staging.R;
 import com.staging.activities.HomeActivity;
-import com.staging.fragments.FundDetailFragment;
 import com.staging.fragments.ViewOtherContractorPublicProfileFragment;
 import com.staging.listeners.AsyncTaskCompleteListener;
 import com.staging.loadmore_listview.LoadMoreListView;
@@ -83,7 +81,13 @@ public class LikeDislikeFragment extends Fragment implements AdapterView.OnItemC
         current_page = 1;
         list = new ArrayList<>();
         adapter = null;
-        getLikersDislikers(current_page, Constants.FUND_LIKERS_LIST, Constants.FUND_LIKERS_TAG);
+        if (bundle.getString(Constants.LIKE_DISLIKE).equals(Constants.LIKE)){
+            getLikersDislikers(current_page, Constants.FUND_LIKERS_LIST, Constants.FUND_LIKERS_TAG);
+        }else{
+            getLikersDislikers(current_page, Constants.FUND_DISLIKERS_LIST, Constants.FUND_DISLIKERS_FUND_TAG);
+        }
+
+
     }
 
     @Override
@@ -100,7 +104,11 @@ public class LikeDislikeFragment extends Fragment implements AdapterView.OnItemC
                 if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
                     current_page += 1;
                     if (TOTAL_ITEMS != adapter.getCount()) {
-                        getLikersDislikers(current_page, Constants.FUND_LIKERS_LIST, Constants.FUND_LIKERS_TAG);
+                        if (bundle.getString(Constants.LIKE_DISLIKE).equals(Constants.LIKE)){
+                            getLikersDislikers(current_page, Constants.FUND_LIKERS_LIST, Constants.FUND_LIKERS_TAG);
+                        }else{
+                            getLikersDislikers(current_page, Constants.FUND_DISLIKERS_LIST, Constants.FUND_DISLIKERS_FUND_TAG);
+                        }
                     } else {
                         list_persons.onLoadMoreComplete();
                     }
