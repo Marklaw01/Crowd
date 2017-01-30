@@ -92,6 +92,10 @@ import java.util.Locale;
  */
 public class UpdateFundFragment extends Fragment implements onActivityResultListener, View.OnClickListener, AsyncTaskCompleteListener<String> {
 
+    private int document_d = 0;
+    private int video_d = 0;
+    private int audio_d = 0;
+    private ImageView del_document, del_audio, del_video;
     private AudioObject docObject, audioObject, videoObject;
     private ImageView viewDocumentArrow, viewplayAudioArrow, viewplayVideoArrow;
     private LinearLayout btn_playAudio, btn_viewDocument, btn_playVideo;
@@ -183,9 +187,9 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
         fundIndustryList = new ArrayList<>();
         sponsersList = new ArrayList<>();
         fundPotfolioList = new ArrayList<>();
-        audioObject = new AudioObject();
+        /*audioObject = new AudioObject();
         videoObject = new AudioObject();
-        docObject = new AudioObject();
+        docObject = new AudioObject();*/
         /*audioObjectsList = new ArrayList<>();
         videoObjectList = new ArrayList<>();
         documentObjectList = new ArrayList<>();*/
@@ -247,9 +251,11 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
 
         list_audios = (TextView) rootView.findViewById(R.id.list_audios);
         list_docs = (TextView) rootView.findViewById(R.id.list_docs);
-
-
         list_video = (TextView) rootView.findViewById(R.id.list_video);
+
+        del_audio = (ImageView) rootView.findViewById(R.id.del_audio);
+        del_document = (ImageView) rootView.findViewById(R.id.del_document);
+        del_video = (ImageView) rootView.findViewById(R.id.del_video);
 
         expandable_playAudio = (LinearLayout) rootView.findViewById(R.id.expandable_playAudio);
         expandable_playVideo = (LinearLayout) rootView.findViewById(R.id.expandable_playVideo);
@@ -402,6 +408,83 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
         btn_viewDocument.setOnClickListener(this);
         btn_playVideo.setOnClickListener(this);
 
+        del_document.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                document_d = 1;
+                expandable_viewDocument.setVisibility(View.GONE);
+                docObject = null;
+            }
+        });
+
+        del_video.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                video_d = 1;
+                expandable_playVideo.setVisibility(View.GONE);
+                videoObject = null;
+            }
+        });
+        del_audio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                audio_d = 1;
+                expandable_playAudio.setVisibility(View.GONE);
+                audioObject = null;
+            }
+        });
+
+
+        list_audios.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (audioObject!=null){
+                    Fragment rateContributor = new WebViewFragment();
+
+
+                    Bundle bundle = new Bundle();
+
+                    bundle.putString("url", audioObject.getAudioUrl());
+                    rateContributor.setArguments(bundle);
+                    ((HomeActivity) getActivity()).replaceFragment(rateContributor);
+                }
+
+            }
+        });
+
+        list_docs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (docObject!=null){
+                    Fragment rateContributor = new WebViewFragment();
+
+
+                    Bundle bundle = new Bundle();
+
+                    bundle.putString("url", docObject.getAudioUrl());
+                    rateContributor.setArguments(bundle);
+                    ((HomeActivity) getActivity()).replaceFragment(rateContributor);
+                }
+
+            }
+        });
+
+        list_video.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (videoObject!=null){
+                    Fragment rateContributor = new WebViewFragment();
+
+
+                    Bundle bundle = new Bundle();
+
+                    bundle.putString("url", videoObject.getAudioUrl());
+                    rateContributor.setArguments(bundle);
+                    ((HomeActivity) getActivity()).replaceFragment(rateContributor);
+                }
+
+            }
+        });
 
         return rootView;
     }
@@ -859,6 +942,10 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
                 map.put("end_date", et_investmentEndDate.getText().toString().trim());
                 map.put("close_date", et_fundsClosedDate.getText().toString().trim());
                 map.put("keywords_id", selectedKeywordsIDs);
+                map.put("image_del", String.valueOf(0));
+                map.put("audio_del", String.valueOf(audio_d));
+                map.put("video_del", String.valueOf(video_d));
+                map.put("document_del", String.valueOf(document_d));
                 for (int j = 0; j < pathofmedia.size(); j++) {
                     CrowdBootstrapLogger.logInfo("file path" + pathofmedia.get(j).getPath());
                     CrowdBootstrapLogger.logInfo("file size" + pathofmedia.get(j).getFilesize());
@@ -874,25 +961,34 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
 
                 break;
             case R.id.btn_playAudio:
-                if (expandable_playAudio.getVisibility() == View.GONE) {
-                    expandForAudio();
-                } else {
-                    collapseForAudio();
+                if (audioObject != null) {
+                    if (expandable_playAudio.getVisibility() == View.GONE) {
+                        expandForAudio();
+                    } else {
+                        collapseForAudio();
+                    }
                 }
+
                 break;
             case R.id.btn_playVideo:
-                if (expandable_playVideo.getVisibility() == View.GONE) {
-                    expandForVideo();
-                } else {
-                    collapseForVideo();
+                if (videoObject != null) {
+                    if (expandable_playVideo.getVisibility() == View.GONE) {
+                        expandForVideo();
+                    } else {
+                        collapseForVideo();
+                    }
                 }
+
                 break;
             case R.id.btn_viewDocument:
-                if (expandable_viewDocument.getVisibility() == View.GONE) {
-                    expandForDocument();
-                } else {
-                    collapseForDoc();
+                if (docObject != null) {
+                    if (expandable_viewDocument.getVisibility() == View.GONE) {
+                        expandForDocument();
+                    } else {
+                        collapseForDoc();
+                    }
                 }
+
                 break;
             case R.id.et_investmentStartDate:
                 new DatePickerDialog(getActivity(), investmentStartdate, myCalendarInvestmentStartDate
@@ -1339,32 +1435,38 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
                         et_fundsClosedDate.setText(jsonObject.getString("fund_close_date"));
                         et_investmentStartDate.setText(jsonObject.getString("fund_start_date"));
                         et_investmentEndDate.setText(jsonObject.getString("fund_end_date"));
-                        ImageLoader.getInstance().displayImage(Constants.APP_IMAGE_URL + "/" + jsonObject.getString("fund_image").trim(), image_fundImage);
+                        ImageLoader.getInstance().displayImage(Constants.APP_IMAGE_URL  + jsonObject.getString("fund_image").trim(), image_fundImage);
 
-                        if (!jsonObject.getString("fund_document").isEmpty()){
-
+                        if (!jsonObject.getString("fund_document").isEmpty()) {
+                            docObject = new AudioObject();
                             docObject.setAudioUrl(Constants.APP_IMAGE_URL + "/" + jsonObject.getString("fund_document"));
                             int a = jsonObject.getString("fund_document").lastIndexOf("/");
                             docObject.setOrignalName(jsonObject.getString("fund_document").substring(a + 1));
                             docObject.setName("Document 1");
                             list_docs.setText(docObject.getName());
+                        } else {
+                            expandable_viewDocument.setVisibility(View.GONE);
                         }
-                        if (!jsonObject.getString("fund_video").isEmpty()){
-
+                        if (!jsonObject.getString("fund_video").isEmpty()) {
+                            videoObject = new AudioObject();
                             videoObject.setAudioUrl(Constants.APP_IMAGE_URL + "/" + jsonObject.getString("fund_video"));
                             int a = jsonObject.getString("fund_video").lastIndexOf("/");
                             videoObject.setOrignalName(jsonObject.getString("fund_video").substring(a + 1));
-                            videoObject.setName("Video 1" );
+                            videoObject.setName("Video 1");
                             list_video.setText(videoObject.getName());
+                        } else {
+                            expandable_playVideo.setVisibility(View.GONE);
                         }
 
-                        if (!jsonObject.getString("fund_audio").isEmpty()){
-
+                        if (!jsonObject.getString("fund_audio").isEmpty()) {
+                            audioObject = new AudioObject();
                             audioObject.setAudioUrl(Constants.APP_IMAGE_URL + "/" + jsonObject.getString("fund_audio"));
                             int a = jsonObject.getString("fund_audio").lastIndexOf("/");
                             audioObject.setOrignalName(jsonObject.getString("fund_audio").substring(a + 1));
-                            audioObject.setName("Audio 1" );
+                            audioObject.setName("Audio 1");
                             list_audios.setText(audioObject.getName());
+                        } else {
+                            expandable_playAudio.setVisibility(View.GONE);
                         }
 
                         //fund managers
@@ -1583,8 +1685,15 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
 
                 @Override
                 protected String doInBackground(Integer... params) {
+
+                    File docFile = null;
+                    File audioFile = null;
+                    File videoFile = null;
+                    FileBody docFileBody = null;
+                    FileBody audioFileBody = null;
+                    FileBody videoFileBody = null;
                     try {
-                        ArrayList<File> files = new ArrayList<File>();
+                       /* ArrayList<File> files = new ArrayList<File>();
                         ArrayList<FileBody> bin = new ArrayList<FileBody>();
                         for (int i = 0; i < pathofmedia.size(); i++) {
                             files.add(new File(pathofmedia.get(i).getPath()));
@@ -1592,6 +1701,30 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
 
                         for (int i = 0; i < files.size(); i++) {
                             bin.add(new FileBody(files.get(i)));
+                        }*/
+
+                        for (int i = 0; i < pathofmedia.size(); i++) {
+                            if (pathofmedia.get(i).getPath().contains(".pdf")) {
+                                docFile = (new File(pathofmedia.get(i).getPath()));
+                            }
+                            if (pathofmedia.get(i).getPath().contains(".mp3")) {
+                                audioFile = (new File(pathofmedia.get(i).getPath()));
+                            }
+                            if (pathofmedia.get(i).getPath().contains(".mp4")) {
+                                videoFile = (new File(pathofmedia.get(i).getPath()));
+                            }
+                        }
+
+                        if (docFile != null) {
+                            docFileBody = new FileBody(docFile);
+                        }
+
+                        if (audioFile != null) {
+                            audioFileBody = new FileBody(audioFile);
+                        }
+
+                        if (videoFile != null) {
+                            videoFileBody = new FileBody(videoFile);
                         }
                         AndroidMultipartEntity entity = new AndroidMultipartEntity(
                                 new AndroidMultipartEntity.ProgressListener() {
@@ -1620,6 +1753,15 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
                                     entity.addPart("docs[]", bin.get(i));
                                 }*/
 
+                            if (videoFileBody != null) {
+                                entity.addPart("video", videoFileBody);
+                            }
+                            if (audioFileBody != null) {
+                                entity.addPart("audio", audioFileBody);
+                            }
+                            if (docFileBody != null) {
+                                entity.addPart("document", docFileBody);
+                            }
                         } else {
                             for (String key : map.keySet()) {
                                 entity.addPart(key, new StringBody(map.get(key), "text/plain", Charset.forName("UTF-8")));
@@ -1627,7 +1769,15 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
                                /* for (int i = 0; i < bin.size(); i++) {
                                     entity.addPart("docs[]", bin.get(i));
                                 }*/
-
+                            if (videoFileBody != null) {
+                                entity.addPart("video", videoFileBody);
+                            }
+                            if (audioFileBody != null) {
+                                entity.addPart("audio", audioFileBody);
+                            }
+                            if (docFileBody != null) {
+                                entity.addPart("document", docFileBody);
+                            }
                         }
 
                         try {
@@ -1650,8 +1800,8 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
                     try {
                         URL url = new URL(Constants.APP_BASE_URL + urlString);
                         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                        conn.setReadTimeout(Constants.API_CONNECTION_TIME_OUT_DURATION);
-                        conn.setConnectTimeout(Constants.API_CONNECTION_TIME_OUT_DURATION);
+                        conn.setReadTimeout(1200000);
+                        conn.setConnectTimeout(1200000);
                         conn.setRequestMethod(Constants.HTTP_POST_REQUEST);
                         conn.setUseCaches(false);
                         conn.setDoInput(true);

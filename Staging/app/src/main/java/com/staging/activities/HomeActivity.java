@@ -109,7 +109,13 @@ import com.quickblox.core.exception.QBResponseException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.SocketTimeoutException;
+import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -605,14 +611,95 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
         if (networkConnectivity.isOnline()) {
 
-            Async a = new Async(HomeActivity.this, (AsyncTaskCompleteListener<String>) HomeActivity.this, Constants.USER_NOTIFICATION_COUNT_TAG, Constants.USER_NOTIFICATION_COUNT_URL + "?user_id=" + prefManager.getString(Constants.USER_ID), Constants.HTTP_GET, "Home Activity");
-            a.execute();
+            /*Async a = new Async(HomeActivity.this, (AsyncTaskCompleteListener<String>) HomeActivity.this, Constants.USER_NOTIFICATION_COUNT_TAG, Constants.USER_NOTIFICATION_COUNT_URL + "?user_id=" + prefManager.getString(Constants.USER_ID), Constants.HTTP_GET, "Home Activity");
+            a.execute();*/
+            checkNotificationBadgeCount();
 
         } else {
             utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
         }
 
     }
+
+    private void checkNotificationBadgeCount() {
+        new AsyncTask<Void, Void, String>() {
+
+            @Override
+            protected String doInBackground(Void... params) {
+                HttpURLConnection urlConnection;
+                String result = "";
+                try {
+
+                    String uri = Constants.USER_NOTIFICATION_COUNT_URL + "?user_id=" + prefManager.getString(Constants.USER_ID);
+                    URL url = new URL(Constants.APP_BASE_URL + uri);
+                    CrowdBootstrapLogger.logInfo("url: " + url.toString());
+
+
+                    urlConnection = (HttpURLConnection) url.openConnection();
+
+                    urlConnection.setDoOutput(true);
+                    urlConnection.setRequestProperty("Content-Type", "application/json");
+                    urlConnection.setRequestProperty("Accept", "application/json");
+
+                    urlConnection.setRequestMethod(Constants.HTTP_GET_REQUEST);
+                    urlConnection.connect();
+
+
+                    if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+
+                        //Read
+                        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "UTF-8"));
+
+                        String line = null;
+                        StringBuilder sb = new StringBuilder();
+
+                        while ((line = bufferedReader.readLine()) != null) {
+                            sb.append(line);
+                        }
+
+                        bufferedReader.close();
+                        result = sb.toString();
+                    } else {
+                        CrowdBootstrapLogger.logInfo("Status code: " + urlConnection.getResponseCode());
+
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return result;
+                } catch (Exception e) {
+                    return result;
+                }
+                return result;
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                try {
+                    if (!s.isEmpty()){
+                        final JSONObject jsonObject = new JSONObject(s);
+
+                        if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
+                            badgeCount = jsonObject.optInt("count");
+
+                        } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
+                            badgeCount = 0;
+                        }
+
+                        //For Testing purpose
+//                        badgeCount = 7;
+                        setMenuBagde();
+                    }
+
+                    //////////////////////
+                } catch (Exception e) {
+
+                }
+            }
+        }.execute();
+    }
+
 
     private void addDrawerItemsForEntrepreneur() {
 

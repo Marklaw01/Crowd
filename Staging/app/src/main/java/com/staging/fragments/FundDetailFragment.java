@@ -78,9 +78,9 @@ public class FundDetailFragment extends Fragment implements View.OnClickListener
         /*audioObjectsList = new ArrayList<>();
         videoObjectList = new ArrayList<>();
         documentObjectList = new ArrayList<>();*/
-        audioObject = new AudioObject();
+       /* audioObject = new AudioObject();
         videoObject = new AudioObject();
-        docObject = new AudioObject();
+        docObject = new AudioObject();*/
         bundle = this.getArguments();
         if (bundle != null) {
             fund_id = bundle.getString(Constants.FUND_ID);
@@ -107,7 +107,7 @@ public class FundDetailFragment extends Fragment implements View.OnClickListener
 
 
         et_postedBy = (EditText) rootView.findViewById(R.id.et_postedBy);
-        et_title = (EditText) rootView.findViewById(R.id.et_title);
+        et_title = (EditText) rootView.findViewById(R.id.et_fundTitle);
         et_fundDescription = (EditText) rootView.findViewById(R.id.et_fundDescription);
         et_fundManagers = (EditText) rootView.findViewById(R.id.et_fundManagers);
         et_fundsClosedDate = (EditText) rootView.findViewById(R.id.et_fundsClosedDate);
@@ -143,7 +143,7 @@ public class FundDetailFragment extends Fragment implements View.OnClickListener
 
                         final int widthSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
                         final int heightSpec = View.MeasureSpec.makeMeasureSpec(list_audios.getHeight(), View.MeasureSpec.UNSPECIFIED);
-                        System.out.println(heightSpec);
+                        //System.out.println(heightSpec);
                         expandable_playAudio.measure(widthSpec, heightSpec);
 
                         mAnimatorForAudio = slideAnimatorForAudio(0, expandable_playAudio.getMeasuredHeight());
@@ -161,7 +161,7 @@ public class FundDetailFragment extends Fragment implements View.OnClickListener
 
                         final int widthSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
                         final int heightSpec = View.MeasureSpec.makeMeasureSpec(list_docs.getHeight(), View.MeasureSpec.UNSPECIFIED);
-                        System.out.println(heightSpec);
+                        //System.out.println(heightSpec);
                         expandable_viewDocument.measure(widthSpec, heightSpec);
 
                         mAnimatorForDoc = slideAnimatorForDocument(0, expandable_viewDocument.getMeasuredHeight());
@@ -179,7 +179,7 @@ public class FundDetailFragment extends Fragment implements View.OnClickListener
 
                         final int widthSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
                         final int heightSpec = View.MeasureSpec.makeMeasureSpec(list_video.getHeight(), View.MeasureSpec.UNSPECIFIED);
-                        System.out.println(heightSpec);
+                        //System.out.println(heightSpec);
                         expandable_playVideo.measure(widthSpec, heightSpec);
 
                         mAnimatorForVideo = slideAnimatorForVideo(0, expandable_playVideo.getMeasuredHeight());
@@ -191,6 +191,60 @@ public class FundDetailFragment extends Fragment implements View.OnClickListener
         btn_playAudio.setOnClickListener(this);
         btn_viewDocument.setOnClickListener(this);
         btn_playVideo.setOnClickListener(this);
+
+        list_audios.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (audioObject!=null){
+                    Fragment rateContributor = new WebViewFragment();
+
+
+                    Bundle bundle = new Bundle();
+
+                    bundle.putString("url", audioObject.getAudioUrl());
+                    rateContributor.setArguments(bundle);
+                    ((HomeActivity) getActivity()).replaceFragment(rateContributor);
+                }
+
+            }
+        });
+
+        list_docs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (docObject!=null){
+                    Fragment rateContributor = new WebViewFragment();
+
+
+                    Bundle bundle = new Bundle();
+
+                    bundle.putString("url", docObject.getAudioUrl());
+                    rateContributor.setArguments(bundle);
+                    ((HomeActivity) getActivity()).replaceFragment(rateContributor);
+                }
+
+            }
+        });
+
+        list_video.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (videoObject!=null){
+                    Fragment rateContributor = new WebViewFragment();
+
+
+                    Bundle bundle = new Bundle();
+
+                    bundle.putString("url", videoObject.getAudioUrl());
+                    rateContributor.setArguments(bundle);
+                    ((HomeActivity) getActivity()).replaceFragment(rateContributor);
+                }
+
+            }
+        });
+
+
+
 
         funDetials();
         return rootView;
@@ -281,25 +335,34 @@ public class FundDetailFragment extends Fragment implements View.OnClickListener
                 }
                 break;
             case R.id.btn_playAudio:
-                if (expandable_playAudio.getVisibility() == View.GONE) {
-                    expandForAudio();
-                } else {
-                    collapseForAudio();
+                if (audioObject != null) {
+                    if (expandable_playAudio.getVisibility() == View.GONE) {
+                        expandForAudio();
+                    } else {
+                        collapseForAudio();
+                    }
                 }
+
                 break;
             case R.id.btn_playVideo:
-                if (expandable_playVideo.getVisibility() == View.GONE) {
-                    expandForVideo();
-                } else {
-                    collapseForVideo();
+                if (videoObject != null) {
+                    if (expandable_playVideo.getVisibility() == View.GONE) {
+                        expandForVideo();
+                    } else {
+                        collapseForVideo();
+                    }
                 }
+
                 break;
             case R.id.btn_viewDocument:
-                if (expandable_viewDocument.getVisibility() == View.GONE) {
-                    expandForDocument();
-                } else {
-                    collapseForDoc();
+                if (docObject != null) {
+                    if (expandable_viewDocument.getVisibility() == View.GONE) {
+                        expandForDocument();
+                    } else {
+                        collapseForDoc();
+                    }
                 }
+
                 break;
         }
     }
@@ -387,33 +450,40 @@ public class FundDetailFragment extends Fragment implements View.OnClickListener
                         et_investmentEndDate.setText(jsonObject.getString("fund_end_date"));
                         et_fundsClosedDate.setText(jsonObject.getString("fund_close_date"));
                         et_title.setText(jsonObject.getString("fund_title"));
-                        if (!jsonObject.getString("fund_document").isEmpty()){
 
+                        if (!jsonObject.getString("fund_document").isEmpty()) {
+                            docObject = new AudioObject();
                             docObject.setAudioUrl(Constants.APP_IMAGE_URL + "/" + jsonObject.getString("fund_document"));
                             int a = jsonObject.getString("fund_document").lastIndexOf("/");
                             docObject.setOrignalName(jsonObject.getString("fund_document").substring(a + 1));
                             docObject.setName("Document 1");
                             list_docs.setText(docObject.getName());
+                        } else {
+                            expandable_viewDocument.setVisibility(View.GONE);
                         }
-                        if (!jsonObject.getString("fund_video").isEmpty()){
-
+                        if (!jsonObject.getString("fund_video").isEmpty()) {
+                            videoObject = new AudioObject();
                             videoObject.setAudioUrl(Constants.APP_IMAGE_URL + "/" + jsonObject.getString("fund_video"));
                             int a = jsonObject.getString("fund_video").lastIndexOf("/");
                             videoObject.setOrignalName(jsonObject.getString("fund_video").substring(a + 1));
-                            videoObject.setName("Video 1" );
+                            videoObject.setName("Video 1");
                             list_video.setText(videoObject.getName());
+                        } else {
+                            expandable_playVideo.setVisibility(View.GONE);
                         }
 
-                        if (!jsonObject.getString("fund_audio").isEmpty()){
-
+                        if (!jsonObject.getString("fund_audio").isEmpty()) {
+                            audioObject = new AudioObject();
                             audioObject.setAudioUrl(Constants.APP_IMAGE_URL + "/" + jsonObject.getString("fund_audio"));
                             int a = jsonObject.getString("fund_audio").lastIndexOf("/");
                             audioObject.setOrignalName(jsonObject.getString("fund_audio").substring(a + 1));
-                            audioObject.setName("Audio 1" );
+                            audioObject.setName("Audio 1");
                             list_audios.setText(audioObject.getName());
+                        } else {
+                            expandable_playAudio.setVisibility(View.GONE);
                         }
 
-                        ImageLoader.getInstance().displayImage(jsonObject.getString("fund_image"), image_roadmap);
+                        ImageLoader.getInstance().displayImage(Constants.APP_IMAGE_URL + jsonObject.getString("fund_image"), image_roadmap);
                         if (jsonObject.has("fund_mangers")) {
                             StringBuilder sb = new StringBuilder();
                             for (int i = 0; i < jsonObject.getJSONArray("fund_mangers").length(); i++) {
@@ -926,7 +996,7 @@ public class FundDetailFragment extends Fragment implements View.OnClickListener
 
                             final int widthSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
                             final int heightSpec = View.MeasureSpec.makeMeasureSpec(list_docs.getHeight(), View.MeasureSpec.UNSPECIFIED);
-                            System.out.println(heightSpec);
+                            //System.out.println(heightSpec);
                             expandable_viewDocument.measure(widthSpec, heightSpec);
 
                             mAnimatorForDoc = slideAnimatorForDocument(0, expandable_viewDocument.getMeasuredHeight());
@@ -957,7 +1027,7 @@ public class FundDetailFragment extends Fragment implements View.OnClickListener
 
                             final int widthSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
                             final int heightSpec = View.MeasureSpec.makeMeasureSpec(list_audios.getHeight(), View.MeasureSpec.UNSPECIFIED);
-                            System.out.println(heightSpec);
+                            //System.out.println(heightSpec);
                             expandable_playAudio.measure(widthSpec, heightSpec);
 
                             mAnimatorForAudio = slideAnimatorForAudio(0, expandable_playAudio.getMeasuredHeight());
@@ -986,7 +1056,7 @@ public class FundDetailFragment extends Fragment implements View.OnClickListener
 
                             final int widthSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
                             final int heightSpec = View.MeasureSpec.makeMeasureSpec(list_video.getHeight(), View.MeasureSpec.UNSPECIFIED);
-                            System.out.println(heightSpec);
+                            //System.out.println(heightSpec);
                             expandable_playVideo.measure(widthSpec, heightSpec);
 
                             mAnimatorForVideo = slideAnimatorForVideo(0, expandable_playVideo.getMeasuredHeight());

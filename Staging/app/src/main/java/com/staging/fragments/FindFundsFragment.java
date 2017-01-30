@@ -179,7 +179,7 @@ public class FindFundsFragment extends Fragment implements AdapterView.OnItemCli
                             obj.put("search_text", searchText);
                             obj.put("page_no", current_page);
                             ((HomeActivity) getActivity()).showProgressDialog();
-                            AsyncNew asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FUND_SEARCH_TAG, Constants.FUND_SEARCH_LIST, Constants.HTTP_POST_REQUEST, obj);
+                            AsyncNew asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FIND_FUND_TAG, Constants.FIND_FUND_LIST, Constants.HTTP_POST_REQUEST, obj);
                             asyncNew.execute();
                         } catch (JSONException e) {
                             e.printStackTrace();

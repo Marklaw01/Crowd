@@ -75,13 +75,23 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/smallTextStyle" />
             </LinearLayout>
-
+            <TextView
+                android:id="@+id/namelbl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/funds_title"
+                android:paddingRight="10sp"
+                android:layout_marginTop="10sp"
+                android:singleLine="true"
+                android:textColor="@color/textColor"
+                android:textStyle="bold"
+                android:textSize="@dimen/mediumTextStyle" />
             <EditText
                 android:id="@+id/et_fundTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="10dp"
+
                 android:background="@drawable/emailtextbox"
                 android:cursorVisible="false"
                 android:ems="10"
@@ -123,11 +133,22 @@
                     android:background="@drawable/arrow_downward"
                     android:gravity="right|center" />
             </LinearLayout>-->
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/description"
+                android:paddingRight="10sp"
+                android:layout_marginTop="10sp"
+                android:singleLine="true"
+                android:textColor="@color/textColor"
+                android:textStyle="bold"
+                android:textSize="@dimen/mediumTextStyle" />
             <EditText
                 android:id="@+id/et_fundDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+
                 android:background="@drawable/multiline_textview"
                 android:cursorVisible="false"
                 android:focusable="false"
@@ -140,13 +161,23 @@
 
             </EditText>
 
+            <TextView
 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/funds_managers"
+                android:paddingRight="10sp"
+                android:layout_marginTop="10sp"
+                android:singleLine="true"
+                android:textColor="@color/textColor"
+                android:textStyle="bold"
+                android:textSize="@dimen/mediumTextStyle" />
             <EditText
                 android:id="@+id/et_fundManagers"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="10dp"
+
                 android:background="@drawable/emailtextbox"
                 android:cursorVisible="false"
                 android:ems="10"
@@ -158,13 +189,23 @@
                 android:paddingRight="10sp"
                 android:textColor="@color/textColor"
                 android:textSize="@dimen/mediumTextStyle" />
+            <TextView
 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sponsers"
+                android:paddingRight="10sp"
+                android:layout_marginTop="10sp"
+                android:singleLine="true"
+                android:textColor="@color/textColor"
+                android:textStyle="bold"
+                android:textSize="@dimen/mediumTextStyle" />
             <EditText
                 android:id="@+id/et_fundsponsers"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="10dp"
+
                 android:background="@drawable/emailtextbox"
                 android:cursorVisible="false"
                 android:ems="10"
@@ -177,13 +218,23 @@
                 android:paddingRight="10sp"
                 android:textColor="@color/textColor"
                 android:textSize="@dimen/mediumTextStyle" />
+            <TextView
 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/industry"
+                android:paddingRight="10sp"
+                android:layout_marginTop="10sp"
+                android:singleLine="true"
+                android:textColor="@color/textColor"
+                android:textStyle="bold"
+                android:textSize="@dimen/mediumTextStyle" />
             <EditText
                 android:id="@+id/et_industry"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="10dp"
+
                 android:background="@drawable/emailtextbox"
 
                 android:cursorVisible="false"
@@ -196,13 +247,23 @@
                 android:paddingRight="10sp"
                 android:textColor="@color/textColor"
                 android:textSize="@dimen/mediumTextStyle" />
+            <TextView
 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/portfolio_companies"
+                android:paddingRight="10sp"
+                android:layout_marginTop="10sp"
+                android:singleLine="true"
+                android:textColor="@color/textColor"
+                android:textStyle="bold"
+                android:textSize="@dimen/mediumTextStyle" />
             <EditText
                 android:id="@+id/et_portfolio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="10dp"
+
                 android:background="@drawable/emailtextbox"
 
                 android:cursorVisible="false"
@@ -215,12 +276,22 @@
                 android:paddingRight="10sp"
                 android:textColor="@color/textColor"
                 android:textSize="@dimen/mediumTextStyle" />
+            <TextView
 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/investment_start_date"
+                android:paddingRight="10sp"
+                android:layout_marginTop="10sp"
+                android:singleLine="true"
+                android:textColor="@color/textColor"
+                android:textStyle="bold"
+                android:textSize="@dimen/mediumTextStyle" />
             <EditText
                 android:id="@+id/et_investmentStartDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+
                 android:background="@drawable/calender_input"
                 android:cursorVisible="false"
                 android:ems="10"
@@ -233,12 +304,22 @@
                 android:textColor="@color/textColor"
 
                 android:textSize="15sp" />
+            <TextView
 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/investment_end_date"
+                android:paddingRight="10sp"
+                android:layout_marginTop="10sp"
+                android:singleLine="true"
+                android:textColor="@color/textColor"
+                android:textStyle="bold"
+                android:textSize="@dimen/mediumTextStyle" />
             <EditText
                 android:id="@+id/et_investmentEndDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+
                 android:background="@drawable/calender_input"
                 android:cursorVisible="false"
                 android:ems="10"
@@ -251,12 +332,22 @@
                 android:textColor="@color/textColor"
 
                 android:textSize="15sp" />
+            <TextView
 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/funds_closed_date"
+                android:paddingRight="10sp"
+                android:layout_marginTop="10sp"
+                android:singleLine="true"
+                android:textColor="@color/textColor"
+                android:textStyle="bold"
+                android:textSize="@dimen/mediumTextStyle" />
             <EditText
                 android:id="@+id/et_fundsClosedDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+
                 android:background="@drawable/calender_input"
                 android:cursorVisible="false"
                 android:ems="10"
@@ -269,13 +360,23 @@
                 android:textColor="@color/textColor"
 
                 android:textSize="15sp" />
+            <TextView
 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/keyword"
+                android:paddingRight="10sp"
+                android:layout_marginTop="10sp"
+                android:singleLine="true"
+                android:textColor="@color/textColor"
+                android:textStyle="bold"
+                android:textSize="@dimen/mediumTextStyle" />
             <EditText
                 android:id="@+id/et_keywords"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="10dp"
+
                 android:background="@drawable/emailtextbox"
 
                 android:cursorVisible="false"
