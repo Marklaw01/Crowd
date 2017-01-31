@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.crowdbootstrapapp">
+    package="com.crowdbootstrap">
 
     <!--permission for camera-->
     <uses-permission android:name="android.permission.CAMERA" />
@@ -20,9 +20,9 @@
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
     <permission
-        android:name="com.crowdbootstrapapp.permission.C2D_MESSAGE"
+        android:name="com.crowdbootstrap.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
-    <uses-permission android:name="com.crowdbootstrapapp.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.crowdbootstrap.permission.C2D_MESSAGE" />
 
     <supports-screens
         android:anyDensity="true"
@@ -38,7 +38,7 @@
         android:xlargeScreens="true" />
     <!-- android:name="android.support.multidex.MultiDexApplication"-->
     <application
-        android:name=".application.CrowdBootstrapApplicationClass"
+        android:name="com.crowdbootstrap.application.CrowdBootstrapApplicationClass"
 
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -50,7 +50,7 @@
             android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-                <category android:name="com.crowdbootstrapapp" />
+                <category android:name="com.crowdbootstrap" />
             </intent-filter>
         </receiver>
         <provider
@@ -58,12 +58,13 @@
             android:authorities="com.facebook.app.FacebookContentProvider16..."
             android:exported="true" />
 
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/app_id" />
         <!-- [START gcm_listener] -->
         <service
-            android:name=".MyGcmListenerService"
+            android:name="com.crowdbootstrap.MyGcmListenerService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
@@ -72,7 +73,7 @@
         <!-- [END gcm_listener] -->
         <!-- [START instanceId_listener] -->
         <service
-            android:name=".MyInstanceIDListenerService"
+            android:name="com.crowdbootstrap.MyInstanceIDListenerService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.gms.iid.InstanceID" />
@@ -80,12 +81,12 @@
         </service>
         <!-- [END instanceId_listener] -->
         <service
-            android:name=".RegistrationIntentService"
+            android:name="com.crowdbootstrap.RegistrationIntentService"
             android:exported="false" />
 
 
         <activity
-            android:name=".SplashActivity"
+            android:name="com.crowdbootstrap.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Transparent">
             <intent-filter>
@@ -95,7 +96,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.LoginActivity"
+            android:name="com.crowdbootstrap.activities.LoginActivity"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait"
             android:theme="@style/LoginPageTheme"
@@ -104,7 +105,7 @@
         </activity>
 
         <activity
-            android:name=".activities.GettingStartedActivity"
+            android:name="com.crowdbootstrap.activities.GettingStartedActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden">
@@ -112,58 +113,58 @@
         </activity>
 
         <activity
-            android:name=".activities.GettingStartedVideoActivity"
+            android:name="com.crowdbootstrap.activities.GettingStartedVideoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden">
 
         </activity>
         <activity
-            android:name=".activities.HomeActivity"
+            android:name="com.crowdbootstrap.activities.HomeActivity"
 
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
 
         <activity
-            android:name=".activities.OurMissionActivity"
+            android:name="com.crowdbootstrap.activities.OurMissionActivity"
             android:label="@string/title_activity_home"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".activities.IndependentContractorActivity"
+            android:name="com.crowdbootstrap.activities.IndependentContractorActivity"
             android:label="@string/title_activity_home"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
 
         <activity
-            android:name=".activities.LeanStartupRoadmap"
+            android:name="com.crowdbootstrap.activities.LeanStartupRoadmap"
             android:label="@string/title_activity_home"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".activities.AccreditedInvesterActivity"
+            android:name="com.crowdbootstrap.activities.AccreditedInvesterActivity"
             android:label="@string/title_activity_home"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".activities.OurValuesActivity"
+            android:name="com.crowdbootstrap.activities.OurValuesActivity"
             android:label="@string/title_activity_home"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".activities.OurVisionActivity"
+            android:name="com.crowdbootstrap.activities.OurVisionActivity"
             android:label="@string/title_activity_home"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".filebrowser.FilePicker"
+            android:name="com.crowdbootstrap.filebrowser.FilePicker"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />

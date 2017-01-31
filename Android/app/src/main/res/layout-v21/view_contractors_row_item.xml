@@ -7,7 +7,7 @@
     android:paddingTop="5dp">
 
 
-    <com.crowdbootstrapapp.helper.CircleImageView
+    <com.crowdbootstrap.helper.CircleImageView
         android:id="@+id/userimage"
         android:layout_width="50sp"
         android:layout_marginRight="10sp"

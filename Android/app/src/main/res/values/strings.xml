@@ -13,8 +13,8 @@
     <string name="check_workunitformat">Please enter valid Work Unit.</string>
     <string name="all_roadmap_complete">All Roadmap deliverable documents are complete.</string>
     <string name="server_down">Server is not responding. please try after some time.</string>
-    <string name="google_app_id">965286451869</string>
-    <string name="google_api_key">AIzaSyDQ18y3vc76UXoSLtQuv7NHurrsVVklByE</string>
+    <string name="google_app_id">15119152410</string>
+    <string name="google_api_key">AIzaSyABVL3JTP0h_jN0JYCFkeHxiGfbneg6Qck</string>
 
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_home">HomeActivity</string>

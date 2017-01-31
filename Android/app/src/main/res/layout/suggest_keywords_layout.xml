@@ -105,7 +105,7 @@
 
 
     </LinearLayout>
-    <com.crowdbootstrapapp.swipelistview_withoutscrollview.SwipeMenuListView
+    <com.crowdbootstrap.swipelistview_withoutscrollview.SwipeMenuListView
         android:id="@+id/listViewKeywords"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

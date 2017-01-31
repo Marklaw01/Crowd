@@ -1,15 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
+
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
-
     defaultConfig {
-        applicationId "com.crowdbootstrapapp"
+        applicationId "com.crowdbootstrap"
         minSdkVersion 18
         targetSdkVersion 23
         versionCode 1
-        versionName "1.2"
+        versionName "1.1"
         multiDexEnabled true
     }
     buildTypes {
@@ -46,12 +46,10 @@ android {
         }
 
     }
-
     dexOptions {
         /*incremental true*/
         javaMaxHeapSize "4g" // 2g should be also OK
     }
-
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES.txt'
         exclude 'META-INF/LICENSE.txt'
@@ -94,9 +92,9 @@ dependencies {
     //com.google.android.gms:play-services-gcm:9.0.0
     compile "com.quickblox:quickblox-android-sdk-core:${rootProject.qbSdkVersion}@aar"
     compile("com.quickblox:quickblox-android-sdk-chat:${rootProject.qbSdkVersion}@aar")
-            {
-                transitive = true
-            }
+    {
+        transitive = true
+    }
     compile "com.quickblox:quickblox-android-sdk-customobjects:$rootProject.qbSdkVersion@aar"
     compile "com.quickblox:quickblox-android-sdk-messages:$rootProject.qbSdkVersion@aar"
     compile "com.quickblox:quickblox-android-sdk-content:$rootProject.qbSdkVersion@aar"
@@ -109,5 +107,4 @@ dependencies {
     //SUB-DEPENDENCIES
     //Android-Iconics - used to provide an easy API for icons
     compile 'com.mikepenz:iconics-core:2.8.0@aar'
-
 }

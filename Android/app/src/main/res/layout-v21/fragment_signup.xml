@@ -19,7 +19,7 @@
             android:orientation="vertical">
 
 
-            <com.crowdbootstrapapp.helper.CustomEditTextView
+            <com.crowdbootstrap.helper.CustomEditTextView
                 android:id="@+id/et_firtName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -36,9 +36,9 @@
                 android:textSize="@dimen/smallTextStyle">
 
                 <requestFocus />
-            </com.crowdbootstrapapp.helper.CustomEditTextView>
+            </com.crowdbootstrap.helper.CustomEditTextView>
 
-            <com.crowdbootstrapapp.helper.CustomEditTextView
+            <com.crowdbootstrap.helper.CustomEditTextView
                 android:id="@+id/et_lastName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
                 android:textColorHint="@color/textColor"
                 android:textSize="@dimen/smallTextStyle" />
 
-            <com.crowdbootstrapapp.helper.CustomEditTextView
+            <com.crowdbootstrap.helper.CustomEditTextView
                 android:id="@+id/et_userName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
                 android:textColorHint="@color/textColor"
                 android:textSize="@dimen/smallTextStyle" />
 
-            <com.crowdbootstrapapp.helper.CustomEditTextView
+            <com.crowdbootstrap.helper.CustomEditTextView
                 android:id="@+id/et_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -86,7 +86,7 @@
                 android:textColorHint="@color/textColor"
                 android:textSize="@dimen/smallTextStyle" />
 
-            <com.crowdbootstrapapp.helper.CustomEditTextView
+            <com.crowdbootstrap.helper.CustomEditTextView
                 android:id="@+id/et_DOB"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -104,7 +104,7 @@
                 android:textColorHint="@color/textColor"
                 android:textSize="@dimen/smallTextStyle" />
 
-            <com.crowdbootstrapapp.helper.CustomEditTextView
+            <com.crowdbootstrap.helper.CustomEditTextView
                 android:id="@+id/et_phoneNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -144,7 +144,7 @@
                 android:textColor="@color/textColor"
                 android:textSize="@dimen/smallTextStyle" />
 
-            <com.crowdbootstrapapp.helper.CustomEditTextView
+            <com.crowdbootstrap.helper.CustomEditTextView
                 android:id="@+id/et_city"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -163,7 +163,7 @@
                 android:textSize="@dimen/smallTextStyle" />
 
 
-            <com.crowdbootstrapapp.helper.CustomEditTextView
+            <com.crowdbootstrap.helper.CustomEditTextView
                 android:id="@+id/et_bestAvailability"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -181,7 +181,7 @@
                 android:textColorHint="@color/textColor"
                 android:textSize="@dimen/smallTextStyle" />
 
-            <com.crowdbootstrapapp.helper.CustomEditTextView
+            <com.crowdbootstrap.helper.CustomEditTextView
                 android:id="@+id/et_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -198,7 +198,7 @@
                 android:textColorHint="@color/textColor"
                 android:textSize="@dimen/smallTextStyle" />
 
-            <com.crowdbootstrapapp.helper.CustomEditTextView
+            <com.crowdbootstrap.helper.CustomEditTextView
                 android:id="@+id/et_ConfPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -230,7 +230,7 @@
                 android:spinnerMode="dropdown" />
 
 
-            <com.crowdbootstrapapp.helper.CustomEditTextView
+            <com.crowdbootstrap.helper.CustomEditTextView
                 android:id="@+id/et_answer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -303,7 +303,7 @@
             </LinearLayout>
 
 
-            <com.crowdbootstrapapp.helper.CustomEditTextView
+            <com.crowdbootstrap.helper.CustomEditTextView
                 android:id="@+id/et_question"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -320,7 +320,7 @@
                 android:textSize="@dimen/smallTextStyle" />
 
 
-            <com.crowdbootstrapapp.helper.CustomEditTextView
+            <com.crowdbootstrap.helper.CustomEditTextView
                 android:id="@+id/et_customanswer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

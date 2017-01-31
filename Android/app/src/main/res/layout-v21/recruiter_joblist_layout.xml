@@ -102,7 +102,7 @@
 
     </LinearLayout>
 
-    <com.crowdbootstrapapp.loadmore_listview.LoadMoreListView
+    <com.crowdbootstrap.loadmore_listview.LoadMoreListView
         android:id="@+id/list_startups"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
