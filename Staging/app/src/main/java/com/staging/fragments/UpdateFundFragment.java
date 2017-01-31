@@ -1872,8 +1872,8 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
                             Toast.makeText(getActivity(), getString(R.string.server_down), Toast.LENGTH_LONG).show();
                         } else {
                             try {
-                                JSONObject jsonObject = new JSONObject(result);
                                 CrowdBootstrapLogger.logInfo(result);
+                                JSONObject jsonObject = new JSONObject(result);
                                 if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
                                     pathofmedia.clear();
                                     Toast.makeText(getActivity(), "Your fund is updated successfully.", Toast.LENGTH_LONG).show();

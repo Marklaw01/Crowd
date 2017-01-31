@@ -234,7 +234,7 @@ public class ArchivedFundsFragment extends Fragment implements AdapterView.OnIte
                                 fundsObject.setFund_close_date(funds.optString("fund_close_date"));
                                 fundsObject.setFund_description(funds.optString("fund_description"));
                                 fundsObject.setFund_likes(funds.optInt("fund_likes"));
-                                fundsObject.setFund_dislike(funds.optInt("fund_dislike"));
+                                fundsObject.setFund_dislike(funds.optInt("fund_dislikes"));
                                 fundsObject.setFund_image(funds.optString("fund_image"));
                                 fundsObject.setFund_created_by(funds.optString("fund_created_by"));
 

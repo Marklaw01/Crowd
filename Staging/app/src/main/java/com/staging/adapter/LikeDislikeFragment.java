@@ -81,10 +81,10 @@ public class LikeDislikeFragment extends Fragment implements AdapterView.OnItemC
         current_page = 1;
         list = new ArrayList<>();
         adapter = null;
-        if (bundle.getString(Constants.LIKE_DISLIKE).equals(Constants.LIKE)){
+        if (bundle.getString(Constants.LIKE_DISLIKE).equals(Constants.LIKE)) {
             getLikersDislikers(current_page, Constants.FUND_LIKERS_LIST, Constants.FUND_LIKERS_TAG);
-        }else{
-            getLikersDislikers(current_page, Constants.FUND_DISLIKERS_LIST, Constants.FUND_DISLIKERS_FUND_TAG);
+        } else {
+            getLikersDislikers(current_page, Constants.FUND_DISLIKERS_LIST, Constants.FUND_DISLIKERS_TAG);
         }
 
 
@@ -95,8 +95,8 @@ public class LikeDislikeFragment extends Fragment implements AdapterView.OnItemC
         View rootView = inflater.inflate(R.layout.likes_dislike_fragment, container, false);
 
         list_persons = (LoadMoreListView) rootView.findViewById(R.id.list_persons);
-        adapter = new LikesDislikesAdapter(getActivity(), list);
-        list_persons.setAdapter(adapter);
+       /* adapter = new LikesDislikesAdapter(getActivity(), list);
+        list_persons.setAdapter(adapter);*/
         list_persons.setOnItemClickListener(this);
         list_persons.setOnLoadMoreListener(new LoadMoreListView.OnLoadMoreListener() {
             @Override
@@ -104,10 +104,10 @@ public class LikeDislikeFragment extends Fragment implements AdapterView.OnItemC
                 if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
                     current_page += 1;
                     if (TOTAL_ITEMS != adapter.getCount()) {
-                        if (bundle.getString(Constants.LIKE_DISLIKE).equals(Constants.LIKE)){
+                        if (bundle.getString(Constants.LIKE_DISLIKE).equals(Constants.LIKE)) {
                             getLikersDislikers(current_page, Constants.FUND_LIKERS_LIST, Constants.FUND_LIKERS_TAG);
-                        }else{
-                            getLikersDislikers(current_page, Constants.FUND_DISLIKERS_LIST, Constants.FUND_DISLIKERS_FUND_TAG);
+                        } else {
+                            getLikersDislikers(current_page, Constants.FUND_DISLIKERS_LIST, Constants.FUND_DISLIKERS_TAG);
                         }
                     } else {
                         list_persons.onLoadMoreComplete();
@@ -128,6 +128,7 @@ public class LikeDislikeFragment extends Fragment implements AdapterView.OnItemC
                 JSONObject obj = new JSONObject();
                 obj.put("fund_id", mFundId);
                 obj.put("page_no", pageNumber);
+                ((HomeActivity) getActivity()).showProgressDialog();
                 asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), tag, url, Constants.HTTP_POST_REQUEST, obj);
                 asyncNew.execute();
             } catch (JSONException e) {
@@ -187,6 +188,15 @@ public class LikeDislikeFragment extends Fragment implements AdapterView.OnItemC
 
                     if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
                         TOTAL_ITEMS = Integer.parseInt(jsonObject.optString("TotalItems"));
+                        for (int i = 0; i < jsonObject.getJSONArray("users").length(); i++) {
+                            JSONObject obj = jsonObject.getJSONArray("users").getJSONObject(i);
+                            UserObject userObject = new UserObject();
+                            userObject.setBio(obj.getString("bio"));
+                            userObject.setId(obj.getString("id"));
+                            userObject.setName(obj.getString("name"));
+                            userObject.setImage(obj.getString("image"));
+                            list.add(userObject);
+                        }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -201,6 +211,40 @@ public class LikeDislikeFragment extends Fragment implements AdapterView.OnItemC
 
                 int index = list_persons.getLastVisiblePosition();
                 list_persons.smoothScrollToPosition(index);
+
+            } else if (tag.equals(Constants.FUND_DISLIKERS_TAG)) {
+
+                ((HomeActivity) getActivity()).dismissProgressDialog();
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+
+
+                    if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
+                        TOTAL_ITEMS = Integer.parseInt(jsonObject.optString("TotalItems"));
+                        for (int i = 0; i < jsonObject.getJSONArray("users").length(); i++) {
+                            JSONObject obj = jsonObject.getJSONArray("users").getJSONObject(i);
+                            UserObject userObject = new UserObject();
+                            userObject.setBio(obj.getString("bio"));
+                            userObject.setId(obj.getString("id"));
+                            userObject.setName(obj.getString("name"));
+                            userObject.setImage(obj.getString("image"));
+                            list.add(userObject);
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getActivity(), getString(R.string.server_down), Toast.LENGTH_LONG).show();
+                }
+                if (adapter == null) {
+                    adapter = new LikesDislikesAdapter(getActivity(), list);
+                    list_persons.setAdapter(adapter);
+                }
+                list_persons.onLoadMoreComplete();
+                adapter.notifyDataSetChanged();
+
+                int index = list_persons.getLastVisiblePosition();
+                list_persons.smoothScrollToPosition(index);
+
 
             }
 

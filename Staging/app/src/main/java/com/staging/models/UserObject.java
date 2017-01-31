@@ -9,6 +9,7 @@ public class UserObject {
     private String id;
     private String name;
     private String image;
+    private String bio;
 
     public String getId() {
         return id;
@@ -32,5 +33,13 @@ public class UserObject {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 }

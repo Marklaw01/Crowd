@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.staging.R;
 import com.staging.activities.HomeActivity;
 import com.staging.helper.CircleImageView;
@@ -77,16 +78,18 @@ public class LikesDislikesAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = l_Inflater.inflate(R.layout.likes_dislikes_row_item, null);
             holder = new ViewHolder();
-            holder.fundTitle = (TextView) convertView.findViewById(R.id.fundTitle);
-            holder.fundDescription = (TextView) convertView.findViewById(R.id.fundDescription);
-
-
+            holder.fundTitle = (TextView) convertView.findViewById(R.id.personName);
+            holder.fundDescription = (TextView) convertView.findViewById(R.id.aboutMe);
+            holder.fund_icon = (CircleImageView) convertView.findViewById(R.id.profileimage);
             convertView.setTag(holder);
 
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
+        holder.fundTitle.setText(list.get(position).getName());
+        holder.fundDescription.setText(list.get(position).getBio());
+        ImageLoader.getInstance().displayImage(Constants.APP_IMAGE_URL + list.get(position).getImage(), holder.fund_icon);
 
         return convertView;
     }

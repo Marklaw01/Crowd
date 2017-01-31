@@ -494,7 +494,7 @@ public final class Constants {
     public static final String FUND_LIKERS_TAG = "fundLikesList_tag";
 
     public static final String FUND_DISLIKERS_LIST = "fundDislikeList";
-    public static final String FUND_DISLIKERS_FUND_TAG = "fundDislikesList_tag";
+    public static final String FUND_DISLIKERS_TAG = "fundDislikesList_tag";
 
     public static final String FUND_FOLLOW_URL = "followFund";
     public static final String FUND_FOLLOW_TAG = "followFund_tag";
@@ -584,8 +584,14 @@ public final class Constants {
     public static final String SERVEREXCEPTION = "server_exception";
 
     //Google Project id created under crowdbootstrap2016@gmail.com account
-    public static final String GOOGLE_PROJECT_ID = "965286451869";
-    public static final String GOOGLE_PROJECT_API_KEY = "AIzaSyDQ18y3vc76UXoSLtQuv7NHurrsVVklByE";
+    //API key for staging
+    public static final String GOOGLE_PROJECT_ID_STAGING = "965286451869";
+    public static final String GOOGLE_PROJECT_API_KEY_STAGING = "AIzaSyDQ18y3vc76UXoSLtQuv7NHurrsVVklByE";
+
+    //API key for productions
+    public static final String GOOGLE_PROJECT_ID_PRODUCTION = "15119152410";
+    public static final String GOOGLE_PROJECT_API_KEY_PRODUCTION = "AIzaSyABVL3JTP0h_jN0JYCFkeHxiGfbneg6Qck";
+
 
     //Constants for Ad Banner on Home Screen created under karn.neelmani@gmail.com account
     public static final String Ad_UNIT_NAME = "mybanner";

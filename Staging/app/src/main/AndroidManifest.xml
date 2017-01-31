@@ -53,11 +53,16 @@
                 <category android:name="com.staging" />
             </intent-filter>
         </receiver>
-        <provider
+       <!-- <provider
             android:name="com.facebook.FacebookContentProvider"
             android:authorities="com.facebook.app.FacebookContentProvider16..."
             android:exported="true" />
+-->
 
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.staging"
+            android:exported="true" />
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/app_id" />
