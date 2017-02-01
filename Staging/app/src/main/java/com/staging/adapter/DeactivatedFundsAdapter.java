@@ -146,12 +146,12 @@ public class DeactivatedFundsAdapter extends BaseAdapter implements View.OnClick
             holder.tv_Likes.setTag(R.integer.selected_index, position);
             holder.tv_Likes.setOnClickListener(this);
 
-            /*holder.dislikeBtn.setTag(R.integer.selected_index, position);
+            holder.dislikeBtn.setTag(R.integer.selected_index, position);
             holder.dislikeBtn.setOnClickListener(this);
             holder.likeBtn.setTag(R.integer.selected_index, position);
-            holder.likeBtn.setOnClickListener(this);*/
+            holder.likeBtn.setOnClickListener(this);
 
-            holder.likeBtn.setOnClickListener(new View.OnClickListener() {
+            /*holder.likeBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     try {
@@ -177,7 +177,7 @@ public class DeactivatedFundsAdapter extends BaseAdapter implements View.OnClick
                         e.printStackTrace();
                     }
                 }
-            });
+            });*/
             holder.tv_archive.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -239,8 +239,11 @@ public class DeactivatedFundsAdapter extends BaseAdapter implements View.OnClick
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            /*case R.id.like:
-                int tagLikePosition = (int) v.getTag(R.integer.selected_index);
+            case R.id.like:
+            int tagLikePosition = (int) v.getTag(R.integer.selected_index);
+            if (list.get(tagLikePosition).getIs_liked_by_user() == 1) {
+                Toast.makeText(context, "You already liked this fund", Toast.LENGTH_LONG).show();
+            } else {
                 try {
                     JSONObject likeObj = new JSONObject();
                     likeObj.put("like_by", PrefManager.getInstance(context).getString(Constants.USER_ID));
@@ -249,19 +252,25 @@ public class DeactivatedFundsAdapter extends BaseAdapter implements View.OnClick
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                break;
+            }
+
+            break;
             case R.id.dislike:
                 int tagDislikeIdPosition = (int) v.getTag(R.integer.selected_index);
-                try {
-                    JSONObject dislikeObj = new JSONObject();
-                    dislikeObj.put("dislike_by", PrefManager.getInstance(context).getString(Constants.USER_ID));
-                    dislikeObj.put("fund_id", list.get(tagDislikeIdPosition).getId());
-                    fundLikeDislike(tagDislikeIdPosition, Constants.FUND_DISLIKE_URL, Constants.HTTP_POST_REQUEST, dislikeObj);
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                if (list.get(tagDislikeIdPosition).getIs_disliked_by_user() == 1) {
+                    Toast.makeText(context, "You already disliked this fund", Toast.LENGTH_LONG).show();
+                } else {
+                    try {
+                        JSONObject dislikeObj = new JSONObject();
+                        dislikeObj.put("dislike_by", PrefManager.getInstance(context).getString(Constants.USER_ID));
+                        dislikeObj.put("fund_id", list.get(tagDislikeIdPosition).getId());
+                        fundLikeDislike(tagDislikeIdPosition, Constants.FUND_DISLIKE_URL, Constants.HTTP_POST_REQUEST, dislikeObj);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
+
                 break;
-*/
             case R.id.tv_Like:
                 Bundle like = new Bundle();
                 like.putInt(Constants.FUND_ID, 1);
@@ -367,7 +376,7 @@ public class DeactivatedFundsAdapter extends BaseAdapter implements View.OnClick
 
     }
 
-    private void fundLikeDislike(final int position, final String url, final String requestType, final JSONObject jsonObject, final ImageView like, final ImageView dislike) {
+    private void fundLikeDislike(final int position, final String url, final String requestType, final JSONObject jsonObject) {
 
         new AsyncTask<Void, Void, String>() {
 
@@ -430,13 +439,8 @@ public class DeactivatedFundsAdapter extends BaseAdapter implements View.OnClick
                                 //list.remove(position);
                                 list.get(position).setFund_dislike(jsonObject.getInt("fund_dislikes"));
                                 list.get(position).setFund_likes(jsonObject.getInt("fund_likes"));
-                                if (url.equals(Constants.FUND_LIKE_URL)) {
-                                    like.setBackground(context.getResources().getDrawable(R.drawable.like_selected));
-                                    dislike.setBackground(context.getResources().getDrawable(R.drawable.dislike));
-                                } else if (url.equals(Constants.FUND_DISLIKE_URL)) {
-                                    like.setBackground(context.getResources().getDrawable(R.drawable.like));
-                                    dislike.setBackground(context.getResources().getDrawable(R.drawable.dislike_selected));
-                                }
+                                list.get(position).setIs_disliked_by_user(jsonObject.getInt("is_disliked_by_user"));
+                                list.get(position).setIs_liked_by_user(jsonObject.getInt("is_liked_by_user"));
                                 notifyDataSetChanged();
                             } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
                                 Toast.makeText(context, jsonObject.getString("message"), Toast.LENGTH_LONG).show();

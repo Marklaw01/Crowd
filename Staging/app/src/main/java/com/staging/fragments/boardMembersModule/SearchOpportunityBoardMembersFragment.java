@@ -1,4 +1,4 @@
-package com.staging.fragments;
+package com.staging.fragments.boardMembersModule;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.staging.R;
 import com.staging.activities.HomeActivity;
 import com.staging.adapter.FundsAdapter;
+import com.staging.fragments.FundDetailFragment;
 import com.staging.listeners.AsyncTaskCompleteListener;
 import com.staging.loadmore_listview.LoadMoreListView;
 import com.staging.logger.CrowdBootstrapLogger;
@@ -31,7 +32,7 @@ import java.util.ArrayList;
 /**
  * Created by Neelmani.Karn on 1/11/2017.
  */
-public class FindFundsFragment extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener, AsyncTaskCompleteListener<String> {
+public class SearchOpportunityBoardMembersFragment extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener, AsyncTaskCompleteListener<String> {
     private String searchText = "";
     private AsyncNew asyncNew;
     private EditText et_search;
@@ -43,7 +44,7 @@ public class FindFundsFragment extends Fragment implements AdapterView.OnItemCli
     private TextView btn_search;
     private ArrayList<FundsObject> fundsList;
 
-    public FindFundsFragment() {
+    public SearchOpportunityBoardMembersFragment() {
         super();
     }
 
@@ -91,7 +92,8 @@ public class FindFundsFragment extends Fragment implements AdapterView.OnItemCli
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.funds_fragment, container, false);
-        et_search = (EditText) rootView.findViewById(R.id.et_search);
+
+        et_search = (EditText)rootView.findViewById(R.id.et_search);
         btn_search = (TextView) rootView.findViewById(R.id.btn_search);
         btn_createFund = (Button) rootView.findViewById(R.id.btn_createFund);
         btn_createFund.setVisibility(View.GONE);
@@ -236,8 +238,7 @@ public class FindFundsFragment extends Fragment implements AdapterView.OnItemCli
                                 fundsObject.setFund_dislike(funds.optInt("fund_dislikes"));
                                 fundsObject.setFund_image(funds.optString("fund_image"));
                                 fundsObject.setFund_created_by(funds.optString("fund_created_by"));
-                                fundsObject.setIs_liked_by_user(funds.getInt("is_liked_by_user"));
-                                fundsObject.setIs_disliked_by_user(funds.getInt("is_disliked_by_user"));
+
                                 fundsList.add(fundsObject);
                             }
                         } else {

@@ -236,7 +236,8 @@ public class MyFundsFragments extends Fragment implements AdapterView.OnItemClic
                                 fundsObject.setFund_dislike(funds.optInt("fund_dislikes"));
                                 fundsObject.setFund_image(funds.optString("fund_image"));
                                 fundsObject.setFund_created_by(funds.optString("fund_created_by"));
-
+                                fundsObject.setIs_liked_by_user(funds.getInt("is_liked_by_user"));
+                                fundsObject.setIs_disliked_by_user(funds.getInt("is_disliked_by_user"));
                                 fundsList.add(fundsObject);
                             }
                         } else {

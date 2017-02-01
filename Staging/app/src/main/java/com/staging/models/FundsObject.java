@@ -8,7 +8,23 @@ public class FundsObject {
     /*{"code":200,"TotalItems":1,"my_funds_list":[{"id":1,"fund_title":"Test fund updated","fund_start_date":"Feb 01, 2017","fund_end_date":"Mar 01, 2017","fund_close_date":"Apr 01, 2017","fund_created_by":"Vijay Kumar"}]}*/
 
     private String id, fund_title, fund_start_date, fund_end_date, fund_close_date, fund_created_by, fund_description, fund_image;
-    private int fund_likes, fund_dislike;
+    private int fund_likes, fund_dislike, is_liked_by_user, is_disliked_by_user;
+
+    public int getIs_liked_by_user() {
+        return is_liked_by_user;
+    }
+
+    public void setIs_liked_by_user(int is_liked_by_user) {
+        this.is_liked_by_user = is_liked_by_user;
+    }
+
+    public int getIs_disliked_by_user() {
+        return is_disliked_by_user;
+    }
+
+    public void setIs_disliked_by_user(int is_disliked_by_user) {
+        this.is_disliked_by_user = is_disliked_by_user;
+    }
 
     public String getFund_description() {
         return fund_description;

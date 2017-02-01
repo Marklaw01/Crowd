@@ -351,5 +351,19 @@
     <string name="fund_deactivated">Your fund deactivated successfully</string>
     <string name="fundActivated">Your fund activated successfully.</string>
     <string name="version">Version: Crowd Bootstrap v</string>
+    <string name="searchBetaTest">Search Beta Test</string>
+    <string name="addBetaTest">Add Beta Test</string>
+    <string name="myBetaTest">My Beta Test</string>
+    <string name="myOpportunity">My Opportunity</string>
+    <string name="searchOpportunity">Search Opportunity</string>
+    <string name="addOpportunity">Add Opportunity</string>
+    <string name="beta_test_s_title">Beta Test\'s Title</string>
+    <string name="start_date">Start Date</string>
+    <string name="endDate">End Date</string>
+    <string name="requestBetaTester">Request Beta Tester</string>
+    <string name="target_market">Target Market</string>
+    <string name="interest_keyword">Interest Keyword</string>
+    <string name="createBoardMember">Request Board Members</string>
+    <string name="updateBetaTester">Update Beta Tester</string>
 
 </resources>

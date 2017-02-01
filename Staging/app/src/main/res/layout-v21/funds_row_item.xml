@@ -80,7 +80,7 @@
             android:id="@+id/like"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:background="@drawable/like" />
+            android:background="@drawable/like_selected" />
 
         <TextView
             android:id="@+id/tv_Like"
