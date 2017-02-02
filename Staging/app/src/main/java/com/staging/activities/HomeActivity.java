@@ -51,7 +51,7 @@ import com.staging.fragments.ConsultingFragment;
 import com.staging.fragments.ContractorVideoFragment;
 import com.staging.fragments.CurrentStartUpFragment;
 import com.staging.fragments.DemoDaysFragment;
-import com.staging.fragments.EarlyAdatorsFragment;
+import com.staging.fragments.earlyAdoptorsModule.EarlyAdatorsFragment;
 import com.staging.fragments.EndorsersFragment;
 import com.staging.fragments.EntrepreneurVideoFragment;
 import com.staging.fragments.FocusGroupsFragment;

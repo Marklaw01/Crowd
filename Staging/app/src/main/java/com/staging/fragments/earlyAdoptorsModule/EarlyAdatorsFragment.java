@@ -1,4 +1,4 @@
-package com.staging.fragments;
+package com.staging.fragments.earlyAdoptorsModule;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
