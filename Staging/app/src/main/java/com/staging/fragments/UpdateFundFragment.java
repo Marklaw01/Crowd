@@ -1667,7 +1667,7 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
                     super.onPreExecute();
 
                     pDialog = new ProgressDialog(getActivity());
-                    pDialog.setMessage("Adding Campaign Please wait...");
+                    pDialog.setMessage("Updating Fund Please wait...");
                     pDialog.setIndeterminate(false);
                     pDialog.setMax(100);
                     pDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);

@@ -39,7 +39,7 @@ public class BoardMemberDetailFragment extends Fragment implements View.OnClickL
     private Bundle bundle;
     private String fund_id;
     private TextView cbx_Follow, cbx_Like;
-    private EditText et_postedBy, et_title, et_fundDescription, et_fundManagers, et_fundsponsers, et_industry, et_portfolio, et_investmentStartDate, et_investmentEndDate, et_fundsClosedDate, et_keywords;
+    private EditText et_postedBy, et_title, et_description, et_start_date, et_endDate, et_targetMarket, et_keywords, et_interestKeywords/*, et_investmentEndDate, et_fundsClosedDate, et_keywords*/;
     private ImageView image_roadmap;
 
     private ImageView viewDocumentArrow, viewplayAudioArrow, viewplayVideoArrow;
@@ -91,7 +91,7 @@ public class BoardMemberDetailFragment extends Fragment implements View.OnClickL
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fund_detail_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.boardmember_detail_fragment, container, false);
 
         image_roadmap = (ImageView) rootView.findViewById(R.id.image_roadmap);
         layoutFundPostedBy = (LinearLayout) rootView.findViewById(R.id.layoutFundPostedBy);
@@ -108,16 +108,13 @@ public class BoardMemberDetailFragment extends Fragment implements View.OnClickL
 
 
         et_postedBy = (EditText) rootView.findViewById(R.id.et_postedBy);
-        et_title = (EditText) rootView.findViewById(R.id.et_fundTitle);
-        et_fundDescription = (EditText) rootView.findViewById(R.id.et_fundDescription);
-        et_fundManagers = (EditText) rootView.findViewById(R.id.et_fundManagers);
-        et_fundsClosedDate = (EditText) rootView.findViewById(R.id.et_fundsClosedDate);
-        et_fundsponsers = (EditText) rootView.findViewById(R.id.et_fundsponsers);
-        et_investmentEndDate = (EditText) rootView.findViewById(R.id.et_investmentEndDate);
-        et_industry = (EditText) rootView.findViewById(R.id.et_industry);
+        et_title = (EditText) rootView.findViewById(R.id.et_title);
+        et_description = (EditText) rootView.findViewById(R.id.et_description);
+        et_targetMarket = (EditText) rootView.findViewById(R.id.et_targetMarket);
         et_keywords = (EditText) rootView.findViewById(R.id.et_keywords);
-        et_portfolio = (EditText) rootView.findViewById(R.id.et_portfolio);
-        et_investmentStartDate = (EditText) rootView.findViewById(R.id.et_investmentStartDate);
+        et_interestKeywords = (EditText) rootView.findViewById(R.id.et_interestKeywords);
+        et_endDate = (EditText) rootView.findViewById(R.id.et_endDate);
+        et_start_date = (EditText) rootView.findViewById(R.id.et_start_date);
 
 
         expandable_playAudio = (LinearLayout) rootView.findViewById(R.id.expandable_playAudio);
@@ -247,7 +244,7 @@ public class BoardMemberDetailFragment extends Fragment implements View.OnClickL
 
 
 
-        funDetials();
+        //funDetials();
         return rootView;
     }
 
@@ -379,7 +376,7 @@ public class BoardMemberDetailFragment extends Fragment implements View.OnClickL
         } else if (result.equalsIgnoreCase(Constants.SERVEREXCEPTION)) {
             ((HomeActivity) getActivity()).dismissProgressDialog();
             Toast.makeText(getActivity(), getString(R.string.server_down), Toast.LENGTH_LONG).show();
-        } else {
+        } else {/*
             if (tag.equals(Constants.FUND_FOLLOW_TAG)) {
                 ((HomeActivity) getActivity()).dismissProgressDialog();
                 try {
@@ -562,7 +559,7 @@ public class BoardMemberDetailFragment extends Fragment implements View.OnClickL
 
 
             }
-        }
+        */}
 
 
     }

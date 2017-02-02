@@ -112,13 +112,13 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
     ArrayList<GenericObject> tempArray;
     private ArrayList<String> selectedFundManagersList;
 
-    private String selectedFundManagersIDs = "", selectedSponsorsIDs = "", selectedIndustriesIDs = "", selectedPortfolioIDs = "", selectedKeywordsIDs = "";
-    private ArrayList<GenericObject> fundManagersList, sponsersList, fundKeywordsList, fundIndustryList, fundPotfolioList;
-    private DatePickerDialog.OnDateSetListener investmentStartdate, investmentEnddate, funcCloseddate;
+    private String selectedInterestedKeywordsId = "", selectedTargetMarktetIDs = "", selectedKeywordsIDs = "";
+    private ArrayList<GenericObject> keywordsList, interestedKeywordsList, targetMarktetList;
+    private DatePickerDialog.OnDateSetListener investmentStartdate, investmentEnddate/*, funcCloseddate*/;
     private Calendar myCalendarInvestmentStartDate, myCalendarInvestmentEndDate, myCalendarFuncClosedDate;
 
-    private EditText et_investmentStartDate, et_investmentEndDate, et_fundsClosedDate;
-    private EditText et_fundTitle, et_fundDescription, et_fundManagers, et_fundsponsers, et_industry, et_portfolio, et_keywords;
+    private EditText et_start_date, et_endDate/*, et_fundsClosedDate*/;
+    private EditText et_title, et_description, et_targetMarket, et_interestKeywords/*, et_industry, et_portfolio*/, et_keywords;
     private Spinner spinner_uploadFileType;
     private ImageView image_fundImage;
     private ImageView tv_deleteFile;
@@ -183,11 +183,9 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         selectedFundManagersList = new ArrayList<>();
-        fundManagersList = new ArrayList<>();
-        fundKeywordsList = new ArrayList<>();
-        fundIndustryList = new ArrayList<>();
-        sponsersList = new ArrayList<>();
-        fundPotfolioList = new ArrayList<>();
+        keywordsList = new ArrayList<>();
+        targetMarktetList = new ArrayList<>();
+        interestedKeywordsList = new ArrayList<>();
         /*audioObject = new AudioObject();
         videoObject = new AudioObject();
         docObject = new AudioObject();*/
@@ -196,24 +194,23 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
         documentObjectList = new ArrayList<>();*/
         bundle = this.getArguments();
         fund_id = bundle.getString(Constants.FUND_ID);
-        if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
+        /*if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
             ((HomeActivity) getActivity()).showProgressDialog();
             AsyncNew a = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FUND_MANAGERS_TAG, Constants.FUND_MANAGERS_LIST + ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID), Constants.HTTP_GET_REQUEST, null);
             a.execute();
         } else {
             ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
-        }
+        }*/
 
     }
-
     /**
      * Set Start Investment Date on edit text
      */
-    private void setStartInvestmentDate() {
+    private void setStartDate() {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat(Constants.DATE_FORMAT, Locale.US);
 
-            et_investmentStartDate.setText(sdf.format(myCalendarInvestmentStartDate.getTime()));
+            et_start_date.setText(sdf.format(myCalendarInvestmentStartDate.getTime()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -222,20 +219,19 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
     /**
      * Set Start Investment Date on edit text
      */
-    private void setEndInvestmentDate() {
+    private void setEndDate() {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat(Constants.DATE_FORMAT, Locale.US);
 
-            et_investmentEndDate.setText(sdf.format(myCalendarInvestmentEndDate.getTime()));
+            et_endDate.setText(sdf.format(myCalendarInvestmentEndDate.getTime()));
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
     /**
      * Set Start Investment Date on edit text
      */
-    private void setFundClosedDate() {
+    /*private void setFundClosedDate() {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat(Constants.DATE_FORMAT, Locale.US);
 
@@ -244,11 +240,11 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
             e.printStackTrace();
         }
     }
-
+*/
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.update_fund_fragment, container, false);
-        ((HomeActivity) getActivity()).setActionBarTitle(getString(R.string.update_fund));
+        View rootView = inflater.inflate(R.layout.update_board_member_fragment, container, false);
+        ((HomeActivity) getActivity()).setActionBarTitle(getString(R.string.updateBoardMember));
 
         list_audios = (TextView) rootView.findViewById(R.id.list_audios);
         list_docs = (TextView) rootView.findViewById(R.id.list_docs);
@@ -270,18 +266,17 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
         viewplayAudioArrow = (ImageView) rootView.findViewById(R.id.viewplayAudioArrow);
         viewplayVideoArrow = (ImageView) rootView.findViewById(R.id.viewplayVideoArrow);
 
-
-        et_fundTitle = (EditText) rootView.findViewById(R.id.et_fundTitle);
-        et_fundDescription = (EditText) rootView.findViewById(R.id.et_fundDescription);
-        et_fundManagers = (EditText) rootView.findViewById(R.id.et_fundManagers);
-        et_fundsponsers = (EditText) rootView.findViewById(R.id.et_fundsponsers);
-        et_industry = (EditText) rootView.findViewById(R.id.et_industry);
-        et_portfolio = (EditText) rootView.findViewById(R.id.et_portfolio);
+        et_title = (EditText) rootView.findViewById(R.id.et_title);
+        et_description = (EditText) rootView.findViewById(R.id.et_description);
+        et_interestKeywords = (EditText) rootView.findViewById(R.id.et_interestKeywords);
         et_keywords = (EditText) rootView.findViewById(R.id.et_keywords);
+        et_targetMarket = (EditText) rootView.findViewById(R.id.et_targetMarket);
+        //et_portfolio = (EditText) rootView.findViewById(R.id.et_portfolio);
+        //et_keywords = (EditText) rootView.findViewById(R.id.et_keywords);
 
-        et_fundsClosedDate = (EditText) rootView.findViewById(R.id.et_fundsClosedDate);
-        et_investmentEndDate = (EditText) rootView.findViewById(R.id.et_investmentEndDate);
-        et_investmentStartDate = (EditText) rootView.findViewById(R.id.et_investmentStartDate);
+        //et_fundsClosedDate = (EditText) rootView.findViewById(R.id.et_fundsClosedDate);
+        et_endDate = (EditText) rootView.findViewById(R.id.et_endDate);
+        et_start_date = (EditText) rootView.findViewById(R.id.et_start_date);
 
         spinner_uploadFileType = (Spinner) rootView.findViewById(R.id.spinner_uploadFileType);
         pathofmedia = new ArrayList<Mediabeans>();
@@ -308,7 +303,7 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
                 myCalendarInvestmentStartDate.set(Calendar.YEAR, year);
                 myCalendarInvestmentStartDate.set(Calendar.MONTH, monthOfYear);
                 myCalendarInvestmentStartDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                setStartInvestmentDate();
+                setStartDate();
             }
         };
 
@@ -319,11 +314,11 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
                 myCalendarInvestmentEndDate.set(Calendar.YEAR, year);
                 myCalendarInvestmentEndDate.set(Calendar.MONTH, monthOfYear);
                 myCalendarInvestmentEndDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                setEndInvestmentDate();
+                setEndDate();
             }
         };
 
-        myCalendarFuncClosedDate = Calendar.getInstance();
+        /*myCalendarFuncClosedDate = Calendar.getInstance();
         funcCloseddate = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -332,7 +327,7 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
                 myCalendarFuncClosedDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 setFundClosedDate();
             }
-        };
+        };*/
 
         expandable_playAudio.getViewTreeObserver().addOnPreDrawListener(
                 new ViewTreeObserver.OnPreDrawListener() {
@@ -391,19 +386,19 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
 
         btn_browse.setTag(0);
         btn_browse.setOnClickListener(this);
-        et_investmentStartDate.setOnClickListener(this);
-        et_fundsClosedDate.setOnClickListener(this);
-        et_investmentEndDate.setOnClickListener(this);
+        et_start_date.setOnClickListener(this);
+        //et_fundsClosedDate.setOnClickListener(this);
+        et_endDate.setOnClickListener(this);
+        et_targetMarket.setOnClickListener(this);
+        et_keywords.setOnClickListener(this);
+        et_interestKeywords.setOnClickListener(this);
+
         btn_plus.setOnClickListener(this);
         btnCreate.setOnClickListener(this);
         image_fundImage.setOnClickListener(this);
         tv_deleteFile.setOnClickListener(this);
 
-        et_fundManagers.setOnClickListener(this);
-        et_fundsponsers.setOnClickListener(this);
-        et_industry.setOnClickListener(this);
-        et_portfolio.setOnClickListener(this);
-        et_keywords.setOnClickListener(this);
+
 
         btn_playAudio.setOnClickListener(this);
         btn_viewDocument.setOnClickListener(this);
@@ -877,7 +872,7 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
             case R.id.btn_submit:
                 InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 inputMethodManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
-                if (et_fundTitle.getText().toString().isEmpty()) {
+                /*if (et_fundTitle.getText().toString().isEmpty()) {
                     Toast.makeText(getActivity(), getString(R.string.fund_title_required), Toast.LENGTH_LONG).show();
                     return;
                 }
@@ -959,7 +954,7 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
                     ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
                 }
                 CrowdBootstrapLogger.logInfo("map" + map.toString());
-
+*/
                 break;
             case R.id.btn_playAudio:
                 if (audioObject != null) {
@@ -991,21 +986,16 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
                 }
 
                 break;
-            case R.id.et_investmentStartDate:
+            case R.id.et_start_date:
                 new DatePickerDialog(getActivity(), investmentStartdate, myCalendarInvestmentStartDate
                         .get(Calendar.YEAR), myCalendarInvestmentStartDate.get(Calendar.MONTH),
                         myCalendarInvestmentStartDate.get(Calendar.DAY_OF_MONTH)).show();
                 break;
 
-            case R.id.et_investmentEndDate:
+            case R.id.et_endDate:
                 new DatePickerDialog(getActivity(), investmentEnddate, myCalendarInvestmentEndDate
                         .get(Calendar.YEAR), myCalendarInvestmentEndDate.get(Calendar.MONTH),
                         myCalendarInvestmentEndDate.get(Calendar.DAY_OF_MONTH)).show();
-                break;
-            case R.id.et_fundsClosedDate:
-                new DatePickerDialog(getActivity(), funcCloseddate, myCalendarFuncClosedDate
-                        .get(Calendar.YEAR), myCalendarFuncClosedDate.get(Calendar.MONTH),
-                        myCalendarFuncClosedDate.get(Calendar.DAY_OF_MONTH)).show();
                 break;
             case R.id.btn_browse:
 
@@ -1133,8 +1123,13 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
                 }
 
                 break;
-
-            case R.id.et_fundManagers:
+            case R.id.et_targetMarket:
+                break;
+            case R.id.et_keywords:
+                break;
+            case R.id.et_interestKeywords:
+                break;
+            /*case R.id.et_fundManagers:
                 showKeywordsDialog(fundManagersList, getString(R.string.funds_managers), R.id.et_fundManagers);
                 break;
             case R.id.et_keywords:
@@ -1148,8 +1143,7 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
                 break;
             case R.id.et_fundsponsers:
                 showKeywordsDialog(sponsersList, getString(R.string.sponsers), R.id.et_fundsponsers);
-                break;
-
+                break;*/
         }
     }
 
@@ -1220,9 +1214,9 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
                         }
                     }
                     switch (id) {
-                        case R.id.et_fundManagers:
-                            selectedFundManagersIDs = selectedID.toString();
-                            et_fundManagers.setText(sb.toString());
+                        case R.id.et_interestKeywords:
+                            selectedInterestedKeywordsId = selectedID.toString();
+                            et_interestKeywords.setText(sb.toString());
                             CrowdBootstrapLogger.logInfo(selectedID.toString() + " " + sb.toString());
                             break;
                         case R.id.et_keywords:
@@ -1230,12 +1224,12 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
                             et_keywords.setText(sb.toString());
                             CrowdBootstrapLogger.logInfo(selectedID.toString() + " " + sb.toString());
                             break;
-                        case R.id.et_industry:
-                            selectedIndustriesIDs = selectedID.toString();
-                            et_industry.setText(sb.toString());
+                        case R.id.et_targetMarket:
+                            selectedTargetMarktetIDs = selectedID.toString();
+                            et_targetMarket.setText(sb.toString());
                             CrowdBootstrapLogger.logInfo(selectedID.toString() + " " + sb.toString());
                             break;
-                        case R.id.et_fundsponsers:
+                        /*case R.id.et_fundsponsers:
                             selectedSponsorsIDs = selectedID.toString();
                             et_fundsponsers.setText(sb.toString());
                             CrowdBootstrapLogger.logInfo(selectedID.toString() + " " + sb.toString());
@@ -1244,10 +1238,9 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
                             selectedPortfolioIDs = selectedID.toString();
                             et_portfolio.setText(sb.toString());
                             CrowdBootstrapLogger.logInfo(selectedID.toString() + " " + sb.toString());
-                            break;
+                            break;*/
 
                     }
-
                     dialog.dismiss();
                 }
             });
@@ -1266,7 +1259,7 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
         } else if (result.equalsIgnoreCase(Constants.SERVEREXCEPTION)) {
             ((HomeActivity) getActivity()).dismissProgressDialog();
             Toast.makeText(getActivity(), getString(R.string.server_down), Toast.LENGTH_LONG).show();
-        } else {
+        } else {/*
             if (tag.equals(Constants.FUND_MANAGERS_TAG)) {
                 CrowdBootstrapLogger.logInfo(result);
                 try {
@@ -1472,122 +1465,21 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
 
                         //fund managers
                         preChecked(jsonObject.getJSONArray("fund_mangers"), fundManagersList, R.id.et_fundManagers);
-                       /* for (int i = 0; i < jsonObject.getJSONArray("fund_mangers").length(); i++) {
-                            JSONObject fundManager = jsonObject.getJSONArray("fund_mangers").getJSONObject(i);
-                            GenericObject obj = new GenericObject();
-                            obj.setId(fundManager.getString("id"));
-                            obj.setTitle(fundManager.getString("name"));
-                            if (stringBuilder.length() > 0) {
-                                stringBuilder.append(", ");
-                                stringBuilderIds.append(",");
-                            }
-                            stringBuilder.append(obj.getTitle());
-                            stringBuilderIds.append(obj.getId());
-
-                            int position = fundManagersList.indexOf(obj);
-                            if (position >= 0)
-                                fundManagersList.get(position).setIschecked(true);
-                        }
-
-                        et_fundManagers.setText(stringBuilder);
-                        selectedFundManagersIDs = stringBuilderIds.toString();*/
 
                         //fund sponsors
                         preChecked(jsonObject.getJSONArray("fund_sponsors"), sponsersList, R.id.et_fundsponsers);
-                        /*stringBuilder = new StringBuilder();
-                        stringBuilderIds = new StringBuilder();
-                        for (int i = 0; i < jsonObject.getJSONArray("fund_sponsors").length(); i++) {
-                            JSONObject fundManager = jsonObject.getJSONArray("fund_sponsors").getJSONObject(i);
-                            GenericObject obj = new GenericObject();
-                            obj.setId(fundManager.getString("id"));
-                            obj.setTitle(fundManager.getString("name"));
-                            if (stringBuilder.length() > 0) {
-                                stringBuilder.append(", ");
-                                stringBuilderIds.append(",");
-                            }
-                            stringBuilder.append(obj.getTitle());
-                            stringBuilderIds.append(obj.getId());
 
-                            int position = sponsersList.indexOf(obj);
-                            if (position >= 0)
-                                sponsersList.get(position).setIschecked(true);
-                        }
-
-                        et_fundsponsers.setText(stringBuilder);
-                        selectedSponsorsIDs = stringBuilderIds.toString();*/
 
                         //fund industry
                         preChecked(jsonObject.getJSONArray("fund_industries"), fundIndustryList, R.id.et_industry);
-                        /*stringBuilder = new StringBuilder();
-                        stringBuilderIds = new StringBuilder();
-                        for (int i = 0; i < jsonObject.getJSONArray("fund_industries").length(); i++) {
-                            JSONObject fundManager = jsonObject.getJSONArray("fund_industries").getJSONObject(i);
-                            GenericObject obj = new GenericObject();
-                            obj.setId(fundManager.getString("id"));
-                            obj.setTitle(fundManager.getString("name"));
-                            if (stringBuilder.length() > 0) {
-                                stringBuilder.append(", ");
-                                stringBuilderIds.append(",");
-                            }
-                            stringBuilder.append(obj.getTitle());
-                            stringBuilderIds.append(obj.getId());
-
-                            int position = fundIndustryList.indexOf(obj);
-                            if (position >= 0)
-                                fundIndustryList.get(position).setIschecked(true);
-                        }
-
-                        et_industry.setText(stringBuilder);
-                        selectedIndustriesIDs = stringBuilderIds.toString();*/
 
                         //fund portfolio
                         preChecked(jsonObject.getJSONArray("fund_portfolios"), fundPotfolioList, R.id.et_portfolio);
-                        /*stringBuilder = new StringBuilder();
-                        stringBuilderIds = new StringBuilder();
-                        for (int i = 0; i < jsonObject.getJSONArray("fund_portfolios").length(); i++) {
-                            JSONObject fundManager = jsonObject.getJSONArray("fund_portfolios").getJSONObject(i);
-                            GenericObject obj = new GenericObject();
-                            obj.setId(fundManager.getString("id"));
-                            obj.setTitle(fundManager.getString("name"));
-                            if (stringBuilder.length() > 0) {
-                                stringBuilder.append(", ");
-                                stringBuilderIds.append(",");
-                            }
-                            stringBuilder.append(obj.getTitle());
-                            stringBuilderIds.append(obj.getId());
 
-                            int position = fundPotfolioList.indexOf(obj);
-                            if (position >= 0)
-                                fundPotfolioList.get(position).setIschecked(true);
-                        }
-
-                        et_portfolio.setText(stringBuilder);
-                        selectedPortfolioIDs = stringBuilderIds.toString();*/
 
                         //fund keywords
 
                         preChecked(jsonObject.getJSONArray("fund_keywords"), fundKeywordsList, R.id.et_keywords);
-                        /*stringBuilder = new StringBuilder();
-                        stringBuilderIds = new StringBuilder();
-                        for (int i = 0; i < jsonObject.getJSONArray("fund_keywords").length(); i++) {
-                            JSONObject fundManager = jsonObject.getJSONArray("fund_keywords").getJSONObject(i);
-                            GenericObject obj = new GenericObject();
-                            obj.setId(fundManager.getString("id"));
-                            obj.setTitle(fundManager.getString("name"));
-                            if (stringBuilder.length() > 0) {
-                                stringBuilder.append(", ");
-                                stringBuilderIds.append(",");
-                            }
-                            stringBuilder.append(obj.getTitle());
-                            stringBuilderIds.append(obj.getId());
-
-                            int position = fundKeywordsList.indexOf(obj);
-                            if (position >= 0)
-                                fundKeywordsList.get(position).setIschecked(true);
-                        }
-
-                        et_keywords.setText(stringBuilder);
-                        selectedKeywordsIDs = stringBuilderIds.toString();*/
 
                     } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
                         ((HomeActivity) getActivity()).dismissProgressDialog();
@@ -1597,7 +1489,7 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
                     e.printStackTrace();
                 }
             }
-        }
+       */ }
     }
 
     private void preChecked(JSONArray jsonArray, ArrayList<GenericObject> list, int id) {
@@ -1622,26 +1514,23 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
                     list.get(position).setIschecked(true);
             }
             switch (id) {
-                case R.id.et_fundManagers:
-                    et_fundManagers.setText(stringBuilder);
-                    selectedFundManagersIDs = stringBuilderIds.toString();
-                    break;
-                case R.id.et_fundsponsers:
-                    et_fundsponsers.setText(stringBuilder);
-                    selectedSponsorsIDs = stringBuilderIds.toString();
+                case R.id.et_interestKeywords:
+                    et_interestKeywords.setText(stringBuilder);
+                    selectedInterestedKeywordsId = stringBuilderIds.toString();
                     break;
                 case R.id.et_keywords:
                     et_keywords.setText(stringBuilder);
                     selectedKeywordsIDs = stringBuilderIds.toString();
                     break;
-                case R.id.et_industry:
-                    et_industry.setText(stringBuilder);
-                    selectedIndustriesIDs = stringBuilderIds.toString();
+
+                case R.id.et_targetMarket:
+                    et_targetMarket.setText(stringBuilder);
+                    selectedTargetMarktetIDs = stringBuilderIds.toString();
                     break;
-                case R.id.et_portfolio:
+               /* case R.id.et_portfolio:
                     et_portfolio.setText(stringBuilder);
                     selectedPortfolioIDs = stringBuilderIds.toString();
-                    break;
+                    break;*/
             }
 
         } catch (JSONException e) {
@@ -1668,7 +1557,7 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
                     super.onPreExecute();
 
                     pDialog = new ProgressDialog(getActivity());
-                    pDialog.setMessage("Adding Campaign Please wait...");
+                    pDialog.setMessage("Updating Board Member Please wait...");
                     pDialog.setIndeterminate(false);
                     pDialog.setMax(100);
                     pDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);

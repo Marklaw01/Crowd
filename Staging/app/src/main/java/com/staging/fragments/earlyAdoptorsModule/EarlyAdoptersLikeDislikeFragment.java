@@ -1,4 +1,4 @@
-package com.staging.adapter;
+package com.staging.fragments.earlyAdoptorsModule;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.staging.R;
 import com.staging.activities.HomeActivity;
+import com.staging.adapter.LikesDislikesAdapter;
 import com.staging.fragments.ViewOtherContractorPublicProfileFragment;
 import com.staging.listeners.AsyncTaskCompleteListener;
 import com.staging.loadmore_listview.LoadMoreListView;
@@ -29,7 +30,7 @@ import java.util.ArrayList;
 /**
  * Created by Neelmani.Karn on 1/12/2017.
  */
-public class LikeDislikeFragment extends Fragment implements AdapterView.OnItemClickListener, AsyncTaskCompleteListener<String> {
+public class EarlyAdoptersLikeDislikeFragment extends Fragment implements AdapterView.OnItemClickListener, AsyncTaskCompleteListener<String> {
 
     private Bundle bundle;
     private AsyncNew asyncNew;
@@ -40,7 +41,7 @@ public class LikeDislikeFragment extends Fragment implements AdapterView.OnItemC
     private int mFundId;
     private ArrayList<UserObject> list;
 
-    public LikeDislikeFragment() {
+    public EarlyAdoptersLikeDislikeFragment() {
         super();
     }
 

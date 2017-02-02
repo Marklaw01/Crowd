@@ -32,6 +32,7 @@ import org.json.JSONObject;
  * Created by Neelmani.Karn on 1/11/2017.
  */
 public class FundDetailFragment extends Fragment implements View.OnClickListener, AsyncTaskCompleteListener<String> {
+
     private AudioObject docObject, audioObject, videoObject;
     private LinearLayout layoutFundPostedBy;
     private String calledFragment;

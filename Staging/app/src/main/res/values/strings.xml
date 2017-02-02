@@ -365,5 +365,7 @@
     <string name="interest_keyword">Interest Keyword</string>
     <string name="createBoardMember">Request Board Members</string>
     <string name="updateBetaTester">Update Beta Tester</string>
+    <string name="requestBoardMember">Request Board Member</string>
+    <string name="updateBoardMember">Update Board Member</string>
 
 </resources>

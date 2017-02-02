@@ -205,8 +205,8 @@ public class UpdateRequestBetaTesterFragment extends Fragment implements onActiv
     }
 
     /**
-    * Set Start Investment Date on edit text
-    */
+     * Set Start Investment Date on edit text
+     */
     private void setStartDate() {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat(Constants.DATE_FORMAT, Locale.US);
@@ -229,6 +229,7 @@ public class UpdateRequestBetaTesterFragment extends Fragment implements onActiv
             e.printStackTrace();
         }
     }
+
     /**
      * Set Start Investment Date on edit text
      */
@@ -435,7 +436,7 @@ public class UpdateRequestBetaTesterFragment extends Fragment implements onActiv
         list_audios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (audioObject!=null){
+                if (audioObject != null) {
                     Fragment rateContributor = new WebViewFragment();
 
 
@@ -452,7 +453,7 @@ public class UpdateRequestBetaTesterFragment extends Fragment implements onActiv
         list_docs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (docObject!=null){
+                if (docObject != null) {
                     Fragment rateContributor = new WebViewFragment();
 
 
@@ -469,7 +470,7 @@ public class UpdateRequestBetaTesterFragment extends Fragment implements onActiv
         list_video.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (videoObject!=null){
+                if (videoObject != null) {
                     Fragment rateContributor = new WebViewFragment();
 
 
@@ -1496,7 +1497,8 @@ public class UpdateRequestBetaTesterFragment extends Fragment implements onActiv
                     e.printStackTrace();
                 }
             }
-        */}
+        */
+        }
     }
 
     private void preChecked(JSONArray jsonArray, ArrayList<GenericObject> list, int id) {
@@ -1564,7 +1566,7 @@ public class UpdateRequestBetaTesterFragment extends Fragment implements onActiv
                     super.onPreExecute();
 
                     pDialog = new ProgressDialog(getActivity());
-                    pDialog.setMessage("Adding Campaign Please wait...");
+                    pDialog.setMessage("Updating Beta Tester Please wait...");
                     pDialog.setIndeterminate(false);
                     pDialog.setMax(100);
                     pDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
