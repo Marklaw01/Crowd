@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.staging.R;
 import com.staging.activities.HomeActivity;
 import com.staging.adapter.FundsAdapter;
+import com.staging.adapter.boardMembersAdapters.BoardMembersAdapter;
 import com.staging.fragments.CreateFundFragment;
 import com.staging.fragments.UpdateFundFragment;
 import com.staging.listeners.AsyncTaskCompleteListener;
@@ -40,7 +41,7 @@ public class MyOpportunityBoardMembersFragments extends Fragment implements Adap
     int current_page = 1;
     private Button btn_addCampaign;
     private LoadMoreListView list_funds;
-    private FundsAdapter adapter;
+    private BoardMembersAdapter adapter;
     private ArrayList<FundsObject> fundsList;
     private AsyncNew asyncNew;
     private EditText et_search;
@@ -99,8 +100,10 @@ public class MyOpportunityBoardMembersFragments extends Fragment implements Adap
         list_funds = (LoadMoreListView) rootView.findViewById(R.id.list_funds);
         et_search = (EditText) rootView.findViewById(R.id.et_search);
         btn_search = (TextView) rootView.findViewById(R.id.btn_search);
+
         /*adapter = new FundsAdapter(getActivity(), Constants.LOGGED_USER, "MyFunds");
         list_funds.setAdapter(adapter);*/
+        btn_addCampaign.setText(getString(R.string.requestBoardMember));
         btn_addCampaign.setOnClickListener(this);
         list_funds.setOnItemClickListener(this);
         btn_search.setOnClickListener(this);
@@ -254,7 +257,7 @@ public class MyOpportunityBoardMembersFragments extends Fragment implements Adap
                 }
 
                 if (adapter == null) {
-                    adapter = new FundsAdapter(getActivity(), fundsList, "MyFunds");
+                    adapter = new BoardMembersAdapter(getActivity(), fundsList, "MyFunds");
                     list_funds.setAdapter(adapter);
                 }
                 list_funds.onLoadMoreComplete();

@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.staging.R;
 import com.staging.activities.HomeActivity;
 import com.staging.adapter.FundsAdapter;
+import com.staging.adapter.boardMembersAdapters.BoardMembersAdapter;
 import com.staging.fragments.FundDetailFragment;
 import com.staging.fragments.betatestmodule.BetaTesterDetailFragment;
 import com.staging.listeners.AsyncTaskCompleteListener;
@@ -43,7 +44,7 @@ public class ArchivedBoardMembersFragment extends Fragment implements AdapterVie
     int current_page = 1;
     private Button btn_addCampaign;
     private LoadMoreListView list_funds;
-    private FundsAdapter adapter;
+    private BoardMembersAdapter adapter;
     private ArrayList<FundsObject> fundsList;
     private AsyncNew asyncNew;
 
@@ -255,7 +256,7 @@ public class ArchivedBoardMembersFragment extends Fragment implements AdapterVie
                 }
 
                 if (adapter == null) {
-                    adapter = new FundsAdapter(getActivity(), fundsList, "ArchivedFunds");
+                    adapter = new BoardMembersAdapter(getActivity(), fundsList, "ArchivedFunds");
                     list_funds.setAdapter(adapter);
                 }
                 list_funds.onLoadMoreComplete();

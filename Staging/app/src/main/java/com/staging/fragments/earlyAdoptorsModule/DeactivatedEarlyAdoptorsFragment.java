@@ -1,4 +1,4 @@
-package com.staging.fragments.betatestmodule;
+package com.staging.fragments.earlyAdoptorsModule;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,9 +13,9 @@ import android.widget.Toast;
 
 import com.staging.R;
 import com.staging.activities.HomeActivity;
-import com.staging.adapter.DeactivatedFundsAdapter;
-import com.staging.adapter.betatestadapters.DeactivatedBetaTesterAdapter;
-import com.staging.fragments.FundDetailFragment;
+import com.staging.adapter.boardMembersAdapters.DeactivatedBoardMembersAdapter;
+import com.staging.adapter.earlyadoptorsAdapter.DeactivatedEarlyAdoptorsAdapter;
+import com.staging.fragments.boardMembersModule.BoardMemberDetailFragment;
 import com.staging.listeners.AsyncTaskCompleteListener;
 import com.staging.loadmore_listview.LoadMoreListView;
 import com.staging.logger.CrowdBootstrapLogger;
@@ -32,7 +32,7 @@ import java.util.ArrayList;
 /**
  * Created by Neelmani.Karn on 1/11/2017.
  */
-public class DeactivatedBetaTestFragment extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener, AsyncTaskCompleteListener<String> {
+public class DeactivatedEarlyAdoptorsFragment extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener, AsyncTaskCompleteListener<String> {
     private TextView btn_search;
     private String searchText = "";
     private EditText et_search;
@@ -40,11 +40,11 @@ public class DeactivatedBetaTestFragment extends Fragment implements AdapterView
     int current_page = 1;
     private Button btn_addCampaign;
     private LoadMoreListView list_funds;
-    private DeactivatedBetaTesterAdapter adapter;
+    private DeactivatedEarlyAdoptorsAdapter adapter;
     private ArrayList<FundsObject> fundsList;
     private AsyncNew asyncNew;
 
-    public DeactivatedBetaTestFragment() {
+    public DeactivatedEarlyAdoptorsFragment() {
         super();
     }
 
@@ -141,7 +141,7 @@ public class DeactivatedBetaTestFragment extends Fragment implements AdapterView
         Bundle bundle = new Bundle();
         bundle.putString(Constants.FUND_ID, fundsList.get(position).getId());
         bundle.putString(Constants.CALLED_FROM, Constants.DEACTIVATED_FUND_TAG);
-        BetaTesterDetailFragment updateFundFragment = new BetaTesterDetailFragment();
+        EarlyAdoptorsDetailFragment updateFundFragment = new EarlyAdoptorsDetailFragment();
         updateFundFragment.setArguments(bundle);
         ((HomeActivity) getActivity()).replaceFragment(updateFundFragment);
     }
@@ -240,7 +240,7 @@ public class DeactivatedBetaTestFragment extends Fragment implements AdapterView
                 }
 
                 if (adapter == null) {
-                    adapter = new DeactivatedBetaTesterAdapter(getActivity(), fundsList);
+                    adapter = new DeactivatedEarlyAdoptorsAdapter(getActivity(), fundsList);
                     list_funds.setAdapter(adapter);
                 }
                 list_funds.onLoadMoreComplete();

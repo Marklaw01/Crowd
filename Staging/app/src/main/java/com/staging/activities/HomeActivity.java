@@ -738,7 +738,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             contributorNavigationOpportunities.add(new NavDrawerItem(getString(R.string.board_members), R.drawable.boardmemberimg));
             contributorNavigationOpportunities.add(new NavDrawerItem(getString(R.string.communal_assets), R.drawable.dummy_communalassetimg));
             contributorNavigationOpportunities.add(new NavDrawerItem(getString(R.string.consulting), R.drawable.dummy_ic_consulting));
-            contributorNavigationOpportunities.add(new NavDrawerItem(getString(R.string.early_adopters), R.drawable.dummy_ic_earlyadopter));
+            contributorNavigationOpportunities.add(new NavDrawerItem(getString(R.string.early_adopters), R.drawable.ic_earlyadopter));
             contributorNavigationOpportunities.add(new NavDrawerItem(getString(R.string.endorsers), R.drawable.ic_endorses));
             contributorNavigationOpportunities.add(new NavDrawerItem(getString(R.string.focus_groups), R.drawable.dummy_ic_focusgroup));
             contributorNavigationOpportunities.add(new NavDrawerItem(getString(R.string.jobs), R.drawable.ic_jobs));

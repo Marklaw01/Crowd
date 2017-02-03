@@ -1,5 +1,6 @@
-package com.staging.fragments.betatestmodule;
+package com.staging.fragments.earlyAdoptorsModule;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,9 +14,10 @@ import android.widget.Toast;
 
 import com.staging.R;
 import com.staging.activities.HomeActivity;
-import com.staging.adapter.DeactivatedFundsAdapter;
-import com.staging.adapter.betatestadapters.DeactivatedBetaTesterAdapter;
-import com.staging.fragments.FundDetailFragment;
+import com.staging.adapter.boardMembersAdapters.BoardMembersAdapter;
+import com.staging.adapter.earlyadoptorsAdapter.EarlyAdoptorsAdapter;
+import com.staging.fragments.boardMembersModule.RequestBoardMembersFragment;
+import com.staging.fragments.boardMembersModule.UpdateRequestBoardMembersFragment;
 import com.staging.listeners.AsyncTaskCompleteListener;
 import com.staging.loadmore_listview.LoadMoreListView;
 import com.staging.logger.CrowdBootstrapLogger;
@@ -32,19 +34,19 @@ import java.util.ArrayList;
 /**
  * Created by Neelmani.Karn on 1/11/2017.
  */
-public class DeactivatedBetaTestFragment extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener, AsyncTaskCompleteListener<String> {
+public class MyOpportunityEarlyAdoptorsFragments extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener, AsyncTaskCompleteListener<String> {
     private TextView btn_search;
     private String searchText = "";
-    private EditText et_search;
     private static int TOTAL_ITEMS = 0;
     int current_page = 1;
     private Button btn_addCampaign;
     private LoadMoreListView list_funds;
-    private DeactivatedBetaTesterAdapter adapter;
+    private EarlyAdoptorsAdapter adapter;
     private ArrayList<FundsObject> fundsList;
     private AsyncNew asyncNew;
+    private EditText et_search;
 
-    public DeactivatedBetaTestFragment() {
+    public MyOpportunityEarlyAdoptorsFragments() {
         super();
     }
 
@@ -64,7 +66,7 @@ public class DeactivatedBetaTestFragment extends Fragment implements AdapterView
                     obj.put("user_id", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
                     obj.put("page_no", current_page);
                     obj.put("search_text", searchText);
-                    asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.DEACTIVATED_FUND_TAG, Constants.DEACTIVATED_FUND_LIST, Constants.HTTP_POST_REQUEST, obj);
+                    asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.MY_FUND_TAG, Constants.MY_FUND_LIST, Constants.HTTP_POST_REQUEST, obj);
                     asyncNew.execute();
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -77,21 +79,33 @@ public class DeactivatedBetaTestFragment extends Fragment implements AdapterView
         }
     }
 
-
+    /**
+     * Called when the Fragment is no longer resumed.  This is generally
+     * tied to {@link Activity#onPause() Activity.onPause} of the containing
+     * Activity's lifecycle.
+     *//*
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (asyncNew.getStatus() == AsyncTask.Status.RUNNING) {
+            asyncNew.cancel(true);
+        }
+    }*/
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.funds_fragment, container, false);
 
         btn_addCampaign = (Button) rootView.findViewById(R.id.btn_createFund);
-        btn_addCampaign.setVisibility(View.GONE);
+
         list_funds = (LoadMoreListView) rootView.findViewById(R.id.list_funds);
         et_search = (EditText) rootView.findViewById(R.id.et_search);
         btn_search = (TextView) rootView.findViewById(R.id.btn_search);
-        btn_search.setOnClickListener(this);
         /*adapter = new FundsAdapter(getActivity(), Constants.LOGGED_USER, "MyFunds");
         list_funds.setAdapter(adapter);*/
-        //btn_addCampaign.setOnClickListener(this);
+        btn_addCampaign.setText(R.string.requestEarlyAdpoters);
+        btn_addCampaign.setOnClickListener(this);
         list_funds.setOnItemClickListener(this);
+        btn_search.setOnClickListener(this);
 
         list_funds.setOnLoadMoreListener(new LoadMoreListView.OnLoadMoreListener() {
             @Override
@@ -104,7 +118,7 @@ public class DeactivatedBetaTestFragment extends Fragment implements AdapterView
                             obj.put("user_id", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
                             obj.put("page_no", current_page);
                             obj.put("search_text", searchText);
-                            asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.DEACTIVATED_FUND_TAG, Constants.DEACTIVATED_FUND_LIST, Constants.HTTP_POST_REQUEST, obj);
+                            asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.MY_FUND_TAG, Constants.MY_FUND_LIST, Constants.HTTP_POST_REQUEST, obj);
                             asyncNew.execute();
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -140,8 +154,7 @@ public class DeactivatedBetaTestFragment extends Fragment implements AdapterView
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Bundle bundle = new Bundle();
         bundle.putString(Constants.FUND_ID, fundsList.get(position).getId());
-        bundle.putString(Constants.CALLED_FROM, Constants.DEACTIVATED_FUND_TAG);
-        BetaTesterDetailFragment updateFundFragment = new BetaTesterDetailFragment();
+        UpdateRequestEarlyAdoptorFragment updateFundFragment = new UpdateRequestEarlyAdoptorFragment();
         updateFundFragment.setArguments(bundle);
         ((HomeActivity) getActivity()).replaceFragment(updateFundFragment);
     }
@@ -154,6 +167,9 @@ public class DeactivatedBetaTestFragment extends Fragment implements AdapterView
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.btn_createFund:
+                ((HomeActivity) getActivity()).replaceFragment(new RequestEarlyAdoptorsFragment());
+                break;
             case R.id.btn_search:
                 if (!et_search.getText().toString().trim().isEmpty()) {
                     searchText = et_search.getText().toString().trim();
@@ -167,7 +183,7 @@ public class DeactivatedBetaTestFragment extends Fragment implements AdapterView
                             obj.put("user_id", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
                             obj.put("page_no", current_page);
                             obj.put("search_text", searchText);
-                            asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.DEACTIVATED_FUND_TAG, Constants.DEACTIVATED_FUND_LIST, Constants.HTTP_POST_REQUEST, obj);
+                            asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.MY_FUND_TAG, Constants.MY_FUND_LIST, Constants.HTTP_POST_REQUEST, obj);
                             asyncNew.execute();
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -201,7 +217,7 @@ public class DeactivatedBetaTestFragment extends Fragment implements AdapterView
             ((HomeActivity) getActivity()).dismissProgressDialog();
             Toast.makeText(getActivity(), getString(R.string.server_down), Toast.LENGTH_LONG).show();
         } else {
-            if (tag.equals(Constants.DEACTIVATED_FUND_TAG)) {
+            if (tag.equals(Constants.MY_FUND_TAG)) {
                 ((HomeActivity) getActivity()).dismissProgressDialog();
                 try {
                     JSONObject jsonObject = new JSONObject(result);
@@ -240,7 +256,7 @@ public class DeactivatedBetaTestFragment extends Fragment implements AdapterView
                 }
 
                 if (adapter == null) {
-                    adapter = new DeactivatedBetaTesterAdapter(getActivity(), fundsList);
+                    adapter = new EarlyAdoptorsAdapter(getActivity(), fundsList, "MyFunds");
                     list_funds.setAdapter(adapter);
                 }
                 list_funds.onLoadMoreComplete();

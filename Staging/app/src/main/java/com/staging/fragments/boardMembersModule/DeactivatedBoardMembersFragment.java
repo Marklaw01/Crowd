@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.staging.R;
 import com.staging.activities.HomeActivity;
 import com.staging.adapter.DeactivatedFundsAdapter;
+import com.staging.adapter.boardMembersAdapters.DeactivatedBoardMembersAdapter;
 import com.staging.fragments.FundDetailFragment;
 import com.staging.listeners.AsyncTaskCompleteListener;
 import com.staging.loadmore_listview.LoadMoreListView;
@@ -39,7 +40,7 @@ public class DeactivatedBoardMembersFragment extends Fragment implements Adapter
     int current_page = 1;
     private Button btn_addCampaign;
     private LoadMoreListView list_funds;
-    private DeactivatedFundsAdapter adapter;
+    private DeactivatedBoardMembersAdapter adapter;
     private ArrayList<FundsObject> fundsList;
     private AsyncNew asyncNew;
 
@@ -239,7 +240,7 @@ public class DeactivatedBoardMembersFragment extends Fragment implements Adapter
                 }
 
                 if (adapter == null) {
-                    adapter = new DeactivatedFundsAdapter(getActivity(), fundsList);
+                    adapter = new DeactivatedBoardMembersAdapter(getActivity(), fundsList);
                     list_funds.setAdapter(adapter);
                 }
                 list_funds.onLoadMoreComplete();

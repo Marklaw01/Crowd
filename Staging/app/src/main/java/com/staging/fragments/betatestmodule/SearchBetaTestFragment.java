@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.staging.R;
 import com.staging.activities.HomeActivity;
 import com.staging.adapter.FundsAdapter;
+import com.staging.adapter.betatestadapters.BetaTesterAdapter;
 import com.staging.fragments.FundDetailFragment;
 import com.staging.listeners.AsyncTaskCompleteListener;
 import com.staging.loadmore_listview.LoadMoreListView;
@@ -40,7 +41,7 @@ public class SearchBetaTestFragment extends Fragment implements AdapterView.OnIt
     int current_page = 1;
     private Button btn_createFund;
     private LoadMoreListView list_funds;
-    private FundsAdapter adapter;
+    private BetaTesterAdapter adapter;
     private TextView btn_search;
     private ArrayList<FundsObject> fundsList;
 
@@ -102,7 +103,7 @@ public class SearchBetaTestFragment extends Fragment implements AdapterView.OnIt
 
         list_funds = (LoadMoreListView) rootView.findViewById(R.id.list_funds);
         fundsList = new ArrayList<>();
-        adapter = new FundsAdapter(getActivity(), fundsList, "FindFunds");
+        adapter = new BetaTesterAdapter(getActivity(), fundsList, "FindFunds");
         list_funds.setAdapter(adapter);
 
         btn_search.setOnClickListener(this);
@@ -254,7 +255,7 @@ public class SearchBetaTestFragment extends Fragment implements AdapterView.OnIt
                 }
 
                 if (adapter == null) {
-                    adapter = new FundsAdapter(getActivity(), fundsList, "FindFunds");
+                    adapter = new BetaTesterAdapter(getActivity(), fundsList, "FindFunds");
                     list_funds.setAdapter(adapter);
                 }
                 list_funds.onLoadMoreComplete();
@@ -303,7 +304,7 @@ public class SearchBetaTestFragment extends Fragment implements AdapterView.OnIt
                 }
 
                 if (adapter == null) {
-                    adapter = new FundsAdapter(getActivity(), fundsList, "FindFunds");
+                    adapter = new BetaTesterAdapter(getActivity(), fundsList, "FindFunds");
                     list_funds.setAdapter(adapter);
                 }
                 list_funds.onLoadMoreComplete();
