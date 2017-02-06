@@ -76,6 +76,7 @@ public class MyFundsFragments extends Fragment implements AdapterView.OnItemClic
         }
     }
 
+
     /**
      * Called when the Fragment is no longer resumed.  This is generally
      * tied to {@link Activity#onPause() Activity.onPause} of the containing
@@ -167,30 +168,30 @@ public class MyFundsFragments extends Fragment implements AdapterView.OnItemClic
                 ((HomeActivity) getActivity()).replaceFragment(new CreateFundFragment());
                 break;
             case R.id.btn_search:
-                if (!et_search.getText().toString().trim().isEmpty()) {
-                    searchText = et_search.getText().toString().trim();
-                    current_page = 1;
-                    fundsList = new ArrayList<>();
-                    adapter = null;
-                    if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
-                        ((HomeActivity) getActivity()).showProgressDialog();
-                        try {
-                            JSONObject obj = new JSONObject();
-                            obj.put("user_id", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
-                            obj.put("page_no", current_page);
-                            obj.put("search_text", searchText);
-                            asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.MY_FUND_TAG, Constants.MY_FUND_LIST, Constants.HTTP_POST_REQUEST, obj);
-                            asyncNew.execute();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            ((HomeActivity) getActivity()).dismissProgressDialog();
-                        }
 
-                    } else {
-                        ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
+                searchText = et_search.getText().toString().trim();
+                current_page = 1;
+                fundsList = new ArrayList<>();
+                adapter = null;
+                if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
+                    ((HomeActivity) getActivity()).showProgressDialog();
+                    try {
+                        JSONObject obj = new JSONObject();
+                        obj.put("user_id", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
+                        obj.put("page_no", current_page);
+                        obj.put("search_text", searchText);
+                        asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.MY_FUND_TAG, Constants.MY_FUND_LIST, Constants.HTTP_POST_REQUEST, obj);
+                        asyncNew.execute();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        ((HomeActivity) getActivity()).dismissProgressDialog();
                     }
 
+                } else {
+                    ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
                 }
+
+
                 break;
         }
     }

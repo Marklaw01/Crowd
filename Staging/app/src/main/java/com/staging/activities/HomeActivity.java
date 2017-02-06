@@ -52,9 +52,9 @@ import com.staging.fragments.ContractorVideoFragment;
 import com.staging.fragments.CurrentStartUpFragment;
 import com.staging.fragments.DemoDaysFragment;
 import com.staging.fragments.earlyAdoptorsModule.EarlyAdatorsFragment;
-import com.staging.fragments.EndorsersFragment;
+import com.staging.fragments.endorsorsModule.EndorsersFragment;
 import com.staging.fragments.EntrepreneurVideoFragment;
-import com.staging.fragments.FocusGroupsFragment;
+import com.staging.fragments.focusGroupModule.FocusGroupsFragment;
 import com.staging.fragments.ForumDetailsFragment;
 import com.staging.fragments.ForumsTabFragment;
 import com.staging.fragments.FundsFragment;
@@ -629,8 +629,6 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                     String uri = Constants.USER_NOTIFICATION_COUNT_URL + "?user_id=" + prefManager.getString(Constants.USER_ID);
                     URL url = new URL(Constants.APP_BASE_URL + uri);
                     CrowdBootstrapLogger.logInfo("url: " + url.toString());
-
-
                     urlConnection = (HttpURLConnection) url.openConnection();
 
                     urlConnection.setDoOutput(true);
@@ -740,7 +738,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             contributorNavigationOpportunities.add(new NavDrawerItem(getString(R.string.consulting), R.drawable.dummy_ic_consulting));
             contributorNavigationOpportunities.add(new NavDrawerItem(getString(R.string.early_adopters), R.drawable.ic_earlyadopter));
             contributorNavigationOpportunities.add(new NavDrawerItem(getString(R.string.endorsers), R.drawable.ic_endorses));
-            contributorNavigationOpportunities.add(new NavDrawerItem(getString(R.string.focus_groups), R.drawable.dummy_ic_focusgroup));
+            contributorNavigationOpportunities.add(new NavDrawerItem(getString(R.string.focus_groups), R.drawable.ic_focusgroup));
             contributorNavigationOpportunities.add(new NavDrawerItem(getString(R.string.jobs), R.drawable.ic_jobs));
             contributorNavigationOpportunities.add(new NavDrawerItem(getString(R.string.recruiter), R.drawable.recruiterimg));
 
