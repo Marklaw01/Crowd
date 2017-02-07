@@ -241,7 +241,7 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
                 wv.getSettings().setLoadsImagesAutomatically(true);
                 wv.getSettings().setJavaScriptEnabled(true);
                 wv.getSettings().setAllowContentAccess(true);
-                wv.loadUrl("http://stage.crowdbootstrap.com/users/terms--and-conditions");
+                wv.loadUrl(Constants.APP_IMAGE_URL + "/users/terms--and-conditions");
 
                 wv.setWebViewClient(new WebViewClient() {
                     @Override
@@ -278,10 +278,9 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
             @Override
             public void onClick(View v) {
 
-                if(isGoogleAppInstalled()) {
+                if (isGoogleAppInstalled()) {
                     signIn();
-                }
-                else{
+                } else {
 
                     Toast.makeText(getActivity(), "Google Plus App Not Installed, Kindly install the App from Google Playstore", Toast.LENGTH_LONG).show();
 
@@ -296,45 +295,45 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
             public void onClick(View v) {
 
 
-               // if (isFacebookAppInstalled()) {
-                    FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
-                    CallbackManager callbackManager = CallbackManager.Factory.create();
-                    final ShareDialog shareDialog = new ShareDialog(getActivity());
+                // if (isFacebookAppInstalled()) {
+                FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
+                CallbackManager callbackManager = CallbackManager.Factory.create();
+                final ShareDialog shareDialog = new ShareDialog(getActivity());
 
-                    shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
+                shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
 
-                        @Override
-                        public void onSuccess(Sharer.Result result) {
-                            Log.d("XXX", "success");
-                        }
-
-                        @Override
-                        public void onError(FacebookException error) {
-                            Log.d("XXX", "error");
-                        }
-
-                        @Override
-                        public void onCancel() {
-                            Log.d("XXX", "cancel");
-                        }
-                    });
-
-
-                    if (shareDialog.canShow(ShareLinkContent.class)) {
-                        ShareLinkContent content = new ShareLinkContent.Builder()
-                                .setContentTitle("Crowd Bootstrap Invitation")
-                                .setImageUrl(Uri.parse("http://stage.crowdbootstrap.com/img/small-logo.png"))
-                                .setContentUrl(Uri.parse("http://crowdbootstrap.com/"))
-                                .setContentDescription(
-                                        "Crowd Bootstrap helps entrepreneurs accelerate their journey from a startup idea to initial revenues. It is a free App that enables you to benefit as an entrepreneur or help as an expert." +
-                                                "Please click the following link to sign-up and help an entrepreneur realize their dream.\n" +
-                                                "Regards,\n" +
-                                                "The Crowd Bootstrap Team")
-                                .build();
-                        ShareDialog shareDialogContent = new ShareDialog(getActivity());
-                        shareDialogContent.show(content);
-
+                    @Override
+                    public void onSuccess(Sharer.Result result) {
+                        Log.d("XXX", "success");
                     }
+
+                    @Override
+                    public void onError(FacebookException error) {
+                        Log.d("XXX", "error");
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        Log.d("XXX", "cancel");
+                    }
+                });
+
+
+                if (shareDialog.canShow(ShareLinkContent.class)) {
+                    ShareLinkContent content = new ShareLinkContent.Builder()
+                            .setContentTitle("Crowd Bootstrap Invitation")
+                            .setImageUrl(Uri.parse(Constants.APP_IMAGE_URL + "/img/small-logo.png"))
+                            .setContentUrl(Uri.parse(Constants.APP_IMAGE_URL))
+                            .setContentDescription(
+                                    "Crowd Bootstrap helps entrepreneurs accelerate their journey from a startup idea to initial revenues. It is a free App that enables you to benefit as an entrepreneur or help as an expert." +
+                                            "Please click the following link to sign-up and help an entrepreneur realize their dream.\n" +
+                                            "Regards,\n" +
+                                            "The Crowd Bootstrap Team")
+                            .build();
+                    ShareDialog shareDialogContent = new ShareDialog(getActivity());
+                    shareDialogContent.show(content);
+
+                }
 
 
                 /*} else {
@@ -403,7 +402,7 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
                 wv.getSettings().setLoadsImagesAutomatically(true);
                 wv.getSettings().setJavaScriptEnabled(true);
                 wv.getSettings().setAllowContentAccess(true);
-                wv.loadUrl("http://stage.crowdbootstrap.com/users/privacy-policy");
+                wv.loadUrl(Constants.APP_IMAGE_URL + "/users/privacy-policy");
 
                 wv.setWebViewClient(new WebViewClient() {
                     @Override
@@ -630,9 +629,6 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
     }*/
 
 
-
-
-
     private static Scope buildScope() {
         return Scope.build(Scope.R_BASICPROFILE, Scope.W_SHARE);
     }
@@ -739,9 +735,6 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
     }
 
 
-
-
-
     public boolean isGoogleAppInstalled() {
         try {
             thisActivity.getApplicationContext().getPackageManager().getApplicationInfo("om.google.android.apps.plus", 0);
@@ -750,6 +743,7 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
             return false;
         }
     }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -936,7 +930,7 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
 
                         Log.d("end Time", String.valueOf(System.currentTimeMillis()));
                     } else if (jsonObject.getString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
-                        if (jsonObject.has("errors")){
+                        if (jsonObject.has("errors")) {
                             if (!jsonObject.optJSONObject("errors").optString("username").isEmpty()) {
                                 requestFocus(et_userName);
                                 //deleteUser(registeredUser, jsonObject.optJSONObject("errors").optString("username"));
@@ -961,7 +955,7 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
                                 //deleteUser(registeredUser, jsonObject.optJSONObject("errors").optString("best_availablity"));
                                 ((LoginActivity) getActivity()).utilitiesClass.alertDialogSingleButton(jsonObject.optJSONObject("errors").optString("best_availablity"));
                             }
-                        }else{
+                        } else {
                             ((LoginActivity) getActivity()).utilitiesClass.alertDialogSingleButton(jsonObject.optString("message"));
                         }
 

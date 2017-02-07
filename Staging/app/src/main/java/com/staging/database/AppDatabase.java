@@ -4,6 +4,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.staging.logger.CrowdBootstrapLogger;
+
 /**
  * Created by neelmani.karn on 2/10/2016.
  */
@@ -34,7 +36,7 @@ public class AppDatabase extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String create_note_table_query = "CREATE TABLE " + TABLE_NOTES + " (" + _ID + " INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE , " + NOTE_CREATED_BY + " TEXT, " + STARTUP_ID + " TEXT, " + STARTUP_NAME + " TEXT, " + NOTE_NAME + " TEXT, " + NOTE_DESCRIPTION + " TEXT, " + NOTE_CREATED_TIME + " TEXT )";
-        System.out.println(create_note_table_query);
+        CrowdBootstrapLogger.logInfo(create_note_table_query);
 
         db.execSQL(create_note_table_query);
     }

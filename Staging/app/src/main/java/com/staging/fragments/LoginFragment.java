@@ -28,6 +28,7 @@ import com.staging.activities.GettingStartedActivity;
 import com.staging.activities.LoginActivity;
 import com.staging.helper.CustomEditTextView;
 import com.staging.listeners.AsyncTaskCompleteListener;
+import com.staging.logger.CrowdBootstrapLogger;
 import com.staging.utilities.Async;
 import com.staging.utilities.AsyncNew;
 import com.staging.utilities.Constants;
@@ -139,10 +140,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Asy
                 e.printStackTrace();
             }
 
-            System.out.println(login);
+            CrowdBootstrapLogger.logInfo(login.toString());
             if (((LoginActivity) getActivity()).networkConnectivity.isOnline()) {
                 ((LoginActivity) getActivity()).showProgressDialog();
-                Log.e("startTime", String.valueOf(System.currentTimeMillis()));
+                CrowdBootstrapLogger.logInfo("startTime" + String.valueOf(System.currentTimeMillis()));
 
                 AsyncNew a = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.LOGIN_TAG, Constants.LOGIN_URL, Constants.HTTP_POST_REQUEST, login);
                 a.execute();
@@ -238,8 +239,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Asy
         else {
             if (tag.equalsIgnoreCase(Constants.LOGIN_TAG)) {
                 try {
+                    CrowdBootstrapLogger.logInfo(result);
                     final JSONObject jsonObject = new JSONObject(result);
-                    System.out.println(jsonObject);
+
 
                     if (jsonObject.getString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
                         ((LoginActivity) getActivity()).prefManager.storeString(Constants.USER_EMAIL, jsonObject.optString("email"));
@@ -300,7 +302,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Asy
                 // success, login to chat
 
                 user.setId(session.getUserId());
-                Log.e("session", session.getToken());
+                CrowdBootstrapLogger.logInfo("session" + session.getToken());
                 chatService.login(user, new QBEntityCallback() {
 
                     @Override
@@ -308,7 +310,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Asy
                         if (((LoginActivity) getActivity()).isShowingProgressDialog()) {
                             ((LoginActivity) getActivity()).dismissProgressDialog();
                         }
-                        Log.e("endTime", String.valueOf(System.currentTimeMillis()));
+                        CrowdBootstrapLogger.logInfo("endTime" + String.valueOf(System.currentTimeMillis()));
                         /*((LoginActivity)getActivity()).runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -345,14 +347,14 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Asy
                         } else {
                             unRegisterInBackground();
                         }
-                        Log.e("signinerror", e.toString());
+                        CrowdBootstrapLogger.logInfo("signinerror" + e.toString());
                     }
                 });
             }
 
             @Override
             public void onError(QBResponseException errors) {
-                Log.e("sessioninerror", errors.toString());
+                CrowdBootstrapLogger.logInfo("sessioninerror" + errors.toString());
                 unRegisterInBackground();
             }
         });
@@ -374,8 +376,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Asy
                 super.onPostExecute(aVoid);
 
                 try {
+                    CrowdBootstrapLogger.logInfo(result);
                     JSONObject jsonObject = new JSONObject(result);
-                    System.out.println(jsonObject);
+
                     if (((LoginActivity) getActivity()).isShowingProgressDialog()) {
                         ((LoginActivity) getActivity()).dismissProgressDialog();
                     }
@@ -389,12 +392,12 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Asy
                         @Override
                         public void onSuccess(Void aVoid, Bundle bundle) {
                             QBChatService.getInstance().destroy();
-                            Log.d("logout", "logout");
+                            CrowdBootstrapLogger.logInfo("logout");
                         }
 
                         @Override
                         public void onError(QBResponseException e) {
-                            Log.d("error", e.toString());
+                            CrowdBootstrapLogger.logInfo("error" + e.toString());
                         }
                     });
                     /*QBUsers.signOut(new QBEntityCallback<Void>() {
@@ -459,16 +462,16 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Asy
                     logout.put("access_token", ((LoginActivity) getActivity()).prefManager.getString(Constants.GCM_REGISTRATION_ID));
                     logout.put("device_token", ((LoginActivity) getActivity()).prefManager.getString(Constants.DEVICE_TOKEN));
                     logout.put("device_type", "android");
-                    System.out.println(logout);
+                    CrowdBootstrapLogger.logInfo(logout.toString());
 
                     result = ((LoginActivity) getActivity()).utilitiesClass.postJsonObject(Constants.LOGOUT_URL, logout);
                     if (result.contains("200")) {
                         GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(getActivity());
                         try {
                             gcm.unregister();
-                            Log.d("unregister", "unregister");
+                            CrowdBootstrapLogger.logInfo("unregister");
                         } catch (IOException e) {
-                            System.out.println("Error Message: " + e.getMessage());
+                            CrowdBootstrapLogger.logInfo("Error Message: " + e.getMessage());
                         }
                     }
 

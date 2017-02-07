@@ -29,6 +29,7 @@
             android:layout_marginTop="7dp"
             android:background="@drawable/emailtextbox"
             android:focusable="true"
+            android:inputType="textCapSentences"
             android:paddingLeft="5dp" />
     </LinearLayout>
 

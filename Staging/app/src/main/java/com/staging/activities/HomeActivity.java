@@ -2052,7 +2052,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                 (HomeActivity.this).dismissProgressDialog();
                 try {
                     JSONObject jsonObject = new JSONObject(result);
-                    //System.out.println(jsonObject);
+                    //CrowdBootstrapLogger.logInfo(jsonObject);
 
                     if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
                         Toast.makeText(HomeActivity.this, "User disconnected successfully.", Toast.LENGTH_SHORT).show();
@@ -2070,7 +2070,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                 (HomeActivity.this).dismissProgressDialog();
                 try {
                     JSONObject jsonObject = new JSONObject(result);
-                    //System.out.println(jsonObject);
+                    //CrowdBootstrapLogger.logInfo(jsonObject);
 
                     if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
                         Toast.makeText(HomeActivity.this, "User connected successfully.", Toast.LENGTH_SHORT).show();
