@@ -171,7 +171,7 @@ public class SearchBetaTestFragment extends Fragment implements AdapterView.OnIt
         switch (v.getId()) {
             case R.id.btn_search:
                 if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
-                    if (!et_search.getText().toString().trim().isEmpty()) {
+
                         searchText = et_search.getText().toString().trim();
                         try {
                             JSONObject obj = new JSONObject();
@@ -188,7 +188,7 @@ public class SearchBetaTestFragment extends Fragment implements AdapterView.OnIt
                             e.printStackTrace();
                             ((HomeActivity) getActivity()).dismissProgressDialog();
                         }
-                    }
+
                 } else {
                     ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
                 }

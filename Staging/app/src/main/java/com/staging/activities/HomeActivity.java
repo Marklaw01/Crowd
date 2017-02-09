@@ -111,7 +111,9 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -555,27 +557,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             // ADD TIMER AFTER EVERY 5 SECOND FOR THE NOTIFICATION TO BE UPDATED
 
 
-            /*notificationThread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    while (true) {
-                        try {
-                            Thread.sleep(160000);// 5 seconds lag
-                            mHandler.post(new Runnable() {
 
-                                @Override
-                                public void run() {
-                                    Log.e("XXX", "TIMERHIT");
-                                    setBadgeData();
-                                }
-                            });
-                        } catch (Exception e) {
-                            // TODO: handle exception
-                        }
-                    }
-                }
-            });
-            notificationThread.start();*/
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -602,18 +584,19 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         }
     }
 
+    Runnable runnable;
 
     private void setBadgeData() {
 
-        if (networkConnectivity.isOnline()) {
+        //if (networkConnectivity.isOnline()) {
 
             /*Async a = new Async(HomeActivity.this, (AsyncTaskCompleteListener<String>) HomeActivity.this, Constants.USER_NOTIFICATION_COUNT_TAG, Constants.USER_NOTIFICATION_COUNT_URL + "?user_id=" + prefManager.getString(Constants.USER_ID), Constants.HTTP_GET, "Home Activity");
             a.execute();*/
             checkNotificationBadgeCount();
 
-        } else {
+        /*} else {
             utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
-        }
+        }*/
 
     }
 
@@ -634,7 +617,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                     urlConnection.setDoOutput(true);
                     urlConnection.setRequestProperty("Content-Type", "application/json");
                     urlConnection.setRequestProperty("Accept", "application/json");
-
+                    urlConnection.setReadTimeout(Constants.API_CONNECTION_TIME_OUT_DURATION);
+                    urlConnection.setConnectTimeout(Constants.API_CONNECTION_TIME_OUT_DURATION);
                     urlConnection.setRequestMethod(Constants.HTTP_GET_REQUEST);
                     urlConnection.connect();
 
@@ -658,11 +642,16 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
                     }
 
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (UnknownHostException e) {
+                    e.printStackTrace();
+                } catch (SocketTimeoutException e) {
+                    e.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
-                    return result;
                 } catch (Exception e) {
-                    return result;
+                    e.printStackTrace();
                 }
                 return result;
             }
@@ -671,7 +660,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
                 try {
-                    if (!s.isEmpty()){
+                    if (!s.isEmpty()) {
                         final JSONObject jsonObject = new JSONObject(s);
 
                         if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
@@ -732,7 +721,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             contributorNavigationProfileArray.add(new NavDrawerItem(getString(R.string.settings), R.drawable.ic_setting));
 
             contributorNavigationOpportunities = new ArrayList<NavDrawerItem>();
-            contributorNavigationOpportunities.add(new NavDrawerItem(getString(R.string.beta_testers),R.drawable.ic_betatesterimg));
+            contributorNavigationOpportunities.add(new NavDrawerItem(getString(R.string.beta_testers), R.drawable.ic_betatesterimg));
             contributorNavigationOpportunities.add(new NavDrawerItem(getString(R.string.board_members), R.drawable.boardmemberimg));
             contributorNavigationOpportunities.add(new NavDrawerItem(getString(R.string.communal_assets), R.drawable.dummy_communalassetimg));
             contributorNavigationOpportunities.add(new NavDrawerItem(getString(R.string.consulting), R.drawable.dummy_ic_consulting));
@@ -2128,6 +2117,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                     CrowdBootstrapLogger.logInfo(jsonObject.toString());
 
                     if (jsonObject.getString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase("200")) {
+
+
                        /* if (notificationThread != null) {
                             notificationThread.interrupt();
                         }*/

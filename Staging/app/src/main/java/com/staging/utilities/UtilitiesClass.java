@@ -72,7 +72,10 @@ import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
@@ -564,7 +567,7 @@ public class UtilitiesClass {
             //Write
             if (json != null) {
                 OutputStream outputStream = urlConnection.getOutputStream();
-                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, Constants.UTF_8));
                 writer.write(json.toString());
                 writer.close();
                 outputStream.close();
@@ -572,7 +575,7 @@ public class UtilitiesClass {
             if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
 
                 //Read
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "UTF-8"));
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), Constants.UTF_8));
 
                 String line = null;
                 StringBuilder sb = new StringBuilder();
@@ -611,4 +614,60 @@ public class UtilitiesClass {
     /*public String truncateIntValueUpto2DecimalPlaces(int value){
         return String.format("%.2f",value);
     }*/
+
+    /**
+     * Disable the SSL Certificate Checking
+     */
+    private static void disableSSLCertificateChecking() {
+        TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
+
+            /**
+             * @param x509Certificates
+             * @param s
+             * @throws java.security.cert.CertificateException
+             */
+            @Override
+            public void checkClientTrusted(java.security.cert.X509Certificate[] x509Certificates, String s)
+                    throws java.security.cert.CertificateException {
+                // not implemented
+            }
+
+            /**
+             * @param x509Certificates
+             * @param s
+             * @throws java.security.cert.CertificateException
+             */
+            @Override
+            public void checkServerTrusted(java.security.cert.X509Certificate[] x509Certificates, String s)
+                    throws java.security.cert.CertificateException {
+                // not implemented
+            }
+
+            @Override
+            public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                return null;
+            }
+
+        }};
+
+        try {
+
+            HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
+
+                @Override
+                public boolean verify(String s, SSLSession sslSession) {
+                    return true;
+                }
+
+            });
+            SSLContext sc = SSLContext.getInstance("TLS");
+            sc.init(null, trustAllCerts, new java.security.SecureRandom());
+            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+
+        } catch (KeyManagementException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+    }
 }

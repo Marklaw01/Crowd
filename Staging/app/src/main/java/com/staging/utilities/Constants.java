@@ -560,6 +560,7 @@ public final class Constants {
     public static final String TIMEOUT_EXCEPTION = "timeout";
     public static final int POSITION = 1001;
     public static final java.lang.String CALLED_FROM = "calledFrom";
+    public static final String UTF_8 = "UTF-8";
 
 
     //Passing data constants using intent

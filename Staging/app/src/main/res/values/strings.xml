@@ -369,5 +369,6 @@
     <string name="updateBoardMember">Update Board Member</string>
     <string name="requestEarlyAdpoters">Request Early Adopters</string>
     <string name="updateEarlyAdoptor">Update Early Adaptor</string>
+    <string name="opportunity_title">Opportunity Title</string>
 
 </resources>

@@ -9,7 +9,6 @@
     android:padding="@dimen/padding">
 
 
-
     <ImageView
         android:id="@+id/imageuser"
         android:layout_width="wrap_content"

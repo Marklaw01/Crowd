@@ -21,7 +21,7 @@
                 android:id="@+id/namelbl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/beta_test_s_title"
+                android:text="@string/opportunity_title"
                 android:paddingRight="10sp"
                 android:layout_marginTop="10sp"
                 android:singleLine="true"
@@ -36,7 +36,7 @@
 
                 android:background="@drawable/emailtextbox"
                 android:ems="10"
-                android:hint="@string/beta_test_s_title"
+                android:hint="@string/opportunity_title"
                 android:inputType="textCapWords"
                 android:maxLines="1"
                 android:paddingLeft="10sp"
