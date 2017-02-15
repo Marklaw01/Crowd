@@ -140,39 +140,12 @@ public class BetaTesterAdapter extends BaseAdapter implements View.OnClickListen
             holder.dislikeBtn.setOnClickListener(this);
             holder.likeBtn.setTag(R.integer.selected_index, position);
             holder.likeBtn.setOnClickListener(this);
-            /*holder.likeBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    try {
-                        JSONObject likeObj = new JSONObject();
-                        likeObj.put("like_by", PrefManager.getInstance(context).getString(Constants.USER_ID));
-                        likeObj.put("fund_id", list.get(position).getId());
-                        fundLikeDislike(position, Constants.FUND_LIKE_URL, Constants.HTTP_POST_REQUEST, likeObj, holder.likeBtn, holder.dislikeBtn);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-
-            holder.dislikeBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    try {
-                        JSONObject dislikeObj = new JSONObject();
-                        dislikeObj.put("dislike_by", PrefManager.getInstance(context).getString(Constants.USER_ID));
-                        dislikeObj.put("fund_id", list.get(position).getId());
-                        fundLikeDislike(position, Constants.FUND_DISLIKE_URL, Constants.HTTP_POST_REQUEST, dislikeObj, holder.likeBtn, holder.dislikeBtn);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });*/
 
 
             holder.tv_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showDialog(position, "Do you want to delete this Fund?", Constants.FUND_DELETE_URL);
+                    showDialog(position, "Do you want to delete this Beta Tester?", Constants.BETA_TESTER_DELETE_URL);
                 }
             });
 
@@ -180,7 +153,7 @@ public class BetaTesterAdapter extends BaseAdapter implements View.OnClickListen
             holder.tv_archive.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showDialog(position, "Do you want to archive this Fund?", Constants.FUND_ARCHIEVE_URL);
+                    showDialog(position, "Do you want to archive this Beta Tester?", Constants.BETA_TESTER_ARCHIEVE_URL);
                 }
             });
 
@@ -188,7 +161,7 @@ public class BetaTesterAdapter extends BaseAdapter implements View.OnClickListen
             holder.tv_deactivate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showDialog(position, "Do you want to deactivate this Fund?", Constants.FUND_DEACTIVATE_URL);
+                    showDialog(position, "Do you want to deactivate this Beta Tester?", Constants.BETA_TESTER_DEACTIVATE_URL);
                 }
             });
 
@@ -223,7 +196,7 @@ public class BetaTesterAdapter extends BaseAdapter implements View.OnClickListen
                             try {
                                 JSONObject obj = new JSONObject();
                                 obj.put("user_id", PrefManager.getInstance(context).getString(Constants.USER_ID));
-                                obj.put("fund_id", list.get(position).getId());
+                                obj.put("beta_id", list.get(position).getId());
                                 doJob(position, url, Constants.HTTP_POST_REQUEST, obj);
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -251,13 +224,13 @@ public class BetaTesterAdapter extends BaseAdapter implements View.OnClickListen
             case R.id.like:
                 int tagLikePosition = (int) v.getTag(R.integer.selected_index);
                 if (list.get(tagLikePosition).getIs_liked_by_user() == 1) {
-                    Toast.makeText(context, "You already liked this fund", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "You already liked this Beta Test", Toast.LENGTH_LONG).show();
                 } else {
                     try {
                         JSONObject likeObj = new JSONObject();
                         likeObj.put("like_by", PrefManager.getInstance(context).getString(Constants.USER_ID));
-                        likeObj.put("fund_id", list.get(tagLikePosition).getId());
-                        fundLikeDislike(tagLikePosition, Constants.FUND_LIKE_URL, Constants.HTTP_POST_REQUEST, likeObj);
+                        likeObj.put("beta_test_id", list.get(tagLikePosition).getId());
+                        fundLikeDislike(tagLikePosition, Constants.BETA_TESTER_LIKE_URL, Constants.HTTP_POST_REQUEST, likeObj);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -267,13 +240,13 @@ public class BetaTesterAdapter extends BaseAdapter implements View.OnClickListen
             case R.id.dislike:
                 int tagDislikeIdPosition = (int) v.getTag(R.integer.selected_index);
                 if (list.get(tagDislikeIdPosition).getIs_disliked_by_user() == 1) {
-                    Toast.makeText(context, "You already disliked this fund", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "You already disliked this Beta Test", Toast.LENGTH_LONG).show();
                 } else {
                     try {
                         JSONObject dislikeObj = new JSONObject();
                         dislikeObj.put("dislike_by", PrefManager.getInstance(context).getString(Constants.USER_ID));
-                        dislikeObj.put("fund_id", list.get(tagDislikeIdPosition).getId());
-                        fundLikeDislike(tagDislikeIdPosition, Constants.FUND_DISLIKE_URL, Constants.HTTP_POST_REQUEST, dislikeObj);
+                        dislikeObj.put("beta_test_id", list.get(tagDislikeIdPosition).getId());
+                        fundLikeDislike(tagDislikeIdPosition, Constants.BETA_TESTER_DISLIKE_URL, Constants.HTTP_POST_REQUEST, dislikeObj);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -450,8 +423,8 @@ public class BetaTesterAdapter extends BaseAdapter implements View.OnClickListen
                             CrowdBootstrapLogger.logInfo(result);
                             if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
                                 Toast.makeText(context, jsonObject.getString("message"), Toast.LENGTH_LONG).show();
-                                list.get(position).setFund_dislike(jsonObject.getInt("fund_dislikes"));
-                                list.get(position).setFund_likes(jsonObject.getInt("fund_likes"));
+                                list.get(position).setFund_dislike(jsonObject.getInt("dislikes"));
+                                list.get(position).setFund_likes(jsonObject.getInt("likes"));
                                 list.get(position).setIs_disliked_by_user(jsonObject.getInt("is_disliked_by_user"));
                                 list.get(position).setIs_liked_by_user(jsonObject.getInt("is_liked_by_user"));
                                 notifyDataSetChanged();

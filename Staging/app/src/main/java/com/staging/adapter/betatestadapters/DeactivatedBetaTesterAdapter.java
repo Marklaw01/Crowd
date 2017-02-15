@@ -182,7 +182,7 @@ public class DeactivatedBetaTesterAdapter extends BaseAdapter implements View.On
             holder.tv_archive.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showDialog(position, "Do you want to activate this Fund?", Constants.FUND_ACTIVATE_URL);
+                    showDialog(position, "Do you want to activate this Beta Tester?", Constants.BETA_TESTER_ACTIVATE_URL);
                 }
             });
         } catch (Exception e) {
@@ -216,7 +216,7 @@ public class DeactivatedBetaTesterAdapter extends BaseAdapter implements View.On
                             try {
                                 JSONObject obj = new JSONObject();
                                 obj.put("user_id", PrefManager.getInstance(context).getString(Constants.USER_ID));
-                                obj.put("fund_id", list.get(position).getId());
+                                obj.put("beta_id", list.get(position).getId());
                                 doJob(position, url, Constants.HTTP_POST_REQUEST, obj);
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -241,31 +241,31 @@ public class DeactivatedBetaTesterAdapter extends BaseAdapter implements View.On
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.like:
-            int tagLikePosition = (int) v.getTag(R.integer.selected_index);
-            if (list.get(tagLikePosition).getIs_liked_by_user() == 1) {
-                Toast.makeText(context, "You already liked this fund", Toast.LENGTH_LONG).show();
-            } else {
-                try {
-                    JSONObject likeObj = new JSONObject();
-                    likeObj.put("like_by", PrefManager.getInstance(context).getString(Constants.USER_ID));
-                    likeObj.put("fund_id", list.get(tagLikePosition).getId());
-                    fundLikeDislike(tagLikePosition, Constants.FUND_LIKE_URL, Constants.HTTP_POST_REQUEST, likeObj);
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                int tagLikePosition = (int) v.getTag(R.integer.selected_index);
+                if (list.get(tagLikePosition).getIs_liked_by_user() == 1) {
+                    Toast.makeText(context, "You already liked this Beta Test", Toast.LENGTH_LONG).show();
+                } else {
+                    try {
+                        JSONObject likeObj = new JSONObject();
+                        likeObj.put("like_by", PrefManager.getInstance(context).getString(Constants.USER_ID));
+                        likeObj.put("beta_test_id", list.get(tagLikePosition).getId());
+                        fundLikeDislike(tagLikePosition, Constants.BETA_TESTER_LIKE_URL, Constants.HTTP_POST_REQUEST, likeObj);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
 
-            break;
+                break;
             case R.id.dislike:
                 int tagDislikeIdPosition = (int) v.getTag(R.integer.selected_index);
                 if (list.get(tagDislikeIdPosition).getIs_disliked_by_user() == 1) {
-                    Toast.makeText(context, "You already disliked this fund", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "You already disliked this Beta Test", Toast.LENGTH_LONG).show();
                 } else {
                     try {
                         JSONObject dislikeObj = new JSONObject();
                         dislikeObj.put("dislike_by", PrefManager.getInstance(context).getString(Constants.USER_ID));
-                        dislikeObj.put("fund_id", list.get(tagDislikeIdPosition).getId());
-                        fundLikeDislike(tagDislikeIdPosition, Constants.FUND_DISLIKE_URL, Constants.HTTP_POST_REQUEST, dislikeObj);
+                        dislikeObj.put("beta_test_id", list.get(tagDislikeIdPosition).getId());
+                        fundLikeDislike(tagDislikeIdPosition, Constants.BETA_TESTER_DISLIKE_URL, Constants.HTTP_POST_REQUEST, dislikeObj);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

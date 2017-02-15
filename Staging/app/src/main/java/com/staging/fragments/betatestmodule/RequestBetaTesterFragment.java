@@ -159,13 +159,13 @@ public class RequestBetaTesterFragment extends Fragment implements onActivityRes
         targetMarktetList = new ArrayList<>();
         interestedKeywordsList = new ArrayList<>();
 
-        /*if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
+        if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
             ((HomeActivity) getActivity()).showProgressDialog();
-            AsyncNew a = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FUND_MANAGERS_TAG, Constants.FUND_MANAGERS_LIST + ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID), Constants.HTTP_GET_REQUEST, null);
+            AsyncNew a = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.BETA_TEST_KEYWORDS_LIST_TAG, Constants.BETA_TEST_KEYWORDS_LIST_URL, Constants.HTTP_GET_REQUEST, null);
             a.execute();
         } else {
             ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
-        }*/
+        }
 
     }
 
@@ -682,71 +682,53 @@ public class RequestBetaTesterFragment extends Fragment implements onActivityRes
             case R.id.btn_submit:
                 InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 inputMethodManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
-                /*if (et_fundTitle.getText().toString().isEmpty()) {
-                    Toast.makeText(getActivity(), getString(R.string.fund_title_required), Toast.LENGTH_LONG).show();
+                if (et_title.getText().toString().isEmpty()) {
+                    Toast.makeText(getActivity(), getString(R.string.beta_test_s_title_required), Toast.LENGTH_LONG).show();
                     return;
                 }
-                if (et_fundDescription.getText().toString().isEmpty()) {
+                if (et_description.getText().toString().isEmpty()) {
                     Toast.makeText(getActivity(), getString(R.string.description_required), Toast.LENGTH_LONG).show();
                     return;
                 }
-                if (et_fundManagers.getText().toString().isEmpty()) {
-                    Toast.makeText(getActivity(), getString(R.string.fund_managers_required), Toast.LENGTH_LONG).show();
-                    return;
-                }
-                if (et_fundsponsers.getText().toString().isEmpty()) {
-                    Toast.makeText(getActivity(), getString(R.string.fund_sponsors_required), Toast.LENGTH_LONG).show();
-                    return;
-                }
-                if (et_industry.getText().toString().isEmpty()) {
-                    Toast.makeText(getActivity(), getString(R.string.fund_industry_required), Toast.LENGTH_LONG).show();
-                    return;
-                }
-                if (et_portfolio.getText().toString().isEmpty()) {
-                    Toast.makeText(getActivity(), getString(R.string.fund_portfolio_required), Toast.LENGTH_LONG).show();
-                    return;
-                }
-                if (et_investmentStartDate.getText().toString().isEmpty()) {
-                    Toast.makeText(getActivity(), getString(R.string.fund_startDate_required), Toast.LENGTH_LONG).show();
+                if (et_start_date.getText().toString().isEmpty()) {
+                    Toast.makeText(getActivity(), getString(R.string.startDateRequired), Toast.LENGTH_LONG).show();
                     return;
                 }
                 if (DateTimeFormatClass.compareDates(myCalendarInvestmentStartDate.getTime())) {
-                    Toast.makeText(getActivity(), getString(R.string.fund_startdate_validation), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), getString(R.string.startdate_validation), Toast.LENGTH_LONG).show();
                     return;
                 }
-                if (et_investmentEndDate.getText().toString().isEmpty()) {
-                    Toast.makeText(getActivity(), getString(R.string.fund_endDate_required), Toast.LENGTH_LONG).show();
+                if (et_endDate.getText().toString().isEmpty()) {
+                    Toast.makeText(getActivity(), getString(R.string.endDateRequired), Toast.LENGTH_LONG).show();
                     return;
                 }
                 if (DateTimeFormatClass.compareDates(myCalendarInvestmentEndDate.getTime())) {
-                    Toast.makeText(getActivity(), getString(R.string.fund_end_date_validation), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), getString(R.string.end_date_validation), Toast.LENGTH_LONG).show();
                     return;
                 }
-                if (et_fundsClosedDate.getText().toString().isEmpty()) {
-                    Toast.makeText(getActivity(), getString(R.string.fund_close_required), Toast.LENGTH_LONG).show();
-                    return;
-                }
-                if (DateTimeFormatClass.compareDates(myCalendarFuncClosedDate.getTime())) {
-                    Toast.makeText(getActivity(), getString(R.string.fund_close_date_validation), Toast.LENGTH_LONG).show();
+                if (et_targetMarket.getText().toString().isEmpty()) {
+                    Toast.makeText(getActivity(), getString(R.string.targetMarket_required), Toast.LENGTH_LONG).show();
                     return;
                 }
                 if (et_keywords.getText().toString().isEmpty()) {
-                    Toast.makeText(getActivity(), getString(R.string.fund_keyword_required), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), getString(R.string.keyword_required), Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if (et_interestKeywords.getText().toString().isEmpty()) {
+                    Toast.makeText(getActivity(), getString(R.string.interestKeyword_required), Toast.LENGTH_LONG).show();
                     return;
                 }
 
+
                 HashMap<String, String> map = new HashMap<String, String>();
                 map.put("user_id", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
-                map.put("title", et_fundTitle.getText().toString().trim());
-                map.put("description", et_fundDescription.getText().toString().trim());
-                map.put("managers_id", selectedFundManagersIDs);
-                map.put("sponsors_id", selectedSponsorsIDs);
-                map.put("indusries_id", selectedIndustriesIDs);
-                map.put("portfolios_id", selectedPortfolioIDs);
+                map.put("title", et_title.getText().toString().trim());
+                map.put("description", et_description.getText().toString().trim());
+                map.put("beta_interest_keywords_id", selectedInterestedKeywordsId);
+                map.put("beta_test_keywords_id", selectedKeywordsIDs);
+                map.put("target_market", selectedTargetMarktetIDs);
                 map.put("start_date", et_start_date.getText().toString().trim());
                 map.put("end_date", et_endDate.getText().toString().trim());
-                //map.put("close_date", et_fundsClosedDate.getText().toString().trim());
-                map.put("keywords_id", selectedKeywordsIDs);
                 for (int j = 0; j < pathofmedia.size(); j++) {
                     CrowdBootstrapLogger.logInfo("file path" + pathofmedia.get(j).getPath());
                     CrowdBootstrapLogger.logInfo("file size" + pathofmedia.get(j).getFilesize());
@@ -754,12 +736,11 @@ public class RequestBetaTesterFragment extends Fragment implements onActivityRes
                 }
 
                 if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
-                    createFund(map, Constants.CREATE_FUND_URL);
+                    create(map, Constants.CREATE_BETA_TEST_URL);
                 } else {
                     ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
                 }
                 CrowdBootstrapLogger.logInfo("map" + map.toString());
-*/
                 break;
             case R.id.et_start_date:
                 new DatePickerDialog(getActivity(), investmentStartdate, myCalendarInvestmentStartDate
@@ -902,10 +883,13 @@ public class RequestBetaTesterFragment extends Fragment implements onActivityRes
 
                 break;
             case R.id.et_targetMarket:
+                showKeywordsDialog(targetMarktetList, getString(R.string.target_market), R.id.et_targetMarket);
                 break;
             case R.id.et_keywords:
+                showKeywordsDialog(keywordsList, getString(R.string.keyword), R.id.et_keywords);
                 break;
             case R.id.et_interestKeywords:
+                showKeywordsDialog(interestedKeywordsList, getString(R.string.interest_keyword), R.id.et_interestKeywords);
                 break;
             /*case R.id.et_fundManagers:
                 showKeywordsDialog(fundManagersList, getString(R.string.funds_managers), R.id.et_fundManagers);
@@ -1039,22 +1023,22 @@ public class RequestBetaTesterFragment extends Fragment implements onActivityRes
         } else if (result.equalsIgnoreCase(Constants.SERVEREXCEPTION)) {
             ((HomeActivity) getActivity()).dismissProgressDialog();
             Toast.makeText(getActivity(), getString(R.string.server_down), Toast.LENGTH_LONG).show();
-        } else {/*
-            if (tag.equals(Constants.FUND_MANAGERS_TAG)) {
+        } else {
+            if (tag.equals(Constants.BETA_TEST_KEYWORDS_LIST_TAG)) {
                 CrowdBootstrapLogger.logInfo(result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
-                    fundManagersList.clear();
+                    keywordsList.clear();
                     if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
-                        for (int i = 0; i < jsonObject.optJSONArray("fund_manager_list").length(); i++) {
+                        for (int i = 0; i < jsonObject.optJSONArray("beta_test_keyword_list").length(); i++) {
                             GenericObject obj = new GenericObject();
-                            obj.setId(jsonObject.optJSONArray("fund_manager_list").getJSONObject(i).optString("id"));
-                            obj.setTitle(jsonObject.optJSONArray("fund_manager_list").getJSONObject(i).optString("name"));
+                            obj.setId(jsonObject.optJSONArray("beta_test_keyword_list").getJSONObject(i).optString("id"));
+                            obj.setTitle(jsonObject.optJSONArray("beta_test_keyword_list").getJSONObject(i).optString("name"));
                             obj.setPosition(i);
-                            fundManagersList.add(obj);
+                            keywordsList.add(obj);
                         }
                         if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
-                            AsyncNew a = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.SPONSORS_LIST_TAG, Constants.SPONSORS_LIST + ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID), Constants.HTTP_GET_REQUEST, null);
+                            AsyncNew a = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.BETA_TEST_INTEREST_KEYWORDS_LIST_TAG, Constants.BETA_TEST_INTEREST_KEYWORDS_LIST_URL, Constants.HTTP_GET_REQUEST, null);
                             a.execute();
                         } else {
                             ((HomeActivity) getActivity()).dismissProgressDialog();
@@ -1063,91 +1047,28 @@ public class RequestBetaTesterFragment extends Fragment implements onActivityRes
 
                     } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
                         ((HomeActivity) getActivity()).dismissProgressDialog();
-                        fundManagersList.clear();
+                        keywordsList.clear();
                     }
                 } catch (JSONException e) {
                     ((HomeActivity) getActivity()).dismissProgressDialog();
                     e.printStackTrace();
                 }
-            } else if (tag.equals(Constants.SPONSORS_LIST_TAG)) {
+            } else if (tag.equals(Constants.BETA_TEST_INTEREST_KEYWORDS_LIST_TAG)) {
                 CrowdBootstrapLogger.logInfo(result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
-
-                    sponsersList.clear();
+                    interestedKeywordsList.clear();
                     if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
-                        for (int i = 0; i < jsonObject.optJSONArray("sponsor_list").length(); i++) {
+                        //((HomeActivity) getActivity()).dismissProgressDialog();
+                        for (int i = 0; i < jsonObject.optJSONArray("beta_test_interest_keyword_list").length(); i++) {
                             GenericObject obj = new GenericObject();
-                            obj.setId(jsonObject.optJSONArray("sponsor_list").getJSONObject(i).optString("id"));
-                            obj.setTitle(jsonObject.optJSONArray("sponsor_list").getJSONObject(i).optString("company_name"));
+                            obj.setId(jsonObject.optJSONArray("beta_test_interest_keyword_list").getJSONObject(i).optString("id"));
+                            obj.setTitle(jsonObject.optJSONArray("beta_test_interest_keyword_list").getJSONObject(i).optString("name"));
                             obj.setPosition(i);
-                            sponsersList.add(obj);
+                            interestedKeywordsList.add(obj);
                         }
                         if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
-                            AsyncNew a = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FUND_KEYWORDS_TAG, Constants.FUND_KEYWORDS_LIST, Constants.HTTP_GET_REQUEST, null);
-                            a.execute();
-                        } else {
-                            ((HomeActivity) getActivity()).dismissProgressDialog();
-                            ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
-                        }
-
-
-                    } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
-                        ((HomeActivity) getActivity()).dismissProgressDialog();
-                        sponsersList.clear();
-                    }
-                } catch (JSONException e) {
-                    ((HomeActivity) getActivity()).dismissProgressDialog();
-                    e.printStackTrace();
-                }
-            } else if (tag.equals(Constants.FUND_KEYWORDS_TAG)) {
-                CrowdBootstrapLogger.logInfo(result);
-                try {
-                    JSONObject jsonObject = new JSONObject(result);
-
-                    fundKeywordsList.clear();
-                    if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
-                        for (int i = 0; i < jsonObject.optJSONArray("fund_keyword_list").length(); i++) {
-                            GenericObject obj = new GenericObject();
-                            obj.setId(jsonObject.optJSONArray("fund_keyword_list").getJSONObject(i).optString("fund_keyword_id"));
-                            obj.setTitle(jsonObject.optJSONArray("fund_keyword_list").getJSONObject(i).optString("fund_keyword_name"));
-                            obj.setPosition(i);
-                            fundKeywordsList.add(obj);
-                        }
-
-                        if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
-                            AsyncNew a = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FUND_INDUSTRY_TAG, Constants.FUND_INDUSTRY_LIST, Constants.HTTP_GET_REQUEST, null);
-                            a.execute();
-                        } else {
-                            ((HomeActivity) getActivity()).dismissProgressDialog();
-                            ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
-                        }
-
-
-                    } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
-                        ((HomeActivity) getActivity()).dismissProgressDialog();
-                        fundKeywordsList.clear();
-                    }
-                } catch (JSONException e) {
-                    ((HomeActivity) getActivity()).dismissProgressDialog();
-                    e.printStackTrace();
-                }
-            } else if (tag.equals(Constants.FUND_INDUSTRY_TAG)) {
-                CrowdBootstrapLogger.logInfo(result);
-                try {
-                    JSONObject jsonObject = new JSONObject(result);
-
-                    fundIndustryList.clear();
-                    if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
-                        for (int i = 0; i < jsonObject.optJSONArray("fund_industry_list").length(); i++) {
-                            GenericObject obj = new GenericObject();
-                            obj.setId(jsonObject.optJSONArray("fund_industry_list").getJSONObject(i).optString("fund_industry_id"));
-                            obj.setTitle(jsonObject.optJSONArray("fund_industry_list").getJSONObject(i).optString("fund_industry_name"));
-                            obj.setPosition(i);
-                            fundIndustryList.add(obj);
-                        }
-                        if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
-                            AsyncNew a = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FUND_PORTFOLIO_TAG, Constants.FUND_PORTFOLIO_LIST + ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID), Constants.HTTP_GET_REQUEST, null);
+                            AsyncNew a = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.BETA_TEST_TARGET_MARKET_LIST_TAG, Constants.BETA_TEST_TARGET_MARKET_LIST_URL, Constants.HTTP_GET_REQUEST, null);
                             a.execute();
                         } else {
                             ((HomeActivity) getActivity()).dismissProgressDialog();
@@ -1156,39 +1077,38 @@ public class RequestBetaTesterFragment extends Fragment implements onActivityRes
 
                     } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
                         ((HomeActivity) getActivity()).dismissProgressDialog();
-                        fundIndustryList.clear();
+                        interestedKeywordsList.clear();
                     }
                 } catch (JSONException e) {
                     ((HomeActivity) getActivity()).dismissProgressDialog();
                     e.printStackTrace();
                 }
-            } else if (tag.equals(Constants.FUND_PORTFOLIO_TAG)) {
+            } else if (tag.equals(Constants.BETA_TEST_TARGET_MARKET_LIST_TAG)) {
                 CrowdBootstrapLogger.logInfo(result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
-
-                    fundPotfolioList.clear();
+                    targetMarktetList.clear();
                     if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
-                        for (int i = 0; i < jsonObject.optJSONArray("portfolio_list").length(); i++) {
-                            GenericObject obj = new GenericObject();
-                            obj.setId(jsonObject.optJSONArray("portfolio_list").getJSONObject(i).optString("startup_id"));
-                            obj.setTitle(jsonObject.optJSONArray("portfolio_list").getJSONObject(i).optString("startup_name"));
-                            obj.setPosition(i);
-                            fundPotfolioList.add(obj);
-                        }
                         ((HomeActivity) getActivity()).dismissProgressDialog();
-
+                        for (int i = 0; i < jsonObject.optJSONArray("beta_test_target_market_list").length(); i++) {
+                            GenericObject obj = new GenericObject();
+                            obj.setId(jsonObject.optJSONArray("beta_test_target_market_list").getJSONObject(i).optString("id"));
+                            obj.setTitle(jsonObject.optJSONArray("beta_test_target_market_list").getJSONObject(i).optString("name"));
+                            obj.setPosition(i);
+                            targetMarktetList.add(obj);
+                        }
 
                     } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
                         ((HomeActivity) getActivity()).dismissProgressDialog();
-                        fundPotfolioList.clear();
+                        targetMarktetList.clear();
                     }
                 } catch (JSONException e) {
                     ((HomeActivity) getActivity()).dismissProgressDialog();
                     e.printStackTrace();
                 }
             }
-        */}
+
+        }
     }
 
 
@@ -1211,7 +1131,7 @@ public class RequestBetaTesterFragment extends Fragment implements onActivityRes
                     super.onPreExecute();
 
                     pDialog = new ProgressDialog(getActivity());
-                    pDialog.setMessage("Creating Fund Please wait...");
+                    pDialog.setMessage("Creating Beta Tester Please wait...");
                     pDialog.setIndeterminate(false);
                     pDialog.setMax(100);
                     pDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
@@ -1417,7 +1337,7 @@ public class RequestBetaTesterFragment extends Fragment implements onActivityRes
 
                                 if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
                                     pathofmedia.clear();
-                                    Toast.makeText(getActivity(), "Your fund is created successfully.", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getActivity(), jsonObject.getString("message"), Toast.LENGTH_LONG).show();
                                     getActivity().onBackPressed();
                                 } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
                                     if (jsonObject.has("errors")) {

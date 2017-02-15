@@ -502,6 +502,56 @@ public final class Constants {
     public static final String FUND_UNFOLLOW_URL = "unfollowFund";
     public static final String FUND_UNFOLLOW_TAG = "unfollowFund_tag";
 
+    //Beta test module
+    public static final String BETA_TEST_KEYWORDS_LIST_URL = "betaTestKeywordsList";
+    public static final String BETA_TEST_KEYWORDS_LIST_TAG = "betaTestKeywordsList_tag";
+
+    public static final String BETA_TEST_INTEREST_KEYWORDS_LIST_URL = "betaInterestKeywordLists";
+    public static final String BETA_TEST_INTEREST_KEYWORDS_LIST_TAG = "betaInterestKeywordLists_tag";
+
+    public static final String BETA_TEST_TARGET_MARKET_LIST_URL = "betaTestTargetMarketsList";
+    public static final String BETA_TEST_TARGET_MARKET_LIST_TAG = "betaTestTargetMarketsList_tag";
+
+    public static final String BETA_TEST_DETAILS_URL = "betaTestDetails";
+    public static final String BETA_TEST_DETAILS_TAG = "betaTestDetails_tag";
+
+    public static final String CREATE_BETA_TEST_URL = "addBetaTest";
+    public static final String UPDATE_BETA_TEST_URL = "editBetaTest";
+
+    public static final String FIND_BETA_TESTER_LIST = "findBetaTests";
+    public static final String FIND_BETA_TESTER_TAG = "findBetaTests_tag";
+
+    public static final String MY_BETA_TESTER_LIST = "myBetaTest";
+    public static final String MY_BETA_TESTER_TAG = "myBetaTest_tag";
+
+    public static final String ARCHIVED_BETA_TESTER_LIST = "archiveBetaTestList";
+    public static final String ARCHIVED_BETA_TESTER_TAG = "archiveBetaTestList_tag";
+
+    public static final String DEACTIVATED_BETA_TESTER_LIST = "deactivateBetaTestList";
+    public static final String DEACTIVATED_BETA_TESTER_TAG = "deactivateBetaTestList_tag";
+
+    public static final String BETA_TESTER_DELETE_URL = "deleteBetaTest";
+    public static final String BETA_TESTER_ARCHIEVE_URL = "archiveBetaTest";
+    public static final String BETA_TESTER_DEACTIVATE_URL = "deactivateBetaTest";
+    public static final String BETA_TESTER_ACTIVATE_URL = "activateBetaTest";
+    public static final String BETA_TESTER_LIKE_URL = "likeBetaTest";
+    public static final String BETA_TESTER_LIKE_TAG = "likeBetaTest_tag";
+    public static final String BETA_TESTER_DISLIKE_URL = "disLikeBetaTest";
+    public static final String BETA_TESTER_DISLIKE_TAG = "disLikeBetaTest_tag";
+
+    public static final String BETA_TESTER_LIKERS_LIST = "betaTestLikeList";
+    public static final String BETA_TESTER_LIKERS_TAG = "betaTestLikeList_tag";
+
+    public static final String BETA_TESTER_DISLIKERS_LIST = "betaTestDislikeList";
+    public static final String BETA_TESTER_DISLIKERS_TAG = "betaTestDislikeList_tag";
+
+    public static final String BETA_TESTER_FOLLOW_URL = "followBetaTest";
+    public static final String BETA_TESTER_FOLLOW_TAG = "followBetaTest_tag";
+
+    public static final String BETA_TESTER_UNFOLLOW_URL = "unfollowBetaTest";
+    public static final String BETA_TESTER_UNFOLLOW_TAG = "unfollowBetaTest_tag";
+
+    //public static final String CREATE_BETA_TEST_TAG = "addBetaTest_tag";
 
     //Password regex pattern for validation.
     public static final String PASSWORD_REGEX_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[$@$!%*?&])(?=\\S+$).{8,25}$";

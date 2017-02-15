@@ -35,7 +35,7 @@ import java.security.NoSuchAlgorithmException;
 public class LoginActivity extends AppCompatActivity implements AsyncTaskCompleteListener<String> {
     ProgressDialog pd;
     public AsyncTaskCompleteListener<String> mListener;
-    private BroadcastReceiver mRegistrationBroadcastReceiver;
+    //private BroadcastReceiver mRegistrationBroadcastReceiver;
 
     public NetworkConnectivity networkConnectivity;
     public onActivityResultListener activytresultListener;
@@ -53,12 +53,12 @@ public class LoginActivity extends AppCompatActivity implements AsyncTaskComplet
 
 
 
-        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
+       /* mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 boolean sentToken = prefManager.getBoolean(Constants.SENT_TOKEN_TO_SERVER);
             }
-        };
+        };*/
 
 
         //getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -87,7 +87,7 @@ public class LoginActivity extends AppCompatActivity implements AsyncTaskComplet
         pd.dismiss();
     }
 
-    @Override
+    /*@Override
     protected void onPause() {
         super.onPause();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
@@ -97,7 +97,7 @@ public class LoginActivity extends AppCompatActivity implements AsyncTaskComplet
     protected void onResume() {
         super.onResume();
         LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver, new IntentFilter(Constants.REGISTRATION_COMPLETE));
-    }
+    }*/
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -78,14 +78,14 @@ public class BetaTestersLikeDislikeFragment extends Fragment implements AdapterV
     public void onResume() {
         super.onResume();
         ((HomeActivity) getActivity()).setOnBackPressedListener(this);
-
+        ((HomeActivity) getActivity()).setActionBarTitle(bundle.getString(Constants.LIKE_DISLIKE));
         current_page = 1;
         list = new ArrayList<>();
         adapter = null;
         if (bundle.getString(Constants.LIKE_DISLIKE).equals(Constants.LIKE)) {
-            getLikersDislikers(current_page, Constants.FUND_LIKERS_LIST, Constants.FUND_LIKERS_TAG);
+            getLikersDislikers(current_page, Constants.BETA_TESTER_LIKERS_LIST, Constants.BETA_TESTER_LIKERS_TAG);
         } else {
-            getLikersDislikers(current_page, Constants.FUND_DISLIKERS_LIST, Constants.FUND_DISLIKERS_TAG);
+            getLikersDislikers(current_page, Constants.BETA_TESTER_DISLIKERS_LIST, Constants.BETA_TESTER_DISLIKERS_TAG);
         }
 
 
@@ -106,9 +106,9 @@ public class BetaTestersLikeDislikeFragment extends Fragment implements AdapterV
                     current_page += 1;
                     if (TOTAL_ITEMS != adapter.getCount()) {
                         if (bundle.getString(Constants.LIKE_DISLIKE).equals(Constants.LIKE)) {
-                            getLikersDislikers(current_page, Constants.FUND_LIKERS_LIST, Constants.FUND_LIKERS_TAG);
+                            getLikersDislikers(current_page, Constants.BETA_TESTER_LIKERS_LIST, Constants.BETA_TESTER_LIKERS_TAG);
                         } else {
-                            getLikersDislikers(current_page, Constants.FUND_DISLIKERS_LIST, Constants.FUND_DISLIKERS_TAG);
+                            getLikersDislikers(current_page, Constants.BETA_TESTER_DISLIKERS_LIST, Constants.BETA_TESTER_DISLIKERS_TAG);
                         }
                     } else {
                         list_persons.onLoadMoreComplete();
@@ -127,7 +127,7 @@ public class BetaTestersLikeDislikeFragment extends Fragment implements AdapterV
         if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
             try {
                 JSONObject obj = new JSONObject();
-                obj.put("fund_id", mFundId);
+                obj.put("beta_test_id", mFundId);
                 obj.put("page_no", pageNumber);
                 ((HomeActivity) getActivity()).showProgressDialog();
                 asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), tag, url, Constants.HTTP_POST_REQUEST, obj);
@@ -181,7 +181,7 @@ public class BetaTestersLikeDislikeFragment extends Fragment implements AdapterV
             ((HomeActivity) getActivity()).dismissProgressDialog();
             Toast.makeText(getActivity(), getString(R.string.server_down), Toast.LENGTH_LONG).show();
         } else {
-            if (tag.equals(Constants.FUND_LIKERS_TAG)) {
+            if (tag.equals(Constants.BETA_TESTER_LIKERS_TAG)) {
                 ((HomeActivity) getActivity()).dismissProgressDialog();
                 try {
                     JSONObject jsonObject = new JSONObject(result);
@@ -213,7 +213,7 @@ public class BetaTestersLikeDislikeFragment extends Fragment implements AdapterV
                 int index = list_persons.getLastVisiblePosition();
                 list_persons.smoothScrollToPosition(index);
 
-            } else if (tag.equals(Constants.FUND_DISLIKERS_TAG)) {
+            } else if (tag.equals(Constants.BETA_TESTER_DISLIKERS_TAG)) {
 
                 ((HomeActivity) getActivity()).dismissProgressDialog();
                 try {

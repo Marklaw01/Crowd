@@ -286,10 +286,6 @@
     <string name="select_users_choose_users">Please, choose at least two participant.</string>
 
 
-
-
-
-
     <string name="cancelled">Cancelled</string>
     <string name="permission_not_granted">Unable to perform selected action because permissions were not granted.</string>
     <string name="ok">OK</string>
@@ -370,5 +366,13 @@
     <string name="requestEarlyAdpoters">Request Early Adopters</string>
     <string name="updateEarlyAdoptor">Update Early Adaptor</string>
     <string name="opportunity_title">Opportunity Title</string>
-
+    <string name="requestFocusGroup">Request a Focus Group</string>
+    <string name="beta_test_s_title_required">Beta Test\'s title cannot be left blank!</string>
+    <string name="startDateRequired">Start Date cannot be left blank!</string>
+    <string name="endDateRequired">End Date cannot be left blank!</string>
+    <string name="startdate_validation">Start date cannot be present or past date!</string>
+    <string name="end_date_validation">End date cannot be present or past date!</string>
+    <string name="targetMarket_required">Select at least one Target market!</string>
+    <string name="keyword_required">Select at least one Keyword!</string>
+    <string name="interestKeyword_required">Select at least one Interested Keyword!</string>
 </resources>

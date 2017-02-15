@@ -23,7 +23,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.staging.R;
 import com.staging.activities.HomeActivity;
 import com.staging.exception.CrowdException;
-import com.staging.fragments.endorsorsModule.EndorsersLikeDislikeFragment;
+import com.staging.fragments.focusGroupModule.FocusGroupLikeDislikeFragment;
 import com.staging.logger.CrowdBootstrapLogger;
 import com.staging.models.FundsObject;
 import com.staging.utilities.Constants;
@@ -69,7 +69,6 @@ public class DeactivatedFocusGroupAdapter extends BaseAdapter implements View.On
                 .cacheOnDisk(true)
                 .considerExifParams(true)
                 .bitmapConfig(Bitmap.Config.RGB_565)
-
                 .build();
     }
 
@@ -276,7 +275,7 @@ public class DeactivatedFocusGroupAdapter extends BaseAdapter implements View.On
                 Bundle like = new Bundle();
                 like.putInt(Constants.FUND_ID, 1);
                 like.putString(Constants.LIKE_DISLIKE, Constants.LIKE);
-                Fragment likeFragment = new EndorsersLikeDislikeFragment();
+                Fragment likeFragment = new FocusGroupLikeDislikeFragment();
                 likeFragment.setArguments(like);
                 (((HomeActivity) context)).replaceFragment(likeFragment);
                 break;
@@ -285,7 +284,7 @@ public class DeactivatedFocusGroupAdapter extends BaseAdapter implements View.On
                 Bundle dislike = new Bundle();
                 dislike.putInt(Constants.FUND_ID, 1);
                 dislike.putString(Constants.LIKE_DISLIKE, Constants.DISLIKE);
-                Fragment dislikeFragment = new EndorsersLikeDislikeFragment();
+                Fragment dislikeFragment = new FocusGroupLikeDislikeFragment();
                 dislikeFragment.setArguments(dislike);
                 (((HomeActivity) context)).replaceFragment(dislikeFragment);
                 break;

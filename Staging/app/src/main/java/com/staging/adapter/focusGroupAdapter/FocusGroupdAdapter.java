@@ -22,7 +22,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.staging.R;
 import com.staging.activities.HomeActivity;
 import com.staging.exception.CrowdException;
-import com.staging.fragments.endorsorsModule.EndorsersLikeDislikeFragment;
+import com.staging.fragments.focusGroupModule.FocusGroupLikeDislikeFragment;
 import com.staging.logger.CrowdBootstrapLogger;
 import com.staging.models.FundsObject;
 import com.staging.utilities.Constants;
@@ -286,7 +286,7 @@ public class FocusGroupdAdapter extends BaseAdapter implements View.OnClickListe
                     Bundle like = new Bundle();
                     like.putInt(Constants.FUND_ID, Integer.parseInt(list.get(tagLikeId).getId()));
                     like.putString(Constants.LIKE_DISLIKE, Constants.LIKE);
-                    Fragment likeFragment = new EndorsersLikeDislikeFragment();
+                    Fragment likeFragment = new FocusGroupLikeDislikeFragment();
                     likeFragment.setArguments(like);
                     (((HomeActivity) context)).replaceFragment(likeFragment);
                 }
@@ -298,7 +298,7 @@ public class FocusGroupdAdapter extends BaseAdapter implements View.OnClickListe
                     Bundle dislike = new Bundle();
                     dislike.putInt(Constants.FUND_ID, Integer.parseInt(list.get(tagDislikeId).getId()));
                     dislike.putString(Constants.LIKE_DISLIKE, Constants.DISLIKE);
-                    Fragment dislikeFragment = new EndorsersLikeDislikeFragment();
+                    Fragment dislikeFragment = new FocusGroupLikeDislikeFragment();
                     dislikeFragment.setArguments(dislike);
                     (((HomeActivity) context)).replaceFragment(dislikeFragment);
                 }
