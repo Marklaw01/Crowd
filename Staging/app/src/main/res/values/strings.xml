@@ -375,4 +375,6 @@
     <string name="targetMarket_required">Select at least one Target market!</string>
     <string name="keyword_required">Select at least one Keyword!</string>
     <string name="interestKeyword_required">Select at least one Interested Keyword!</string>
+
+    <string name="title_required">Opportunity title cannot be left blank!</string>
 </resources>

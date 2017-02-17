@@ -172,7 +172,7 @@ public class BoardMembersAdapter extends BaseAdapter implements View.OnClickList
             holder.tv_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showDialog(position, "Do you want to delete this Fund?", Constants.FUND_DELETE_URL);
+                    showDialog(position, "Do you want to delete this Opportunity?", Constants.BOARD_MEMBERS_DELETE_URL);
                 }
             });
 
@@ -180,7 +180,7 @@ public class BoardMembersAdapter extends BaseAdapter implements View.OnClickList
             holder.tv_archive.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showDialog(position, "Do you want to archive this Fund?", Constants.FUND_ARCHIEVE_URL);
+                    showDialog(position, "Do you want to archive this Opportunity?", Constants.BOARD_MEMBERS_ARCHIEVE_URL);
                 }
             });
 
@@ -188,7 +188,7 @@ public class BoardMembersAdapter extends BaseAdapter implements View.OnClickList
             holder.tv_deactivate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showDialog(position, "Do you want to deactivate this Fund?", Constants.FUND_DEACTIVATE_URL);
+                    showDialog(position, "Do you want to deactivate this Opportunity?", Constants.BOARD_MEMBERS_DEACTIVATE_URL);
                 }
             });
 
@@ -223,7 +223,7 @@ public class BoardMembersAdapter extends BaseAdapter implements View.OnClickList
                             try {
                                 JSONObject obj = new JSONObject();
                                 obj.put("user_id", PrefManager.getInstance(context).getString(Constants.USER_ID));
-                                obj.put("fund_id", list.get(position).getId());
+                                obj.put("board_member_id", list.get(position).getId());
                                 doJob(position, url, Constants.HTTP_POST_REQUEST, obj);
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -256,7 +256,7 @@ public class BoardMembersAdapter extends BaseAdapter implements View.OnClickList
                     try {
                         JSONObject likeObj = new JSONObject();
                         likeObj.put("like_by", PrefManager.getInstance(context).getString(Constants.USER_ID));
-                        likeObj.put("fund_id", list.get(tagLikePosition).getId());
+                        likeObj.put("board_member_id", list.get(tagLikePosition).getId());
                         fundLikeDislike(tagLikePosition, Constants.FUND_LIKE_URL, Constants.HTTP_POST_REQUEST, likeObj);
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -272,7 +272,7 @@ public class BoardMembersAdapter extends BaseAdapter implements View.OnClickList
                     try {
                         JSONObject dislikeObj = new JSONObject();
                         dislikeObj.put("dislike_by", PrefManager.getInstance(context).getString(Constants.USER_ID));
-                        dislikeObj.put("fund_id", list.get(tagDislikeIdPosition).getId());
+                        dislikeObj.put("board_member_id", list.get(tagDislikeIdPosition).getId());
                         fundLikeDislike(tagDislikeIdPosition, Constants.FUND_DISLIKE_URL, Constants.HTTP_POST_REQUEST, dislikeObj);
                     } catch (JSONException e) {
                         e.printStackTrace();

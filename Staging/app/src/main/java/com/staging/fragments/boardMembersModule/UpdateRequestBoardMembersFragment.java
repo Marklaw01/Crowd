@@ -194,15 +194,16 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
         documentObjectList = new ArrayList<>();*/
         bundle = this.getArguments();
         fund_id = bundle.getString(Constants.FUND_ID);
-        /*if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
+        if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
             ((HomeActivity) getActivity()).showProgressDialog();
-            AsyncNew a = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FUND_MANAGERS_TAG, Constants.FUND_MANAGERS_LIST + ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID), Constants.HTTP_GET_REQUEST, null);
+            AsyncNew a = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.BOARD_MEMBERS_KEYWORDS_LIST_TAG, Constants.BOARD_MEMBERS_KEYWORDS_LIST_URL, Constants.HTTP_GET_REQUEST, null);
             a.execute();
         } else {
             ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
-        }*/
+        }
 
     }
+
     /**
      * Set Start Investment Date on edit text
      */
@@ -228,6 +229,7 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
             e.printStackTrace();
         }
     }
+
     /**
      * Set Start Investment Date on edit text
      */
@@ -399,7 +401,6 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
         tv_deleteFile.setOnClickListener(this);
 
 
-
         btn_playAudio.setOnClickListener(this);
         btn_viewDocument.setOnClickListener(this);
         btn_playVideo.setOnClickListener(this);
@@ -434,7 +435,7 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
         list_audios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (audioObject!=null){
+                if (audioObject != null) {
                     Fragment rateContributor = new WebViewFragment();
 
 
@@ -451,7 +452,7 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
         list_docs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (docObject!=null){
+                if (docObject != null) {
                     Fragment rateContributor = new WebViewFragment();
 
 
@@ -468,7 +469,7 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
         list_video.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (videoObject!=null){
+                if (videoObject != null) {
                     Fragment rateContributor = new WebViewFragment();
 
 
@@ -870,74 +871,57 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_submit:
+
                 InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 inputMethodManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
-                /*if (et_fundTitle.getText().toString().isEmpty()) {
-                    Toast.makeText(getActivity(), getString(R.string.fund_title_required), Toast.LENGTH_LONG).show();
+                if (et_title.getText().toString().isEmpty()) {
+                    Toast.makeText(getActivity(), getString(R.string.beta_test_s_title_required), Toast.LENGTH_LONG).show();
                     return;
                 }
-                if (et_fundDescription.getText().toString().isEmpty()) {
+                if (et_description.getText().toString().isEmpty()) {
                     Toast.makeText(getActivity(), getString(R.string.description_required), Toast.LENGTH_LONG).show();
                     return;
                 }
-                if (et_fundManagers.getText().toString().isEmpty()) {
-                    Toast.makeText(getActivity(), getString(R.string.fund_managers_required), Toast.LENGTH_LONG).show();
-                    return;
-                }
-                if (et_fundsponsers.getText().toString().isEmpty()) {
-                    Toast.makeText(getActivity(), getString(R.string.fund_sponsors_required), Toast.LENGTH_LONG).show();
-                    return;
-                }
-                if (et_industry.getText().toString().isEmpty()) {
-                    Toast.makeText(getActivity(), getString(R.string.fund_industry_required), Toast.LENGTH_LONG).show();
-                    return;
-                }
-                if (et_portfolio.getText().toString().isEmpty()) {
-                    Toast.makeText(getActivity(), getString(R.string.fund_portfolio_required), Toast.LENGTH_LONG).show();
-                    return;
-                }
-                if (et_investmentStartDate.getText().toString().isEmpty()) {
-                    Toast.makeText(getActivity(), getString(R.string.fund_startDate_required), Toast.LENGTH_LONG).show();
+                if (et_start_date.getText().toString().isEmpty()) {
+                    Toast.makeText(getActivity(), getString(R.string.startDateRequired), Toast.LENGTH_LONG).show();
                     return;
                 }
                 if (DateTimeFormatClass.compareDates(myCalendarInvestmentStartDate.getTime())) {
-                    Toast.makeText(getActivity(), getString(R.string.fund_startdate_validation), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), getString(R.string.startdate_validation), Toast.LENGTH_LONG).show();
                     return;
                 }
-                if (et_investmentEndDate.getText().toString().isEmpty()) {
-                    Toast.makeText(getActivity(), getString(R.string.fund_endDate_required), Toast.LENGTH_LONG).show();
+                if (et_endDate.getText().toString().isEmpty()) {
+                    Toast.makeText(getActivity(), getString(R.string.endDateRequired), Toast.LENGTH_LONG).show();
                     return;
                 }
                 if (DateTimeFormatClass.compareDates(myCalendarInvestmentEndDate.getTime())) {
-                    Toast.makeText(getActivity(), getString(R.string.fund_end_date_validation), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), getString(R.string.end_date_validation), Toast.LENGTH_LONG).show();
                     return;
                 }
-                if (et_fundsClosedDate.getText().toString().isEmpty()) {
-                    Toast.makeText(getActivity(), getString(R.string.fund_close_required), Toast.LENGTH_LONG).show();
-                    return;
-                }
-                if (DateTimeFormatClass.compareDates(myCalendarFuncClosedDate.getTime())) {
-                    Toast.makeText(getActivity(), getString(R.string.fund_close_date_validation), Toast.LENGTH_LONG).show();
+                if (et_targetMarket.getText().toString().isEmpty()) {
+                    Toast.makeText(getActivity(), getString(R.string.targetMarket_required), Toast.LENGTH_LONG).show();
                     return;
                 }
                 if (et_keywords.getText().toString().isEmpty()) {
-                    Toast.makeText(getActivity(), getString(R.string.fund_keyword_required), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), getString(R.string.keyword_required), Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if (et_interestKeywords.getText().toString().isEmpty()) {
+                    Toast.makeText(getActivity(), getString(R.string.interestKeyword_required), Toast.LENGTH_LONG).show();
                     return;
                 }
 
+
                 HashMap<String, String> map = new HashMap<String, String>();
                 map.put("user_id", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
-                map.put("fund_id", fund_id);
-                map.put("title", et_fundTitle.getText().toString().trim());
-                map.put("description", et_fundDescription.getText().toString().trim());
-                map.put("managers_id", selectedFundManagersIDs);
-                map.put("sponsors_id", selectedSponsorsIDs);
-                map.put("indusries_id", selectedIndustriesIDs);
-                map.put("portfolios_id", selectedPortfolioIDs);
-                map.put("start_date", et_investmentStartDate.getText().toString().trim());
-                map.put("end_date", et_investmentEndDate.getText().toString().trim());
-                map.put("close_date", et_fundsClosedDate.getText().toString().trim());
-                map.put("keywords_id", selectedKeywordsIDs);
+                map.put("board_id", fund_id);
+                map.put("title", et_title.getText().toString().trim());
+                map.put("description", et_description.getText().toString().trim());
+                map.put("board_interest_keywords_id", selectedInterestedKeywordsId);
+                map.put("board_oppertunity_keywords_id", selectedKeywordsIDs);
+                map.put("target_market", selectedTargetMarktetIDs);
+                map.put("start_date", et_start_date.getText().toString().trim());
+                map.put("end_date", et_endDate.getText().toString().trim());
                 map.put("image_del", String.valueOf(0));
                 map.put("audio_del", String.valueOf(audio_d));
                 map.put("video_del", String.valueOf(video_d));
@@ -949,12 +933,12 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
                 }
 
                 if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
-                    updateFund(map, Constants.EDIT_FUND_URL);
+                    update(map, Constants.UPDATE_BOARD_MEMBERS_URL);
                 } else {
                     ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
                 }
                 CrowdBootstrapLogger.logInfo("map" + map.toString());
-*/
+
                 break;
             case R.id.btn_playAudio:
                 if (audioObject != null) {
@@ -1124,26 +1108,15 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
 
                 break;
             case R.id.et_targetMarket:
+                showKeywordsDialog(targetMarktetList, getString(R.string.target_market), R.id.et_targetMarket);
                 break;
             case R.id.et_keywords:
+                showKeywordsDialog(keywordsList, getString(R.string.keyword), R.id.et_keywords);
                 break;
             case R.id.et_interestKeywords:
+                showKeywordsDialog(interestedKeywordsList, getString(R.string.interest_keyword), R.id.et_interestKeywords);
                 break;
-            /*case R.id.et_fundManagers:
-                showKeywordsDialog(fundManagersList, getString(R.string.funds_managers), R.id.et_fundManagers);
-                break;
-            case R.id.et_keywords:
-                showKeywordsDialog(fundKeywordsList, getString(R.string.keyword), R.id.et_keywords);
-                break;
-            case R.id.et_industry:
-                showKeywordsDialog(fundIndustryList, getString(R.string.industry), R.id.et_industry);
-                break;
-            case R.id.et_portfolio:
-                showKeywordsDialog(fundPotfolioList, getString(R.string.portfolio_companies), R.id.et_portfolio);
-                break;
-            case R.id.et_fundsponsers:
-                showKeywordsDialog(sponsersList, getString(R.string.sponsers), R.id.et_fundsponsers);
-                break;*/
+
         }
     }
 
@@ -1155,6 +1128,7 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
         } else {
             final Dialog dialog = new Dialog(getActivity());
             dialog.setContentView(R.layout.funds_keywords_dialog);
+            dialog.setCancelable(false);
             final EditText search = (EditText) dialog.findViewById(R.id.et_search);
             search.setHint(getString(R.string.search) + " " + title);
             dialog.setTitle(title);
@@ -1229,16 +1203,6 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
                             et_targetMarket.setText(sb.toString());
                             CrowdBootstrapLogger.logInfo(selectedID.toString() + " " + sb.toString());
                             break;
-                        /*case R.id.et_fundsponsers:
-                            selectedSponsorsIDs = selectedID.toString();
-                            et_fundsponsers.setText(sb.toString());
-                            CrowdBootstrapLogger.logInfo(selectedID.toString() + " " + sb.toString());
-                            break;
-                        case R.id.et_portfolio:
-                            selectedPortfolioIDs = selectedID.toString();
-                            et_portfolio.setText(sb.toString());
-                            CrowdBootstrapLogger.logInfo(selectedID.toString() + " " + sb.toString());
-                            break;*/
 
                     }
                     dialog.dismiss();
@@ -1259,7 +1223,170 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
         } else if (result.equalsIgnoreCase(Constants.SERVEREXCEPTION)) {
             ((HomeActivity) getActivity()).dismissProgressDialog();
             Toast.makeText(getActivity(), getString(R.string.server_down), Toast.LENGTH_LONG).show();
-        } else {/*
+        } else {
+
+            if (tag.equals(Constants.BOARD_MEMBERS_KEYWORDS_LIST_TAG)) {
+                CrowdBootstrapLogger.logInfo(result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    keywordsList.clear();
+                    if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
+                        for (int i = 0; i < jsonObject.optJSONArray("board_keyword_list").length(); i++) {
+                            GenericObject obj = new GenericObject();
+                            obj.setId(jsonObject.optJSONArray("board_keyword_list").getJSONObject(i).optString("id"));
+                            obj.setTitle(jsonObject.optJSONArray("board_keyword_list").getJSONObject(i).optString("name"));
+                            obj.setPosition(i);
+                            keywordsList.add(obj);
+                        }
+                        if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
+                            AsyncNew a = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.BOARD_MEMBERS_INTEREST_KEYWORDS_LIST_TAG, Constants.BOARD_MEMBERS_INTEREST_KEYWORDS_LIST_URL, Constants.HTTP_GET_REQUEST, null);
+                            a.execute();
+                        } else {
+                            ((HomeActivity) getActivity()).dismissProgressDialog();
+                            ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
+                        }
+
+                    } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
+                        ((HomeActivity) getActivity()).dismissProgressDialog();
+                        keywordsList.clear();
+                    }
+                } catch (JSONException e) {
+                    ((HomeActivity) getActivity()).dismissProgressDialog();
+                    e.printStackTrace();
+                }
+            } else if (tag.equals(Constants.BOARD_MEMBERS_INTEREST_KEYWORDS_LIST_TAG)) {
+                CrowdBootstrapLogger.logInfo(result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    interestedKeywordsList.clear();
+                    if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
+                        //((HomeActivity) getActivity()).dismissProgressDialog();
+                        for (int i = 0; i < jsonObject.optJSONArray("board_interest_keyword_list").length(); i++) {
+                            GenericObject obj = new GenericObject();
+                            obj.setId(jsonObject.optJSONArray("board_interest_keyword_list").getJSONObject(i).optString("id"));
+                            obj.setTitle(jsonObject.optJSONArray("board_interest_keyword_list").getJSONObject(i).optString("name"));
+                            obj.setPosition(i);
+                            interestedKeywordsList.add(obj);
+                        }
+                        if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
+                            AsyncNew a = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.BOARD_MEMBERS_TARGET_MARKET_LIST_TAG, Constants.BOARD_MEMBERS_TARGET_MARKET_LIST_URL, Constants.HTTP_GET_REQUEST, null);
+                            a.execute();
+                        } else {
+                            ((HomeActivity) getActivity()).dismissProgressDialog();
+                            ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
+                        }
+
+                    } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
+                        ((HomeActivity) getActivity()).dismissProgressDialog();
+                        interestedKeywordsList.clear();
+                    }
+                } catch (JSONException e) {
+                    ((HomeActivity) getActivity()).dismissProgressDialog();
+                    e.printStackTrace();
+                }
+            } else if (tag.equals(Constants.BOARD_MEMBERS_TARGET_MARKET_LIST_TAG)) {
+                CrowdBootstrapLogger.logInfo(result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    targetMarktetList.clear();
+                    if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
+                        //((HomeActivity) getActivity()).dismissProgressDialog();
+                        for (int i = 0; i < jsonObject.optJSONArray("board_target_market_list").length(); i++) {
+                            GenericObject obj = new GenericObject();
+                            obj.setId(jsonObject.optJSONArray("board_target_market_list").getJSONObject(i).optString("id"));
+                            obj.setTitle(jsonObject.optJSONArray("board_target_market_list").getJSONObject(i).optString("name"));
+                            obj.setPosition(i);
+                            targetMarktetList.add(obj);
+                        }
+
+
+                        if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
+                            JSONObject object = new JSONObject();
+                            object.put("user_id", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
+                            object.put("board_id", fund_id);
+                            AsyncNew a = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.BOARD_MEMBERS_DETAILS_TAG, Constants.BOARD_MEMBERS_DETAILS_URL, Constants.HTTP_POST_REQUEST, object);
+                            a.execute();
+                        } else {
+                            ((HomeActivity) getActivity()).dismissProgressDialog();
+                            ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
+                        }
+                    } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
+                        ((HomeActivity) getActivity()).dismissProgressDialog();
+                        targetMarktetList.clear();
+                    }
+                } catch (JSONException e) {
+                    ((HomeActivity) getActivity()).dismissProgressDialog();
+                    e.printStackTrace();
+                }
+            } else if (tag.equals(Constants.BOARD_MEMBERS_DETAILS_TAG)) {
+                CrowdBootstrapLogger.logInfo(result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+
+
+                    if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
+                        ((HomeActivity) getActivity()).dismissProgressDialog();
+                        et_description.setText(jsonObject.getString("description"));
+                        et_title.setText(jsonObject.getString("title"));
+
+                        et_start_date.setText(jsonObject.getString("start_date"));
+                        et_endDate.setText(jsonObject.getString("end_date"));
+                        ImageLoader.getInstance().displayImage(Constants.APP_IMAGE_URL + jsonObject.getString("image").trim(), image_fundImage);
+
+                        if (!jsonObject.getString("document").isEmpty()) {
+                            docObject = new AudioObject();
+                            docObject.setAudioUrl(Constants.APP_IMAGE_URL + "/" + jsonObject.getString("fund_document"));
+                            int a = jsonObject.getString("document").lastIndexOf("/");
+                            docObject.setOrignalName(jsonObject.getString("document").substring(a + 1));
+                            docObject.setName("Document 1");
+                            list_docs.setText(docObject.getName());
+                        } else {
+                            expandable_viewDocument.setVisibility(View.GONE);
+                        }
+                        if (!jsonObject.getString("video").isEmpty()) {
+                            videoObject = new AudioObject();
+                            videoObject.setAudioUrl(Constants.APP_IMAGE_URL + "/" + jsonObject.getString("fund_video"));
+                            int a = jsonObject.getString("video").lastIndexOf("/");
+                            videoObject.setOrignalName(jsonObject.getString("video").substring(a + 1));
+                            videoObject.setName("Video 1");
+                            list_video.setText(videoObject.getName());
+                        } else {
+                            expandable_playVideo.setVisibility(View.GONE);
+                        }
+
+                        if (!jsonObject.getString("audio").isEmpty()) {
+                            audioObject = new AudioObject();
+                            audioObject.setAudioUrl(Constants.APP_IMAGE_URL + "/" + jsonObject.getString("fund_audio"));
+                            int a = jsonObject.getString("audio").lastIndexOf("/");
+                            audioObject.setOrignalName(jsonObject.getString("audio").substring(a + 1));
+                            audioObject.setName("Audio 1");
+                            list_audios.setText(audioObject.getName());
+                        } else {
+                            expandable_playAudio.setVisibility(View.GONE);
+                        }
+
+                        //fund managers
+                        preChecked(jsonObject.getJSONArray("interest_keyword"), interestedKeywordsList, R.id.et_interestKeywords);
+
+
+                        //fund sponsors
+                        preChecked(jsonObject.getJSONArray("keywords"), keywordsList, R.id.et_keywords);
+
+
+                        //fund industry
+                        preChecked(jsonObject.getJSONArray("target_market"), targetMarktetList, R.id.et_targetMarket);
+
+
+                    } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
+                        ((HomeActivity) getActivity()).dismissProgressDialog();
+                    }
+                } catch (JSONException e) {
+                    ((HomeActivity) getActivity()).dismissProgressDialog();
+                    e.printStackTrace();
+                }
+            }
+
+            /*
             if (tag.equals(Constants.FUND_MANAGERS_TAG)) {
                 CrowdBootstrapLogger.logInfo(result);
                 try {
@@ -1466,12 +1593,14 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
                         //fund managers
                         preChecked(jsonObject.getJSONArray("fund_mangers"), fundManagersList, R.id.et_fundManagers);
 
+
                         //fund sponsors
                         preChecked(jsonObject.getJSONArray("fund_sponsors"), sponsersList, R.id.et_fundsponsers);
 
 
                         //fund industry
                         preChecked(jsonObject.getJSONArray("fund_industries"), fundIndustryList, R.id.et_industry);
+
 
                         //fund portfolio
                         preChecked(jsonObject.getJSONArray("fund_portfolios"), fundPotfolioList, R.id.et_portfolio);
@@ -1481,6 +1610,7 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
 
                         preChecked(jsonObject.getJSONArray("fund_keywords"), fundKeywordsList, R.id.et_keywords);
 
+
                     } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
                         ((HomeActivity) getActivity()).dismissProgressDialog();
                     }
@@ -1489,7 +1619,8 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
                     e.printStackTrace();
                 }
             }
-       */ }
+        */
+        }
     }
 
     private void preChecked(JSONArray jsonArray, ArrayList<GenericObject> list, int id) {
@@ -1544,7 +1675,7 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
      * @param map
      * @param createUrl
      */
-    private void updateFund(final HashMap<String, String> map, final String createUrl) {
+    private void update(final HashMap<String, String> map, final String createUrl) {
 
         try {
             new AsyncTask<Integer, Integer, String>() {
@@ -1766,7 +1897,7 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
                                 JSONObject jsonObject = new JSONObject(result);
                                 if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
                                     pathofmedia.clear();
-                                    Toast.makeText(getActivity(), "Your fund is updated successfully.", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getActivity(), jsonObject.optString("message"), Toast.LENGTH_LONG).show();
                                     getActivity().onBackPressed();
                                 } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
 
@@ -1784,275 +1915,6 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
             e.printStackTrace();
         }
     }
-
-    /*class DocumentListAdapter extends BaseAdapter {
-        private LayoutInflater l_Inflater;
-
-        class ViewHolder {
-            TextView tv_name;
-            ImageView view;
-            LinearLayout row_layout;
-        }
-
-        public DocumentListAdapter() {
-            l_Inflater = LayoutInflater.from(getActivity());
-        }
-
-        @Override
-        public int getCount() {
-            return documentObjectList.size();
-        }
-
-
-        @Override
-        public Object getItem(int position) {
-            return documentObjectList.get(position);
-        }
-
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(final int position, View convertView, ViewGroup parent) {
-            ViewHolder holder;
-
-
-            try {
-                if (convertView == null) {
-                    convertView = l_Inflater.inflate(R.layout.row_item, null);
-                    holder = new ViewHolder();
-                    holder.row_layout = (LinearLayout) convertView.findViewById(R.id.row_layout);
-                    holder.tv_name = (TextView) convertView.findViewById(R.id.text1);
-                    holder.view = (ImageView) convertView.findViewById(R.id.view);
-                    holder.view.setBackground(getResources().getDrawable(R.drawable.delete_file));
-                    convertView.setTag(holder);
-
-                } else {
-                    holder = (ViewHolder) convertView.getTag();
-                }
-                try {
-                    holder.tv_name.setText(documentObjectList.get(position).getName());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                holder.view.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        delFiles.add(documentObjectList.get(position).getOrignalName());
-                        documentObjectList.remove(position);
-                        notifyDataSetChanged();
-                    }
-                });
-
-                holder.row_layout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Fragment rateContributor = new WebViewFragment();
-
-
-                        Bundle bundle = new Bundle();
-
-                        bundle.putString("url", documentObjectList.get(position).getAudioUrl());
-                        rateContributor.setArguments(bundle);
-                        ((HomeActivity) getActivity()).replaceFragment(rateContributor);
-                        *//*FragmentTransaction transactionRate = getFragmentManager().beginTransaction();
-                        transactionRate.replace(R.id.container, rateContributor);
-                        transactionRate.addToBackStack(null);
-
-                        transactionRate.commit();*//*
-                    }
-                });
-            } catch (Resources.NotFoundException e) {
-                e.printStackTrace();
-            }
-
-            return convertView;
-        }
-    }
-
-    class AudioAdapter extends BaseAdapter {
-        private LayoutInflater l_Inflater;
-
-        class ViewHolder {
-            TextView tv_name;
-            ImageView view;
-            LinearLayout row_layout;
-        }
-
-        public AudioAdapter() {
-            l_Inflater = LayoutInflater.from(getActivity());
-        }
-
-        @Override
-        public int getCount() {
-            return audioObjectsList.size();
-        }
-
-
-        @Override
-        public Object getItem(int position) {
-            return audioObjectsList.get(position);
-        }
-
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(final int position, View convertView, ViewGroup parent) {
-            ViewHolder holder;
-
-
-            try {
-                if (convertView == null) {
-                    convertView = l_Inflater.inflate(R.layout.row_item, null);
-                    holder = new ViewHolder();
-                    holder.row_layout = (LinearLayout) convertView.findViewById(R.id.row_layout);
-                    holder.tv_name = (TextView) convertView.findViewById(R.id.text1);
-                    holder.view = (ImageView) convertView.findViewById(R.id.view);
-                    holder.view.setBackground(getResources().getDrawable(R.drawable.delete_file));
-                    convertView.setTag(holder);
-
-                } else {
-                    holder = (ViewHolder) convertView.getTag();
-                }
-                try {
-                    holder.tv_name.setText(audioObjectsList.get(position).getName());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                holder.view.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        delFiles.add(audioObjectsList.get(position).getOrignalName());
-                        audioObjectsList.remove(position);
-                        notifyDataSetChanged();
-                    }
-                });
-
-                holder.row_layout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Fragment rateContributor = new WebViewFragment();
-
-
-                        Bundle bundle = new Bundle();
-
-                        bundle.putString("url", audioObjectsList.get(position).getAudioUrl());
-                        rateContributor.setArguments(bundle);
-                        ((HomeActivity) getActivity()).replaceFragment(rateContributor);
-                        *//*FragmentTransaction transactionRate = getFragmentManager().beginTransaction();
-                        transactionRate.replace(R.id.container, rateContributor);
-                        transactionRate.addToBackStack(null);
-
-                        transactionRate.commit();*//*
-                    }
-                });
-            } catch (Resources.NotFoundException e) {
-                e.printStackTrace();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return convertView;
-        }
-    }
-
-    class VideoListAdapter extends BaseAdapter {
-        private LayoutInflater l_Inflater;
-
-        class ViewHolder {
-            TextView tv_name;
-            ImageView view;
-            LinearLayout row_layout;
-        }
-
-        public VideoListAdapter() {
-            l_Inflater = LayoutInflater.from(getActivity());
-        }
-
-        @Override
-        public int getCount() {
-            return videoObjectList.size();
-        }
-
-
-        @Override
-        public Object getItem(int position) {
-            return videoObjectList.get(position);
-        }
-
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(final int position, View convertView, ViewGroup parent) {
-            ViewHolder holder;
-
-
-            try {
-                if (convertView == null) {
-                    convertView = l_Inflater.inflate(R.layout.row_item, null);
-                    holder = new ViewHolder();
-                    holder.row_layout = (LinearLayout) convertView.findViewById(R.id.row_layout);
-                    holder.tv_name = (TextView) convertView.findViewById(R.id.text1);
-                    holder.view = (ImageView) convertView.findViewById(R.id.view);
-                    holder.view.setBackground(getResources().getDrawable(R.drawable.delete_file));
-                    convertView.setTag(holder);
-
-                } else {
-                    holder = (ViewHolder) convertView.getTag();
-                }
-                try {
-                    holder.tv_name.setText(videoObjectList.get(position).getName());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                holder.view.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        delFiles.add(videoObjectList.get(position).getOrignalName());
-                        videoObjectList.remove(position);
-                        notifyDataSetChanged();
-                    }
-                });
-                holder.row_layout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Fragment rateContributor = new WebViewFragment();
-
-
-                        Bundle bundle = new Bundle();
-
-                        bundle.putString("url", videoObjectList.get(position).getAudioUrl());
-                        rateContributor.setArguments(bundle);
-                        ((HomeActivity) getActivity()).replaceFragment(rateContributor);
-                        *//*FragmentTransaction transactionRate = getFragmentManager().beginTransaction();
-                        transactionRate.replace(R.id.container, rateContributor);
-                        transactionRate.addToBackStack(null);
-
-                        transactionRate.commit();*//*
-                    }
-                });
-            } catch (Resources.NotFoundException e) {
-                e.printStackTrace();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            return convertView;
-        }
-    }*/
 
     public ValueAnimator slideAnimatorForDocument(int start, int end) {
 

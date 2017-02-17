@@ -182,7 +182,7 @@ public class DeactivatedBoardMembersAdapter extends BaseAdapter implements View.
             holder.tv_archive.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showDialog(position, "Do you want to activate this Fund?", Constants.FUND_ACTIVATE_URL);
+                    showDialog(position, "Do you want to activate this Opportunity?", Constants.BOARD_MEMBERS_ACTIVATE_URL);
                 }
             });
         } catch (Exception e) {
@@ -216,7 +216,7 @@ public class DeactivatedBoardMembersAdapter extends BaseAdapter implements View.
                             try {
                                 JSONObject obj = new JSONObject();
                                 obj.put("user_id", PrefManager.getInstance(context).getString(Constants.USER_ID));
-                                obj.put("fund_id", list.get(position).getId());
+                                obj.put("board_member_id", list.get(position).getId());
                                 doJob(position, url, Constants.HTTP_POST_REQUEST, obj);
                             } catch (JSONException e) {
                                 e.printStackTrace();

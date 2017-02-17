@@ -1160,6 +1160,7 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
         } else {
             final Dialog dialog = new Dialog(getActivity());
             dialog.setContentView(R.layout.funds_keywords_dialog);
+            dialog.setCancelable(false);
             final EditText search = (EditText) dialog.findViewById(R.id.et_search);
             search.setHint(getString(R.string.search) + " " + title);
             dialog.setTitle(title);

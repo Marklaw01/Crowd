@@ -551,7 +551,56 @@ public final class Constants {
     public static final String BETA_TESTER_UNFOLLOW_URL = "unfollowBetaTest";
     public static final String BETA_TESTER_UNFOLLOW_TAG = "unfollowBetaTest_tag";
 
-    //public static final String CREATE_BETA_TEST_TAG = "addBetaTest_tag";
+    // Board Members module
+    public static final String BOARD_MEMBERS_KEYWORDS_LIST_URL = "boardOppertunityKeywordsList";
+    public static final String BOARD_MEMBERS_KEYWORDS_LIST_TAG = "boardOppertunityKeywordsList_tag";
+
+    public static final String BOARD_MEMBERS_INTEREST_KEYWORDS_LIST_URL = "boardInterestKeywordLists";
+    public static final String BOARD_MEMBERS_INTEREST_KEYWORDS_LIST_TAG = "boardInterestKeywordLists_tag";
+
+    public static final String BOARD_MEMBERS_TARGET_MARKET_LIST_URL = "boardMemberTargetMarketsList";
+    public static final String BOARD_MEMBERS_TARGET_MARKET_LIST_TAG = "boardMemberTargetMarketsList_tag";
+
+    public static final String BOARD_MEMBERS_DETAILS_URL = "boardMemberDetails";
+    public static final String BOARD_MEMBERS_DETAILS_TAG = "boardMemberDetails_tag";
+
+    public static final String CREATE_BOARD_MEMBERS_URL = "addBoardMember";
+    public static final String UPDATE_BOARD_MEMBERS_URL = "editBoardMember";
+
+    public static final String FIND_BOARD_MEMBERS_LIST = "findBoardMembers";
+    public static final String FIND_BOARD_MEMBERS_TAG = "findBoardMembers_tag";
+
+    public static final String MY_BOARD_MEMBERS_LIST = "myBoardMember";
+    public static final String MY_BOARD_MEMBERS_TAG = "myBoardMember_tag";
+
+    public static final String ARCHIVED_BOARD_MEMBERS_LIST = "archiveBoardMemberList";
+    public static final String ARCHIVED_BOARD_MEMBERS_TAG = "archiveBoardMemberList_tag";
+
+    public static final String DEACTIVATED_BOARD_MEMBERS_LIST = "deactivateBoardMemberList";
+    public static final String DEACTIVATED_BOARD_MEMBERS_TAG = "deactivateBoardMemberList_tag";
+
+    public static final String BOARD_MEMBERS_DELETE_URL = "deleteBoardMember";
+    public static final String BOARD_MEMBERS_ARCHIEVE_URL = "archiveBoardMember";
+    public static final String BOARD_MEMBERS_DEACTIVATE_URL = "deactivateBoardMember";
+    public static final String BOARD_MEMBERS_ACTIVATE_URL = "activateBoardMember";
+    public static final String BOARD_MEMBERS_LIKE_URL = "likeBetaTest";
+    public static final String BOARD_MEMBERS_LIKE_TAG = "likeBetaTest_tag";
+    public static final String BOARD_MEMBERS_DISLIKE_URL = "disLikeBetaTest";
+    public static final String BOARD_MEMBERS_DISLIKE_TAG = "disLikeBetaTest_tag";
+
+    public static final String BOARD_MEMBERS_LIKERS_LIST = "betaTestLikeList";
+    public static final String BOARD_MEMBERS_LIKERS_TAG = "betaTestLikeList_tag";
+
+    public static final String BOARD_MEMBERS_DISLIKERS_LIST = "betaTestDislikeList";
+    public static final String BOARD_MEMBERS_DISLIKERS_TAG = "betaTestDislikeList_tag";
+
+    public static final String BOARD_MEMBERS_FOLLOW_URL = "followBetaTest";
+    public static final String BOARD_MEMBERS_FOLLOW_TAG = "followBetaTest_tag";
+
+    public static final String BOARD_MEMBERS_UNFOLLOW_URL = "unfollowBetaTest";
+    public static final String BOARD_MEMBERS_UNFOLLOW_TAG = "unfollowBetaTest_tag";
+
+
 
     //Password regex pattern for validation.
     public static final String PASSWORD_REGEX_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[$@$!%*?&])(?=\\S+$).{8,25}$";
