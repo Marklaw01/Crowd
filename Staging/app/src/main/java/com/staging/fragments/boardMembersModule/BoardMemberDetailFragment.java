@@ -278,10 +278,10 @@ public class BoardMemberDetailFragment extends Fragment implements View.OnClickL
                     try {
                         JSONObject likeObj = new JSONObject();
                         likeObj.put("like_by", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
-                        likeObj.put("board_id", fund_id);
+                        likeObj.put("board_member_id", fund_id);
                         if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
                             ((HomeActivity) getActivity()).showProgressDialog();
-                            AsyncNew asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FUND_LIKE_TAG, Constants.FUND_LIKE_URL, Constants.HTTP_POST_REQUEST, likeObj);
+                            AsyncNew asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.BOARD_MEMBERS_LIKE_TAG, Constants.BOARD_MEMBERS_LIKE_URL, Constants.HTTP_POST_REQUEST, likeObj);
                             asyncNew.execute();
                         } else {
                             ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
@@ -293,10 +293,10 @@ public class BoardMemberDetailFragment extends Fragment implements View.OnClickL
                     try {
                         JSONObject likeObj = new JSONObject();
                         likeObj.put("dislike_by", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
-                        likeObj.put("board_id", fund_id);
+                        likeObj.put("board_member_id", fund_id);
                         if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
                             ((HomeActivity) getActivity()).showProgressDialog();
-                            AsyncNew asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FUND_DISLIKE_TAG, Constants.FUND_DISLIKE_URL, Constants.HTTP_POST_REQUEST, likeObj);
+                            AsyncNew asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.BOARD_MEMBERS_DISLIKE_TAG, Constants.BOARD_MEMBERS_DISLIKE_URL, Constants.HTTP_POST_REQUEST, likeObj);
                             asyncNew.execute();
                         } else {
                             ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
@@ -312,7 +312,7 @@ public class BoardMemberDetailFragment extends Fragment implements View.OnClickL
                 JSONObject followObj = new JSONObject();
                 try {
                     followObj.put("follow_by", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
-                    followObj.put("board_id", fund_id);
+                    followObj.put("board_member_id", fund_id);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -320,11 +320,11 @@ public class BoardMemberDetailFragment extends Fragment implements View.OnClickL
                 if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
                     if (cbx_Follow.getText().toString().trim().equalsIgnoreCase("Follow")) {
                         ((HomeActivity) getActivity()).showProgressDialog();
-                        AsyncNew asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FUND_FOLLOW_TAG, Constants.FUND_FOLLOW_URL, Constants.HTTP_POST_REQUEST, followObj);
+                        AsyncNew asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.BOARD_MEMBERS_FOLLOW_TAG, Constants.BOARD_MEMBERS_FOLLOW_URL, Constants.HTTP_POST_REQUEST, followObj);
                         asyncNew.execute();
                     } else {
                         ((HomeActivity) getActivity()).showProgressDialog();
-                        AsyncNew asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FUND_UNFOLLOW_TAG, Constants.FUND_UNFOLLOW_URL, Constants.HTTP_POST_REQUEST, followObj);
+                        AsyncNew asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.BOARD_MEMBERS_UNFOLLOW_TAG, Constants.BOARD_MEMBERS_UNFOLLOW_URL, Constants.HTTP_POST_REQUEST, followObj);
                         asyncNew.execute();
                     }
                 } else {
@@ -391,24 +391,24 @@ public class BoardMemberDetailFragment extends Fragment implements View.OnClickL
                         et_endDate.setText(jsonObject.getString("end_date"));
                         ImageLoader.getInstance().displayImage(Constants.APP_IMAGE_URL + jsonObject.getString("image").trim(), image_roadmap);
 
-                        if (jsonObject.has("interest_keyword")) {
+                        if (jsonObject.has("board_interest_keywords")) {
                             StringBuilder sb = new StringBuilder();
-                            for (int i = 0; i < jsonObject.getJSONArray("interest_keyword").length(); i++) {
+                            for (int i = 0; i < jsonObject.getJSONArray("board_interest_keywords").length(); i++) {
                                 if (sb.length() > 0) {
                                     sb.append(", ");
                                 }
-                                sb.append(jsonObject.getJSONArray("interest_keyword").getJSONObject(i).getString("name"));
+                                sb.append(jsonObject.getJSONArray("board_interest_keywords").getJSONObject(i).getString("name"));
                             }
                             et_interestKeywords.setText(sb.toString());
                         }
 
-                        if (jsonObject.has("keywords")) {
+                        if (jsonObject.has("board_oppertunity_keywords")) {
                             StringBuilder sb = new StringBuilder();
-                            for (int i = 0; i < jsonObject.getJSONArray("keywords").length(); i++) {
+                            for (int i = 0; i < jsonObject.getJSONArray("board_oppertunity_keywords").length(); i++) {
                                 if (sb.length() > 0) {
                                     sb.append(", ");
                                 }
-                                sb.append(jsonObject.getJSONArray("keywords").getJSONObject(i).getString("name"));
+                                sb.append(jsonObject.getJSONArray("board_oppertunity_keywords").getJSONObject(i).getString("name"));
                             }
                             et_keywords.setText(sb.toString());
                         }
@@ -477,7 +477,7 @@ public class BoardMemberDetailFragment extends Fragment implements View.OnClickL
                     ((HomeActivity) getActivity()).dismissProgressDialog();
                     e.printStackTrace();
                 }
-            } else if (tag.equals(Constants.BETA_TESTER_LIKE_TAG)) {
+            } else if (tag.equals(Constants.BOARD_MEMBERS_LIKE_TAG)) {
                 ((HomeActivity) getActivity()).dismissProgressDialog();
                 try {
                     JSONObject jsonObject = new JSONObject(result);
@@ -492,7 +492,7 @@ public class BoardMemberDetailFragment extends Fragment implements View.OnClickL
                     e.printStackTrace();
                 }
 
-            } else if (tag.equals(Constants.BETA_TESTER_DISLIKE_TAG)) {
+            } else if (tag.equals(Constants.BOARD_MEMBERS_DISLIKE_TAG)) {
                 ((HomeActivity) getActivity()).dismissProgressDialog();
                 try {
                     JSONObject jsonObject = new JSONObject(result);
@@ -507,7 +507,7 @@ public class BoardMemberDetailFragment extends Fragment implements View.OnClickL
                     e.printStackTrace();
                 }
 
-            } else if (tag.equals(Constants.BETA_TESTER_FOLLOW_TAG)) {
+            } else if (tag.equals(Constants.BOARD_MEMBERS_FOLLOW_TAG)) {
                 ((HomeActivity) getActivity()).dismissProgressDialog();
                 try {
                     JSONObject jsonObject = new JSONObject(result);
@@ -522,7 +522,7 @@ public class BoardMemberDetailFragment extends Fragment implements View.OnClickL
                     e.printStackTrace();
                 }
 
-            } else if (tag.equals(Constants.BETA_TESTER_UNFOLLOW_TAG)) {
+            } else if (tag.equals(Constants.BOARD_MEMBERS_UNFOLLOW_TAG)) {
                 ((HomeActivity) getActivity()).dismissProgressDialog();
                 try {
                     JSONObject jsonObject = new JSONObject(result);

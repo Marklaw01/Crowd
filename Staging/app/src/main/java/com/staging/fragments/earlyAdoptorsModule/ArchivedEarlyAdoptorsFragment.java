@@ -232,7 +232,7 @@ public class ArchivedEarlyAdoptorsFragment extends Fragment implements AdapterVi
                                 fundsObject.setFund_start_date(funds.optString("fund_start_date"));
                                 fundsObject.setFund_end_date(funds.optString("fund_end_date"));
                                 fundsObject.setFund_close_date(funds.optString("fund_close_date"));
-                                fundsObject.setFund_description(funds.optString("fund_description"));
+                                fundsObject.setFund_description(funds.optString("description"));
                                 fundsObject.setFund_likes(funds.optInt("fund_likes"));
                                 fundsObject.setFund_dislike(funds.optInt("fund_dislikes"));
                                 fundsObject.setFund_image(funds.optString("fund_image"));

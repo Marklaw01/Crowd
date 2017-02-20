@@ -94,7 +94,7 @@ public class SearchOpportunityBoardMembersFragment extends Fragment implements A
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.funds_fragment, container, false);
 
-        et_search = (EditText)rootView.findViewById(R.id.et_search);
+        et_search = (EditText) rootView.findViewById(R.id.et_search);
         btn_search = (TextView) rootView.findViewById(R.id.btn_search);
         btn_createFund = (Button) rootView.findViewById(R.id.btn_createFund);
         btn_createFund.setVisibility(View.GONE);
@@ -234,7 +234,7 @@ public class SearchOpportunityBoardMembersFragment extends Fragment implements A
                                 fundsObject.setFund_start_date(funds.optString("start_date"));
                                 fundsObject.setFund_end_date(funds.optString("end_date"));
 
-                                fundsObject.setFund_description(funds.optString("fund_description"));
+                                fundsObject.setFund_description(funds.optString("description"));
                                 fundsObject.setFund_likes(funds.optInt("likes"));
                                 fundsObject.setFund_dislike(funds.optInt("dislikes"));
                                 fundsObject.setFund_image(funds.optString("image"));
@@ -265,56 +265,6 @@ public class SearchOpportunityBoardMembersFragment extends Fragment implements A
 
                 int index = list_funds.getLastVisiblePosition();
                 list_funds.smoothScrollToPosition(index);
-
-            } else if (tag.equals(Constants.FUND_SEARCH_TAG)) {
-
-                ((HomeActivity) getActivity()).dismissProgressDialog();
-                try {
-                    JSONObject jsonObject = new JSONObject(result);
-
-
-                    if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
-                        TOTAL_ITEMS = Integer.parseInt(jsonObject.optString("TotalItems"));
-
-                        if (jsonObject.optJSONArray("my_funds_list").length() != 0) {
-                            for (int i = 0; i < jsonObject.optJSONArray("my_funds_list").length(); i++) {
-                                JSONObject funds = jsonObject.optJSONArray("my_funds_list").getJSONObject(i);
-                                FundsObject fundsObject = new FundsObject();
-                                fundsObject.setId(funds.optString("id"));
-                                fundsObject.setFund_title(funds.optString("fund_title"));
-                                fundsObject.setFund_start_date(funds.optString("fund_start_date"));
-                                fundsObject.setFund_end_date(funds.optString("fund_end_date"));
-                                fundsObject.setFund_close_date(funds.optString("fund_close_date"));
-                                fundsObject.setFund_description(funds.optString("fund_description"));
-                                fundsObject.setFund_likes(funds.optInt("fund_likes"));
-                                fundsObject.setFund_dislike(funds.optInt("fund_dislike"));
-                                fundsObject.setFund_image(funds.optString("fund_image"));
-                                fundsObject.setFund_created_by(funds.optString("fund_created_by"));
-
-                                fundsList.add(fundsObject);
-                            }
-                        } else {
-                            Toast.makeText(getActivity(), getString(R.string.noFunds), Toast.LENGTH_LONG).show();
-                        }
-
-                    } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
-                        Toast.makeText(getActivity(), getString(R.string.noFunds), Toast.LENGTH_LONG).show();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Toast.makeText(getActivity(), getString(R.string.server_down), Toast.LENGTH_LONG).show();
-                }
-
-                if (adapter == null) {
-                    adapter = new BoardMembersAdapter(getActivity(), fundsList, "FindFunds");
-                    list_funds.setAdapter(adapter);
-                }
-                list_funds.onLoadMoreComplete();
-                adapter.notifyDataSetChanged();
-
-                int index = list_funds.getLastVisiblePosition();
-                list_funds.smoothScrollToPosition(index);
-
 
             }
         }

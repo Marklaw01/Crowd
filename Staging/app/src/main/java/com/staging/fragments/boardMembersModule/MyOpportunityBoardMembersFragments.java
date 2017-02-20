@@ -237,7 +237,7 @@ public class MyOpportunityBoardMembersFragments extends Fragment implements Adap
                                 fundsObject.setFund_start_date(funds.optString("start_date"));
                                 fundsObject.setFund_end_date(funds.optString("end_date"));
 
-                                fundsObject.setFund_description(funds.optString("fund_description"));
+                                fundsObject.setFund_description(funds.optString("description"));
                                 fundsObject.setFund_likes(funds.optInt("likes"));
                                 fundsObject.setFund_dislike(funds.optInt("dislikes"));
                                 fundsObject.setFund_image(funds.optString("image"));

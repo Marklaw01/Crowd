@@ -257,7 +257,7 @@ public class BoardMembersAdapter extends BaseAdapter implements View.OnClickList
                         JSONObject likeObj = new JSONObject();
                         likeObj.put("like_by", PrefManager.getInstance(context).getString(Constants.USER_ID));
                         likeObj.put("board_member_id", list.get(tagLikePosition).getId());
-                        fundLikeDislike(tagLikePosition, Constants.FUND_LIKE_URL, Constants.HTTP_POST_REQUEST, likeObj);
+                        fundLikeDislike(tagLikePosition, Constants.BOARD_MEMBERS_LIKE_URL, Constants.HTTP_POST_REQUEST, likeObj);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -273,7 +273,7 @@ public class BoardMembersAdapter extends BaseAdapter implements View.OnClickList
                         JSONObject dislikeObj = new JSONObject();
                         dislikeObj.put("dislike_by", PrefManager.getInstance(context).getString(Constants.USER_ID));
                         dislikeObj.put("board_member_id", list.get(tagDislikeIdPosition).getId());
-                        fundLikeDislike(tagDislikeIdPosition, Constants.FUND_DISLIKE_URL, Constants.HTTP_POST_REQUEST, dislikeObj);
+                        fundLikeDislike(tagDislikeIdPosition, Constants.BOARD_MEMBERS_DISLIKE_URL, Constants.HTTP_POST_REQUEST, dislikeObj);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

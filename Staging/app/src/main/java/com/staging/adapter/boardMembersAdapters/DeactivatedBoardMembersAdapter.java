@@ -248,8 +248,8 @@ public class DeactivatedBoardMembersAdapter extends BaseAdapter implements View.
                 try {
                     JSONObject likeObj = new JSONObject();
                     likeObj.put("like_by", PrefManager.getInstance(context).getString(Constants.USER_ID));
-                    likeObj.put("fund_id", list.get(tagLikePosition).getId());
-                    fundLikeDislike(tagLikePosition, Constants.FUND_LIKE_URL, Constants.HTTP_POST_REQUEST, likeObj);
+                    likeObj.put("board_member_id", list.get(tagLikePosition).getId());
+                    fundLikeDislike(tagLikePosition, Constants.BOARD_MEMBERS_LIKE_URL, Constants.HTTP_POST_REQUEST, likeObj);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -264,8 +264,8 @@ public class DeactivatedBoardMembersAdapter extends BaseAdapter implements View.
                     try {
                         JSONObject dislikeObj = new JSONObject();
                         dislikeObj.put("dislike_by", PrefManager.getInstance(context).getString(Constants.USER_ID));
-                        dislikeObj.put("fund_id", list.get(tagDislikeIdPosition).getId());
-                        fundLikeDislike(tagDislikeIdPosition, Constants.FUND_DISLIKE_URL, Constants.HTTP_POST_REQUEST, dislikeObj);
+                        dislikeObj.put("board_member_id", list.get(tagDislikeIdPosition).getId());
+                        fundLikeDislike(tagDislikeIdPosition, Constants.BOARD_MEMBERS_DISLIKE_URL, Constants.HTTP_POST_REQUEST, dislikeObj);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

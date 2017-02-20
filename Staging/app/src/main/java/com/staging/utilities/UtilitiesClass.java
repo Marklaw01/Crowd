@@ -543,7 +543,7 @@ public class UtilitiesClass {
             URL url = new URL(Constants.APP_BASE_URL + uri);
             CrowdBootstrapLogger.logInfo("url: " + url.toString());
             if (json != null) {
-                CrowdBootstrapLogger.logInfo("postData" + json.toString());
+                CrowdBootstrapLogger.logInfo("postData: " + json.toString());
             }
             //disableSSLCertificateChecking();
             //Connect

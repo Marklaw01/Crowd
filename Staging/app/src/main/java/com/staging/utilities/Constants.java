@@ -583,22 +583,78 @@ public final class Constants {
     public static final String BOARD_MEMBERS_ARCHIEVE_URL = "archiveBoardMember";
     public static final String BOARD_MEMBERS_DEACTIVATE_URL = "deactivateBoardMember";
     public static final String BOARD_MEMBERS_ACTIVATE_URL = "activateBoardMember";
-    public static final String BOARD_MEMBERS_LIKE_URL = "likeBetaTest";
-    public static final String BOARD_MEMBERS_LIKE_TAG = "likeBetaTest_tag";
-    public static final String BOARD_MEMBERS_DISLIKE_URL = "disLikeBetaTest";
-    public static final String BOARD_MEMBERS_DISLIKE_TAG = "disLikeBetaTest_tag";
 
-    public static final String BOARD_MEMBERS_LIKERS_LIST = "betaTestLikeList";
-    public static final String BOARD_MEMBERS_LIKERS_TAG = "betaTestLikeList_tag";
+    public static final String BOARD_MEMBERS_LIKE_URL = "likeBoardMember";
+    public static final String BOARD_MEMBERS_LIKE_TAG = "likeBoardMember_tag";
 
-    public static final String BOARD_MEMBERS_DISLIKERS_LIST = "betaTestDislikeList";
-    public static final String BOARD_MEMBERS_DISLIKERS_TAG = "betaTestDislikeList_tag";
+    public static final String BOARD_MEMBERS_DISLIKE_URL = "disLikeBoardMember";
+    public static final String BOARD_MEMBERS_DISLIKE_TAG = "disLikeBoardMember_tag";
 
-    public static final String BOARD_MEMBERS_FOLLOW_URL = "followBetaTest";
-    public static final String BOARD_MEMBERS_FOLLOW_TAG = "followBetaTest_tag";
+    public static final String BOARD_MEMBERS_LIKERS_LIST = "boardMemberLikeList";
+    public static final String BOARD_MEMBERS_LIKERS_TAG = "boardMemberLikeList_tag";
 
-    public static final String BOARD_MEMBERS_UNFOLLOW_URL = "unfollowBetaTest";
-    public static final String BOARD_MEMBERS_UNFOLLOW_TAG = "unfollowBetaTest_tag";
+    public static final String BOARD_MEMBERS_DISLIKERS_LIST = "boardMemberDislikeList";
+    public static final String BOARD_MEMBERS_DISLIKERS_TAG = "boardMemberDislikeList_tag";
+
+    public static final String BOARD_MEMBERS_FOLLOW_URL = "followBoardMember";
+    public static final String BOARD_MEMBERS_FOLLOW_TAG = "followBoardMember_tag";
+
+    public static final String BOARD_MEMBERS_UNFOLLOW_URL = "unfollowBoardMember";
+    public static final String BOARD_MEMBERS_UNFOLLOW_TAG = "unfollowBoardMember_tag";
+
+    // Early Adopter module
+    public static final String EARLY_ADOPTORS_KEYWORDS_LIST_URL = "earlyAdopterKeywordsKeywordsList";
+    public static final String EARLY_ADOPTORS_KEYWORDS_LIST_TAG = "earlyAdopterKeywordsKeywordsList_tag";
+
+    public static final String EARLY_ADOPTORS_INTEREST_KEYWORDS_LIST_URL = "earlyAdopterInterestKeywordLists";
+    public static final String EARLY_ADOPTORS_INTEREST_KEYWORDS_LIST_TAG = "earlyAdopterInterestKeywordLists_tag";
+
+    public static final String EARLY_ADOPTORS_TARGET_MARKET_LIST_URL = "earlyAdopterTargetMarketsList";
+    public static final String EARLY_ADOPTORS_TARGET_MARKET_LIST_TAG = "earlyAdopterTargetMarketsList_tag";
+
+    public static final String EARLY_ADOPTORS_DETAILS_URL = "earlyAdopterDetails";
+    public static final String EARLY_ADOPTORS_DETAILS_TAG = "earlyAdopterDetails_tag";
+
+    public static final String CREATE_EARLY_ADOPTORS_URL = "addEarlyAdopter";
+    public static final String UPDATE_EARLY_ADOPTORS_URL = "editEarlyAdopter";
+
+    public static final String FIND_EARLY_ADOPTORS_LIST = "findBoardMembers";
+    public static final String FIND_EARLY_ADOPTORS_TAG = "findBoardMembers_tag";
+
+    public static final String MY_EARLY_ADOPTORS_LIST = "myEarlyAdopter";
+    public static final String MY_EARLY_ADOPTORS_TAG = "myEarlyAdopter_tag";
+
+    public static final String ARCHIVED_EARLY_ADOPTORS_LIST = "archiveBoardMemberList";
+    public static final String ARCHIVED_EARLY_ADOPTORS_TAG = "archiveBoardMemberList_tag";
+
+    public static final String DEACTIVATED_EARLY_ADOPTORS_LIST = "deactivateBoardMemberList";
+    public static final String DEACTIVATED_EARLY_ADOPTORS_TAG = "deactivateBoardMemberList_tag";
+
+    public static final String EARLY_ADOPTORS_DELETE_URL = "deleteBoardMember";
+    public static final String EARLY_ADOPTORS_ARCHIEVE_URL = "archiveBoardMember";
+    public static final String EARLY_ADOPTORS_DEACTIVATE_URL = "deactivateBoardMember";
+    public static final String EARLY_ADOPTORS_ACTIVATE_URL = "activateBoardMember";
+
+    public static final String EARLY_ADOPTORS_LIKE_URL = "likeBoardMember";
+    public static final String EARLY_ADOPTORS_LIKE_TAG = "likeBoardMember_tag";
+
+    public static final String EARLY_ADOPTORS_DISLIKE_URL = "disLikeBoardMember";
+    public static final String EARLY_ADOPTORS_DISLIKE_TAG = "disLikeBoardMember_tag";
+
+    public static final String EARLY_ADOPTORS_LIKERS_LIST = "boardMemberLikeList";
+    public static final String EARLY_ADOPTORS_LIKERS_TAG = "boardMemberLikeList_tag";
+
+    public static final String EARLY_ADOPTORS_DISLIKERS_LIST = "boardMemberDislikeList";
+    public static final String EARLY_ADOPTORS_DISLIKERS_TAG = "boardMemberDislikeList_tag";
+
+    public static final String EARLY_ADOPTORS_FOLLOW_URL = "followBoardMember";
+    public static final String EARLY_ADOPTORS_FOLLOW_TAG = "followBoardMember_tag";
+
+    public static final String EARLY_ADOPTORS_UNFOLLOW_URL = "unfollowBoardMember";
+    public static final String EARLY_ADOPTORS_UNFOLLOW_TAG = "unfollowBoardMember_tag";
+
+
+
 
 
 
