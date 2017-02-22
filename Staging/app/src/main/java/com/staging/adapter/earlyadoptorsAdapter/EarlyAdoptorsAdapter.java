@@ -23,6 +23,7 @@ import com.staging.R;
 import com.staging.activities.HomeActivity;
 import com.staging.exception.CrowdException;
 import com.staging.fragments.boardMembersModule.BoardMembersLikeDislikeFragment;
+import com.staging.fragments.earlyAdoptorsModule.EarlyAdoptersLikeDislikeFragment;
 import com.staging.logger.CrowdBootstrapLogger;
 import com.staging.models.FundsObject;
 import com.staging.utilities.Constants;
@@ -172,7 +173,7 @@ public class EarlyAdoptorsAdapter extends BaseAdapter implements View.OnClickLis
             holder.tv_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showDialog(position, "Do you want to delete this Fund?", Constants.FUND_DELETE_URL);
+                    showDialog(position, "Do you want to delete this Opportunity?", Constants.EARLY_ADOPTORS_DELETE_URL);
                 }
             });
 
@@ -180,7 +181,7 @@ public class EarlyAdoptorsAdapter extends BaseAdapter implements View.OnClickLis
             holder.tv_archive.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showDialog(position, "Do you want to archive this Fund?", Constants.FUND_ARCHIEVE_URL);
+                    showDialog(position, "Do you want to archive this Opportunity?", Constants.EARLY_ADOPTORS_ARCHIEVE_URL);
                 }
             });
 
@@ -188,7 +189,7 @@ public class EarlyAdoptorsAdapter extends BaseAdapter implements View.OnClickLis
             holder.tv_deactivate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showDialog(position, "Do you want to deactivate this Fund?", Constants.FUND_DEACTIVATE_URL);
+                    showDialog(position, "Do you want to deactivate this Opportunity?", Constants.EARLY_ADOPTORS_DEACTIVATE_URL);
                 }
             });
 
@@ -223,7 +224,7 @@ public class EarlyAdoptorsAdapter extends BaseAdapter implements View.OnClickLis
                             try {
                                 JSONObject obj = new JSONObject();
                                 obj.put("user_id", PrefManager.getInstance(context).getString(Constants.USER_ID));
-                                obj.put("fund_id", list.get(position).getId());
+                                obj.put("early_adopter_id", list.get(position).getId());
                                 doJob(position, url, Constants.HTTP_POST_REQUEST, obj);
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -251,13 +252,13 @@ public class EarlyAdoptorsAdapter extends BaseAdapter implements View.OnClickLis
             case R.id.like:
                 int tagLikePosition = (int) v.getTag(R.integer.selected_index);
                 if (list.get(tagLikePosition).getIs_liked_by_user() == 1) {
-                    Toast.makeText(context, "You already liked this fund", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "You already liked this opportunity", Toast.LENGTH_LONG).show();
                 } else {
                     try {
                         JSONObject likeObj = new JSONObject();
                         likeObj.put("like_by", PrefManager.getInstance(context).getString(Constants.USER_ID));
-                        likeObj.put("fund_id", list.get(tagLikePosition).getId());
-                        fundLikeDislike(tagLikePosition, Constants.FUND_LIKE_URL, Constants.HTTP_POST_REQUEST, likeObj);
+                        likeObj.put("early_adopter_id", list.get(tagLikePosition).getId());
+                        fundLikeDislike(tagLikePosition, Constants.EARLY_ADOPTORS_LIKE_URL, Constants.HTTP_POST_REQUEST, likeObj);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -267,13 +268,13 @@ public class EarlyAdoptorsAdapter extends BaseAdapter implements View.OnClickLis
             case R.id.dislike:
                 int tagDislikeIdPosition = (int) v.getTag(R.integer.selected_index);
                 if (list.get(tagDislikeIdPosition).getIs_disliked_by_user() == 1) {
-                    Toast.makeText(context, "You already disliked this fund", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "You already disliked this opportunity", Toast.LENGTH_LONG).show();
                 } else {
                     try {
                         JSONObject dislikeObj = new JSONObject();
                         dislikeObj.put("dislike_by", PrefManager.getInstance(context).getString(Constants.USER_ID));
-                        dislikeObj.put("fund_id", list.get(tagDislikeIdPosition).getId());
-                        fundLikeDislike(tagDislikeIdPosition, Constants.FUND_DISLIKE_URL, Constants.HTTP_POST_REQUEST, dislikeObj);
+                        dislikeObj.put("early_adopter_id", list.get(tagDislikeIdPosition).getId());
+                        fundLikeDislike(tagDislikeIdPosition, Constants.EARLY_ADOPTORS_DISLIKE_URL, Constants.HTTP_POST_REQUEST, dislikeObj);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -286,7 +287,7 @@ public class EarlyAdoptorsAdapter extends BaseAdapter implements View.OnClickLis
                     Bundle like = new Bundle();
                     like.putInt(Constants.FUND_ID, Integer.parseInt(list.get(tagLikeId).getId()));
                     like.putString(Constants.LIKE_DISLIKE, Constants.LIKE);
-                    Fragment likeFragment = new BoardMembersLikeDislikeFragment();
+                    Fragment likeFragment = new EarlyAdoptersLikeDislikeFragment();
                     likeFragment.setArguments(like);
                     (((HomeActivity) context)).replaceFragment(likeFragment);
                 }
@@ -298,7 +299,7 @@ public class EarlyAdoptorsAdapter extends BaseAdapter implements View.OnClickLis
                     Bundle dislike = new Bundle();
                     dislike.putInt(Constants.FUND_ID, Integer.parseInt(list.get(tagDislikeId).getId()));
                     dislike.putString(Constants.LIKE_DISLIKE, Constants.DISLIKE);
-                    Fragment dislikeFragment = new BoardMembersLikeDislikeFragment();
+                    Fragment dislikeFragment = new EarlyAdoptersLikeDislikeFragment();
                     dislikeFragment.setArguments(dislike);
                     (((HomeActivity) context)).replaceFragment(dislikeFragment);
                 }
@@ -450,8 +451,8 @@ public class EarlyAdoptorsAdapter extends BaseAdapter implements View.OnClickLis
                             CrowdBootstrapLogger.logInfo(result);
                             if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
                                 Toast.makeText(context, jsonObject.getString("message"), Toast.LENGTH_LONG).show();
-                                list.get(position).setFund_dislike(jsonObject.getInt("fund_dislikes"));
-                                list.get(position).setFund_likes(jsonObject.getInt("fund_likes"));
+                                list.get(position).setFund_dislike(jsonObject.getInt("dislikes"));
+                                list.get(position).setFund_likes(jsonObject.getInt("likes"));
                                 list.get(position).setIs_disliked_by_user(jsonObject.getInt("is_disliked_by_user"));
                                 list.get(position).setIs_liked_by_user(jsonObject.getInt("is_liked_by_user"));
                                 notifyDataSetChanged();

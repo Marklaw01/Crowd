@@ -437,9 +437,8 @@ public class DeactivatedBoardMembersAdapter extends BaseAdapter implements View.
                             CrowdBootstrapLogger.logInfo(result);
                             if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
                                 Toast.makeText(context, jsonObject.getString("message"), Toast.LENGTH_LONG).show();
-                                //list.remove(position);
-                                list.get(position).setFund_dislike(jsonObject.getInt("fund_dislikes"));
-                                list.get(position).setFund_likes(jsonObject.getInt("fund_likes"));
+                                list.get(position).setFund_dislike(jsonObject.getInt("dislikes"));
+                                list.get(position).setFund_likes(jsonObject.getInt("likes"));
                                 list.get(position).setIs_disliked_by_user(jsonObject.getInt("is_disliked_by_user"));
                                 list.get(position).setIs_liked_by_user(jsonObject.getInt("is_liked_by_user"));
                                 notifyDataSetChanged();

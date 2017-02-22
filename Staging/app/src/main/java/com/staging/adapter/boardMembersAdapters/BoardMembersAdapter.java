@@ -251,7 +251,7 @@ public class BoardMembersAdapter extends BaseAdapter implements View.OnClickList
             case R.id.like:
                 int tagLikePosition = (int) v.getTag(R.integer.selected_index);
                 if (list.get(tagLikePosition).getIs_liked_by_user() == 1) {
-                    Toast.makeText(context, "You already liked this fund", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "You already liked this opportunity", Toast.LENGTH_LONG).show();
                 } else {
                     try {
                         JSONObject likeObj = new JSONObject();
@@ -267,7 +267,7 @@ public class BoardMembersAdapter extends BaseAdapter implements View.OnClickList
             case R.id.dislike:
                 int tagDislikeIdPosition = (int) v.getTag(R.integer.selected_index);
                 if (list.get(tagDislikeIdPosition).getIs_disliked_by_user() == 1) {
-                    Toast.makeText(context, "You already disliked this fund", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "You already disliked this opportunity", Toast.LENGTH_LONG).show();
                 } else {
                     try {
                         JSONObject dislikeObj = new JSONObject();
@@ -450,8 +450,8 @@ public class BoardMembersAdapter extends BaseAdapter implements View.OnClickList
                             CrowdBootstrapLogger.logInfo(result);
                             if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
                                 Toast.makeText(context, jsonObject.getString("message"), Toast.LENGTH_LONG).show();
-                                list.get(position).setFund_dislike(jsonObject.getInt("fund_dislikes"));
-                                list.get(position).setFund_likes(jsonObject.getInt("fund_likes"));
+                                list.get(position).setFund_dislike(jsonObject.getInt("dislikes"));
+                                list.get(position).setFund_likes(jsonObject.getInt("likes"));
                                 list.get(position).setIs_disliked_by_user(jsonObject.getInt("is_disliked_by_user"));
                                 list.get(position).setIs_liked_by_user(jsonObject.getInt("is_liked_by_user"));
                                 notifyDataSetChanged();

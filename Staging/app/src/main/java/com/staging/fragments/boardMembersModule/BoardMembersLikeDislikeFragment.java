@@ -127,7 +127,7 @@ public class BoardMembersLikeDislikeFragment extends Fragment implements Adapter
         if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
             try {
                 JSONObject obj = new JSONObject();
-                obj.put("fund_id", mFundId);
+                obj.put("board_member_id", mFundId);
                 obj.put("page_no", pageNumber);
                 ((HomeActivity) getActivity()).showProgressDialog();
                 asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), tag, url, Constants.HTTP_POST_REQUEST, obj);

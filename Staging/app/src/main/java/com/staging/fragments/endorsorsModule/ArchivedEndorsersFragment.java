@@ -66,7 +66,7 @@ public class ArchivedEndorsersFragment extends Fragment implements AdapterView.O
                     obj.put("user_id", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
                     obj.put("page_no", current_page);
                     obj.put("search_text", searchText);
-                    asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.ARCHIVED_FUND_TAG, Constants.ARCHIVED_FUND_LIST, Constants.HTTP_POST_REQUEST, obj);
+                    asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.ARCHIVED_ENDORSOR_TAG, Constants.ARCHIVED_ENDORSOR_LIST, Constants.HTTP_POST_REQUEST, obj);
                     asyncNew.execute();
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -118,7 +118,7 @@ public class ArchivedEndorsersFragment extends Fragment implements AdapterView.O
                             obj.put("user_id", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
                             obj.put("page_no", current_page);
                             obj.put("search_text", searchText);
-                            asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.ARCHIVED_FUND_TAG, Constants.ARCHIVED_FUND_LIST, Constants.HTTP_POST_REQUEST, obj);
+                            asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.ARCHIVED_ENDORSOR_TAG, Constants.ARCHIVED_ENDORSOR_LIST, Constants.HTTP_POST_REQUEST, obj);
                             asyncNew.execute();
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -181,7 +181,7 @@ public class ArchivedEndorsersFragment extends Fragment implements AdapterView.O
                             obj.put("user_id", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
                             obj.put("page_no", current_page);
                             obj.put("search_text", searchText);
-                            asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.ARCHIVED_FUND_TAG, Constants.ARCHIVED_FUND_LIST, Constants.HTTP_POST_REQUEST, obj);
+                            asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.ARCHIVED_ENDORSOR_TAG, Constants.ARCHIVED_ENDORSOR_LIST, Constants.HTTP_POST_REQUEST, obj);
                             asyncNew.execute();
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -215,7 +215,7 @@ public class ArchivedEndorsersFragment extends Fragment implements AdapterView.O
             ((HomeActivity) getActivity()).dismissProgressDialog();
             Toast.makeText(getActivity(), getString(R.string.server_down), Toast.LENGTH_LONG).show();
         } else {
-            if (tag.equals(Constants.ARCHIVED_FUND_TAG)) {
+            if (tag.equals(Constants.ARCHIVED_ENDORSOR_TAG)) {
                 ((HomeActivity) getActivity()).dismissProgressDialog();
                 try {
                     JSONObject jsonObject = new JSONObject(result);
@@ -224,29 +224,31 @@ public class ArchivedEndorsersFragment extends Fragment implements AdapterView.O
                     if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
                         TOTAL_ITEMS = Integer.parseInt(jsonObject.optString("TotalItems"));
 
-                        if (jsonObject.optJSONArray("my_funds_list").length() != 0) {
-                            for (int i = 0; i < jsonObject.optJSONArray("my_funds_list").length(); i++) {
-                                JSONObject funds = jsonObject.optJSONArray("my_funds_list").getJSONObject(i);
+                        if (jsonObject.optJSONArray("result_list").length() != 0) {
+                            for (int i = 0; i < jsonObject.optJSONArray("result_list").length(); i++) {
+                                JSONObject funds = jsonObject.optJSONArray("result_list").getJSONObject(i);
                                 FundsObject fundsObject = new FundsObject();
                                 fundsObject.setId(funds.optString("id"));
-                                fundsObject.setFund_title(funds.optString("fund_title"));
-                                fundsObject.setFund_start_date(funds.optString("fund_start_date"));
-                                fundsObject.setFund_end_date(funds.optString("fund_end_date"));
-                                fundsObject.setFund_close_date(funds.optString("fund_close_date"));
-                                fundsObject.setFund_description(funds.optString("fund_description"));
-                                fundsObject.setFund_likes(funds.optInt("fund_likes"));
-                                fundsObject.setFund_dislike(funds.optInt("fund_dislikes"));
-                                fundsObject.setFund_image(funds.optString("fund_image"));
+                                fundsObject.setFund_title(funds.optString("title"));
+                                fundsObject.setFund_start_date(funds.optString("start_date"));
+                                fundsObject.setFund_end_date(funds.optString("end_date"));
+
+                                fundsObject.setFund_description(funds.optString("description"));
+                                fundsObject.setFund_likes(funds.optInt("likes"));
+                                fundsObject.setFund_dislike(funds.optInt("dislikes"));
+                                fundsObject.setFund_image(funds.optString("image"));
                                 fundsObject.setFund_created_by(funds.optString("fund_created_by"));
+                                fundsObject.setIs_liked_by_user(funds.getInt("is_liked_by_user"));
+                                fundsObject.setIs_disliked_by_user(funds.getInt("is_disliked_by_user"));
 
                                 fundsList.add(fundsObject);
                             }
                         } else {
-                            Toast.makeText(getActivity(), getString(R.string.noFunds), Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), jsonObject.optString("message"), Toast.LENGTH_LONG).show();
                         }
 
                     } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
-                        Toast.makeText(getActivity(), getString(R.string.noFunds), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), jsonObject.optString("message"), Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

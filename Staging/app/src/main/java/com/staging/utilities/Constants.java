@@ -618,41 +618,91 @@ public final class Constants {
     public static final String CREATE_EARLY_ADOPTORS_URL = "addEarlyAdopter";
     public static final String UPDATE_EARLY_ADOPTORS_URL = "editEarlyAdopter";
 
-    public static final String FIND_EARLY_ADOPTORS_LIST = "findBoardMembers";
-    public static final String FIND_EARLY_ADOPTORS_TAG = "findBoardMembers_tag";
+    public static final String FIND_EARLY_ADOPTORS_LIST = "findEarlyAdopters";
+    public static final String FIND_EARLY_ADOPTORS_TAG = "findEarlyAdopters_tag";
 
     public static final String MY_EARLY_ADOPTORS_LIST = "myEarlyAdopter";
     public static final String MY_EARLY_ADOPTORS_TAG = "myEarlyAdopter_tag";
 
-    public static final String ARCHIVED_EARLY_ADOPTORS_LIST = "archiveBoardMemberList";
-    public static final String ARCHIVED_EARLY_ADOPTORS_TAG = "archiveBoardMemberList_tag";
+    public static final String ARCHIVED_EARLY_ADOPTORS_LIST = "archiveEarlyAdopterList";
+    public static final String ARCHIVED_EARLY_ADOPTORS_TAG = "archiveEarlyAdopterList_tag";
 
-    public static final String DEACTIVATED_EARLY_ADOPTORS_LIST = "deactivateBoardMemberList";
-    public static final String DEACTIVATED_EARLY_ADOPTORS_TAG = "deactivateBoardMemberList_tag";
+    public static final String DEACTIVATED_EARLY_ADOPTORS_LIST = "deactivateEarlyAdopterList";
+    public static final String DEACTIVATED_EARLY_ADOPTORS_TAG = "deactivateEarlyAdopterList_tag";
 
-    public static final String EARLY_ADOPTORS_DELETE_URL = "deleteBoardMember";
-    public static final String EARLY_ADOPTORS_ARCHIEVE_URL = "archiveBoardMember";
-    public static final String EARLY_ADOPTORS_DEACTIVATE_URL = "deactivateBoardMember";
-    public static final String EARLY_ADOPTORS_ACTIVATE_URL = "activateBoardMember";
+    public static final String EARLY_ADOPTORS_DELETE_URL = "deleteEarlyAdopter";
+    public static final String EARLY_ADOPTORS_ARCHIEVE_URL = "archiveEarlyAdopter";
+    public static final String EARLY_ADOPTORS_DEACTIVATE_URL = "deactivateEarlyAdopter";
+    public static final String EARLY_ADOPTORS_ACTIVATE_URL = "activateEarlyAdopter";
 
-    public static final String EARLY_ADOPTORS_LIKE_URL = "likeBoardMember";
-    public static final String EARLY_ADOPTORS_LIKE_TAG = "likeBoardMember_tag";
+    public static final String EARLY_ADOPTORS_LIKE_URL = "likeEarlyAdopter";
+    public static final String EARLY_ADOPTORS_LIKE_TAG = "likeEarlyAdopter_tag";
 
-    public static final String EARLY_ADOPTORS_DISLIKE_URL = "disLikeBoardMember";
-    public static final String EARLY_ADOPTORS_DISLIKE_TAG = "disLikeBoardMember_tag";
+    public static final String EARLY_ADOPTORS_DISLIKE_URL = "disLikeEarlyAdopter";
+    public static final String EARLY_ADOPTORS_DISLIKE_TAG = "disLikeEarlyAdopter_tag";
 
-    public static final String EARLY_ADOPTORS_LIKERS_LIST = "boardMemberLikeList";
-    public static final String EARLY_ADOPTORS_LIKERS_TAG = "boardMemberLikeList_tag";
+    public static final String EARLY_ADOPTORS_LIKERS_LIST = "earlyAdopterLikeList";
+    public static final String EARLY_ADOPTORS_LIKERS_TAG = "earlyAdopterLikeList_tag";
 
-    public static final String EARLY_ADOPTORS_DISLIKERS_LIST = "boardMemberDislikeList";
-    public static final String EARLY_ADOPTORS_DISLIKERS_TAG = "boardMemberDislikeList_tag";
+    public static final String EARLY_ADOPTORS_DISLIKERS_LIST = "earlyAdopterDislikeList";
+    public static final String EARLY_ADOPTORS_DISLIKERS_TAG = "earlyAdopterDislikeList_tag";
 
-    public static final String EARLY_ADOPTORS_FOLLOW_URL = "followBoardMember";
-    public static final String EARLY_ADOPTORS_FOLLOW_TAG = "followBoardMember_tag";
+    public static final String EARLY_ADOPTORS_FOLLOW_URL = "followEarlyAdopter";
+    public static final String EARLY_ADOPTORS_FOLLOW_TAG = "followEarlyAdopter_tag";
 
-    public static final String EARLY_ADOPTORS_UNFOLLOW_URL = "unfollowBoardMember";
-    public static final String EARLY_ADOPTORS_UNFOLLOW_TAG = "unfollowBoardMember_tag";
+    public static final String EARLY_ADOPTORS_UNFOLLOW_URL = "unfollowEarlyAdopter";
+    public static final String EARLY_ADOPTORS_UNFOLLOW_TAG = "unfollowEarlyAdopter_tag";
 
+    // Endorsor module
+    public static final String ENDORSOR_KEYWORDS_LIST_URL = "endorsorKeywordsList";
+    public static final String ENDORSOR_KEYWORDS_LIST_TAG = "endorsorKeywordsList_tag";
+
+    public static final String ENDORSOR_INTEREST_KEYWORDS_LIST_URL = "endorsorInterestKeywordLists";
+    public static final String ENDORSOR_INTEREST_KEYWORDS_LIST_TAG = "endorsorInterestKeywordLists_tag";
+
+    public static final String ENDORSOR_TARGET_MARKET_LIST_URL = "endorsorTargetMarketsList";
+    public static final String ENDORSOR_TARGET_MARKET_LIST_TAG = "endorsorTargetMarketsList_tag";
+
+    public static final String ENDORSOR_DETAILS_URL = "endorsorDetails";
+    public static final String ENDORSOR_DETAILS_TAG = "endorsorDetails_tag";
+
+    public static final String CREATE_ENDORSOR_URL = "addEndorsor";
+    public static final String UPDATE_ENDORSOR_URL = "editEndorsor";
+
+    public static final String FIND_ENDORSOR_LIST = "findEndorsors";
+    public static final String FIND_ENDORSOR_TAG = "findEndorsors_tag";
+
+    public static final String MY_ENDORSOR_LIST = "myEndorsor";
+    public static final String MY_ENDORSOR_TAG = "myEndorsor_tag";
+
+    public static final String ARCHIVED_ENDORSOR_LIST = "archiveEndorsorList";
+    public static final String ARCHIVED_ENDORSOR_TAG = "archiveEndorsorList_tag";
+
+    public static final String DEACTIVATED_ENDORSOR_LIST = "deactivateEndorsorList";
+    public static final String DEACTIVATED_ENDORSOR_TAG = "deactivateEndorsorList_tag";
+
+    public static final String ENDORSOR_DELETE_URL = "deleteEndorsor";
+    public static final String ENDORSOR_ARCHIEVE_URL = "archiveEndorsor";
+    public static final String ENDORSOR_DEACTIVATE_URL = "deactivateEndorsor";
+    public static final String ENDORSOR_ACTIVATE_URL = "activateEndorsor";
+
+    public static final String ENDORSOR_LIKE_URL = "likeEndorsor";
+    public static final String ENDORSOR_LIKE_TAG = "likeEndorsor_tag";
+
+    public static final String ENDORSOR_DISLIKE_URL = "disLikeEndorsor";
+    public static final String ENDORSOR_DISLIKE_TAG = "disLikeEndorsor_tag";
+
+    public static final String ENDORSOR_LIKERS_LIST = "endorsorLikeList";
+    public static final String ENDORSOR_LIKERS_TAG = "endorsorLikeList_tag";
+
+    public static final String ENDORSOR_DISLIKERS_LIST = "endorsorDislikeList";
+    public static final String ENDORSOR_DISLIKERS_TAG = "endorsorDislikeList_tag";
+
+    public static final String ENDORSOR_FOLLOW_URL = "followEndorsor";
+    public static final String ENDORSOR_FOLLOW_TAG = "followEndorsor_tag";
+
+    public static final String ENDORSOR_UNFOLLOW_URL = "unfollowEndorsor";
+    public static final String ENDORSOR_UNFOLLOW_TAG = "unfollowEndorsor_tag";
 
 
 

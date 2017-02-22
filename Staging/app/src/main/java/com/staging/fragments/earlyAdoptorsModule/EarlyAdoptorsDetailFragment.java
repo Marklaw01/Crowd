@@ -280,7 +280,7 @@ public class EarlyAdoptorsDetailFragment extends Fragment implements View.OnClic
                     try {
                         JSONObject likeObj = new JSONObject();
                         likeObj.put("like_by", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
-                        likeObj.put("fund_id", fund_id);
+                        likeObj.put("early_adopter_id", fund_id);
                         if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
                             ((HomeActivity) getActivity()).showProgressDialog();
                             AsyncNew asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.EARLY_ADOPTORS_LIKE_TAG, Constants.EARLY_ADOPTORS_LIKE_URL, Constants.HTTP_POST_REQUEST, likeObj);
@@ -295,7 +295,7 @@ public class EarlyAdoptorsDetailFragment extends Fragment implements View.OnClic
                     try {
                         JSONObject likeObj = new JSONObject();
                         likeObj.put("dislike_by", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
-                        likeObj.put("fund_id", fund_id);
+                        likeObj.put("early_adopter_id", fund_id);
                         if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
                             ((HomeActivity) getActivity()).showProgressDialog();
                             AsyncNew asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.EARLY_ADOPTORS_DISLIKE_TAG, Constants.EARLY_ADOPTORS_DISLIKE_URL, Constants.HTTP_POST_REQUEST, likeObj);
@@ -314,7 +314,7 @@ public class EarlyAdoptorsDetailFragment extends Fragment implements View.OnClic
                 JSONObject followObj = new JSONObject();
                 try {
                     followObj.put("follow_by", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
-                    followObj.put("fund_id", fund_id);
+                    followObj.put("early_adopter_id", fund_id);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -427,7 +427,7 @@ public class EarlyAdoptorsDetailFragment extends Fragment implements View.OnClic
                         }
                         if (!jsonObject.getString("document").isEmpty()) {
                             docObject = new AudioObject();
-                            docObject.setAudioUrl(Constants.APP_IMAGE_URL + "/" + jsonObject.getString("fund_document"));
+                            docObject.setAudioUrl(Constants.APP_IMAGE_URL + "/" + jsonObject.getString("document"));
                             int a = jsonObject.getString("document").lastIndexOf("/");
                             docObject.setOrignalName(jsonObject.getString("document").substring(a + 1));
                             docObject.setName("Document 1");
@@ -437,7 +437,7 @@ public class EarlyAdoptorsDetailFragment extends Fragment implements View.OnClic
                         }
                         if (!jsonObject.getString("video").isEmpty()) {
                             videoObject = new AudioObject();
-                            videoObject.setAudioUrl(Constants.APP_IMAGE_URL + "/" + jsonObject.getString("fund_video"));
+                            videoObject.setAudioUrl(Constants.APP_IMAGE_URL + "/" + jsonObject.getString("video"));
                             int a = jsonObject.getString("video").lastIndexOf("/");
                             videoObject.setOrignalName(jsonObject.getString("video").substring(a + 1));
                             videoObject.setName("Video 1");
@@ -448,7 +448,7 @@ public class EarlyAdoptorsDetailFragment extends Fragment implements View.OnClic
 
                         if (!jsonObject.getString("audio").isEmpty()) {
                             audioObject = new AudioObject();
-                            audioObject.setAudioUrl(Constants.APP_IMAGE_URL + "/" + jsonObject.getString("fund_audio"));
+                            audioObject.setAudioUrl(Constants.APP_IMAGE_URL + "/" + jsonObject.getString("audio"));
                             int a = jsonObject.getString("audio").lastIndexOf("/");
                             audioObject.setOrignalName(jsonObject.getString("audio").substring(a + 1));
                             audioObject.setName("Audio 1");

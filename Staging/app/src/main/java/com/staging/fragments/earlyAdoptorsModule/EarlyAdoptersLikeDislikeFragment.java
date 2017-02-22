@@ -83,9 +83,9 @@ public class EarlyAdoptersLikeDislikeFragment extends Fragment implements Adapte
         list = new ArrayList<>();
         adapter = null;
         if (bundle.getString(Constants.LIKE_DISLIKE).equals(Constants.LIKE)) {
-            getLikersDislikers(current_page, Constants.FUND_LIKERS_LIST, Constants.FUND_LIKERS_TAG);
+            getLikersDislikers(current_page, Constants.EARLY_ADOPTORS_LIKERS_LIST, Constants.EARLY_ADOPTORS_LIKERS_TAG);
         } else {
-            getLikersDislikers(current_page, Constants.FUND_DISLIKERS_LIST, Constants.FUND_DISLIKERS_TAG);
+            getLikersDislikers(current_page, Constants.EARLY_ADOPTORS_DISLIKERS_LIST, Constants.EARLY_ADOPTORS_DISLIKERS_TAG);
         }
 
 
@@ -106,9 +106,9 @@ public class EarlyAdoptersLikeDislikeFragment extends Fragment implements Adapte
                     current_page += 1;
                     if (TOTAL_ITEMS != adapter.getCount()) {
                         if (bundle.getString(Constants.LIKE_DISLIKE).equals(Constants.LIKE)) {
-                            getLikersDislikers(current_page, Constants.FUND_LIKERS_LIST, Constants.FUND_LIKERS_TAG);
+                            getLikersDislikers(current_page, Constants.EARLY_ADOPTORS_LIKERS_LIST, Constants.EARLY_ADOPTORS_LIKERS_TAG);
                         } else {
-                            getLikersDislikers(current_page, Constants.FUND_DISLIKERS_LIST, Constants.FUND_DISLIKERS_TAG);
+                            getLikersDislikers(current_page, Constants.EARLY_ADOPTORS_DISLIKERS_LIST, Constants.EARLY_ADOPTORS_DISLIKERS_TAG);
                         }
                     } else {
                         list_persons.onLoadMoreComplete();
@@ -127,7 +127,7 @@ public class EarlyAdoptersLikeDislikeFragment extends Fragment implements Adapte
         if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
             try {
                 JSONObject obj = new JSONObject();
-                obj.put("fund_id", mFundId);
+                obj.put("early_adopter_id", mFundId);
                 obj.put("page_no", pageNumber);
                 ((HomeActivity) getActivity()).showProgressDialog();
                 asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), tag, url, Constants.HTTP_POST_REQUEST, obj);
@@ -181,7 +181,7 @@ public class EarlyAdoptersLikeDislikeFragment extends Fragment implements Adapte
             ((HomeActivity) getActivity()).dismissProgressDialog();
             Toast.makeText(getActivity(), getString(R.string.server_down), Toast.LENGTH_LONG).show();
         } else {
-            if (tag.equals(Constants.FUND_LIKERS_TAG)) {
+            if (tag.equals(Constants.EARLY_ADOPTORS_LIKERS_TAG)) {
                 ((HomeActivity) getActivity()).dismissProgressDialog();
                 try {
                     JSONObject jsonObject = new JSONObject(result);
@@ -213,7 +213,7 @@ public class EarlyAdoptersLikeDislikeFragment extends Fragment implements Adapte
                 int index = list_persons.getLastVisiblePosition();
                 list_persons.smoothScrollToPosition(index);
 
-            } else if (tag.equals(Constants.FUND_DISLIKERS_TAG)) {
+            } else if (tag.equals(Constants.EARLY_ADOPTORS_DISLIKERS_TAG)) {
 
                 ((HomeActivity) getActivity()).dismissProgressDialog();
                 try {

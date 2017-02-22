@@ -365,6 +365,10 @@
     <string name="updateBoardMember">Update Board Member</string>
     <string name="requestEarlyAdpoters">Request Early Adopters</string>
     <string name="updateEarlyAdoptor">Update Early Adaptor</string>
+
+    <string name="requestEndorsors">Request Endorsers</string>
+    <string name="updateEndorsors">Update Endorsers</string>
+
     <string name="opportunity_title">Opportunity Title</string>
     <string name="requestFocusGroup">Request a Focus Group</string>
     <string name="beta_test_s_title_required">Beta Test\'s title cannot be left blank!</string>

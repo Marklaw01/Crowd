@@ -1361,7 +1361,7 @@ public class UpdateRequestBetaTesterFragment extends Fragment implements onActiv
 
                         if (!jsonObject.getString("document").isEmpty()) {
                             docObject = new AudioObject();
-                            docObject.setAudioUrl(Constants.APP_IMAGE_URL + "/" + jsonObject.getString("fund_document"));
+                            docObject.setAudioUrl(Constants.APP_IMAGE_URL + "/" + jsonObject.getString("document"));
                             int a = jsonObject.getString("document").lastIndexOf("/");
                             docObject.setOrignalName(jsonObject.getString("document").substring(a + 1));
                             docObject.setName("Document 1");
@@ -1371,7 +1371,7 @@ public class UpdateRequestBetaTesterFragment extends Fragment implements onActiv
                         }
                         if (!jsonObject.getString("video").isEmpty()) {
                             videoObject = new AudioObject();
-                            videoObject.setAudioUrl(Constants.APP_IMAGE_URL + "/" + jsonObject.getString("fund_video"));
+                            videoObject.setAudioUrl(Constants.APP_IMAGE_URL + "/" + jsonObject.getString("video"));
                             int a = jsonObject.getString("video").lastIndexOf("/");
                             videoObject.setOrignalName(jsonObject.getString("video").substring(a + 1));
                             videoObject.setName("Video 1");
@@ -1382,7 +1382,7 @@ public class UpdateRequestBetaTesterFragment extends Fragment implements onActiv
 
                         if (!jsonObject.getString("audio").isEmpty()) {
                             audioObject = new AudioObject();
-                            audioObject.setAudioUrl(Constants.APP_IMAGE_URL + "/" + jsonObject.getString("fund_audio"));
+                            audioObject.setAudioUrl(Constants.APP_IMAGE_URL + "/" + jsonObject.getString("audio"));
                             int a = jsonObject.getString("audio").lastIndexOf("/");
                             audioObject.setOrignalName(jsonObject.getString("audio").substring(a + 1));
                             audioObject.setName("Audio 1");
