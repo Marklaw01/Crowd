@@ -16,10 +16,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.staging.R;
 import com.staging.activities.HomeActivity;
 import com.staging.fragments.WebViewFragment;
 import com.staging.listeners.AsyncTaskCompleteListener;
+import com.staging.logger.CrowdBootstrapLogger;
 import com.staging.models.AudioObject;
 import com.staging.utilities.AsyncNew;
 import com.staging.utilities.Constants;
@@ -243,18 +245,18 @@ public class FocusGroupDetailsFragment extends Fragment implements View.OnClickL
 
 
 
-        //funDetials();
+        detials();
         return rootView;
     }
 
-    private void funDetials() {
+    private void detials() {
         try {
             if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
                 ((HomeActivity) getActivity()).showProgressDialog();
                 JSONObject object = new JSONObject();
                 object.put("user_id", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
-                object.put("fund_id", fund_id);
-                AsyncNew a = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FUND_DETAILS_TAG, Constants.FUND_DETAILS_URL, Constants.HTTP_POST_REQUEST, object);
+                object.put("focus_group_id", fund_id);
+                AsyncNew a = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FOCUS_GROUP_DETAILS_TAG, Constants.FOCUS_GROUP_DETAILS_URL, Constants.HTTP_POST_REQUEST, object);
                 a.execute();
             } else {
                 ((HomeActivity) getActivity()).dismissProgressDialog();
@@ -278,10 +280,10 @@ public class FocusGroupDetailsFragment extends Fragment implements View.OnClickL
                     try {
                         JSONObject likeObj = new JSONObject();
                         likeObj.put("like_by", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
-                        likeObj.put("fund_id", fund_id);
+                        likeObj.put("focus_group_id", fund_id);
                         if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
                             ((HomeActivity) getActivity()).showProgressDialog();
-                            AsyncNew asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FUND_LIKE_TAG, Constants.FUND_LIKE_URL, Constants.HTTP_POST_REQUEST, likeObj);
+                            AsyncNew asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FOCUS_GROUP_LIKE_TAG, Constants.FOCUS_GROUP_LIKE_URL, Constants.HTTP_POST_REQUEST, likeObj);
                             asyncNew.execute();
                         } else {
                             ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
@@ -293,10 +295,10 @@ public class FocusGroupDetailsFragment extends Fragment implements View.OnClickL
                     try {
                         JSONObject likeObj = new JSONObject();
                         likeObj.put("dislike_by", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
-                        likeObj.put("fund_id", fund_id);
+                        likeObj.put("focus_group_id", fund_id);
                         if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
                             ((HomeActivity) getActivity()).showProgressDialog();
-                            AsyncNew asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FUND_DISLIKE_TAG, Constants.FUND_DISLIKE_URL, Constants.HTTP_POST_REQUEST, likeObj);
+                            AsyncNew asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FOCUS_GROUP_DISLIKE_TAG, Constants.FOCUS_GROUP_DISLIKE_URL, Constants.HTTP_POST_REQUEST, likeObj);
                             asyncNew.execute();
                         } else {
                             ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
@@ -312,7 +314,7 @@ public class FocusGroupDetailsFragment extends Fragment implements View.OnClickL
                 JSONObject followObj = new JSONObject();
                 try {
                     followObj.put("follow_by", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
-                    followObj.put("fund_id", fund_id);
+                    followObj.put("focus_group_id", fund_id);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -320,11 +322,11 @@ public class FocusGroupDetailsFragment extends Fragment implements View.OnClickL
                 if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
                     if (cbx_Follow.getText().toString().trim().equalsIgnoreCase("Follow")) {
                         ((HomeActivity) getActivity()).showProgressDialog();
-                        AsyncNew asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FUND_FOLLOW_TAG, Constants.FUND_FOLLOW_URL, Constants.HTTP_POST_REQUEST, followObj);
+                        AsyncNew asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FOCUS_GROUP_FOLLOW_TAG, Constants.FOCUS_GROUP_FOLLOW_URL, Constants.HTTP_POST_REQUEST, followObj);
                         asyncNew.execute();
                     } else {
                         ((HomeActivity) getActivity()).showProgressDialog();
-                        AsyncNew asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FUND_UNFOLLOW_TAG, Constants.FUND_UNFOLLOW_URL, Constants.HTTP_POST_REQUEST, followObj);
+                        AsyncNew asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FOCUS_GROUP_UNFOLLOW_TAG, Constants.FOCUS_GROUP_UNFOLLOW_URL, Constants.HTTP_POST_REQUEST, followObj);
                         asyncNew.execute();
                     }
                 } else {
@@ -375,165 +377,86 @@ public class FocusGroupDetailsFragment extends Fragment implements View.OnClickL
         } else if (result.equalsIgnoreCase(Constants.SERVEREXCEPTION)) {
             ((HomeActivity) getActivity()).dismissProgressDialog();
             Toast.makeText(getActivity(), getString(R.string.server_down), Toast.LENGTH_LONG).show();
-        } else {/*
-            if (tag.equals(Constants.FUND_FOLLOW_TAG)) {
-                ((HomeActivity) getActivity()).dismissProgressDialog();
+        } else {
+            if (tag.equals(Constants.FOCUS_GROUP_DETAILS_TAG)) {
+                CrowdBootstrapLogger.logInfo(result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
+
+
                     if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
-                        cbx_Follow.setText("UnFollow");
-                        cbx_Follow.setBackgroundColor(getResources().getColor(R.color.darkGrey));
-                    } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
+                        ((HomeActivity) getActivity()).dismissProgressDialog();
+                        et_description.setText(jsonObject.getString("description"));
+                        et_title.setText(jsonObject.getString("title"));
 
-                    }
+                        et_start_date.setText(jsonObject.getString("start_date"));
+                        et_endDate.setText(jsonObject.getString("end_date"));
+                        ImageLoader.getInstance().displayImage(Constants.APP_IMAGE_URL + jsonObject.getString("image").trim(), image_roadmap);
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                        if (jsonObject.has("focus_group_interest_keywords_id")) {
+                            StringBuilder sb = new StringBuilder();
+                            for (int i = 0; i < jsonObject.getJSONArray("focus_group_interest_keywords_id").length(); i++) {
+                                if (sb.length() > 0) {
+                                    sb.append(", ");
+                                }
+                                sb.append(jsonObject.getJSONArray("focus_group_interest_keywords_id").getJSONObject(i).getString("name"));
+                            }
+                            et_interestKeywords.setText(sb.toString());
+                        }
 
-            } else if (tag.equals(Constants.FUND_LIKE_TAG)) {
-                ((HomeActivity) getActivity()).dismissProgressDialog();
-                try {
-                    JSONObject jsonObject = new JSONObject(result);
-                    if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
-                        cbx_Like.setText("Liked");
-                        cbx_Like.setBackgroundColor(getResources().getColor(R.color.darkGrey));
-                    } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
+                        if (jsonObject.has("focus_group_keywords_id")) {
+                            StringBuilder sb = new StringBuilder();
+                            for (int i = 0; i < jsonObject.getJSONArray("focus_group_keywords_id").length(); i++) {
+                                if (sb.length() > 0) {
+                                    sb.append(", ");
+                                }
+                                sb.append(jsonObject.getJSONArray("focus_group_keywords_id").getJSONObject(i).getString("name"));
+                            }
+                            et_keywords.setText(sb.toString());
+                        }
 
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            } else if (tag.equals(Constants.FUND_DISLIKE_TAG)) {
-                ((HomeActivity) getActivity()).dismissProgressDialog();
-                try {
-                    JSONObject jsonObject = new JSONObject(result);
-                    if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
-                        cbx_Like.setText("Like");
-                        cbx_Like.setBackgroundColor(getResources().getColor(R.color.darkGreen));
-                    } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
-
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            } else if (tag.equals(Constants.FUND_UNFOLLOW_TAG)) {
-                ((HomeActivity) getActivity()).dismissProgressDialog();
-                try {
-                    JSONObject jsonObject = new JSONObject(result);
-                    if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
-                        cbx_Follow.setText("Follow");
-                        cbx_Follow.setBackgroundColor(getResources().getColor(R.color.darkGreen));
-                    } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
-
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            } else if (tag.equals(Constants.FUND_DETAILS_TAG)) {
-                ((HomeActivity) getActivity()).dismissProgressDialog();
-                try {
-                    JSONObject jsonObject = new JSONObject(result);
-                    if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
-                        et_postedBy.setText(jsonObject.getString("fund_created_by"));
-                        et_investmentStartDate.setText(jsonObject.getString("fund_start_date"));
-                        et_fundDescription.setText(jsonObject.getString("fund_description"));
-                        et_investmentEndDate.setText(jsonObject.getString("fund_end_date"));
-                        et_fundsClosedDate.setText(jsonObject.getString("fund_close_date"));
-                        et_title.setText(jsonObject.getString("fund_title"));
-
-                        if (!jsonObject.getString("fund_document").isEmpty()) {
+                        if (jsonObject.has("target_market")) {
+                            StringBuilder sb = new StringBuilder();
+                            for (int i = 0; i < jsonObject.getJSONArray("target_market").length(); i++) {
+                                if (sb.length() > 0) {
+                                    sb.append(", ");
+                                }
+                                sb.append(jsonObject.getJSONArray("target_market").getJSONObject(i).getString("name"));
+                            }
+                            et_targetMarket.setText(sb.toString());
+                        }
+                        if (!jsonObject.getString("document").isEmpty()) {
                             docObject = new AudioObject();
-                            docObject.setAudioUrl(Constants.APP_IMAGE_URL + "/" + jsonObject.getString("fund_document"));
-                            int a = jsonObject.getString("fund_document").lastIndexOf("/");
-                            docObject.setOrignalName(jsonObject.getString("fund_document").substring(a + 1));
+                            docObject.setAudioUrl(Constants.APP_IMAGE_URL + "/" + jsonObject.getString("document"));
+                            int a = jsonObject.getString("document").lastIndexOf("/");
+                            docObject.setOrignalName(jsonObject.getString("document").substring(a + 1));
                             docObject.setName("Document 1");
                             list_docs.setText(docObject.getName());
                         } else {
                             expandable_viewDocument.setVisibility(View.GONE);
                         }
-                        if (!jsonObject.getString("fund_video").isEmpty()) {
+                        if (!jsonObject.getString("video").isEmpty()) {
                             videoObject = new AudioObject();
-                            videoObject.setAudioUrl(Constants.APP_IMAGE_URL + "/" + jsonObject.getString("fund_video"));
-                            int a = jsonObject.getString("fund_video").lastIndexOf("/");
-                            videoObject.setOrignalName(jsonObject.getString("fund_video").substring(a + 1));
+                            videoObject.setAudioUrl(Constants.APP_IMAGE_URL + "/" + jsonObject.getString("video"));
+                            int a = jsonObject.getString("video").lastIndexOf("/");
+                            videoObject.setOrignalName(jsonObject.getString("video").substring(a + 1));
                             videoObject.setName("Video 1");
                             list_video.setText(videoObject.getName());
                         } else {
                             expandable_playVideo.setVisibility(View.GONE);
                         }
 
-                        if (!jsonObject.getString("fund_audio").isEmpty()) {
+                        if (!jsonObject.getString("audio").isEmpty()) {
                             audioObject = new AudioObject();
-                            audioObject.setAudioUrl(Constants.APP_IMAGE_URL + "/" + jsonObject.getString("fund_audio"));
-                            int a = jsonObject.getString("fund_audio").lastIndexOf("/");
-                            audioObject.setOrignalName(jsonObject.getString("fund_audio").substring(a + 1));
+                            audioObject.setAudioUrl(Constants.APP_IMAGE_URL + "/" + jsonObject.getString("audio"));
+                            int a = jsonObject.getString("audio").lastIndexOf("/");
+                            audioObject.setOrignalName(jsonObject.getString("audio").substring(a + 1));
                             audioObject.setName("Audio 1");
                             list_audios.setText(audioObject.getName());
                         } else {
                             expandable_playAudio.setVisibility(View.GONE);
                         }
-
-                        ImageLoader.getInstance().displayImage(Constants.APP_IMAGE_URL + jsonObject.getString("fund_image"), image_roadmap);
-                        if (jsonObject.has("fund_mangers")) {
-                            StringBuilder sb = new StringBuilder();
-                            for (int i = 0; i < jsonObject.getJSONArray("fund_mangers").length(); i++) {
-                                if (sb.length() > 0) {
-                                    sb.append(", ");
-                                }
-                                sb.append(jsonObject.getJSONArray("fund_mangers").getJSONObject(i).getString("name"));
-                            }
-                            et_fundManagers.setText(sb.toString());
-                        }
-
-                        if (jsonObject.has("fund_sponsors")) {
-                            StringBuilder sb = new StringBuilder();
-                            for (int i = 0; i < jsonObject.getJSONArray("fund_sponsors").length(); i++) {
-                                if (sb.length() > 0) {
-                                    sb.append(", ");
-                                }
-                                sb.append(jsonObject.getJSONArray("fund_sponsors").getJSONObject(i).getString("name"));
-                            }
-                            et_fundsponsers.setText(sb.toString());
-                        }
-                        if (jsonObject.has("fund_portfolios")) {
-                            StringBuilder sb = new StringBuilder();
-                            for (int i = 0; i < jsonObject.getJSONArray("fund_portfolios").length(); i++) {
-                                if (sb.length() > 0) {
-                                    sb.append(", ");
-                                }
-                                sb.append(jsonObject.getJSONArray("fund_portfolios").getJSONObject(i).getString("name"));
-                            }
-                            et_portfolio.setText(sb.toString());
-                        }
-
-                        if (jsonObject.has("fund_industries")) {
-                            StringBuilder sb = new StringBuilder();
-                            for (int i = 0; i < jsonObject.getJSONArray("fund_industries").length(); i++) {
-                                if (sb.length() > 0) {
-                                    sb.append(", ");
-                                }
-                                sb.append(jsonObject.getJSONArray("fund_industries").getJSONObject(i).getString("name"));
-                            }
-                            et_industry.setText(sb.toString());
-                        }
-
-                        if (jsonObject.has("fund_keywords")) {
-                            StringBuilder sb = new StringBuilder();
-                            for (int i = 0; i < jsonObject.getJSONArray("fund_keywords").length(); i++) {
-                                if (sb.length() > 0) {
-                                    sb.append(", ");
-                                }
-                                sb.append(jsonObject.getJSONArray("fund_keywords").getJSONObject(i).getString("name"));
-                            }
-                            et_keywords.setText(sb.toString());
-                        }
+                        et_postedBy.setText(jsonObject.getString("created_by"));
                         if (jsonObject.getString("is_liked_by_user").equals("1")) {
                             cbx_Like.setText("Liked");
                             cbx_Like.setBackgroundColor(getResources().getColor(R.color.darkGrey));
@@ -548,21 +471,79 @@ public class FocusGroupDetailsFragment extends Fragment implements View.OnClickL
                             cbx_Follow.setText("Follow");
                             cbx_Follow.setBackgroundColor(getResources().getColor(R.color.darkGreen));
                         }
+
                     } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
-                        Toast.makeText(getActivity(), getString(R.string.noFunds), Toast.LENGTH_LONG).show();
+                        ((HomeActivity) getActivity()).dismissProgressDialog();
+                    }
+                } catch (JSONException e) {
+                    ((HomeActivity) getActivity()).dismissProgressDialog();
+                    e.printStackTrace();
+                }
+            } else if (tag.equals(Constants.FOCUS_GROUP_LIKE_TAG)) {
+                ((HomeActivity) getActivity()).dismissProgressDialog();
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
+                        cbx_Like.setText("Liked");
+                        cbx_Like.setBackgroundColor(getResources().getColor(R.color.darkGrey));
+                    } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
+
                     }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
+            } else if (tag.equals(Constants.FOCUS_GROUP_DISLIKE_TAG)) {
+                ((HomeActivity) getActivity()).dismissProgressDialog();
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
+                        cbx_Like.setText("Like");
+                        cbx_Like.setBackgroundColor(getResources().getColor(R.color.darkGreen));
+                    } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            } else if (tag.equals(Constants.FOCUS_GROUP_FOLLOW_TAG)) {
+                ((HomeActivity) getActivity()).dismissProgressDialog();
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
+                        cbx_Follow.setText("UnFollow");
+                        cbx_Follow.setBackgroundColor(getResources().getColor(R.color.darkGrey));
+                    } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            } else if (tag.equals(Constants.FOCUS_GROUP_UNFOLLOW_TAG)) {
+                ((HomeActivity) getActivity()).dismissProgressDialog();
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
+                        cbx_Follow.setText("Follow");
+                        cbx_Follow.setBackgroundColor(getResources().getColor(R.color.darkGreen));
+                    } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
             }
-        */}
+        }
 
 
     }
-
 
     /*class DocumentListAdapter extends BaseAdapter {
         private LayoutInflater l_Inflater;

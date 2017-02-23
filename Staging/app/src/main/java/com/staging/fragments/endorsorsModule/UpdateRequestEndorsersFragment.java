@@ -1460,7 +1460,7 @@ public class UpdateRequestEndorsersFragment extends Fragment implements onActivi
                     super.onPreExecute();
 
                     pDialog = new ProgressDialog(getActivity());
-                    pDialog.setMessage("Updating Board Member Please wait...");
+                    pDialog.setMessage("Please wait...");
                     pDialog.setIndeterminate(false);
                     pDialog.setMax(100);
                     pDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
@@ -1669,7 +1669,7 @@ public class UpdateRequestEndorsersFragment extends Fragment implements onActivi
                                 JSONObject jsonObject = new JSONObject(result);
                                 if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
                                     pathofmedia.clear();
-                                    Toast.makeText(getActivity(), "Your fund is updated successfully.", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getActivity(), "Updated successfully.", Toast.LENGTH_LONG).show();
                                     getActivity().onBackPressed();
                                 } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
 

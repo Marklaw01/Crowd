@@ -1122,7 +1122,7 @@ public class RequestEndorsersFragment extends Fragment implements onActivityResu
                     super.onPreExecute();
 
                     pDialog = new ProgressDialog(getActivity());
-                    pDialog.setMessage("Creating Fund Please wait...");
+                    pDialog.setMessage("Please wait...");
                     pDialog.setIndeterminate(false);
                     pDialog.setMax(100);
                     pDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);

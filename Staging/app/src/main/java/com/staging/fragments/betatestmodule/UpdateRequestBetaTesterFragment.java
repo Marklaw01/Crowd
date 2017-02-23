@@ -1714,7 +1714,7 @@ public class UpdateRequestBetaTesterFragment extends Fragment implements onActiv
                     super.onPreExecute();
 
                     pDialog = new ProgressDialog(getActivity());
-                    pDialog.setMessage("Updating Beta Tester Please wait...");
+                    pDialog.setMessage("Please wait...");
                     pDialog.setIndeterminate(false);
                     pDialog.setMax(100);
                     pDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);

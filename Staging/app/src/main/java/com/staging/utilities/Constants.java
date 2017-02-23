@@ -704,7 +704,56 @@ public final class Constants {
     public static final String ENDORSOR_UNFOLLOW_URL = "unfollowEndorsor";
     public static final String ENDORSOR_UNFOLLOW_TAG = "unfollowEndorsor_tag";
 
+    // Focus Group module
+    public static final String FOCUS_GROUP_KEYWORDS_LIST_URL = "focusGroupKeywordsList";
+    public static final String FOCUS_GROUP_KEYWORDS_LIST_TAG = "focusGroupKeywordsList_tag";
 
+    public static final String FOCUS_GROUP_INTEREST_KEYWORDS_LIST_URL = "focusGroupInterestKeywordLists";
+    public static final String FOCUS_GROUP_INTEREST_KEYWORDS_LIST_TAG = "focusGroupInterestKeywordLists_tag";
+
+    public static final String FOCUS_GROUP_TARGET_MARKET_LIST_URL = "focusGroupTargetMarketsList";
+    public static final String FOCUS_GROUP_TARGET_MARKET_LIST_TAG = "focusGroupTargetMarketsList_tag";
+
+    public static final String FOCUS_GROUP_DETAILS_URL = "focusGroupDetails";
+    public static final String FOCUS_GROUP_DETAILS_TAG = "focusGroupDetails_tag";
+
+    public static final String CREATE_FOCUS_GROUP_URL = "addFocusGroup";
+    public static final String UPDATE_FOCUS_GROUP_URL = "editFocusGroup";
+
+    public static final String FIND_FOCUS_GROUP_LIST = "findFocusGroups";
+    public static final String FIND_FOCUS_GROUP_TAG = "findFocusGroups_tag";
+
+    public static final String MY_FOCUS_GROUP_LIST = "myFocusGroup";
+    public static final String MY_FOCUS_GROUP_TAG = "myFocusGroup_tag";
+
+    public static final String ARCHIVED_FOCUS_GROUP_LIST = "archiveFocusGroupList";
+    public static final String ARCHIVED_FOCUS_GROUP_TAG = "archiveFocusGroupList_tag";
+
+    public static final String DEACTIVATED_FOCUS_GROUP_LIST = "deactivateFocusGroupList";
+    public static final String DEACTIVATED_FOCUS_GROUP_TAG = "deactivateFocusGroupList_tag";
+
+    public static final String FOCUS_GROUP_DELETE_URL = "deleteFocusGroup";
+    public static final String FOCUS_GROUP_ARCHIEVE_URL = "archiveFocusGroup";
+    public static final String FOCUS_GROUP_DEACTIVATE_URL = "deactivateFocusGroup";
+    public static final String FOCUS_GROUP_ACTIVATE_URL = "activateFocusGroup";
+
+    public static final String FOCUS_GROUP_LIKE_URL = "likeFocusGroup";
+    public static final String FOCUS_GROUP_LIKE_TAG = "likeFocusGroup_tag";
+
+    public static final String FOCUS_GROUP_DISLIKE_URL = "disLikeFocusGroup";
+    public static final String FOCUS_GROUP_DISLIKE_TAG = "disLikeFocusGroup_tag";
+
+    public static final String FOCUS_GROUP_LIKERS_LIST = "focusGroupLikeList";
+    public static final String FOCUS_GROUP_LIKERS_TAG = "focusGroupLikeList_tag";
+
+    public static final String FOCUS_GROUP_DISLIKERS_LIST = "focusGroupDislikeList";
+    public static final String FOCUS_GROUP_DISLIKERS_TAG = "focusGroupDislikeList_tag";
+
+    public static final String FOCUS_GROUP_FOLLOW_URL = "followFocusGroup";
+    public static final String FOCUS_GROUP_FOLLOW_TAG = "followFocusGroup_tag";
+
+    public static final String FOCUS_GROUP_UNFOLLOW_URL = "unfollowFocusGroup";
+    public static final String FOCUS_GROUP_UNFOLLOW_TAG = "unfollowFocusGroup_tag";
 
 
 

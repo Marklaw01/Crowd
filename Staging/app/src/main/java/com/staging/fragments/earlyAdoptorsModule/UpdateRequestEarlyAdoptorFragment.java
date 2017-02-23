@@ -1476,7 +1476,7 @@ public class UpdateRequestEarlyAdoptorFragment extends Fragment implements onAct
                     super.onPreExecute();
 
                     pDialog = new ProgressDialog(getActivity());
-                    pDialog.setMessage("Updating Board Member Please wait...");
+                    pDialog.setMessage("Please wait...");
                     pDialog.setIndeterminate(false);
                     pDialog.setMax(100);
                     pDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
