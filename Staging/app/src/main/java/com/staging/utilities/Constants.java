@@ -815,6 +815,7 @@ public final class Constants {
     public static final int POSITION = 1001;
     public static final java.lang.String CALLED_FROM = "calledFrom";
     public static final String UTF_8 = "UTF-8";
+    public static final String FUND_NAME = "fundName";
 
 
     //Passing data constants using intent

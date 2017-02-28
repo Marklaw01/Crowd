@@ -348,7 +348,7 @@
     <string name="fundActivated">Your fund activated successfully.</string>
     <string name="version">Version: Crowd Bootstrap v</string>
     <string name="searchBetaTest">Search Beta Test</string>
-    <string name="addBetaTest">Add Beta Test</string>
+    <string name="addBetaTest">Request New Beta Test</string>
     <string name="myBetaTest">My Beta Test</string>
     <string name="myOpportunity">My Opportunity</string>
     <string name="searchOpportunity">Search Opportunity</string>
@@ -356,29 +356,33 @@
     <string name="beta_test_s_title">Beta Test\'s Title</string>
     <string name="start_date">Start Date</string>
     <string name="endDate">End Date</string>
-    <string name="requestBetaTester">Request Beta Tester</string>
+    <string name="requestBetaTester">Enter Requirements for New Beta Test</string>
     <string name="target_market">Target Market</string>
     <string name="interest_keyword">Interest Keyword</string>
-    <string name="createBoardMember">Request Board Members</string>
+    <string name="createBoardMember">Create Board Members</string>
     <string name="updateBetaTester">Update Beta Tester</string>
-    <string name="requestBoardMember">Request Board Member</string>
+    <string name="requestBoardMember">Enter Requirements for New Board Member</string>
     <string name="updateBoardMember">Update Board Member</string>
-    <string name="requestEarlyAdpoters">Request Early Adopters</string>
+    <string name="requestEarlyAdpoters">Enter Requirements for New Early Adopters</string>
     <string name="updateEarlyAdoptor">Update Early Adaptor</string>
 
-    <string name="requestEndorsors">Request Endorsers</string>
+    <string name="requestEndorsors">Enter Requirements for New Endorsers</string>
     <string name="updateEndorsors">Update Endorsers</string>
 
     <string name="opportunity_title">Opportunity Title</string>
-    <string name="requestFocusGroup">Request a Focus Group</string>
+    <string name="requestFocusGroup">Enter Requirements for New Focus Group</string>
     <string name="beta_test_s_title_required">Beta Test\'s title cannot be left blank!</string>
     <string name="startDateRequired">Start Date cannot be left blank!</string>
     <string name="endDateRequired">End Date cannot be left blank!</string>
     <string name="startdate_validation">Start date cannot be present or past date!</string>
-    <string name="end_date_validation">End date cannot be present or past date!</string>
+    <string name="end_date_validation">End date cannot be before Start Date!</string>
     <string name="targetMarket_required">Select at least one Target market!</string>
     <string name="keyword_required">Select at least one Keyword!</string>
     <string name="interestKeyword_required">Select at least one Interested Keyword!</string>
 
     <string name="title_required">Opportunity title cannot be left blank!</string>
+    <string name="createBetaTest">Create Beta Test</string>
+    <string name="createEarlyAdpoters">Create Early Adopters</string>
+    <string name="createEndorsors">Create Endorsors</string>
+    <string name="createFocusGroup">Create Focus Group</string>
 </resources>

@@ -59,9 +59,6 @@ public class BetaTestsFragment extends Fragment  {
         return rootView;
     }
 
-
-
-
     class MyAdapter extends FragmentPagerAdapter {
 
         public MyAdapter(FragmentManager fm) {

@@ -246,7 +246,7 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.update_board_member_fragment, container, false);
-        ((HomeActivity) getActivity()).setActionBarTitle(getString(R.string.updateBoardMember));
+        ((HomeActivity) getActivity()).setActionBarTitle(bundle.getString(Constants.FUND_NAME));
 
         list_audios = (TextView) rootView.findViewById(R.id.list_audios);
         list_docs = (TextView) rootView.findViewById(R.id.list_docs);
@@ -894,7 +894,7 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
                     Toast.makeText(getActivity(), getString(R.string.endDateRequired), Toast.LENGTH_LONG).show();
                     return;
                 }
-                if (DateTimeFormatClass.compareDates(myCalendarInvestmentEndDate.getTime())) {
+                if (DateTimeFormatClass.compareDates(myCalendarInvestmentStartDate.getTime(), myCalendarInvestmentEndDate.getTime())) {
                     Toast.makeText(getActivity(), getString(R.string.end_date_validation), Toast.LENGTH_LONG).show();
                     return;
                 }

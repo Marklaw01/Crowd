@@ -209,7 +209,7 @@ public class RequestEndorsersFragment extends Fragment implements onActivityResu
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.create_boardmember_fragment, container, false);
-        ((HomeActivity) getActivity()).setActionBarTitle(getString(R.string.requestEndorsors));
+        ((HomeActivity) getActivity()).setActionBarTitle(getString(R.string.createEndorsors));
 
 
         et_title = (EditText) rootView.findViewById(R.id.et_title);
@@ -704,7 +704,7 @@ public class RequestEndorsersFragment extends Fragment implements onActivityResu
                     Toast.makeText(getActivity(), getString(R.string.endDateRequired), Toast.LENGTH_LONG).show();
                     return;
                 }
-                if (DateTimeFormatClass.compareDates(myCalendarInvestmentEndDate.getTime())) {
+                if (DateTimeFormatClass.compareDates(myCalendarInvestmentStartDate.getTime(), myCalendarInvestmentEndDate.getTime())) {
                     Toast.makeText(getActivity(), getString(R.string.end_date_validation), Toast.LENGTH_LONG).show();
                     return;
                 }

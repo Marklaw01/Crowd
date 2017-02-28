@@ -152,6 +152,7 @@ public class MyBetaTestFragments extends Fragment implements AdapterView.OnItemC
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Bundle bundle = new Bundle();
         bundle.putString(Constants.FUND_ID, fundsList.get(position).getId());
+        bundle.putString(Constants.FUND_NAME, fundsList.get(position).getFund_title());
         UpdateRequestBetaTesterFragment updateFundFragment = new UpdateRequestBetaTesterFragment();
         updateFundFragment.setArguments(bundle);
         ((HomeActivity) getActivity()).replaceFragment(updateFundFragment);

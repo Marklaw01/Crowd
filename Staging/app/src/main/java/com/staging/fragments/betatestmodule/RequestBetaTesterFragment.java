@@ -210,7 +210,7 @@ public class RequestBetaTesterFragment extends Fragment implements onActivityRes
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.create_beta_tester_fragment, container, false);
-        ((HomeActivity) getActivity()).setActionBarTitle(getString(R.string.requestBetaTester));
+        ((HomeActivity) getActivity()).setActionBarTitle(getString(R.string.createBetaTest));
 
 
         et_title = (EditText) rootView.findViewById(R.id.et_title);
@@ -702,7 +702,7 @@ public class RequestBetaTesterFragment extends Fragment implements onActivityRes
                     Toast.makeText(getActivity(), getString(R.string.endDateRequired), Toast.LENGTH_LONG).show();
                     return;
                 }
-                if (DateTimeFormatClass.compareDates(myCalendarInvestmentEndDate.getTime())) {
+                if (DateTimeFormatClass.compareDates(myCalendarInvestmentStartDate.getTime(), myCalendarInvestmentEndDate.getTime())) {
                     Toast.makeText(getActivity(), getString(R.string.end_date_validation), Toast.LENGTH_LONG).show();
                     return;
                 }

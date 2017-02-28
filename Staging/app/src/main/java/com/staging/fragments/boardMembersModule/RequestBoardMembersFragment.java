@@ -209,7 +209,7 @@ public class RequestBoardMembersFragment extends Fragment implements onActivityR
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.create_boardmember_fragment, container, false);
-        ((HomeActivity) getActivity()).setActionBarTitle(getString(R.string.requestBoardMember));
+        ((HomeActivity) getActivity()).setActionBarTitle(getString(R.string.createBoardMember));
 
 
         et_title = (EditText) rootView.findViewById(R.id.et_title);
@@ -703,7 +703,7 @@ public class RequestBoardMembersFragment extends Fragment implements onActivityR
                     Toast.makeText(getActivity(), getString(R.string.endDateRequired), Toast.LENGTH_LONG).show();
                     return;
                 }
-                if (DateTimeFormatClass.compareDates(myCalendarInvestmentEndDate.getTime())) {
+                if (DateTimeFormatClass.compareDates(myCalendarInvestmentStartDate.getTime(), myCalendarInvestmentEndDate.getTime())) {
                     Toast.makeText(getActivity(), getString(R.string.end_date_validation), Toast.LENGTH_LONG).show();
                     return;
                 }

@@ -152,6 +152,7 @@ public class MyOpportunityEndorsersFragments extends Fragment implements Adapter
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Bundle bundle = new Bundle();
         bundle.putString(Constants.FUND_ID, fundsList.get(position).getId());
+        bundle.putString(Constants.FUND_NAME, fundsList.get(position).getFund_title());
         UpdateRequestEndorsersFragment updateFundFragment = new UpdateRequestEndorsersFragment();
         updateFundFragment.setArguments(bundle);
         ((HomeActivity) getActivity()).replaceFragment(updateFundFragment);

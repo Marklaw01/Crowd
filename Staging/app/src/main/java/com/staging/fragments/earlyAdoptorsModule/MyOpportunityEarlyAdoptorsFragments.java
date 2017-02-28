@@ -154,6 +154,7 @@ public class MyOpportunityEarlyAdoptorsFragments extends Fragment implements Ada
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Bundle bundle = new Bundle();
         bundle.putString(Constants.FUND_ID, fundsList.get(position).getId());
+        bundle.putString(Constants.FUND_NAME, fundsList.get(position).getFund_title());
         UpdateRequestEarlyAdoptorFragment updateFundFragment = new UpdateRequestEarlyAdoptorFragment();
         updateFundFragment.setArguments(bundle);
         ((HomeActivity) getActivity()).replaceFragment(updateFundFragment);
