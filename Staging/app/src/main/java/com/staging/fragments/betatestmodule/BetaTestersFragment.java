@@ -93,7 +93,7 @@ public class BetaTestersFragment  extends Fragment{
                 case 0:
                     return getString(R.string.searchBetaTest);
                 case 1:
-                    return getString(R.string.addBetaTest);
+                    return getString(R.string.myBetaTests);
             }
             return null;
         }

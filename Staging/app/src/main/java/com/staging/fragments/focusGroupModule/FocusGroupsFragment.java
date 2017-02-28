@@ -94,7 +94,7 @@ public class FocusGroupsFragment extends Fragment{
                 case 0:
                     return getString(R.string.searchOpportunity);
                 case 1:
-                    return getString(R.string.addOpportunity);
+                    return getString(R.string.myFocusGroups);
             }
             return null;
         }

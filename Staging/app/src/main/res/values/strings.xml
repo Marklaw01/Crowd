@@ -359,7 +359,7 @@
     <string name="requestBetaTester">Enter Requirements for New Beta Test</string>
     <string name="target_market">Target Market</string>
     <string name="interest_keyword">Interest Keyword</string>
-    <string name="createBoardMember">Create Board Members</string>
+    <string name="createBoardMember">Board Membership Requirements</string>
     <string name="updateBetaTester">Update Beta Tester</string>
     <string name="requestBoardMember">Enter Requirements for New Board Member</string>
     <string name="updateBoardMember">Update Board Member</string>
@@ -381,8 +381,13 @@
     <string name="interestKeyword_required">Select at least one Interested Keyword!</string>
 
     <string name="title_required">Opportunity title cannot be left blank!</string>
-    <string name="createBetaTest">Create Beta Test</string>
-    <string name="createEarlyAdpoters">Create Early Adopters</string>
-    <string name="createEndorsors">Create Endorsors</string>
-    <string name="createFocusGroup">Create Focus Group</string>
+    <string name="createBetaTest">Beta Test Requirements</string>
+    <string name="createEarlyAdpoters">Early Adopter Requirements</string>
+    <string name="createEndorsors">Endorser Requirements</string>
+    <string name="createFocusGroup">Focus Group Requirements</string>
+    <string name="myBetaTests">My Beta Tests</string>
+    <string name="myBoardMember">My Board Members</string>
+    <string name="myEarlyAdoptors">My Early Adopters</string>
+    <string name="myEndorsors">My Endorsers</string>
+    <string name="myFocusGroups">My Focus Groups</string>
 </resources>
