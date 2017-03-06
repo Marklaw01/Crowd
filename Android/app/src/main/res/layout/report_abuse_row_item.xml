@@ -5,7 +5,7 @@
     android:background="@color/app_backgroundColor"
     android:orientation="horizontal">
 
-    <com.crowdbootstrapapp.helper.CircleImageView
+    <com.crowdbootstrap.helper.CircleImageView
         android:id="@+id/img_contractorImage"
         android:layout_width="50sp"
         android:layout_height="50sp"

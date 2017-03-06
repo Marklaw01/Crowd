@@ -10,4 +10,5 @@
     <dimen name="arrowDimen">20dp</dimen>
     <dimen name="table_width">100dp</dimen>
     <dimen name="table_height">40dp</dimen>
+    <dimen name="headerTextSize">15sp</dimen>
 </resources>

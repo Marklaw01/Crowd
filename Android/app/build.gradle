@@ -1,20 +1,27 @@
 apply plugin: 'com.android.application'
 
 android {
+
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
-
     defaultConfig {
-        applicationId "com.crowdbootstrapapp"
-        minSdkVersion 16
+        applicationId "com.crowdbootstrap"
+        minSdkVersion 18
         targetSdkVersion 23
         versionCode 1
         versionName "1.1"
         multiDexEnabled true
     }
     buildTypes {
-        release {
+        /*release {
+            debuggable false
+            minifyEnabled true
             shrinkResources true
+            zipAlignEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }*/
+        release {
+            debuggable false
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -39,8 +46,10 @@ android {
         }
 
     }
-
-
+    dexOptions {
+        /*incremental true*/
+        javaMaxHeapSize "4g" // 2g should be also OK
+    }
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES.txt'
         exclude 'META-INF/LICENSE.txt'
@@ -62,6 +71,9 @@ dependencies {
         exclude module: 'support-v4'
     }
     compile project(':TableLibrary')
+    compile project(':linkedin-sdk')
+    /*compile files('libs/rollbar-android-0.1.2.jar')*/
+    compile project(':facebook')
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
     compile 'com.android.support:support-v4:23.1.1'
@@ -70,9 +82,17 @@ dependencies {
     compile 'com.google.android.gms:play-services-ads:9.0.0'
     /*compile 'com.google.android.gms:play-services-gcm:8.4.0'*/
     compile 'com.google.android.gms:play-services-gcm:9.0.0'
+    androidTestCompile 'com.android.support.test:runner:0.2'
+    androidTestCompile 'com.android.support.test:rules:0.2'
+    androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.0'
+    androidTestCompile 'com.android.support:support-annotations:23.1.1'
+    compile 'com.google.android.gms:play-services-auth:9.0.0'
+    compile 'com.google.android.gms:play-services-identity:9.0.0'
+    compile 'com.google.android.gms:play-services:9.0.0'
     //com.google.android.gms:play-services-gcm:9.0.0
     compile "com.quickblox:quickblox-android-sdk-core:${rootProject.qbSdkVersion}@aar"
-    compile("com.quickblox:quickblox-android-sdk-chat:${rootProject.qbSdkVersion}@aar") {
+    compile("com.quickblox:quickblox-android-sdk-chat:${rootProject.qbSdkVersion}@aar")
+    {
         transitive = true
     }
     compile "com.quickblox:quickblox-android-sdk-customobjects:$rootProject.qbSdkVersion@aar"
@@ -87,5 +107,4 @@ dependencies {
     //SUB-DEPENDENCIES
     //Android-Iconics - used to provide an easy API for icons
     compile 'com.mikepenz:iconics-core:2.8.0@aar'
-    /*compile files('libs/rollbar-android-0.1.2.jar')*/
 }

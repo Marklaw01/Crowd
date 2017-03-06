@@ -67,6 +67,16 @@ public class ViewOtherContractorPublicProfileFragment extends Fragment implement
             aboveLayoutProfile.setVisibility(View.GONE);
             belowLayoutProfile.setVisibility(View.VISIBLE);
             connectionOption.setVisibility(View.VISIBLE);
+        } else if ((getArguments().getString("COMMING_FROM").equalsIgnoreCase(Constants.LIKE_DISLIKE))) {
+
+            ((HomeActivity) getActivity()).setActionBarTitle("Public Profile");
+            userId = getArguments().getString("id");
+            Log.e("id", userId);
+            Constants.COMMING_FROM_INTENT = Constants.LIKE_DISLIKE;
+            cbx_Follow.setVisibility(View.VISIBLE);
+            aboveLayoutProfile.setVisibility(View.GONE);
+            belowLayoutProfile.setVisibility(View.VISIBLE);
+            connectionOption.setVisibility(View.VISIBLE);
         } else if ((getArguments().getString("COMMING_FROM").equalsIgnoreCase("teams"))) {
 
             ((HomeActivity) getActivity()).setActionBarTitle("Public Profile");
@@ -139,7 +149,7 @@ public class ViewOtherContractorPublicProfileFragment extends Fragment implement
         img_excellenceAward.setOnClickListener(this);
         connectionOption = (TextView) rootView.findViewById(R.id.connect);
         aboveLayoutProfile = (RelativeLayout) rootView.findViewById(R.id.abovelayoutProfile);
-        belowLayoutProfile  = (RelativeLayout) rootView.findViewById(R.id.belowlayoutProfile);
+        belowLayoutProfile = (RelativeLayout) rootView.findViewById(R.id.belowlayoutProfile);
 
         circularImageView = (ImageView) rootView.findViewById(R.id.profileimage);
 
@@ -168,17 +178,17 @@ public class ViewOtherContractorPublicProfileFragment extends Fragment implement
             @Override
             public void onClick(View v) {
                 Log.e("Quick", quickBloxId);
-                ((HomeActivity)getActivity()).showProgressDialog();
+                ((HomeActivity) getActivity()).showProgressDialog();
                 privateChatManager.createDialog(Integer.parseInt(quickBloxId), new QBEntityCallback<QBDialog>() {
                     @Override
                     public void onSuccess(QBDialog dialog, Bundle args) {
-                        ((HomeActivity)getActivity()).dismissProgressDialog();
+                        ((HomeActivity) getActivity()).dismissProgressDialog();
                         Fragment addContributor = new ChatFragment();
 
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("dialog", dialog);
                         addContributor.setArguments(bundle);
-                        ((HomeActivity)getActivity()).replaceFragment(addContributor);
+                        ((HomeActivity) getActivity()).replaceFragment(addContributor);
                         /*FragmentTransaction transactionAdd = getFragmentManager().beginTransaction();
                         transactionAdd.replace(R.id.container, addContributor);
                         transactionAdd.addToBackStack(null);
@@ -188,12 +198,12 @@ public class ViewOtherContractorPublicProfileFragment extends Fragment implement
 
                     @Override
                     public void onError(QBResponseException errors) {
-                        ((HomeActivity)getActivity()).dismissProgressDialog();
+                        ((HomeActivity) getActivity()).dismissProgressDialog();
                     }
                 });
             }
         });
-        if (getArguments().getString("COMMING_FROM").equalsIgnoreCase("RECOMMENDED_CONTRACTOR_DETAILS") || getArguments().getString("COMMING_FROM").equalsIgnoreCase("CAMPAIGNS") || (getArguments().getString("COMMING_FROM").equalsIgnoreCase("SEARCH_CONTRACTOR_DETAILS")) || (getArguments().getString("COMMING_FROM").equalsIgnoreCase("teams"))) {
+        if ((getArguments().getString("COMMING_FROM").equalsIgnoreCase(Constants.LIKE_DISLIKE))||getArguments().getString("COMMING_FROM").equalsIgnoreCase("RECOMMENDED_CONTRACTOR_DETAILS") || getArguments().getString("COMMING_FROM").equalsIgnoreCase("CAMPAIGNS") || (getArguments().getString("COMMING_FROM").equalsIgnoreCase("SEARCH_CONTRACTOR_DETAILS")) || (getArguments().getString("COMMING_FROM").equalsIgnoreCase("teams"))) {
             img_UserSwitch.setVisibility(View.GONE);
             connectionOption.setVisibility(View.VISIBLE);
             aboveLayoutProfile.setVisibility(View.GONE);
@@ -226,7 +236,7 @@ public class ViewOtherContractorPublicProfileFragment extends Fragment implement
                     Bundle bundle = new Bundle();
                     bundle.putString("COMMING_FROM", "home");
                     fragment.setArguments(bundle);
-                    ((HomeActivity)getActivity()).replaceFragment(fragment);
+                    ((HomeActivity) getActivity()).replaceFragment(fragment);
                     /*FragmentTransaction transactionRate = getFragmentManager().beginTransaction();
 
                     transactionRate.replace(R.id.container, fragment);
@@ -247,7 +257,7 @@ public class ViewOtherContractorPublicProfileFragment extends Fragment implement
             case R.id.img_excellenceAward:
                 Fragment excellenceAward = new ExcellenceAwardFragment();
                 Bundle bundle = new Bundle();
-                if ((getArguments().getString("COMMING_FROM").equalsIgnoreCase("CAMPAIGNS")) || (getArguments().getString("COMMING_FROM").equalsIgnoreCase("teams")) || (getArguments().getString("COMMING_FROM").equalsIgnoreCase("SEARCH_CONTRACTOR_DETAILS")) || (getArguments().getString("COMMING_FROM").equalsIgnoreCase("RECOMMENDED_CONTRACTOR_DETAILS"))) {
+                if ((getArguments().getString("COMMING_FROM").equalsIgnoreCase(Constants.LIKE_DISLIKE))||(getArguments().getString("COMMING_FROM").equalsIgnoreCase("CAMPAIGNS")) || (getArguments().getString("COMMING_FROM").equalsIgnoreCase("teams")) || (getArguments().getString("COMMING_FROM").equalsIgnoreCase("SEARCH_CONTRACTOR_DETAILS")) || (getArguments().getString("COMMING_FROM").equalsIgnoreCase("RECOMMENDED_CONTRACTOR_DETAILS"))) {
                     bundle.putString("id", userId);
                     bundle.putString("user_type", Constants.CONTRACTOR);
                 } else {
@@ -255,7 +265,7 @@ public class ViewOtherContractorPublicProfileFragment extends Fragment implement
                     bundle.putString("user_type", Constants.CONTRACTOR);
                 }
                 excellenceAward.setArguments(bundle);
-                ((HomeActivity)getActivity()).replaceFragment(excellenceAward);
+                ((HomeActivity) getActivity()).replaceFragment(excellenceAward);
                 //getFragmentManager().beginTransaction().replace(R.id.container, excellenceAward).addToBackStack(ViewOtherContractorPublicProfileFragment.class.getName()).commit();
                 break;
         }

@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * Created by neelmani.karn on 2/15/2016.
  */
-public class DateTimeFormatClass {
+public final class DateTimeFormatClass {
 
     public static String convertDateObjectToMMDDYYYFormat(Date date) {
         return new SimpleDateFormat(Constants.DATE_FORMAT).format(date);
@@ -44,6 +44,27 @@ public class DateTimeFormatClass {
         }
         return false;
     }
+
+    public static boolean compareDates(Date date1, Date date2){
+        //Date date = null;
+        Calendar myCalender = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat(Constants.DATE_FORMAT);
+
+
+        if (date1!=null){
+            if (date1.equals(date2)){
+                return false;
+            }else if (date1.before(date2)){
+                return false;
+            }else if (date1.after(date2)){
+                return true;
+            }
+        }else{
+            return false;
+        }
+        return false;
+    }
+
 
     /**
      @param "April 15, 2016"

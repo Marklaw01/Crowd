@@ -24,7 +24,7 @@
                 android:src="@drawable/logo" />
 
 
-            <com.crowdbootstrapapp.helper.CustomEditTextView
+            <com.crowdbootstrap.helper.CustomEditTextView
                 android:id="@+id/et_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -41,9 +41,9 @@
                 android:textSize="@dimen/smallTextStyle">
 
                 <requestFocus />
-            </com.crowdbootstrapapp.helper.CustomEditTextView>
+            </com.crowdbootstrap.helper.CustomEditTextView>
 
-            <com.crowdbootstrapapp.helper.CustomEditTextView
+            <com.crowdbootstrap.helper.CustomEditTextView
                 android:id="@+id/et_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

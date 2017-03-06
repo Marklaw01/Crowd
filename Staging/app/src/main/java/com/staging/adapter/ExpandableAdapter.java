@@ -19,14 +19,15 @@ import java.util.List;
 /**
  * Created by sunakshi.gautam on 2/23/2016.
  */
-public class ExpandableAdapter  extends BaseExpandableListAdapter {
+public class ExpandableAdapter extends BaseExpandableListAdapter {
 
     private Context context;
     private List<NavDrawerItem> mainElements;
-    private HashMap<Integer, ArrayList<NavDrawerItem>> childElements = new HashMap<>(); ;
+    private HashMap<Integer, ArrayList<NavDrawerItem>> childElements = new HashMap<>();
+    ;
     private LayoutInflater vi;
 
-    public ExpandableAdapter(Context context, List<NavDrawerItem> mainElements, HashMap<Integer,ArrayList<NavDrawerItem>> childElements) {
+    public ExpandableAdapter(Context context, List<NavDrawerItem> mainElements, HashMap<Integer, ArrayList<NavDrawerItem>> childElements) {
         this.context = context;
         this.mainElements = mainElements;
         this.childElements = childElements;
@@ -100,35 +101,23 @@ public class ExpandableAdapter  extends BaseExpandableListAdapter {
         try {
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();
 
-            if(groupPosition == 5){
+            if (groupPosition == 5) {
+                v = inflater.inflate(R.layout.navigation_child_item_dummy, parent, false);
+            } else if (groupPosition == 6) {
                 v = inflater.inflate(R.layout.navigation_child_item_dummy, parent, false);
             }
-            else if(groupPosition == 6){
-                v = inflater.inflate(R.layout.navigation_child_item_dummy, parent, false);
-            }
-            else if(groupPosition == 7){
-                if(childPosition == 7){
-                    v = inflater.inflate(R.layout.navigation_child_item, parent, false);
-                }
-                else if(childPosition == 8){
-                    v = inflater.inflate(R.layout.navigation_child_item, parent, false);
-                }
-                else
-                {
-                    v = inflater.inflate(R.layout.navigation_child_item_dummy, parent, false);
-                }
-            }
-            else if(groupPosition == 4){
 
-                if(childPosition == 5){
+            else if (groupPosition == 7) {
+                v = inflater.inflate(R.layout.navigation_child_item, parent, false);
+            }
+            else if (groupPosition == 4) {
+
+                if (childPosition == 5) {
                     v = inflater.inflate(R.layout.navigation_child_item_dummy, parent, false);
-                }
-                else
-                {
+                } else {
                     v = inflater.inflate(R.layout.navigation_child_item, parent, false);
                 }
-            }
-            else {
+            } else {
                 v = inflater.inflate(R.layout.navigation_child_item, parent, false);
             }
 
@@ -136,8 +125,7 @@ public class ExpandableAdapter  extends BaseExpandableListAdapter {
             TextView textView = (TextView) v.findViewById(R.id.navtext);
 
 
-
-            NavDrawerItem choice =(NavDrawerItem)getChild(groupPosition, childPosition);
+            NavDrawerItem choice = (NavDrawerItem) getChild(groupPosition, childPosition);
 
             imageView.setImageResource(choice.icon);
             textView.setText(choice.name);

@@ -94,6 +94,8 @@ public class StartUpsOtherPublicProfileFragment extends Fragment implements View
             btn_addStartup.setVisibility(View.GONE);
         } else if (Constants.COMMING_FROM_INTENT.compareTo("home") == 0) {
             btn_addStartup.setVisibility(View.GONE);
+        } else if (Constants.COMMING_FROM_INTENT.compareTo(Constants.LIKE_DISLIKE) == 0) {
+            btn_addStartup.setVisibility(View.GONE);
         } else {
             btn_addStartup.setVisibility(View.VISIBLE);
         }

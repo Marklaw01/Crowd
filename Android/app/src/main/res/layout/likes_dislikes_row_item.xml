@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/app_backgroundColor"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/padding"
+    android:paddingTop="@dimen/padding">
+
+
+    <com.crowdbootstrap.helper.CircleImageView
+        android:id="@+id/profileimage"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:src="@drawable/image" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/personName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:padding="5dp"
+            android:text="Neel Karn"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/largeTextStyle"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/aboutMe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:padding="5dp"
+            android:text="Fund Title Fund Title Fund Title Fund Title Fund Title Fund Title Fund Title Fund Title Fund Title Fund Title Fund Title Fund Title Fund Title Fund Title "
+            android:textColor="@color/black"
+            android:textSize="@dimen/smallTextStyle" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

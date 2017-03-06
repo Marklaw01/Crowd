@@ -8,7 +8,10 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-public class NetworkConnectivity {
+import com.staging.R;
+import com.staging.logger.CrowdBootstrapLogger;
+
+public final class NetworkConnectivity {
 
     static Context context;
     private static NetworkConnectivity instance = new NetworkConnectivity();
@@ -38,5 +41,31 @@ public class NetworkConnectivity {
         }
 
         return false;
+    }
+
+
+    //created by Neel on 10th Jan 2017
+
+    /**
+     * Check if internet connection is available or not
+     *
+     * @return true if internet is available else false
+     */
+    public boolean isInternetConnectionAvaliable() {
+        if (null == context) {
+            return true;
+        }
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        // test for connection
+        NetworkInfo netInfo = null;
+        if (null != connectivityManager) {
+            netInfo = connectivityManager.getActiveNetworkInfo();
+        }
+        if (null != netInfo && netInfo.isAvailable() && netInfo.isConnected()) {
+            return true;
+        } else {
+            CrowdBootstrapLogger.logInfo(context.getString(R.string.no_internet_connection));
+            return false;
+        }
     }
 }

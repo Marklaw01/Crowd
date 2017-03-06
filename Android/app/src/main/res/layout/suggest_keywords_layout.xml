@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_backgroundColor">
+
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:textSize="25sp"
+        android:text="Enter Keywords"
+        android:textColor="@color/colorPrimary"
+        android:layout_margin="10dp"/>
+
+    <EditText
+        android:id="@+id/keywordName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/emailtextbox"
+        android:ems="10"
+        android:inputType="textCapWords"
+        android:paddingLeft="10sp"
+        android:paddingRight="10sp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:singleLine="true"
+        android:hint="Keyword Name"
+        android:textColor="@color/textColor"
+        android:textSize="@dimen/mediumTextStyle" />
+
+
+
+    <Spinner
+        android:id="@+id/keywordType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/spinner_field"
+        android:singleLine="true"
+        android:textColor="@color/textColor"
+        android:layout_margin="10dp"
+        android:textSize="@dimen/mediumTextStyle"  />
+
+    <Button
+        android:id="@+id/addButton"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:padding="5dp"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:layout_margin="10dp"
+        android:layout_gravity="right"
+        android:text="Send"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/white"
+        />
+    <LinearLayout
+        android:id="@+id/documentlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="6">
+
+            <TextView
+                android:id="@+id/namelnl"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="2"
+                android:text="Keyword Title"
+                android:gravity="center"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/mediumTextStyle" />
+
+            <TextView
+                android:id="@+id/typelbl"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="Keyword Type"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/mediumTextStyle" />
+
+            <TextView
+                android:id="@+id/statuslbl"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="Status"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/mediumTextStyle" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <com.crowdbootstrap.swipelistview_withoutscrollview.SwipeMenuListView
+        android:id="@+id/listViewKeywords"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.8"
+
+        android:cacheColorHint="#FFFFFFFF"
+
+
+        android:dividerHeight="2dp" />
+</LinearLayout>

@@ -25,11 +25,12 @@ import android.widget.Toast;
 import com.staging.R;
 import com.staging.RegistrationIntentService;
 import com.staging.activities.GettingStartedActivity;
-import com.staging.activities.HomeActivity;
 import com.staging.activities.LoginActivity;
 import com.staging.helper.CustomEditTextView;
 import com.staging.listeners.AsyncTaskCompleteListener;
+import com.staging.logger.CrowdBootstrapLogger;
 import com.staging.utilities.Async;
+import com.staging.utilities.AsyncNew;
 import com.staging.utilities.Constants;
 import com.staging.utilities.UtilitiesClass;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
@@ -85,7 +86,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Asy
         tv_forgotPassword = (TextView) rootView.findViewById(R.id.tv_forgotPassword);
         btn_login = (Button) rootView.findViewById(R.id.btn_login);
 
-       utils = UtilitiesClass.getInstance((LoginActivity)getActivity());
+        utils = UtilitiesClass.getInstance((LoginActivity) getActivity());
         if (((LoginActivity) getActivity()).checkPlayServices()) {
             // Start IntentService to register this application with GCM.
             Intent intent = new Intent(getActivity(), RegistrationIntentService.class);
@@ -125,6 +126,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Asy
             requestFocus(et_password);
         } else {
             android_id = Settings.Secure.getString(getActivity().getContentResolver(), Settings.Secure.ANDROID_ID);
+
             JSONObject login = null;
             try {
                 login = new JSONObject();
@@ -138,12 +140,15 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Asy
                 e.printStackTrace();
             }
 
-            System.out.println(login);
+            CrowdBootstrapLogger.logInfo(login.toString());
             if (((LoginActivity) getActivity()).networkConnectivity.isOnline()) {
                 ((LoginActivity) getActivity()).showProgressDialog();
-                Log.e("startTime", String.valueOf(System.currentTimeMillis()));
-                Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.LOGIN_TAG, Constants.LOGIN_URL, Constants.HTTP_POST, login,"Login Activity");
+                CrowdBootstrapLogger.logInfo("startTime" + String.valueOf(System.currentTimeMillis()));
+
+                AsyncNew a = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.LOGIN_TAG, Constants.LOGIN_URL, Constants.HTTP_POST_REQUEST, login);
                 a.execute();
+                /*Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.LOGIN_TAG, Constants.LOGIN_URL, Constants.HTTP_POST, login, "Login Activity");
+                a.execute();*/
             } else {
                 utils.alertDialogSingleButton(getString(R.string.no_internet_connection));
             }
@@ -217,14 +222,26 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Asy
         if (result.equalsIgnoreCase(Constants.NOINTERNET)) {
             ((LoginActivity) getActivity()).dismissProgressDialog();
             Toast.makeText(getActivity(), getString(R.string.check_internet), Toast.LENGTH_LONG).show();
+        } else if (result.equalsIgnoreCase(Constants.TIMEOUT_EXCEPTION)) {
+            ((LoginActivity) getActivity()).dismissProgressDialog();
+            UtilitiesClass.getInstance(getActivity()).alertDialogSingleButton(getString(R.string.time_out));
         } else if (result.equalsIgnoreCase(Constants.SERVEREXCEPTION)) {
             ((LoginActivity) getActivity()).dismissProgressDialog();
             Toast.makeText(getActivity(), getString(R.string.server_down), Toast.LENGTH_LONG).show();
-        } else {
+        }
+        /*if (result.equalsIgnoreCase(Constants.NOINTERNET)) {
+            ((LoginActivity) getActivity()).dismissProgressDialog();
+            Toast.makeText(getActivity(), getString(R.string.check_internet), Toast.LENGTH_LONG).show();
+        } else if (result.equalsIgnoreCase(Constants.SERVEREXCEPTION)) {
+            ((LoginActivity) getActivity()).dismissProgressDialog();
+            Toast.makeText(getActivity(), getString(R.string.server_down), Toast.LENGTH_LONG).show();
+        }*/
+        else {
             if (tag.equalsIgnoreCase(Constants.LOGIN_TAG)) {
                 try {
+                    CrowdBootstrapLogger.logInfo(result);
                     final JSONObject jsonObject = new JSONObject(result);
-                    System.out.println(jsonObject);
+
 
                     if (jsonObject.getString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
                         ((LoginActivity) getActivity()).prefManager.storeString(Constants.USER_EMAIL, jsonObject.optString("email"));
@@ -285,7 +302,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Asy
                 // success, login to chat
 
                 user.setId(session.getUserId());
-                Log.e("session", session.getToken());
+                CrowdBootstrapLogger.logInfo("session" + session.getToken());
                 chatService.login(user, new QBEntityCallback() {
 
                     @Override
@@ -293,7 +310,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Asy
                         if (((LoginActivity) getActivity()).isShowingProgressDialog()) {
                             ((LoginActivity) getActivity()).dismissProgressDialog();
                         }
-                        Log.e("endTime", String.valueOf(System.currentTimeMillis()));
+                        CrowdBootstrapLogger.logInfo("endTime" + String.valueOf(System.currentTimeMillis()));
                         /*((LoginActivity)getActivity()).runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -311,7 +328,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Asy
                     @Override
                     public void onError(QBResponseException e) {
 
-                        if (e.getMessage().equalsIgnoreCase("You have already logged in chat") ) {
+                        if (e.getMessage().equalsIgnoreCase("You have already logged in chat")) {
                             if (((LoginActivity) getActivity()).isShowingProgressDialog()) {
                                 ((LoginActivity) getActivity()).dismissProgressDialog();
                             }
@@ -330,14 +347,14 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Asy
                         } else {
                             unRegisterInBackground();
                         }
-                        Log.e("signinerror", e.toString());
+                        CrowdBootstrapLogger.logInfo("signinerror" + e.toString());
                     }
                 });
             }
 
             @Override
             public void onError(QBResponseException errors) {
-                Log.e("sessioninerror", errors.toString());
+                CrowdBootstrapLogger.logInfo("sessioninerror" + errors.toString());
                 unRegisterInBackground();
             }
         });
@@ -359,8 +376,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Asy
                 super.onPostExecute(aVoid);
 
                 try {
+                    CrowdBootstrapLogger.logInfo(result);
                     JSONObject jsonObject = new JSONObject(result);
-                    System.out.println(jsonObject);
+
                     if (((LoginActivity) getActivity()).isShowingProgressDialog()) {
                         ((LoginActivity) getActivity()).dismissProgressDialog();
                     }
@@ -374,12 +392,12 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Asy
                         @Override
                         public void onSuccess(Void aVoid, Bundle bundle) {
                             QBChatService.getInstance().destroy();
-                            Log.d("logout", "logout");
+                            CrowdBootstrapLogger.logInfo("logout");
                         }
 
                         @Override
                         public void onError(QBResponseException e) {
-                            Log.d("error", e.toString());
+                            CrowdBootstrapLogger.logInfo("error" + e.toString());
                         }
                     });
                     /*QBUsers.signOut(new QBEntityCallback<Void>() {
@@ -400,30 +418,27 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Asy
 
                             String deviceId = Settings.Secure.getString(getActivity().getContentResolver(), Settings.Secure.ANDROID_ID);/*//*** use for tablets
 
-                            for (QBSubscription subscription : subscriptions) {
-                                if (subscription.getDevice().getId().equals(deviceId)) {
-                                    QBPushNotifications.deleteSubscription(subscription.getId(), new QBEntityCallback<Void>() {
+                     for (QBSubscription subscription : subscriptions) {
+                     if (subscription.getDevice().getId().equals(deviceId)) {
+                     QBPushNotifications.deleteSubscription(subscription.getId(), new QBEntityCallback<Void>() {
 
-                                        @Override
-                                        public void onSuccess(Void aVoid, Bundle bundle) {
+                    @Override public void onSuccess(Void aVoid, Bundle bundle) {
 
-                                        }
+                    }
 
-                                        @Override
-                                        public void onError(QBResponseException e) {
+                    @Override public void onError(QBResponseException e) {
 
-                                        }
-                                    });
-                                    break;
-                                }
-                            }
-                        }
+                    }
+                    });
+                     break;
+                     }
+                     }
+                     }
 
-                        @Override
-                        public void onError(QBResponseException errors) {
+                     @Override public void onError(QBResponseException errors) {
 
-                        }
-                    });*/
+                     }
+                     });*/
 
 
                     if (jsonObject.getString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase("200")) {
@@ -447,16 +462,16 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Asy
                     logout.put("access_token", ((LoginActivity) getActivity()).prefManager.getString(Constants.GCM_REGISTRATION_ID));
                     logout.put("device_token", ((LoginActivity) getActivity()).prefManager.getString(Constants.DEVICE_TOKEN));
                     logout.put("device_type", "android");
-                    System.out.println(logout);
+                    CrowdBootstrapLogger.logInfo(logout.toString());
 
                     result = ((LoginActivity) getActivity()).utilitiesClass.postJsonObject(Constants.LOGOUT_URL, logout);
                     if (result.contains("200")) {
                         GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(getActivity());
                         try {
                             gcm.unregister();
-                            Log.d("unregister", "unregister");
+                            CrowdBootstrapLogger.logInfo("unregister");
                         } catch (IOException e) {
-                            System.out.println("Error Message: " + e.getMessage());
+                            CrowdBootstrapLogger.logInfo("Error Message: " + e.getMessage());
                         }
                     }
 
@@ -482,7 +497,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Asy
         deviceId = Settings.Secure.getString(getActivity().getContentResolver(), Settings.Secure.ANDROID_ID);//*** use for tablets
 
 
-
         subscription.setDeviceUdid(deviceId);
         //
         subscription.setRegistrationID(registrationID);
@@ -491,7 +505,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Asy
 
             @Override
             public void onSuccess(ArrayList<QBSubscription> subscriptions, Bundle args) {
-                    Log.e("subs", subscriptions.toString());
+                Log.e("subs", subscriptions.toString());
             }
 
             @Override

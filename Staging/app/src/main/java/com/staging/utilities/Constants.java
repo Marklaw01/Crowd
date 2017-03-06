@@ -13,6 +13,8 @@ public final class Constants {
     public static final String APP_BASE_URL = "http://stage.crowdbootstrap.com/api/";
     public static final String APP_IMAGE_URL = "http://stage.crowdbootstrap.com";
 
+    public static final int API_CONNECTION_TIME_OUT_DURATION = 30000;
+
     public static final String NOTIFICATION_CONSTANT = "notifications";
 
     public static final String NOTIFICATION_TAG = "tag";
@@ -143,7 +145,6 @@ public final class Constants {
     public static final String ADD_EXPERIENCE_TAG = "addExperiences_tag";
 
 
-
     public static final String ADDKEYWORD_KEYWORDTYPE_URL = "addSuggestKeywords";
     public static final String ADDKEYWORD_KEYWORDTYPE_TAG = "addSuggestKeywords_tag";
 
@@ -173,10 +174,8 @@ public final class Constants {
     public static final String JOB_INDUSTRIES_KEYWORDS_TAG = "jobIndustrieLists_tag";
 
 
-
     public static final String EDIT_JOB_URL = "editJob";
     public static final String EDIT_JOB_TAG = "editJob_tag";
-
 
 
     public static final String JOB_TYPE_KEYWORDS_URL = "jobTypeLists";
@@ -445,6 +444,328 @@ public final class Constants {
     public static final String LIST_OF_ALL_NOTIFICATIONS_URL = "UserNotifications";
     public static final String LIST_OF_ALL_NOTIFICATIONS_TAG = "UserNotifications_tag";
 
+    public static final String SPONSORS_LIST = "sponsorsList?user_id=";
+    public static final String SPONSORS_LIST_TAG = "sponsorsList_tag";
+
+    public static final String FUND_MANAGERS_LIST = "fundsManagerLists?user_id=";
+    public static final String FUND_MANAGERS_TAG = "fundsManagerLists_tag";
+
+    public static final String FUND_KEYWORDS_LIST = "fundsKeywordList";
+    public static final String FUND_KEYWORDS_TAG = "fundsKeywordList_tag";
+
+    public static final String FUND_INDUSTRY_LIST = "fundIndustryLists";
+    public static final String FUND_INDUSTRY_TAG = "fundIndustryLists_tag";
+
+    public static final String FUND_PORTFOLIO_LIST = "fundPortfolioList?user_id=";
+    public static final String FUND_PORTFOLIO_TAG = "fundPortfolioList_tag";
+
+    public static final String CREATE_FUND_URL = "addFunds";
+    public static final String EDIT_FUND_URL = "editFunds";
+
+    public static final String FUND_SEARCH_LIST = "fundsSearch";
+    public static final String FUND_SEARCH_TAG = "fundsSearch_tag";
+
+    public static final String MY_FUND_LIST = "myFunds";
+    public static final String MY_FUND_TAG = "myFunds_tag";
+
+
+    public static final String FIND_FUND_LIST = "findFunds";
+    public static final String FIND_FUND_TAG = "findFunds_tag";
+
+    public static final String ARCHIVED_FUND_LIST = "archiveFundList";
+    public static final String ARCHIVED_FUND_TAG = "archiveFundList_tag";
+
+    public static final String DEACTIVATED_FUND_LIST = "deactivateFundList";
+    public static final String DEACTIVATED_FUND_TAG = "deactivateFundList_tag";
+
+    public static final String FUND_DETAILS_URL = "fundDetails";
+    public static final String FUND_DETAILS_TAG = "fundDetails_tag";
+
+    public static final String FUND_DELETE_URL = "deleteFund";
+    public static final String FUND_ARCHIEVE_URL = "archiveFund";
+    public static final String FUND_DEACTIVATE_URL = "deactivateFund";
+    public static final String FUND_ACTIVATE_URL = "activateFund";
+    public static final String FUND_LIKE_URL = "likeFund";
+    public static final String FUND_LIKE_TAG = "likeFund_tag";
+    public static final String FUND_DISLIKE_URL = "disLikeFund";
+    public static final String FUND_DISLIKE_TAG = "disLikeFund_tag";
+
+    public static final String FUND_LIKERS_LIST = "fundLikeList";
+    public static final String FUND_LIKERS_TAG = "fundLikesList_tag";
+
+    public static final String FUND_DISLIKERS_LIST = "fundDislikeList";
+    public static final String FUND_DISLIKERS_TAG = "fundDislikesList_tag";
+
+    public static final String FUND_FOLLOW_URL = "followFund";
+    public static final String FUND_FOLLOW_TAG = "followFund_tag";
+
+    public static final String FUND_UNFOLLOW_URL = "unfollowFund";
+    public static final String FUND_UNFOLLOW_TAG = "unfollowFund_tag";
+
+    //Beta test module
+    public static final String BETA_TEST_KEYWORDS_LIST_URL = "betaTestKeywordsList";
+    public static final String BETA_TEST_KEYWORDS_LIST_TAG = "betaTestKeywordsList_tag";
+
+    public static final String BETA_TEST_INTEREST_KEYWORDS_LIST_URL = "betaInterestKeywordLists";
+    public static final String BETA_TEST_INTEREST_KEYWORDS_LIST_TAG = "betaInterestKeywordLists_tag";
+
+    public static final String BETA_TEST_TARGET_MARKET_LIST_URL = "betaTestTargetMarketsList";
+    public static final String BETA_TEST_TARGET_MARKET_LIST_TAG = "betaTestTargetMarketsList_tag";
+
+    public static final String BETA_TEST_DETAILS_URL = "betaTestDetails";
+    public static final String BETA_TEST_DETAILS_TAG = "betaTestDetails_tag";
+
+    public static final String BETA_TEST_COMMIT_URL = "betaCommitment";
+    public static final String BETA_TEST_COMMIT_TAG = "betaCommitment_tag";
+
+    public static final String BETA_TEST_UNCOMMIT_URL = "betaUncommitment";
+    public static final String BETA_TEST_UNCOMMIT_TAG = "betaUncommitment_tag";
+
+    public static final String BETA_TESTER_COMMIT_LIST = "betaTestDislikeList";
+    public static final String BETA_TESTER_COMMIT_LIST_TAG = "betaTestDislikeList_tag";
+
+    public static final String CREATE_BETA_TEST_URL = "addBetaTest";
+    public static final String UPDATE_BETA_TEST_URL = "editBetaTest";
+
+    public static final String FIND_BETA_TESTER_LIST = "findBetaTests";
+    public static final String FIND_BETA_TESTER_TAG = "findBetaTests_tag";
+
+    public static final String MY_BETA_TESTER_LIST = "myBetaTest";
+    public static final String MY_BETA_TESTER_TAG = "myBetaTest_tag";
+
+    public static final String ARCHIVED_BETA_TESTER_LIST = "archiveBetaTestList";
+    public static final String ARCHIVED_BETA_TESTER_TAG = "archiveBetaTestList_tag";
+
+    public static final String DEACTIVATED_BETA_TESTER_LIST = "deactivateBetaTestList";
+    public static final String DEACTIVATED_BETA_TESTER_TAG = "deactivateBetaTestList_tag";
+
+    public static final String BETA_TESTER_DELETE_URL = "deleteBetaTest";
+    public static final String BETA_TESTER_ARCHIEVE_URL = "archiveBetaTest";
+    public static final String BETA_TESTER_DEACTIVATE_URL = "deactivateBetaTest";
+    public static final String BETA_TESTER_ACTIVATE_URL = "activateBetaTest";
+    public static final String BETA_TESTER_LIKE_URL = "likeBetaTest";
+    public static final String BETA_TESTER_LIKE_TAG = "likeBetaTest_tag";
+    public static final String BETA_TESTER_DISLIKE_URL = "disLikeBetaTest";
+    public static final String BETA_TESTER_DISLIKE_TAG = "disLikeBetaTest_tag";
+
+    public static final String BETA_TESTER_LIKERS_LIST = "betaTestLikeList";
+    public static final String BETA_TESTER_LIKERS_TAG = "betaTestLikeList_tag";
+
+    public static final String BETA_TESTER_DISLIKERS_LIST = "betaTestDislikeList";
+    public static final String BETA_TESTER_DISLIKERS_TAG = "betaTestDislikeList_tag";
+
+    public static final String BETA_TESTER_FOLLOW_URL = "followBetaTest";
+    public static final String BETA_TESTER_FOLLOW_TAG = "followBetaTest_tag";
+
+    public static final String BETA_TESTER_UNFOLLOW_URL = "unfollowBetaTest";
+    public static final String BETA_TESTER_UNFOLLOW_TAG = "unfollowBetaTest_tag";
+
+    // Board Members module
+    public static final String BOARD_MEMBERS_KEYWORDS_LIST_URL = "boardOppertunityKeywordsList";
+    public static final String BOARD_MEMBERS_KEYWORDS_LIST_TAG = "boardOppertunityKeywordsList_tag";
+
+    public static final String BOARD_MEMBERS_INTEREST_KEYWORDS_LIST_URL = "boardInterestKeywordLists";
+    public static final String BOARD_MEMBERS_INTEREST_KEYWORDS_LIST_TAG = "boardInterestKeywordLists_tag";
+
+    public static final String BOARD_MEMBERS_TARGET_MARKET_LIST_URL = "boardMemberTargetMarketsList";
+    public static final String BOARD_MEMBERS_TARGET_MARKET_LIST_TAG = "boardMemberTargetMarketsList_tag";
+
+    public static final String BOARD_MEMBERS_DETAILS_URL = "boardMemberDetails";
+    public static final String BOARD_MEMBERS_DETAILS_TAG = "boardMemberDetails_tag";
+
+    public static final String CREATE_BOARD_MEMBERS_URL = "addBoardMember";
+    public static final String UPDATE_BOARD_MEMBERS_URL = "editBoardMember";
+
+    public static final String FIND_BOARD_MEMBERS_LIST = "findBoardMembers";
+    public static final String FIND_BOARD_MEMBERS_TAG = "findBoardMembers_tag";
+
+    public static final String MY_BOARD_MEMBERS_LIST = "myBoardMember";
+    public static final String MY_BOARD_MEMBERS_TAG = "myBoardMember_tag";
+
+    public static final String ARCHIVED_BOARD_MEMBERS_LIST = "archiveBoardMemberList";
+    public static final String ARCHIVED_BOARD_MEMBERS_TAG = "archiveBoardMemberList_tag";
+
+    public static final String DEACTIVATED_BOARD_MEMBERS_LIST = "deactivateBoardMemberList";
+    public static final String DEACTIVATED_BOARD_MEMBERS_TAG = "deactivateBoardMemberList_tag";
+
+    public static final String BOARD_MEMBERS_DELETE_URL = "deleteBoardMember";
+    public static final String BOARD_MEMBERS_ARCHIEVE_URL = "archiveBoardMember";
+    public static final String BOARD_MEMBERS_DEACTIVATE_URL = "deactivateBoardMember";
+    public static final String BOARD_MEMBERS_ACTIVATE_URL = "activateBoardMember";
+
+    public static final String BOARD_MEMBERS_LIKE_URL = "likeBoardMember";
+    public static final String BOARD_MEMBERS_LIKE_TAG = "likeBoardMember_tag";
+
+    public static final String BOARD_MEMBERS_DISLIKE_URL = "disLikeBoardMember";
+    public static final String BOARD_MEMBERS_DISLIKE_TAG = "disLikeBoardMember_tag";
+
+    public static final String BOARD_MEMBERS_LIKERS_LIST = "boardMemberLikeList";
+    public static final String BOARD_MEMBERS_LIKERS_TAG = "boardMemberLikeList_tag";
+
+    public static final String BOARD_MEMBERS_DISLIKERS_LIST = "boardMemberDislikeList";
+    public static final String BOARD_MEMBERS_DISLIKERS_TAG = "boardMemberDislikeList_tag";
+
+    public static final String BOARD_MEMBERS_FOLLOW_URL = "followBoardMember";
+    public static final String BOARD_MEMBERS_FOLLOW_TAG = "followBoardMember_tag";
+
+    public static final String BOARD_MEMBERS_UNFOLLOW_URL = "unfollowBoardMember";
+    public static final String BOARD_MEMBERS_UNFOLLOW_TAG = "unfollowBoardMember_tag";
+
+    // Early Adopter module
+    public static final String EARLY_ADOPTORS_KEYWORDS_LIST_URL = "earlyAdopterKeywordsKeywordsList";
+    public static final String EARLY_ADOPTORS_KEYWORDS_LIST_TAG = "earlyAdopterKeywordsKeywordsList_tag";
+
+    public static final String EARLY_ADOPTORS_INTEREST_KEYWORDS_LIST_URL = "earlyAdopterInterestKeywordLists";
+    public static final String EARLY_ADOPTORS_INTEREST_KEYWORDS_LIST_TAG = "earlyAdopterInterestKeywordLists_tag";
+
+    public static final String EARLY_ADOPTORS_TARGET_MARKET_LIST_URL = "earlyAdopterTargetMarketsList";
+    public static final String EARLY_ADOPTORS_TARGET_MARKET_LIST_TAG = "earlyAdopterTargetMarketsList_tag";
+
+    public static final String EARLY_ADOPTORS_DETAILS_URL = "earlyAdopterDetails";
+    public static final String EARLY_ADOPTORS_DETAILS_TAG = "earlyAdopterDetails_tag";
+
+    public static final String CREATE_EARLY_ADOPTORS_URL = "addEarlyAdopter";
+    public static final String UPDATE_EARLY_ADOPTORS_URL = "editEarlyAdopter";
+
+    public static final String FIND_EARLY_ADOPTORS_LIST = "findEarlyAdopters";
+    public static final String FIND_EARLY_ADOPTORS_TAG = "findEarlyAdopters_tag";
+
+    public static final String MY_EARLY_ADOPTORS_LIST = "myEarlyAdopter";
+    public static final String MY_EARLY_ADOPTORS_TAG = "myEarlyAdopter_tag";
+
+    public static final String ARCHIVED_EARLY_ADOPTORS_LIST = "archiveEarlyAdopterList";
+    public static final String ARCHIVED_EARLY_ADOPTORS_TAG = "archiveEarlyAdopterList_tag";
+
+    public static final String DEACTIVATED_EARLY_ADOPTORS_LIST = "deactivateEarlyAdopterList";
+    public static final String DEACTIVATED_EARLY_ADOPTORS_TAG = "deactivateEarlyAdopterList_tag";
+
+    public static final String EARLY_ADOPTORS_DELETE_URL = "deleteEarlyAdopter";
+    public static final String EARLY_ADOPTORS_ARCHIEVE_URL = "archiveEarlyAdopter";
+    public static final String EARLY_ADOPTORS_DEACTIVATE_URL = "deactivateEarlyAdopter";
+    public static final String EARLY_ADOPTORS_ACTIVATE_URL = "activateEarlyAdopter";
+
+    public static final String EARLY_ADOPTORS_LIKE_URL = "likeEarlyAdopter";
+    public static final String EARLY_ADOPTORS_LIKE_TAG = "likeEarlyAdopter_tag";
+
+    public static final String EARLY_ADOPTORS_DISLIKE_URL = "disLikeEarlyAdopter";
+    public static final String EARLY_ADOPTORS_DISLIKE_TAG = "disLikeEarlyAdopter_tag";
+
+    public static final String EARLY_ADOPTORS_LIKERS_LIST = "earlyAdopterLikeList";
+    public static final String EARLY_ADOPTORS_LIKERS_TAG = "earlyAdopterLikeList_tag";
+
+    public static final String EARLY_ADOPTORS_DISLIKERS_LIST = "earlyAdopterDislikeList";
+    public static final String EARLY_ADOPTORS_DISLIKERS_TAG = "earlyAdopterDislikeList_tag";
+
+    public static final String EARLY_ADOPTORS_FOLLOW_URL = "followEarlyAdopter";
+    public static final String EARLY_ADOPTORS_FOLLOW_TAG = "followEarlyAdopter_tag";
+
+    public static final String EARLY_ADOPTORS_UNFOLLOW_URL = "unfollowEarlyAdopter";
+    public static final String EARLY_ADOPTORS_UNFOLLOW_TAG = "unfollowEarlyAdopter_tag";
+
+    // Endorsor module
+    public static final String ENDORSOR_KEYWORDS_LIST_URL = "endorsorKeywordsList";
+    public static final String ENDORSOR_KEYWORDS_LIST_TAG = "endorsorKeywordsList_tag";
+
+    public static final String ENDORSOR_INTEREST_KEYWORDS_LIST_URL = "endorsorInterestKeywordLists";
+    public static final String ENDORSOR_INTEREST_KEYWORDS_LIST_TAG = "endorsorInterestKeywordLists_tag";
+
+    public static final String ENDORSOR_TARGET_MARKET_LIST_URL = "endorsorTargetMarketsList";
+    public static final String ENDORSOR_TARGET_MARKET_LIST_TAG = "endorsorTargetMarketsList_tag";
+
+    public static final String ENDORSOR_DETAILS_URL = "endorsorDetails";
+    public static final String ENDORSOR_DETAILS_TAG = "endorsorDetails_tag";
+
+    public static final String CREATE_ENDORSOR_URL = "addEndorsor";
+    public static final String UPDATE_ENDORSOR_URL = "editEndorsor";
+
+    public static final String FIND_ENDORSOR_LIST = "findEndorsors";
+    public static final String FIND_ENDORSOR_TAG = "findEndorsors_tag";
+
+    public static final String MY_ENDORSOR_LIST = "myEndorsor";
+    public static final String MY_ENDORSOR_TAG = "myEndorsor_tag";
+
+    public static final String ARCHIVED_ENDORSOR_LIST = "archiveEndorsorList";
+    public static final String ARCHIVED_ENDORSOR_TAG = "archiveEndorsorList_tag";
+
+    public static final String DEACTIVATED_ENDORSOR_LIST = "deactivateEndorsorList";
+    public static final String DEACTIVATED_ENDORSOR_TAG = "deactivateEndorsorList_tag";
+
+    public static final String ENDORSOR_DELETE_URL = "deleteEndorsor";
+    public static final String ENDORSOR_ARCHIEVE_URL = "archiveEndorsor";
+    public static final String ENDORSOR_DEACTIVATE_URL = "deactivateEndorsor";
+    public static final String ENDORSOR_ACTIVATE_URL = "activateEndorsor";
+
+    public static final String ENDORSOR_LIKE_URL = "likeEndorsor";
+    public static final String ENDORSOR_LIKE_TAG = "likeEndorsor_tag";
+
+    public static final String ENDORSOR_DISLIKE_URL = "disLikeEndorsor";
+    public static final String ENDORSOR_DISLIKE_TAG = "disLikeEndorsor_tag";
+
+    public static final String ENDORSOR_LIKERS_LIST = "endorsorLikeList";
+    public static final String ENDORSOR_LIKERS_TAG = "endorsorLikeList_tag";
+
+    public static final String ENDORSOR_DISLIKERS_LIST = "endorsorDislikeList";
+    public static final String ENDORSOR_DISLIKERS_TAG = "endorsorDislikeList_tag";
+
+    public static final String ENDORSOR_FOLLOW_URL = "followEndorsor";
+    public static final String ENDORSOR_FOLLOW_TAG = "followEndorsor_tag";
+
+    public static final String ENDORSOR_UNFOLLOW_URL = "unfollowEndorsor";
+    public static final String ENDORSOR_UNFOLLOW_TAG = "unfollowEndorsor_tag";
+
+    // Focus Group module
+    public static final String FOCUS_GROUP_KEYWORDS_LIST_URL = "focusGroupKeywordsList";
+    public static final String FOCUS_GROUP_KEYWORDS_LIST_TAG = "focusGroupKeywordsList_tag";
+
+    public static final String FOCUS_GROUP_INTEREST_KEYWORDS_LIST_URL = "focusGroupInterestKeywordLists";
+    public static final String FOCUS_GROUP_INTEREST_KEYWORDS_LIST_TAG = "focusGroupInterestKeywordLists_tag";
+
+    public static final String FOCUS_GROUP_TARGET_MARKET_LIST_URL = "focusGroupTargetMarketsList";
+    public static final String FOCUS_GROUP_TARGET_MARKET_LIST_TAG = "focusGroupTargetMarketsList_tag";
+
+    public static final String FOCUS_GROUP_DETAILS_URL = "focusGroupDetails";
+    public static final String FOCUS_GROUP_DETAILS_TAG = "focusGroupDetails_tag";
+
+    public static final String CREATE_FOCUS_GROUP_URL = "addFocusGroup";
+    public static final String UPDATE_FOCUS_GROUP_URL = "editFocusGroup";
+
+    public static final String FIND_FOCUS_GROUP_LIST = "findFocusGroups";
+    public static final String FIND_FOCUS_GROUP_TAG = "findFocusGroups_tag";
+
+    public static final String MY_FOCUS_GROUP_LIST = "myFocusGroup";
+    public static final String MY_FOCUS_GROUP_TAG = "myFocusGroup_tag";
+
+    public static final String ARCHIVED_FOCUS_GROUP_LIST = "archiveFocusGroupList";
+    public static final String ARCHIVED_FOCUS_GROUP_TAG = "archiveFocusGroupList_tag";
+
+    public static final String DEACTIVATED_FOCUS_GROUP_LIST = "deactivateFocusGroupList";
+    public static final String DEACTIVATED_FOCUS_GROUP_TAG = "deactivateFocusGroupList_tag";
+
+    public static final String FOCUS_GROUP_DELETE_URL = "deleteFocusGroup";
+    public static final String FOCUS_GROUP_ARCHIEVE_URL = "archiveFocusGroup";
+    public static final String FOCUS_GROUP_DEACTIVATE_URL = "deactivateFocusGroup";
+    public static final String FOCUS_GROUP_ACTIVATE_URL = "activateFocusGroup";
+
+    public static final String FOCUS_GROUP_LIKE_URL = "likeFocusGroup";
+    public static final String FOCUS_GROUP_LIKE_TAG = "likeFocusGroup_tag";
+
+    public static final String FOCUS_GROUP_DISLIKE_URL = "disLikeFocusGroup";
+    public static final String FOCUS_GROUP_DISLIKE_TAG = "disLikeFocusGroup_tag";
+
+    public static final String FOCUS_GROUP_LIKERS_LIST = "focusGroupLikeList";
+    public static final String FOCUS_GROUP_LIKERS_TAG = "focusGroupLikeList_tag";
+
+    public static final String FOCUS_GROUP_DISLIKERS_LIST = "focusGroupDislikeList";
+    public static final String FOCUS_GROUP_DISLIKERS_TAG = "focusGroupDislikeList_tag";
+
+    public static final String FOCUS_GROUP_FOLLOW_URL = "followFocusGroup";
+    public static final String FOCUS_GROUP_FOLLOW_TAG = "followFocusGroup_tag";
+
+    public static final String FOCUS_GROUP_UNFOLLOW_URL = "unfollowFocusGroup";
+    public static final String FOCUS_GROUP_UNFOLLOW_TAG = "unfollowFocusGroup_tag";
+
+
+
     //Password regex pattern for validation.
     public static final String PASSWORD_REGEX_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[$@$!%*?&])(?=\\S+$).{8,25}$";
     public static final String EXTRACT_FLOAT_FROM_STRING_REGEX_PATTERN = "[^\\d.]+|\\.(?!\\d)";
@@ -493,6 +814,18 @@ public final class Constants {
     //Html tags
     public static final String HTTP_PREFIX_TAX = "<html><style>body{background:#F0F0F0;}div {text-align: justify;}</style><body><div>";
     public static final String HTTP_SUFFIX_TAX = "</div></body></html>";
+    public static final String FUND_ID = "fund_id";
+    public static final String LIKE_DISLIKE = "like_dislike_tag";
+    public static final String LIKE = "Likes";
+    public static final String DISLIKE = "Dislikes";
+    public static final String LOGGED_USER = "logged_user";
+    public static final String NOT_LOGGED_USER = "not_logged_user";
+    public static final String TIMEOUT_EXCEPTION = "timeout";
+    public static final int POSITION = 1001;
+    public static final java.lang.String CALLED_FROM = "calledFrom";
+    public static final String UTF_8 = "UTF-8";
+    public static final String FUND_NAME = "fundName";
+
 
     //Passing data constants using intent
     public static String COMMING_FROM_INTENT = "";
@@ -516,8 +849,14 @@ public final class Constants {
     public static final String SERVEREXCEPTION = "server_exception";
 
     //Google Project id created under crowdbootstrap2016@gmail.com account
-    public static final String GOOGLE_PROJECT_ID = "965286451869";
-    public static final String GOOGLE_PROJECT_API_KEY = "AIzaSyDQ18y3vc76UXoSLtQuv7NHurrsVVklByE";
+    //API key for staging
+    public static final String GOOGLE_PROJECT_ID_STAGING = "965286451869";
+    public static final String GOOGLE_PROJECT_API_KEY_STAGING = "AIzaSyDQ18y3vc76UXoSLtQuv7NHurrsVVklByE";
+
+    //API key for productions
+    public static final String GOOGLE_PROJECT_ID_PRODUCTION = "15119152410";
+    public static final String GOOGLE_PROJECT_API_KEY_PRODUCTION = "AIzaSyABVL3JTP0h_jN0JYCFkeHxiGfbneg6Qck";
+
 
     //Constants for Ad Banner on Home Screen created under karn.neelmani@gmail.com account
     public static final String Ad_UNIT_NAME = "mybanner";
@@ -528,52 +867,13 @@ public final class Constants {
     public final static int HTTP_GET = 1;
     public final static int HTTP_POST = 2;
 
+    public final static String HTTP_GET_REQUEST = "GET";
+    public final static String HTTP_POST_REQUEST = "POST";
+
     //Code comming from Server side.
     public final static String RESPONSE_STATUS_CODE = "code";
     public final static String RESPONSE_SUCESS_STATUS_CODE = "200";
     public final static String RESPONSE_ERROR_STATUS_CODE = "404";
-
-    /*-----------------------Rollbar Tags---------------------------------*/
-   /* public final static String ROLLBAR_CLIENT_SIDE_TOKEN = "c36c4567bfe34ecdbaec10984d016965";
-
-    // boolean variable to set the rollbar mode. i.e. true in case of log in rollbar, false when not to log in rollbar
-    public static final boolean IS_IN_ROLLBAR_MODE = true;
-
-    // Tag for user id
-    public static final String ROLLBAR_USER_ID_TAG = "UserID";
-
-    // Tag for UserName
-    public static final String ROLLBAR_USER_NAME_TAG = "UserName";
-
-    // Tag for ClassName
-    public static final String ROLLBAR_CLASS_NAME_TAG = "ClassName";
-
-    // Tag for MethodName
-    public static final String ROLLBAR_METHOD_NAME_TAG = "MethodName";
-
-    // Tag for Exception Message
-    public static final String ROLLBAR_EXCEPTION_MESSAGE_TAG = "Exception Message";
-
-    // Tag for Exception Name in Rollbar
-    public static final String ROLLBAR_EXCEPTION_TAG = "HandledException";
-
-    // Tag for Exception Category in Rollbar
-    public static final String ROLLBAR_EXCEPTION_CATEGORY_TAG = "critical";
-
-    // Variable to define the rollbar for production
-    public static final String ROLLBAR_PRODUCTION = "production";
-
-    // Variable to define the rollbar for Staging
-    public static final String ROLLBAR_STAGING="staging";
-
-    // Variable to define the rollbar message when user id is not defined
-    public static final String ROLLBAR_USER_ID_NOT_AVAILABLE = "UserID not defined";
-
-    // Variable to define the rollbar message when user id is not defined
-    public static final String ROLLBAR_USER_NAME_NOT_AVAILABLE = "UserName not defined";
-
-
-*/
 
 
     //Constants for QuickBlox chat for live app created under crowdbootstrap2016@gmail.com account

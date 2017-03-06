@@ -22,13 +22,13 @@
             android:orientation="vertical">
 
 
-            <com.staging.helper.CircleImageView
+            <com.crowdbootstrap.helper.CircleImageView
                 android:id="@+id/profileimage"
                 android:layout_width="95dp"
                 android:layout_height="95dp"
 
                 android:layout_gravity="center_vertical"
-                />
+                 />
 
             <TextView
                 android:id="@+id/cbx_Follow"
@@ -94,7 +94,7 @@
                         android:button="@null"
                         android:gravity="right"
                         android:padding="7sp"
-                        android:text="@string/follow"
+                        android:text="       "
                         android:textColor="@color/white" />
                 </RelativeLayout>
 

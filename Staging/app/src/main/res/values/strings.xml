@@ -286,10 +286,6 @@
     <string name="select_users_choose_users">Please, choose at least two participant.</string>
 
 
-
-
-
-
     <string name="cancelled">Cancelled</string>
     <string name="permission_not_granted">Unable to perform selected action because permissions were not granted.</string>
     <string name="ok">OK</string>
@@ -305,5 +301,95 @@
     <string name="pick_seattle_place">Pick a Seattle Place</string>
     <string name="app_id">1772822902981170</string>
     <string name="exception">Exception: %1$s</string>
+    <string name="time_out">Your request has timed out. Please check your Internet connection then try again.</string>
+    <!--constants used in milestone 4-->
+    <string name="findFunds">Find Funds</string>
+    <string name="fundInvest">Fund/Invest</string>
+    <string name="myfunds">My Funds</string>
+    <string name="archived">Archived</string>
+    <string name="deactivated">Deactivated</string>
+    <string name="search">Search</string>
+    <string name="createFund">Create Fund</string>
+    <string name="archive">Archive</string>
+    <string name="deactivate">Deactivate</string>
+    <string name="delete">Delete</string>
+    <string name="like">Like</string>
+    <string name="deslike">Deslike</string>
+    <string name="funds_title">Fund\'s Title</string>
+    <string name="funds_managers">Fund\'s Managers</string>
+    <string name="sponsers">Sponsors</string>
+    <string name="industry">Industry</string>
+    <string name="portfolio_companies">Portfolio Companies</string>
+    <string name="investment_start_date">Investment Start Date</string>
+    <string name="investment_end_date">Investment End Date</string>
+    <string name="funds_closed_date">Fund\'s Closed Date</string>
+    <string name="apply">Apply</string>
+    <string name="funds_image">Fund\'s Image</string>
+    <string name="donot_like_dislike_own_funds">You cannot like or dislike your own funds.</string>
+    <string name="activate">Activate</string>
+    <string name="update_fund">Update Fund</string>
+    <string name="fund_title_required">Fund\'s title cannot be left blank!</string>
+    <string name="description_required">Description cannot be left blank!</string>
+    <string name="fund_managers_required">Select at least one Fund Managers!</string>
+    <string name="fund_sponsors_required">Select at least one Fund Sponsors!</string>
+    <string name="fund_industry_required">Select at least one Industry!</string>
+    <string name="fund_portfolio_required">Select at least one Portfolio Company!</string>
+    <string name="fund_startDate_required">Fund\'s investment start date cannot be left blank!</string>
+    <string name="fund_endDate_required">Fund\'s investment end date cannot be left blank!!</string>
+    <string name="fund_close_required">Fund\'s close date cannot be left blank!</string>
+    <string name="fund_keyword_required">Select at least one Keyword!</string>
+    <string name="fund_startdate_validation">Fund\'s Investment start date cannot be present or past date!</string>
+    <string name="fund_end_date_validation">Fund\'s Investment end date cannot be present or past date!</string>
+    <string name="fund_close_date_validation">Fund\'s close date cannot be present or past date!</string>
+    <string name="noFunds">No Funds Available</string>
+    <string name="fund_deleted">Your fund is deleted successfully.</string>
+    <string name="fund_archived">Your fund is archived successfully</string>
+    <string name="fund_deactivated">Your fund deactivated successfully</string>
+    <string name="fundActivated">Your fund activated successfully.</string>
+    <string name="version">Version: Crowd Bootstrap v</string>
+    <string name="searchBetaTest">Search Beta Test</string>
+    <string name="addBetaTest">Request New Beta Test</string>
+    <string name="myBetaTest">My Beta Test</string>
+    <string name="myOpportunity">My Opportunity</string>
+    <string name="searchOpportunity">Search Opportunity</string>
+    <string name="addOpportunity">Add Opportunity</string>
+    <string name="beta_test_s_title">Beta Test\'s Title</string>
+    <string name="start_date">Start Date</string>
+    <string name="endDate">End Date</string>
+    <string name="requestBetaTester">Enter Requirements for New Beta Test</string>
+    <string name="target_market">Target Market</string>
+    <string name="interest_keyword">Interest Keyword</string>
+    <string name="createBoardMember">Board Membership Requirements</string>
+    <string name="updateBetaTester">Update Beta Tester</string>
+    <string name="requestBoardMember">Enter Requirements for New Board Member</string>
+    <string name="updateBoardMember">Update Board Member</string>
+    <string name="requestEarlyAdpoters">Enter Requirements for New Early Adopters</string>
+    <string name="updateEarlyAdoptor">Update Early Adaptor</string>
 
+    <string name="requestEndorsors">Enter Requirements for New Endorsers</string>
+    <string name="updateEndorsors">Update Endorsers</string>
+
+    <string name="opportunity_title">Opportunity Title</string>
+    <string name="requestFocusGroup">Enter Requirements for New Focus Group</string>
+    <string name="beta_test_s_title_required">Beta Test\'s title cannot be left blank!</string>
+    <string name="startDateRequired">Start Date cannot be left blank!</string>
+    <string name="endDateRequired">End Date cannot be left blank!</string>
+    <string name="startdate_validation">Start date cannot be present or past date!</string>
+    <string name="end_date_validation">End date cannot be before Start Date!</string>
+    <string name="targetMarket_required">Select at least one Target market!</string>
+    <string name="keyword_required">Select at least one Keyword!</string>
+    <string name="interestKeyword_required">Select at least one Interested Keyword!</string>
+
+    <string name="title_required">Opportunity title cannot be left blank!</string>
+    <string name="createBetaTest">Beta Test Requirements</string>
+    <string name="createEarlyAdpoters">Early Adopter Requirements</string>
+    <string name="createEndorsors">Endorser Requirements</string>
+    <string name="createFocusGroup">Focus Group Requirements</string>
+    <string name="myBetaTests">My Beta Tests</string>
+    <string name="myBoardMember">My Board Members</string>
+    <string name="myEarlyAdoptors">My Early Adopters</string>
+    <string name="myEndorsors">My Endorsers</string>
+    <string name="myFocusGroups">My Focus Groups</string>
+    <string name="applied">Applied</string>
+    <string name="number_of_commitments">Number of Commitments</string>
 </resources>

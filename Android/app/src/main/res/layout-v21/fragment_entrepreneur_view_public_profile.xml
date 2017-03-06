@@ -22,7 +22,7 @@
             android:orientation="vertical">
 
 
-            <com.crowdbootstrapapp.helper.CircleImageView
+            <com.crowdbootstrap.helper.CircleImageView
                 android:id="@+id/profileimage"
                 android:layout_width="95dp"
                 android:layout_height="95dp"
@@ -77,8 +77,8 @@
                 style="?android:attr/ratingBarStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:progressTint="@color/orange"
                 android:numStars="10"
+                android:progressTint="@color/orange"
                 android:padding="1dp"
                 android:progress="3"
                 android:stepSize="0.5"/>

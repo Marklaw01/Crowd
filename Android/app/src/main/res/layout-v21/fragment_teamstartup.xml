@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:padding="@dimen/padding">
 
-    <com.crowdbootstrapapp.helper.StickyScrollView xmlns:whatever="http://schemas.android.com/apk/res-auto"
+    <com.crowdbootstrap.helper.StickyScrollView xmlns:whatever="http://schemas.android.com/apk/res-auto"
         android:id="@+id/ScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -96,7 +96,7 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/largeTextStyle" />
 
-                <com.crowdbootstrapapp.helper.ListViewForEmbeddingInScrollView
+                <com.crowdbootstrap.helper.ListViewForEmbeddingInScrollView
                     android:id="@+id/listViewentrepreneur"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -130,7 +130,7 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/largeTextStyle" />
 
-                <com.crowdbootstrapapp.swipelistviewinscrollview.SwipeMenuListView
+                <com.crowdbootstrap.swipelistviewinscrollview.SwipeMenuListView
                     android:id="@+id/listViewcofounders"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -163,7 +163,7 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/largeTextStyle" />
 
-                <com.crowdbootstrapapp.swipelistviewinscrollview.SwipeMenuListView
+                <com.crowdbootstrap.swipelistviewinscrollview.SwipeMenuListView
                     android:id="@+id/listViewteammember"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -196,7 +196,7 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/largeTextStyle" />
 
-                <com.crowdbootstrapapp.swipelistviewinscrollview.SwipeMenuListView
+                <com.crowdbootstrap.swipelistviewinscrollview.SwipeMenuListView
                     android:id="@+id/listViewcontractor"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -210,5 +210,5 @@
             </LinearLayout>
 
         </LinearLayout>
-    </com.crowdbootstrapapp.helper.StickyScrollView>
+    </com.crowdbootstrap.helper.StickyScrollView>
 </LinearLayout>

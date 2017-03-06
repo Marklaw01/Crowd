@@ -7,7 +7,15 @@ public class GenericObject<T> {
 
     String id, title, answer;
     boolean ischecked;
+    int position;
 
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
 
     public String getAnswer() {
         return answer;
@@ -40,5 +48,22 @@ public class GenericObject<T> {
     public void setId(String id) {
         this.id = id;
 
+    }
+
+    @Override
+    public String toString() {
+        return title;
+    }
+
+    public boolean equals(Object o) {
+        if (!(o instanceof GenericObject)) {
+            return false;
+        }
+        GenericObject other = (GenericObject) o;
+        return title.equalsIgnoreCase(other.getTitle());
+    }
+
+    public int hashCode() {
+        return title.hashCode();
     }
 }

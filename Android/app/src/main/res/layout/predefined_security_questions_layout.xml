@@ -18,7 +18,7 @@
         android:spinnerMode="dropdown" />
 
 
-    <com.crowdbootstrapapp.helper.CustomEditTextView
+    <com.crowdbootstrap.helper.CustomEditTextView
         android:id="@+id/et_answer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

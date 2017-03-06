@@ -12,14 +12,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <com.crowdbootstrapapp.helper.CircleImageView
+        <com.crowdbootstrap.helper.CircleImageView
             android:id="@+id/image_forum"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="top"
             android:layout_marginRight="10sp"
             android:src="@drawable/notification_bell" >
-        </com.crowdbootstrapapp.helper.CircleImageView>
+        </com.crowdbootstrap.helper.CircleImageView>
 
         <ProgressBar
             android:id="@+id/progressbar"

@@ -31,6 +31,7 @@ import android.widget.Toast;
 
 import com.staging.R;
 import com.staging.listeners.AsyncTaskCompleteListener;
+import com.staging.logger.CrowdBootstrapLogger;
 import com.staging.models.LeanRoadmapObject;
 import com.staging.utilities.Async;
 import com.staging.utilities.Constants;
@@ -610,7 +611,7 @@ public class LeanStartupRoadmap extends BaseActivity implements AsyncTaskComplet
                 (LeanStartupRoadmap.this).dismissProgressDialog();
                 try {
                     JSONObject jsonObject = new JSONObject(result);
-                    System.out.println(jsonObject); //{"message":"successfully saved","code":200}
+                    CrowdBootstrapLogger.logInfo(jsonObject.toString()); //{"message":"successfully saved","code":200}
 
                     Log.e("XXX", "RESULT" + jsonObject.toString());
 
