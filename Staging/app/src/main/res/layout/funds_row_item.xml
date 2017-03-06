@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <ImageView
+        <com.staging.helper.CircleImageView
             android:id="@+id/fund_icon"
             android:layout_width="50dp"
             android:layout_height="50dp"

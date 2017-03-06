@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -34,6 +35,10 @@ import org.json.JSONObject;
  * Created by Neelmani.Karn on 1/11/2017.
  */
 public class BetaTesterDetailFragment extends Fragment implements View.OnClickListener, AsyncTaskCompleteListener<String> {
+
+    private LinearLayout commitLayout;
+    private TextView tv_comittCounter;
+    private Button apply;
     private AudioObject docObject, audioObject, videoObject;
     private LinearLayout layoutFundPostedBy;
     private String calledFragment;
@@ -94,12 +99,17 @@ public class BetaTesterDetailFragment extends Fragment implements View.OnClickLi
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.beta_tester_detail_fragment, container, false);
 
+        tv_comittCounter = (TextView) rootView.findViewById(R.id.tv_comittCounter);
+        commitLayout = (LinearLayout) rootView.findViewById(R.id.commitLayout);
         image_roadmap = (ImageView) rootView.findViewById(R.id.image_roadmap);
         layoutFundPostedBy = (LinearLayout) rootView.findViewById(R.id.layoutFundPostedBy);
+        apply = (Button) rootView.findViewById(R.id.apply);
         if (calledFragment.equals(Constants.FIND_FUND_TAG)) {
             layoutFundPostedBy.setVisibility(View.VISIBLE);
+            apply.setVisibility(View.VISIBLE);
         } else {
             layoutFundPostedBy.setVisibility(View.GONE);
+            apply.setVisibility(View.GONE);
         }
         list_audios = (TextView) rootView.findViewById(R.id.list_audios);
         list_docs = (TextView) rootView.findViewById(R.id.list_docs);
@@ -130,6 +140,8 @@ public class BetaTesterDetailFragment extends Fragment implements View.OnClickLi
         viewplayAudioArrow = (ImageView) rootView.findViewById(R.id.viewplayAudioArrow);
         viewplayVideoArrow = (ImageView) rootView.findViewById(R.id.viewplayVideoArrow);
 
+        commitLayout.setOnClickListener(this);
+        apply.setOnClickListener(this);
         cbx_Follow.setOnClickListener(this);
         cbx_Like.setOnClickListener(this);
         expandable_playAudio.getViewTreeObserver().addOnPreDrawListener(
@@ -273,6 +285,52 @@ public class BetaTesterDetailFragment extends Fragment implements View.OnClickLi
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.commitLayout:
+                Bundle bundle = new Bundle();
+                bundle.putString(Constants.FUND_ID, fund_id);
+                //bundle.putString(Constants.FUND_ID, fundsList.get(position).getId());
+                //bundle.putString(Constants.CALLED_FROM, Constants.DEACTIVATED_FUND_TAG);
+                //BetaTesterDetailFragment updateFundFragment = new BetaTesterDetailFragment();
+                //updateFundFragment.setArguments(bundle);
+                BetaTestersComittersFragment betaTestersComittersFragment = new BetaTestersComittersFragment();
+                betaTestersComittersFragment.setArguments(bundle);
+                ((HomeActivity) getActivity()).replaceFragment(betaTestersComittersFragment);
+
+
+                break;
+            case R.id.apply:
+                if (apply.getText().toString().trim().equals(getString(R.string.apply))) {
+                    try {
+                        JSONObject likeObj = new JSONObject();
+                        likeObj.put("user_id", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
+                        likeObj.put("beta_test_id", fund_id);
+                        if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
+                            ((HomeActivity) getActivity()).showProgressDialog();
+                            AsyncNew asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.BETA_TEST_COMMIT_TAG, Constants.BETA_TEST_COMMIT_URL, Constants.HTTP_POST_REQUEST, likeObj);
+                            asyncNew.execute();
+                        } else {
+                            ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    try {
+                        JSONObject likeObj = new JSONObject();
+                        likeObj.put("user_id", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
+                        likeObj.put("beta_test_id", fund_id);
+                        if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
+                            ((HomeActivity) getActivity()).showProgressDialog();
+                            AsyncNew asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.BETA_TEST_UNCOMMIT_TAG, Constants.BETA_TEST_UNCOMMIT_URL, Constants.HTTP_POST_REQUEST, likeObj);
+                            asyncNew.execute();
+                        } else {
+                            ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
             case R.id.cbx_Like:
                 if (cbx_Like.getText().toString().trim().equals("Like")) {
                     try {
@@ -380,8 +438,6 @@ public class BetaTesterDetailFragment extends Fragment implements View.OnClickLi
                 CrowdBootstrapLogger.logInfo(result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
-
-
                     if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
                         ((HomeActivity) getActivity()).dismissProgressDialog();
                         et_description.setText(jsonObject.getString("description"));
@@ -537,6 +593,34 @@ public class BetaTesterDetailFragment extends Fragment implements View.OnClickLi
                     e.printStackTrace();
                 }
 
+            } else if (tag.equals(Constants.BETA_TEST_UNCOMMIT_TAG)) {
+                ((HomeActivity) getActivity()).dismissProgressDialog();
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
+                        apply.setText(getString(R.string.apply));
+                        apply.setBackground(getResources().getDrawable(R.drawable.blue_button));
+                    } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else if (tag.equals(Constants.BETA_TEST_COMMIT_TAG)) {
+                ((HomeActivity) getActivity()).dismissProgressDialog();
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
+                        apply.setText(getString(R.string.applied));
+                        apply.setBackground(getResources().getDrawable(R.drawable.green_color_button));
+                    } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }
 

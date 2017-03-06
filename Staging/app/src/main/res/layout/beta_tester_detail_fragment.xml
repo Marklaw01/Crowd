@@ -17,7 +17,31 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="10sp">
+            <LinearLayout
+                android:id="@+id/commitLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/number_of_commitments"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tv_comittCounter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="0"
+                    android:textColor="@color/black"/>
+
+            </LinearLayout>
             <LinearLayout
                 android:id="@+id/layoutFundPostedBy"
                 android:layout_width="match_parent"
@@ -75,17 +99,19 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/smallTextStyle" />
             </LinearLayout>
+
             <TextView
                 android:id="@+id/namelbl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/beta_test_s_title"
-                android:paddingRight="10sp"
                 android:layout_marginTop="10sp"
+                android:paddingRight="10sp"
                 android:singleLine="true"
+                android:text="@string/beta_test_s_title"
                 android:textColor="@color/textColor"
-                android:textStyle="bold"
-                android:textSize="@dimen/mediumTextStyle" />
+                android:textSize="@dimen/mediumTextStyle"
+                android:textStyle="bold" />
+
             <EditText
                 android:id="@+id/et_title"
                 android:layout_width="match_parent"
@@ -94,27 +120,29 @@
 
                 android:background="@drawable/emailtextbox"
                 android:cursorVisible="false"
-                android:inputType="none"
                 android:ems="10"
                 android:focusable="false"
                 android:hint="@string/beta_test_s_title"
+                android:inputType="none"
 
                 android:maxLines="1"
                 android:paddingLeft="10sp"
                 android:paddingRight="10sp"
                 android:textColor="@color/textColor"
                 android:textSize="@dimen/mediumTextStyle" />
+
             <TextView
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/description"
-                android:paddingRight="10sp"
                 android:layout_marginTop="10sp"
+                android:paddingRight="10sp"
                 android:singleLine="true"
+                android:text="@string/description"
                 android:textColor="@color/textColor"
-                android:textStyle="bold"
-                android:textSize="@dimen/mediumTextStyle" />
+                android:textSize="@dimen/mediumTextStyle"
+                android:textStyle="bold" />
+
             <EditText
                 android:id="@+id/et_description"
                 android:layout_width="match_parent"
@@ -123,27 +151,29 @@
 
                 android:background="@drawable/multiline_textview"
                 android:cursorVisible="false"
-                android:inputType="none"
                 android:ems="10"
                 android:focusable="false"
                 android:gravity="left|top"
                 android:hint="@string/description"
+                android:inputType="none"
 
                 android:maxLines="10"
                 android:padding="10sp"
                 android:textColor="@color/textColor"
                 android:textSize="@dimen/mediumTextStyle" />
+
             <TextView
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/start_date"
-                android:paddingRight="10sp"
                 android:layout_marginTop="10sp"
+                android:paddingRight="10sp"
                 android:singleLine="true"
+                android:text="@string/start_date"
                 android:textColor="@color/textColor"
-                android:textStyle="bold"
-                android:textSize="@dimen/mediumTextStyle" />
+                android:textSize="@dimen/mediumTextStyle"
+                android:textStyle="bold" />
+
             <EditText
                 android:id="@+id/et_start_date"
                 android:layout_width="match_parent"
@@ -161,17 +191,19 @@
                 android:textColor="@color/textColor"
 
                 android:textSize="15sp" />
+
             <TextView
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/endDate"
-                android:paddingRight="10sp"
                 android:layout_marginTop="10sp"
+                android:paddingRight="10sp"
                 android:singleLine="true"
+                android:text="@string/endDate"
                 android:textColor="@color/textColor"
-                android:textStyle="bold"
-                android:textSize="@dimen/mediumTextStyle" />
+                android:textSize="@dimen/mediumTextStyle"
+                android:textStyle="bold" />
+
             <EditText
                 android:id="@+id/et_endDate"
                 android:layout_width="match_parent"
@@ -194,19 +226,19 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/target_market"
-                android:paddingRight="10sp"
                 android:layout_marginTop="10sp"
+                android:paddingRight="10sp"
                 android:singleLine="true"
+                android:text="@string/target_market"
                 android:textColor="@color/textColor"
-                android:textStyle="bold"
-                android:textSize="@dimen/mediumTextStyle" />
+                android:textSize="@dimen/mediumTextStyle"
+                android:textStyle="bold" />
+
             <EditText
                 android:id="@+id/et_targetMarket"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-android:singleLine="true"
                 android:background="@drawable/emailtextbox"
                 android:cursorVisible="false"
                 android:ems="10"
@@ -216,136 +248,22 @@ android:singleLine="true"
                 android:maxLines="1"
                 android:paddingLeft="10sp"
                 android:paddingRight="10sp"
-                android:textColor="@color/textColor"
-                android:textSize="@dimen/mediumTextStyle" />
-            <!--<TextView
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/sponsers"
-                android:paddingRight="10sp"
-                android:layout_marginTop="10sp"
                 android:singleLine="true"
                 android:textColor="@color/textColor"
-                android:textStyle="bold"
                 android:textSize="@dimen/mediumTextStyle" />
-            <EditText
-                android:id="@+id/et_fundsponsers"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-
-                android:background="@drawable/emailtextbox"
-                android:cursorVisible="false"
-                android:ems="10"
-                android:focusable="false"
-                android:hint="@string/sponsers"
-                android:inputType="none"
-
-                android:maxLines="1"
-                android:paddingLeft="10sp"
-                android:paddingRight="10sp"
-                android:textColor="@color/textColor"
-                android:textSize="@dimen/mediumTextStyle" />
-            <TextView
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/industry"
-                android:paddingRight="10sp"
-                android:layout_marginTop="10sp"
-                android:singleLine="true"
-                android:textColor="@color/textColor"
-                android:textStyle="bold"
-                android:textSize="@dimen/mediumTextStyle" />
-            <EditText
-                android:id="@+id/et_industry"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-
-                android:background="@drawable/emailtextbox"
-
-                android:cursorVisible="false"
-                android:ems="10"
-                android:focusable="false"
-                android:hint="@string/industry"
-                android:inputType="none"
-                android:maxLines="1"
-                android:paddingLeft="10sp"
-                android:paddingRight="10sp"
-                android:textColor="@color/textColor"
-                android:textSize="@dimen/mediumTextStyle" />
-            <TextView
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/portfolio_companies"
-                android:paddingRight="10sp"
-                android:layout_marginTop="10sp"
-                android:singleLine="true"
-                android:textColor="@color/textColor"
-                android:textStyle="bold"
-                android:textSize="@dimen/mediumTextStyle" />
-            <EditText
-                android:id="@+id/et_portfolio"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-
-                android:background="@drawable/emailtextbox"
-
-                android:cursorVisible="false"
-                android:ems="10"
-                android:focusable="false"
-                android:hint="@string/portfolio_companies"
-                android:inputType="none"
-                android:maxLines="1"
-                android:paddingLeft="10sp"
-                android:paddingRight="10sp"
-                android:textColor="@color/textColor"
-                android:textSize="@dimen/mediumTextStyle" />-->
-
-            <!--<TextView
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/funds_closed_date"
-                android:paddingRight="10sp"
-                android:layout_marginTop="10sp"
-                android:singleLine="true"
-                android:textColor="@color/textColor"
-                android:textStyle="bold"
-                android:textSize="@dimen/mediumTextStyle" />
-            <EditText
-                android:id="@+id/et_fundsClosedDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:background="@drawable/calender_input"
-                android:cursorVisible="false"
-                android:ems="10"
-                android:focusable="false"
-                android:hint="@string/funds_closed_date"
-                android:inputType="none|textNoSuggestions"
-                android:maxLines="1"
-                android:paddingLeft="10sp"
-                android:paddingRight="10sp"
-                android:textColor="@color/textColor"
-
-                android:textSize="15sp" />-->
 
             <TextView
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:paddingRight="10sp"
+                android:singleLine="true"
                 android:text="@string/keyword"
-                android:paddingRight="10sp"
-                android:layout_marginTop="10sp"
-                android:singleLine="true"
                 android:textColor="@color/textColor"
-                android:textStyle="bold"
-                android:textSize="@dimen/mediumTextStyle" />
+                android:textSize="@dimen/mediumTextStyle"
+                android:textStyle="bold" />
+
             <EditText
                 android:id="@+id/et_keywords"
                 android:layout_width="match_parent"
@@ -353,7 +271,6 @@ android:singleLine="true"
                 android:layout_gravity="center_vertical"
 
                 android:background="@drawable/emailtextbox"
-                android:singleLine="true"
                 android:cursorVisible="false"
                 android:ems="10"
                 android:focusable="false"
@@ -362,19 +279,22 @@ android:singleLine="true"
                 android:maxLines="1"
                 android:paddingLeft="10sp"
                 android:paddingRight="10sp"
+                android:singleLine="true"
                 android:textColor="@color/textColor"
                 android:textSize="@dimen/mediumTextStyle" />
+
             <TextView
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/interest_keyword"
-                android:paddingRight="10sp"
                 android:layout_marginTop="10sp"
+                android:paddingRight="10sp"
                 android:singleLine="true"
+                android:text="@string/interest_keyword"
                 android:textColor="@color/textColor"
-                android:textStyle="bold"
-                android:textSize="@dimen/mediumTextStyle" />
+                android:textSize="@dimen/mediumTextStyle"
+                android:textStyle="bold" />
+
             <EditText
                 android:id="@+id/et_interestKeywords"
                 android:layout_width="match_parent"
@@ -382,7 +302,6 @@ android:singleLine="true"
                 android:layout_gravity="center_vertical"
 
                 android:background="@drawable/emailtextbox"
-                android:singleLine="true"
                 android:cursorVisible="false"
                 android:ems="10"
                 android:focusable="false"
@@ -391,6 +310,7 @@ android:singleLine="true"
                 android:maxLines="1"
                 android:paddingLeft="10sp"
                 android:paddingRight="10sp"
+                android:singleLine="true"
                 android:textColor="@color/textColor"
                 android:textSize="@dimen/mediumTextStyle" />
 
@@ -403,55 +323,7 @@ android:singleLine="true"
                 android:layout_marginTop="10sp"
                 android:scaleType="centerInside"
                 android:src="@drawable/forum_dummy_image" />
-            <!--<LinearLayout
-                android:id="@+id/roadmapGraphiclayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
 
-                <LinearLayout
-                    android:id="@+id/roadmapGraphic"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10sp"
-                    android:background="@color/lightGray"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingBottom="5sp"
-                    android:paddingLeft="@dimen/padding"
-                    android:paddingTop="5sp">
-
-                    <TextView
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="0.8"
-                        android:gravity="left|center_vertical"
-                        android:text="@string/funds_image"
-                        android:textColor="@color/textColor" />
-
-                    <ImageView
-                        android:id="@+id/viewroadmapGraphicArrow"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10sp"
-                        android:background="@drawable/arrow_downward"
-                        android:gravity="right|center_vertical" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/roadmapGraphicexpandable"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-
-                    android:orientation="vertical">
-
-
-
-
-                </LinearLayout>
-            </LinearLayout>-->
 
             <LinearLayout
                 android:id="@+id/parent_doc_layout"
@@ -622,6 +494,17 @@ android:singleLine="true"
 
                 </LinearLayout>
             </LinearLayout>
+
+            <Button
+                android:id="@+id/apply"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/blue_button"
+                android:text="@string/apply"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+
 
         </LinearLayout>
     </ScrollView>

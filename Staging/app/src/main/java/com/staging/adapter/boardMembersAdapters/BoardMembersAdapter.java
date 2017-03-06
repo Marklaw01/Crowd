@@ -23,6 +23,7 @@ import com.staging.R;
 import com.staging.activities.HomeActivity;
 import com.staging.exception.CrowdException;
 import com.staging.fragments.boardMembersModule.BoardMembersLikeDislikeFragment;
+import com.staging.helper.CircleImageView;
 import com.staging.logger.CrowdBootstrapLogger;
 import com.staging.models.FundsObject;
 import com.staging.utilities.Constants;
@@ -102,7 +103,7 @@ public class BoardMembersAdapter extends BaseAdapter implements View.OnClickList
             holder.tv_Likes = (TextView) convertView.findViewById(R.id.tv_Like);
             holder.tv_dislikes = (TextView) convertView.findViewById(R.id.tv_dislike);
             holder.tv_postedDate = (TextView) convertView.findViewById(R.id.tv_postedDate);
-            holder.fund_icon = (ImageView) convertView.findViewById(R.id.fund_icon);
+            holder.fund_icon = (CircleImageView) convertView.findViewById(R.id.fund_icon);
             holder.likeBtn = (ImageView) convertView.findViewById(R.id.like);
             holder.dislikeBtn = (ImageView) convertView.findViewById(R.id.dislike);
             holder.tv_archive = (TextView) convertView.findViewById(R.id.tv_archive);
@@ -308,7 +309,7 @@ public class BoardMembersAdapter extends BaseAdapter implements View.OnClickList
 
     static class ViewHolder {
         TextView fundTitle, fundDescription, tv_postedDate, tv_Likes, tv_dislikes, tv_archive, tv_delete, tv_deactivate;
-        ImageView fund_icon;
+        CircleImageView fund_icon;
         ImageView likeBtn, dislikeBtn;
         LinearLayout layoutButtons, layoutLikeDeslikeButtons;
     }

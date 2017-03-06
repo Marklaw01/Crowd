@@ -390,4 +390,6 @@
     <string name="myEarlyAdoptors">My Early Adopters</string>
     <string name="myEndorsors">My Endorsers</string>
     <string name="myFocusGroups">My Focus Groups</string>
+    <string name="applied">Applied</string>
+    <string name="number_of_commitments">Number of Commitments</string>
 </resources>

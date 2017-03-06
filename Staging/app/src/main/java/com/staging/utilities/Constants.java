@@ -515,6 +515,15 @@ public final class Constants {
     public static final String BETA_TEST_DETAILS_URL = "betaTestDetails";
     public static final String BETA_TEST_DETAILS_TAG = "betaTestDetails_tag";
 
+    public static final String BETA_TEST_COMMIT_URL = "betaCommitment";
+    public static final String BETA_TEST_COMMIT_TAG = "betaCommitment_tag";
+
+    public static final String BETA_TEST_UNCOMMIT_URL = "betaUncommitment";
+    public static final String BETA_TEST_UNCOMMIT_TAG = "betaUncommitment_tag";
+
+    public static final String BETA_TESTER_COMMIT_LIST = "betaTestDislikeList";
+    public static final String BETA_TESTER_COMMIT_LIST_TAG = "betaTestDislikeList_tag";
+
     public static final String CREATE_BETA_TEST_URL = "addBetaTest";
     public static final String UPDATE_BETA_TEST_URL = "editBetaTest";
 
