@@ -38,7 +38,7 @@ public class BetaTestersComittersFragment extends Fragment implements AdapterVie
     int current_page = 1;
     private LoadMoreListView list_persons;
     private LikesDislikesAdapter adapter;
-    private int mFundId;
+    private String mFundId;
     private ArrayList<UserObject> list;
 
     public BetaTestersComittersFragment() {
@@ -64,7 +64,7 @@ public class BetaTestersComittersFragment extends Fragment implements AdapterVie
         super.onCreate(savedInstanceState);
         bundle = this.getArguments();
         ((HomeActivity) getActivity()).setActionBarTitle(getString(R.string.commitments));
-        mFundId = bundle.getInt(Constants.FUND_ID);
+        mFundId = bundle.getString(Constants.FUND_ID);
     }
 
 
