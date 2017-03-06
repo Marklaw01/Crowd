@@ -442,6 +442,13 @@ public class BetaTesterDetailFragment extends Fragment implements View.OnClickLi
                         ((HomeActivity) getActivity()).dismissProgressDialog();
                         et_description.setText(jsonObject.getString("description"));
                         et_title.setText(jsonObject.getString("title"));
+                        if (Integer.parseInt(jsonObject.getString("numOfCommits"))==0){
+                            commitLayout.setVisibility(View.GONE);
+                        }else{
+                            commitLayout.setVisibility(View.VISIBLE);
+                            tv_comittCounter.setText(jsonObject.getString("numOfCommits"));
+                        }
+
 
                         et_start_date.setText(jsonObject.getString("start_date"));
                         et_endDate.setText(jsonObject.getString("end_date"));
@@ -511,6 +518,14 @@ public class BetaTesterDetailFragment extends Fragment implements View.OnClickLi
                             expandable_playAudio.setVisibility(View.GONE);
                         }
                         et_postedBy.setText(jsonObject.getString("created_by"));
+                        if (jsonObject.getString("isComitted").equals("1")) {
+                            apply.setText(getString(R.string.applied));
+                            apply.setBackgroundResource(R.drawable.green_color_button);
+                            //apply.setBackground(getDrawable(R.drawable.green_color_button));
+                        } else {
+                            apply.setText(getString(R.string.apply));
+                            apply.setBackgroundResource(R.drawable.blue_button);
+                        }
                         if (jsonObject.getString("is_liked_by_user").equals("1")) {
                             cbx_Like.setText("Liked");
                             cbx_Like.setBackgroundColor(getResources().getColor(R.color.darkGrey));
@@ -518,6 +533,7 @@ public class BetaTesterDetailFragment extends Fragment implements View.OnClickLi
                             cbx_Like.setText("Like");
                             cbx_Like.setBackgroundColor(getResources().getColor(R.color.darkGreen));
                         }
+
                         if (jsonObject.getString("is_follwed_by_user").equals("1")) {
                             cbx_Follow.setText("UnFollow");
                             cbx_Follow.setBackgroundColor(getResources().getColor(R.color.darkGrey));
@@ -599,7 +615,13 @@ public class BetaTesterDetailFragment extends Fragment implements View.OnClickLi
                     JSONObject jsonObject = new JSONObject(result);
                     if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
                         apply.setText(getString(R.string.apply));
-                        apply.setBackground(getResources().getDrawable(R.drawable.blue_button));
+                        apply.setBackgroundResource(R.drawable.blue_button);
+                        if (Integer.parseInt(jsonObject.getString("numOfCommits"))==0){
+                            commitLayout.setVisibility(View.GONE);
+                        }else{
+                            commitLayout.setVisibility(View.VISIBLE);
+                            tv_comittCounter.setText(jsonObject.getString("numOfCommits"));
+                        }
                     } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
 
                     }
@@ -613,7 +635,13 @@ public class BetaTesterDetailFragment extends Fragment implements View.OnClickLi
                     JSONObject jsonObject = new JSONObject(result);
                     if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
                         apply.setText(getString(R.string.applied));
-                        apply.setBackground(getResources().getDrawable(R.drawable.green_color_button));
+                        apply.setBackgroundResource(R.drawable.green_color_button);
+                        if (Integer.parseInt(jsonObject.getString("numOfCommits"))==0){
+                            commitLayout.setVisibility(View.GONE);
+                        }else{
+                            commitLayout.setVisibility(View.VISIBLE);
+                            tv_comittCounter.setText(jsonObject.getString("numOfCommits"));
+                        }
                     } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
 
                     }
@@ -626,305 +654,6 @@ public class BetaTesterDetailFragment extends Fragment implements View.OnClickLi
 
 
     }
-
-
-    /*class DocumentListAdapter extends BaseAdapter {
-        private LayoutInflater l_Inflater;
-
-        class ViewHolder {
-            TextView tv_name;
-            ImageView view;
-            LinearLayout row_layout;
-        }
-
-        public DocumentListAdapter() {
-            l_Inflater = LayoutInflater.from(getActivity());
-        }
-
-        @Override
-        public int getCount() {
-            return documentObjectList.size();
-        }
-
-
-        @Override
-        public Object getItem(int position) {
-            return documentObjectList.get(position);
-        }
-
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(final int position, View convertView, ViewGroup parent) {
-            ViewHolder holder;
-
-
-            if (convertView == null) {
-                convertView = l_Inflater.inflate(R.layout.row_item, null);
-                holder = new ViewHolder();
-                holder.row_layout = (LinearLayout) convertView.findViewById(R.id.row_layout);
-                holder.tv_name = (TextView) convertView.findViewById(R.id.text1);
-                holder.view = (ImageView) convertView.findViewById(R.id.view);
-
-                convertView.setTag(holder);
-
-            } else {
-                holder = (ViewHolder) convertView.getTag();
-            }
-            try {
-                holder.tv_name.setText(documentObjectList.get(position).getName());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            try {
-                holder.row_layout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Fragment rateContributor = new WebViewFragment();
-
-
-                        Bundle bundle = new Bundle();
-
-                        bundle.putString("url", documentObjectList.get(position).getAudioUrl());
-                        rateContributor.setArguments(bundle);
-                        ((HomeActivity) getActivity()).replaceFragment(rateContributor);
-                        *//*FragmentTransaction transactionRate = getFragmentManager().beginTransaction();
-                        transactionRate.replace(R.id.container, rateContributor);
-                        transactionRate.addToBackStack(null);
-
-                        transactionRate.commit();*//*
-                    }
-                });
-                holder.view.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Fragment rateContributor = new WebViewFragment();
-
-
-                        Bundle bundle = new Bundle();
-
-                        bundle.putString("url", documentObjectList.get(position).getAudioUrl());
-                        rateContributor.setArguments(bundle);
-                        ((HomeActivity) getActivity()).replaceFragment(rateContributor);
-                        *//*FragmentTransaction transactionRate = getFragmentManager().beginTransaction();
-                        transactionRate.replace(R.id.container, rateContributor);
-                        transactionRate.addToBackStack(null);
-
-                        transactionRate.commit();*//*
-                    }
-                });
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-
-            return convertView;
-        }
-    }
-
-    class VideoListAdapter extends BaseAdapter {
-        private LayoutInflater l_Inflater;
-
-        class ViewHolder {
-            TextView tv_name;
-            ImageView view;
-            LinearLayout row_layout;
-        }
-
-        public VideoListAdapter() {
-            l_Inflater = LayoutInflater.from(getActivity());
-        }
-
-        @Override
-        public int getCount() {
-            return videoObjectList.size();
-        }
-
-
-        @Override
-        public Object getItem(int position) {
-            return videoObjectList.get(position);
-        }
-
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(final int position, View convertView, ViewGroup parent) {
-            ViewHolder holder;
-
-
-            if (convertView == null) {
-                convertView = l_Inflater.inflate(R.layout.row_item, null);
-                holder = new ViewHolder();
-                holder.row_layout = (LinearLayout) convertView.findViewById(R.id.row_layout);
-                holder.tv_name = (TextView) convertView.findViewById(R.id.text1);
-                holder.view = (ImageView) convertView.findViewById(R.id.view);
-
-                convertView.setTag(holder);
-
-            } else {
-                holder = (ViewHolder) convertView.getTag();
-            }
-            try {
-                holder.tv_name.setText(videoObjectList.get(position).getName());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            try {
-                holder.view.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Fragment rateContributor = new WebViewFragment();
-
-
-                        Bundle bundle = new Bundle();
-
-                        bundle.putString("url", videoObjectList.get(position).getAudioUrl());
-                        rateContributor.setArguments(bundle);
-
-                        ((HomeActivity) getActivity()).replaceFragment(rateContributor);
-                        *//*FragmentTransaction transactionRate = getFragmentManager().beginTransaction();
-                        transactionRate.replace(R.id.container, rateContributor);
-                        transactionRate.addToBackStack(null);
-
-                        transactionRate.commit();*//*
-                    }
-                });
-
-                holder.row_layout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Fragment rateContributor = new WebViewFragment();
-
-
-                        Bundle bundle = new Bundle();
-
-                        bundle.putString("url", videoObjectList.get(position).getAudioUrl());
-                        rateContributor.setArguments(bundle);
-                        ((HomeActivity) getActivity()).replaceFragment(rateContributor);
-                        *//*FragmentTransaction transactionRate = getFragmentManager().beginTransaction();
-                        transactionRate.replace(R.id.container, rateContributor);
-                        transactionRate.addToBackStack(null);
-
-                        transactionRate.commit();*//*
-                    }
-                });
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            return convertView;
-        }
-    }
-
-    class AudioAdapter extends BaseAdapter {
-        private LayoutInflater l_Inflater;
-
-        class ViewHolder {
-            TextView tv_name;
-            ImageView view;
-            LinearLayout row_layout;
-        }
-
-        public AudioAdapter() {
-            l_Inflater = LayoutInflater.from(getActivity());
-        }
-
-        @Override
-        public int getCount() {
-            return audioObjectsList.size();
-        }
-
-
-        @Override
-        public Object getItem(int position) {
-            return audioObjectsList.get(position);
-        }
-
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(final int position, View convertView, ViewGroup parent) {
-            ViewHolder holder;
-
-
-            if (convertView == null) {
-                convertView = l_Inflater.inflate(R.layout.row_item, null);
-                holder = new ViewHolder();
-                holder.row_layout = (LinearLayout) convertView.findViewById(R.id.row_layout);
-                holder.tv_name = (TextView) convertView.findViewById(R.id.text1);
-                holder.view = (ImageView) convertView.findViewById(R.id.view);
-
-                convertView.setTag(holder);
-
-            } else {
-                holder = (ViewHolder) convertView.getTag();
-            }
-            try {
-                holder.tv_name.setText(audioObjectsList.get(position).getName());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            try {
-                holder.view.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Fragment rateContributor = new WebViewFragment();
-
-
-                        Bundle bundle = new Bundle();
-
-                        bundle.putString("url", audioObjectsList.get(position).getAudioUrl());
-                        rateContributor.setArguments(bundle);
-                        ((HomeActivity) getActivity()).replaceFragment(rateContributor);
-                       *//* FragmentTransaction transactionRate = getFragmentManager().beginTransaction();
-                        transactionRate.replace(R.id.container, rateContributor);
-                        transactionRate.addToBackStack(null);
-
-                        transactionRate.commit();*//*
-                    }
-                });
-
-                holder.row_layout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Fragment rateContributor = new WebViewFragment();
-
-
-                        Bundle bundle = new Bundle();
-
-                        bundle.putString("url", audioObjectsList.get(position).getAudioUrl());
-                        rateContributor.setArguments(bundle);
-
-                        ((HomeActivity) getActivity()).replaceFragment(rateContributor);
-                        *//*FragmentTransaction transactionRate = getFragmentManager().beginTransaction();
-                        transactionRate.replace(R.id.container, rateContributor);
-                        transactionRate.addToBackStack(null);
-
-                        transactionRate.commit();*//*
-                    }
-                });
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return convertView;
-        }
-    }*/
 
     public ValueAnimator slideAnimatorForDocument(int start, int end) {
 
