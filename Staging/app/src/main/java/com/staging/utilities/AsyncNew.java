@@ -72,7 +72,7 @@ public class AsyncNew extends AsyncTask<String, Integer, String> {
         } catch (CrowdException e) {
             return Constants.SERVEREXCEPTION;
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return Constants.SERVEREXCEPTION;
 
         }

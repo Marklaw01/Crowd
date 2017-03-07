@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -34,6 +35,10 @@ import org.json.JSONObject;
  * Created by Neelmani.Karn on 1/11/2017.
  */
 public class EarlyAdoptorsDetailFragment extends Fragment implements View.OnClickListener, AsyncTaskCompleteListener<String> {
+
+    private LinearLayout commitLayout;
+    private TextView tv_comittCounter;
+    private Button apply;
     private AudioObject docObject, audioObject, videoObject;
     private LinearLayout layoutFundPostedBy;
     private String calledFragment;
@@ -94,12 +99,17 @@ public class EarlyAdoptorsDetailFragment extends Fragment implements View.OnClic
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.boardmember_detail_fragment, container, false);
 
+        tv_comittCounter = (TextView) rootView.findViewById(R.id.tv_comittCounter);
+        commitLayout = (LinearLayout) rootView.findViewById(R.id.commitLayout);
         image_roadmap = (ImageView) rootView.findViewById(R.id.image_roadmap);
         layoutFundPostedBy = (LinearLayout) rootView.findViewById(R.id.layoutFundPostedBy);
+        apply = (Button) rootView.findViewById(R.id.apply);
         if (calledFragment.equals(Constants.FIND_FUND_TAG)) {
             layoutFundPostedBy.setVisibility(View.VISIBLE);
+            apply.setVisibility(View.VISIBLE);
         } else {
             layoutFundPostedBy.setVisibility(View.GONE);
+            apply.setVisibility(View.GONE);
         }
         list_audios = (TextView) rootView.findViewById(R.id.list_audios);
         list_docs = (TextView) rootView.findViewById(R.id.list_docs);
@@ -130,6 +140,8 @@ public class EarlyAdoptorsDetailFragment extends Fragment implements View.OnClic
         viewplayAudioArrow = (ImageView) rootView.findViewById(R.id.viewplayAudioArrow);
         viewplayVideoArrow = (ImageView) rootView.findViewById(R.id.viewplayVideoArrow);
 
+        commitLayout.setOnClickListener(this);
+        apply.setOnClickListener(this);
         cbx_Follow.setOnClickListener(this);
         cbx_Like.setOnClickListener(this);
         expandable_playAudio.getViewTreeObserver().addOnPreDrawListener(
@@ -194,7 +206,7 @@ public class EarlyAdoptorsDetailFragment extends Fragment implements View.OnClic
         list_audios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (audioObject!=null){
+                if (audioObject != null) {
                     Fragment rateContributor = new WebViewFragment();
 
 
@@ -211,7 +223,7 @@ public class EarlyAdoptorsDetailFragment extends Fragment implements View.OnClic
         list_docs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (docObject!=null){
+                if (docObject != null) {
                     Fragment rateContributor = new WebViewFragment();
 
 
@@ -228,7 +240,7 @@ public class EarlyAdoptorsDetailFragment extends Fragment implements View.OnClic
         list_video.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (videoObject!=null){
+                if (videoObject != null) {
                     Fragment rateContributor = new WebViewFragment();
 
 
@@ -241,8 +253,6 @@ public class EarlyAdoptorsDetailFragment extends Fragment implements View.OnClic
 
             }
         });
-
-
 
 
         detials();
@@ -275,6 +285,48 @@ public class EarlyAdoptorsDetailFragment extends Fragment implements View.OnClic
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.commitLayout:
+                Bundle bundle = new Bundle();
+                bundle.putString(Constants.FUND_ID, fund_id);
+                EarlyAdoptorsComittersFragment betaTestersComittersFragment = new EarlyAdoptorsComittersFragment();
+                betaTestersComittersFragment.setArguments(bundle);
+                ((HomeActivity) getActivity()).replaceFragment(betaTestersComittersFragment);
+
+
+                break;
+            case R.id.apply:
+                if (apply.getText().toString().trim().equals(getString(R.string.apply))) {
+                    try {
+                        JSONObject likeObj = new JSONObject();
+                        likeObj.put("user_id", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
+                        likeObj.put("early_adopter_id", fund_id);
+                        if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
+                            ((HomeActivity) getActivity()).showProgressDialog();
+                            AsyncNew asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.EARLY_ADOPTORS_COMMIT_TAG, Constants.EARLY_ADOPTORS_COMMIT_URL, Constants.HTTP_POST_REQUEST, likeObj);
+                            asyncNew.execute();
+                        } else {
+                            ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    try {
+                        JSONObject likeObj = new JSONObject();
+                        likeObj.put("user_id", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
+                        likeObj.put("early_adopter_id", fund_id);
+                        if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
+                            ((HomeActivity) getActivity()).showProgressDialog();
+                            AsyncNew asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.EARLY_ADOPTORS_UNCOMMIT_TAG, Constants.EARLY_ADOPTORS_UNCOMMIT_URL, Constants.HTTP_POST_REQUEST, likeObj);
+                            asyncNew.execute();
+                        } else {
+                            ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
             case R.id.cbx_Like:
                 if (cbx_Like.getText().toString().trim().equals("Like")) {
                     try {
@@ -388,7 +440,13 @@ public class EarlyAdoptorsDetailFragment extends Fragment implements View.OnClic
                         ((HomeActivity) getActivity()).dismissProgressDialog();
                         et_description.setText(jsonObject.getString("description"));
                         et_title.setText(jsonObject.getString("title"));
-
+                        ((HomeActivity) getActivity()).setActionBarTitle(jsonObject.getString("title"));
+                        if (Integer.parseInt(jsonObject.getString("numOfCommits")) == 0) {
+                            commitLayout.setVisibility(View.GONE);
+                        } else {
+                            commitLayout.setVisibility(View.VISIBLE);
+                            tv_comittCounter.setText(jsonObject.getString("numOfCommits"));
+                        }
                         et_start_date.setText(jsonObject.getString("start_date"));
                         et_endDate.setText(jsonObject.getString("end_date"));
                         ImageLoader.getInstance().displayImage(Constants.APP_IMAGE_URL + jsonObject.getString("image").trim(), image_roadmap);
@@ -457,6 +515,14 @@ public class EarlyAdoptorsDetailFragment extends Fragment implements View.OnClic
                             expandable_playAudio.setVisibility(View.GONE);
                         }
                         et_postedBy.setText(jsonObject.getString("created_by"));
+                        if (jsonObject.getString("isComitted").equals("1")) {
+                            apply.setText(getString(R.string.applied));
+                            apply.setBackgroundResource(R.drawable.green_color_button);
+                            //apply.setBackground(getDrawable(R.drawable.green_color_button));
+                        } else {
+                            apply.setText(getString(R.string.apply));
+                            apply.setBackgroundResource(R.drawable.blue_button);
+                        }
                         if (jsonObject.getString("is_liked_by_user").equals("1")) {
                             cbx_Like.setText("Liked");
                             cbx_Like.setBackgroundColor(getResources().getColor(R.color.darkGrey));
@@ -539,6 +605,46 @@ public class EarlyAdoptorsDetailFragment extends Fragment implements View.OnClic
                     e.printStackTrace();
                 }
 
+            } else if (tag.equals(Constants.EARLY_ADOPTORS_UNCOMMIT_TAG)) {
+                ((HomeActivity) getActivity()).dismissProgressDialog();
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
+                        apply.setText(getString(R.string.apply));
+                        apply.setBackgroundResource(R.drawable.blue_button);
+                        if (Integer.parseInt(jsonObject.getString("numOfCommits")) == 0) {
+                            commitLayout.setVisibility(View.GONE);
+                        } else {
+                            commitLayout.setVisibility(View.VISIBLE);
+                            tv_comittCounter.setText(jsonObject.getString("numOfCommits"));
+                        }
+                    } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else if (tag.equals(Constants.EARLY_ADOPTORS_COMMIT_TAG)) {
+                ((HomeActivity) getActivity()).dismissProgressDialog();
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
+                        apply.setText(getString(R.string.applied));
+                        apply.setBackgroundResource(R.drawable.green_color_button);
+                        if (Integer.parseInt(jsonObject.getString("numOfCommits")) == 0) {
+                            commitLayout.setVisibility(View.GONE);
+                        } else {
+                            commitLayout.setVisibility(View.VISIBLE);
+                            tv_comittCounter.setText(jsonObject.getString("numOfCommits"));
+                        }
+                    } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

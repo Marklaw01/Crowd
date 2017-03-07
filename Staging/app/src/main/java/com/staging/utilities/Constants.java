@@ -573,6 +573,15 @@ public final class Constants {
     public static final String BOARD_MEMBERS_DETAILS_URL = "boardMemberDetails";
     public static final String BOARD_MEMBERS_DETAILS_TAG = "boardMemberDetails_tag";
 
+    public static final String BOARD_MEMBERS_COMMIT_URL = "boardCommitment";
+    public static final String BOARD_MEMBERS_COMMIT_TAG = "boardCommitment_tag";
+
+    public static final String BOARD_MEMBERS_UNCOMMIT_URL = "boardUncommitment";
+    public static final String BOARD_MEMBERS_UNCOMMIT_TAG = "boardUncommitment_tag";
+
+    public static final String BOARD_MEMBERS_COMMIT_LIST = "boardCommitmentList";
+    public static final String BOARD_MEMBERS_COMMIT_LIST_TAG = "boardCommitmentList_tag";
+
     public static final String CREATE_BOARD_MEMBERS_URL = "addBoardMember";
     public static final String UPDATE_BOARD_MEMBERS_URL = "editBoardMember";
 
@@ -623,6 +632,15 @@ public final class Constants {
 
     public static final String EARLY_ADOPTORS_DETAILS_URL = "earlyAdopterDetails";
     public static final String EARLY_ADOPTORS_DETAILS_TAG = "earlyAdopterDetails_tag";
+
+    public static final String EARLY_ADOPTORS_COMMIT_URL = "earlyCommitment";
+    public static final String EARLY_ADOPTORS_COMMIT_TAG = "earlyCommitment_tag";
+
+    public static final String EARLY_ADOPTORS_UNCOMMIT_URL = "earlyUncommitment";
+    public static final String EARLY_ADOPTORS_UNCOMMIT_TAG = "earlyUncommitment_tag";
+
+    public static final String EARLY_ADOPTORS_COMMIT_LIST = "earlyCommitmentList";
+    public static final String EARLY_ADOPTORS_COMMIT_LIST_TAG = "earlyCommitmentList_tag";
 
     public static final String CREATE_EARLY_ADOPTORS_URL = "addEarlyAdopter";
     public static final String UPDATE_EARLY_ADOPTORS_URL = "editEarlyAdopter";
@@ -675,6 +693,15 @@ public final class Constants {
     public static final String ENDORSOR_DETAILS_URL = "endorsorDetails";
     public static final String ENDORSOR_DETAILS_TAG = "endorsorDetails_tag";
 
+    public static final String ENDORSOR_COMMIT_URL = "endorsorCommitment";
+    public static final String ENDORSOR_COMMIT_TAG = "endorsorCommitment_tag";
+
+    public static final String ENDORSOR_UNCOMMIT_URL = "endorsorUncommitment";
+    public static final String ENDORSOR_UNCOMMIT_TAG = "endorsorUncommitment_tag";
+
+    public static final String ENDORSOR_COMMIT_LIST = "endorsorCommitmentList";
+    public static final String ENDORSOR_COMMIT_LIST_TAG = "endorsorCommitmentList_tag";
+
     public static final String CREATE_ENDORSOR_URL = "addEndorsor";
     public static final String UPDATE_ENDORSOR_URL = "editEndorsor";
 
@@ -725,6 +752,15 @@ public final class Constants {
 
     public static final String FOCUS_GROUP_DETAILS_URL = "focusGroupDetails";
     public static final String FOCUS_GROUP_DETAILS_TAG = "focusGroupDetails_tag";
+
+    public static final String FOCUS_GROUP_COMMIT_URL = "focusCommitment";
+    public static final String FOCUS_GROUP_COMMIT_TAG = "focusCommitment_tag";
+
+    public static final String FOCUS_GROUP_UNCOMMIT_URL = "focusUncommitment";
+    public static final String FOCUS_GROUP_UNCOMMIT_TAG = "focusUncommitment_tag";
+
+    public static final String FOCUS_GROUP_COMMIT_LIST = "focusCommitmentList";
+    public static final String FOCUS_GROUP_COMMIT_LIST_TAG = "focusCommitmentList_tag";
 
     public static final String CREATE_FOCUS_GROUP_URL = "addFocusGroup";
     public static final String UPDATE_FOCUS_GROUP_URL = "editFocusGroup";
