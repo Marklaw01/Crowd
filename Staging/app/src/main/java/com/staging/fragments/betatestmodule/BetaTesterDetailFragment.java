@@ -288,10 +288,6 @@ public class BetaTesterDetailFragment extends Fragment implements View.OnClickLi
             case R.id.commitLayout:
                 Bundle bundle = new Bundle();
                 bundle.putString(Constants.FUND_ID, fund_id);
-                //bundle.putString(Constants.FUND_ID, fundsList.get(position).getId());
-                //bundle.putString(Constants.CALLED_FROM, Constants.DEACTIVATED_FUND_TAG);
-                //BetaTesterDetailFragment updateFundFragment = new BetaTesterDetailFragment();
-                //updateFundFragment.setArguments(bundle);
                 BetaTestersComittersFragment betaTestersComittersFragment = new BetaTestersComittersFragment();
                 betaTestersComittersFragment.setArguments(bundle);
                 ((HomeActivity) getActivity()).replaceFragment(betaTestersComittersFragment);
@@ -442,6 +438,7 @@ public class BetaTesterDetailFragment extends Fragment implements View.OnClickLi
                         ((HomeActivity) getActivity()).dismissProgressDialog();
                         et_description.setText(jsonObject.getString("description"));
                         et_title.setText(jsonObject.getString("title"));
+                        ((HomeActivity) getActivity()).setActionBarTitle(jsonObject.getString("title"));
                         if (Integer.parseInt(jsonObject.getString("numOfCommits"))==0){
                             commitLayout.setVisibility(View.GONE);
                         }else{

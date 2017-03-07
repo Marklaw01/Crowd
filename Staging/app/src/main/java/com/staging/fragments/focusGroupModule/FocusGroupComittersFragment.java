@@ -1,4 +1,4 @@
-package com.staging.fragments.betatestmodule;
+package com.staging.fragments.focusGroupModule;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -30,7 +30,7 @@ import java.util.ArrayList;
 /**
  * Created by Neelmani.Karn on 1/12/2017.
  */
-public class BetaTestersComittersFragment extends Fragment implements AdapterView.OnItemClickListener, AsyncTaskCompleteListener<String> {
+public class FocusGroupComittersFragment extends Fragment implements AdapterView.OnItemClickListener, AsyncTaskCompleteListener<String> {
 
     private Bundle bundle;
     private AsyncNew asyncNew;
@@ -41,7 +41,7 @@ public class BetaTestersComittersFragment extends Fragment implements AdapterVie
     private String mFundId;
     private ArrayList<UserObject> list;
 
-    public BetaTestersComittersFragment() {
+    public FocusGroupComittersFragment() {
         super();
     }
 
@@ -79,12 +79,11 @@ public class BetaTestersComittersFragment extends Fragment implements AdapterVie
         super.onResume();
         ((HomeActivity) getActivity()).setOnBackPressedListener(this);
         ((HomeActivity) getActivity()).setActionBarTitle(getString(R.string.commitments));
-        //((HomeActivity) getActivity()).setActionBarTitle(bundle.getString(Constants.LIKE_DISLIKE));
         current_page = 1;
         list = new ArrayList<>();
         adapter = null;
 
-        getLikersDislikers(current_page, Constants.BETA_TESTER_COMMIT_LIST, Constants.BETA_TESTER_COMMIT_LIST_TAG);
+        getLikersDislikers(current_page, Constants.FOCUS_GROUP_COMMIT_LIST, Constants.FOCUS_GROUP_COMMIT_LIST_TAG);
 
 
     }
@@ -104,7 +103,7 @@ public class BetaTestersComittersFragment extends Fragment implements AdapterVie
                     current_page += 1;
                     if (TOTAL_ITEMS != adapter.getCount()) {
 
-                        getLikersDislikers(current_page, Constants.BETA_TESTER_COMMIT_LIST, Constants.BETA_TESTER_COMMIT_LIST_TAG);
+                        getLikersDislikers(current_page, Constants.FOCUS_GROUP_COMMIT_LIST, Constants.FOCUS_GROUP_COMMIT_LIST_TAG);
 
                     } else {
                         list_persons.onLoadMoreComplete();
@@ -123,7 +122,7 @@ public class BetaTestersComittersFragment extends Fragment implements AdapterVie
         if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
             try {
                 JSONObject obj = new JSONObject();
-                obj.put("beta_test_id", mFundId);
+                obj.put("focus_group_id", mFundId);
                 obj.put("page_no", pageNumber);
                 ((HomeActivity) getActivity()).showProgressDialog();
                 asyncNew = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), tag, url, Constants.HTTP_POST_REQUEST, obj);
@@ -177,7 +176,7 @@ public class BetaTestersComittersFragment extends Fragment implements AdapterVie
             ((HomeActivity) getActivity()).dismissProgressDialog();
             Toast.makeText(getActivity(), getString(R.string.server_down), Toast.LENGTH_LONG).show();
         } else {
-            if (tag.equals(Constants.BETA_TESTER_COMMIT_LIST_TAG)) {
+            if (tag.equals(Constants.FOCUS_GROUP_COMMIT_LIST_TAG)) {
                 ((HomeActivity) getActivity()).dismissProgressDialog();
                 try {
                     JSONObject jsonObject = new JSONObject(result);

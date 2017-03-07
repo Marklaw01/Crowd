@@ -524,12 +524,13 @@ public class UtilitiesClass {
     /**
      * Sending JsonObject data to server
      *
-     * @param uri         is the url for the api
-     * @param json        data come from UI in JsonObject form.
-     * @param requestType it would be either GET or POST
-     * @return String object in jsonFormat
-     * @throws UnknownHostException   if internet connection is not there or may be bandwidth of internet is low.
-     * @throws SocketTimeoutException when user connection is slow and it takes much time to execute then user get timeout message
+     * @param uri         sub url of the the api
+     * @param json        if user put any data as a post parameter in json format.
+     * @param requestType either GET or POST request.
+     * @return JSONObject in String format.
+     * @throws UnknownHostException   when internet connection is not available.
+     * @throws SocketTimeoutException when server take too much time to give response.
+     * @throws CrowdException         when server gives bad request.
      */
     public String makeRequest(String uri, JSONObject json, String requestType) throws UnknownHostException, SocketTimeoutException, CrowdException {
         HttpURLConnection urlConnection;
