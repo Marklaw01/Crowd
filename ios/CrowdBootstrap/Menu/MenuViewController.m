@@ -36,6 +36,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view.
     
    // menuArray = @[@"userIdentifier",@"homeIdentifier",@"profileIdentifier",@"startupIdentifier",@"addStartupIdentifier",@"searchStartupIdentifier",@"searchContributorIdentifier",@"workOrdersIdentifier",@"chatIdentifier",@"notesIdentifier",@"viewProfileIdentifier",@"messagesdentifier",@"archivedNotIdentifier",@"settingsIdentifier",@"forumsIdentifier",@"archivedForumsIdentifier",@"campaignsIdentifier",@"paymentIdentifier",@"logoutIdentifier"];
