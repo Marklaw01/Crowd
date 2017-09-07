@@ -95,10 +95,31 @@
 }
 
 -(void)resetUISettings {
-    selectedCountryID = @"" ;
-    selectedStateID    = @"" ;
+    //    selectedCountryID = @"" ;
+    //    selectedStateID    = @"" ;
     selectedPickerViewType = -1 ;
-    searchedString = @""  ;
+    //    searchedString = @""  ;
+    
+    // Set previous selected Country
+    if ([kUSERDEFAULTS valueForKey:@"Country"] != nil) {
+        textFldCountry.text = [kUSERDEFAULTS valueForKey:@"Country"];
+        selectedCountryID =  [kUSERDEFAULTS valueForKey:@"CountryID"];
+    } else {
+        selectedCountryID = @"" ;
+    }
+    
+    // Set previous selected State
+    if ([kUSERDEFAULTS valueForKey:@"State"] != nil) {
+        textFldState.text = [kUSERDEFAULTS valueForKey:@"State"];
+        selectedStateID =  [kUSERDEFAULTS valueForKey:@"StateID"];
+    } else
+        selectedStateID    = @"" ;
+    
+    // Set previous selected Search Text
+    if ([kUSERDEFAULTS valueForKey:@"SearchText"] != nil)
+        searchedString = [kUSERDEFAULTS valueForKey:@"SearchText"];
+    else
+        searchedString = @""  ;
     
     [UtilityClass setTextFieldBorder:textFldCountry] ;
     [UtilityClass setTextFieldBorder:textFldState] ;
@@ -118,7 +139,7 @@
     searchResults = [[NSMutableArray alloc] init] ;
     countryArray = [[NSMutableArray alloc] init] ;
     statesArray = [[NSMutableArray alloc] init] ;
-
+    
     pageNo = 1 ;
     totalItems = 0 ;
     
@@ -146,6 +167,7 @@
     jobSearchController = [[UISearchController alloc] initWithSearchResultsController:nil] ;
     jobSearchController.searchBar.placeholder = kSearchJobPlaceholder ;
     [jobSearchController.searchBar sizeToFit] ;
+    jobSearchController.searchBar.text = searchedString;
     jobSearchController.searchResultsUpdater = self ;
     jobSearchController.dimsBackgroundDuringPresentation = NO ;
     jobSearchController.definesPresentationContext = YES ;
@@ -336,9 +358,9 @@
 -(void)getMyJobListWithSearchText:(NSString*)searchText {
     if([UtilityClass checkInternetConnection]) {
         
-//        if(pageNo == 1)
-//            [UtilityClass showHudWithTitle:kHUDMessage_PleaseWait] ;
-    
+        //        if(pageNo == 1)
+        //            [UtilityClass showHudWithTitle:kHUDMessage_PleaseWait] ;
+        
         NSMutableDictionary *dictParam =[[NSMutableDictionary alloc] init];
         [dictParam setObject:[NSString stringWithFormat:@"%d",[UtilityClass getLoggedInUserID]] forKey:kSearchJobAPI_UserID] ;
         [dictParam setObject:searchText forKey:kSearchJobAPI_SearchText] ;
@@ -349,8 +371,8 @@
         NSLog(@"dictParam: %@",dictParam) ;
         [ApiCrowdBootstrap getMyJobListsWithParameters:dictParam success:^(NSDictionary *responseDict) {
             [UtilityClass hideHud] ;
+            NSLog(@"responseDict: %@",responseDict) ;
             if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode ) {
-                NSLog(@"responseDict: %@",responseDict) ;
                 if([responseDict valueForKey:kSearchJobAPI_JobList]) {
                     totalItems = [[responseDict valueForKey:kSearchJobAPI_TotalItems] integerValue] ;
                     if(jobSearchController.active && ![jobSearchController.searchBar.text isEqualToString:@""]){
@@ -360,19 +382,21 @@
                         [jobArray addObjectsFromArray:(NSArray*)[responseDict valueForKey:kSearchJobAPI_JobList]] ;
                     }
                     
+                    lblNoJobsFound.hidden = true;
                     [tblView reloadData] ;
                     pageNo ++ ;
                 }
             }
-            else if([[responseDict valueForKey:@"code"] intValue] == kErrorCode ){
-                if(jobSearchController.active && ![jobSearchController.searchBar.text isEqualToString:@""]){
+            else if([[responseDict valueForKey:@"code"] intValue] == kErrorCode ) {
+                lblNoJobsFound.hidden = false;
+                
+                if(jobSearchController.active && ![jobSearchController.searchBar.text isEqualToString:@""]) {
                     
                 }
                 else {
                     jobArray = [NSMutableArray arrayWithArray:[responseDict valueForKey:kSearchJobAPI_JobList]] ;
                 }
                 [tblView reloadData] ;
-                
             }
             
         } failure:^(NSError *error) {
@@ -385,8 +409,8 @@
 -(void)getArchivedJobWithSearchText:(NSString*)searchText {
     if([UtilityClass checkInternetConnection]) {
         
-//        if(pageNo == 1)
-//            [UtilityClass showHudWithTitle:kHUDMessage_PleaseWait] ;
+        //        if(pageNo == 1)
+        //            [UtilityClass showHudWithTitle:kHUDMessage_PleaseWait] ;
         
         NSMutableDictionary *dictParam =[[NSMutableDictionary alloc] init];
         [dictParam setObject:[NSString stringWithFormat:@"%d",[UtilityClass getLoggedInUserID]] forKey:kSearchJobAPI_UserID] ;
@@ -408,12 +432,16 @@
                     else {
                         [jobArray addObjectsFromArray:(NSArray*)[responseDict valueForKey:kSearchJobAPI_JobList]] ;
                     }
+                    lblNoJobsFound.hidden = true;
                     
                     [tblView reloadData] ;
                     pageNo ++ ;
                 }
             }
             else if([[responseDict valueForKey:@"code"] intValue] == kErrorCode ) {
+                NSLog(@"responseDict: %@",responseDict) ;
+                lblNoJobsFound.hidden = false;
+                
                 if(jobSearchController.active && ![jobSearchController.searchBar.text isEqualToString:@""]){
                     
                 }
@@ -434,8 +462,8 @@
 -(void)getDeActivatedJobWithSearchText:(NSString*)searchText {
     if([UtilityClass checkInternetConnection]) {
         
-//        if(pageNo == 1)
-//            [UtilityClass showHudWithTitle:kHUDMessage_PleaseWait] ;
+        //        if(pageNo == 1)
+        //            [UtilityClass showHudWithTitle:kHUDMessage_PleaseWait] ;
         
         NSMutableDictionary *dictParam =[[NSMutableDictionary alloc] init];
         [dictParam setObject:[NSString stringWithFormat:@"%d",[UtilityClass getLoggedInUserID]] forKey:kSearchJobAPI_UserID] ;
@@ -457,12 +485,16 @@
                     else {
                         [jobArray addObjectsFromArray:(NSArray*)[responseDict valueForKey:kSearchJobAPI_JobList]] ;
                     }
+                    lblNoJobsFound.hidden = true;
                     
                     [tblView reloadData] ;
                     pageNo ++ ;
                 }
             }
             else if([[responseDict valueForKey:@"code"] intValue] == kErrorCode ) {
+                NSLog(@"responseDict: %@",responseDict) ;
+                lblNoJobsFound.hidden = false;
+                
                 if(jobSearchController.active && ![jobSearchController.searchBar.text isEqualToString:@""]) {
                     
                 }
@@ -483,7 +515,7 @@
 -(void)archiveJob:(NSString *)jobId {
     if([UtilityClass checkInternetConnection]) {
         [UtilityClass showHudWithTitle:kHUDMessage_PleaseWait] ;
-
+        
         NSMutableDictionary *dictParam = [[NSMutableDictionary alloc] init];
         [dictParam setObject:jobId forKey:kSearchJobAPI_JobID] ;
         
@@ -506,7 +538,7 @@
 -(void)deactivateJob:(NSString *)jobId {
     if([UtilityClass checkInternetConnection]) {
         [UtilityClass showHudWithTitle:kHUDMessage_PleaseWait] ;
-
+        
         NSMutableDictionary *dictParam = [[NSMutableDictionary alloc] init];
         [dictParam setObject:jobId forKey:kSearchJobAPI_JobID] ;
         
@@ -529,7 +561,7 @@
 -(void)deleteJob:(NSString *)jobId {
     if([UtilityClass checkInternetConnection]) {
         [UtilityClass showHudWithTitle:kHUDMessage_PleaseWait] ;
-
+        
         NSMutableDictionary *dictParam =[[NSMutableDictionary alloc] init];
         [dictParam setObject:jobId forKey:kSearchJobAPI_JobID] ;
         
@@ -560,6 +592,10 @@
     [jobArray removeAllObjects] ;
     [searchResults removeAllObjects] ;
     [tblView reloadData] ;
+    
+    [kUSERDEFAULTS setValue:searchedString forKey:@"SearchText"];
+    [kUSERDEFAULTS synchronize];
+    
     if (selectedSegment == MYJOBS_SELECTED)
         [self getMyJobListWithSearchText:searchedString] ;
     else if (selectedSegment == ARCHIVED_JOB_SELECTED)
@@ -575,6 +611,10 @@
     [jobArray removeAllObjects] ;
     [searchResults removeAllObjects] ;
     [jobSearchController setActive:NO] ;
+    
+    [kUSERDEFAULTS setValue:searchedString forKey:@"SearchText"];
+    [kUSERDEFAULTS synchronize];
+    
     if (selectedSegment == MYJOBS_SELECTED)
         [self getMyJobListWithSearchText:searchedString] ;
     else if (selectedSegment == ARCHIVED_JOB_SELECTED)
@@ -588,18 +628,18 @@
     
     selectedSegment = segmentControl.selectedSegmentIndex;
     
-//        [jobSearchController dismissViewControllerAnimated:NO completion:nil] ;
-//        if(jobSearchController)
-//            jobSearchController = nil ;
+    //        [jobSearchController dismissViewControllerAnimated:NO completion:nil] ;
+    //        if(jobSearchController)
+    //            jobSearchController = nil ;
     
     pageNo = 1 ;
     totalItems = 0 ;
     [jobArray removeAllObjects] ;
     [searchResults removeAllObjects] ;
     [tblView reloadData] ;
-
-//    [self configureSearchController] ;
-
+    
+    //    [self configureSearchController] ;
+    
     switch (selectedSegment) {
         case MYJOBS_SELECTED:
             [self getMyJobListWithSearchText:searchedString] ;
@@ -685,8 +725,15 @@
             
             [[basicArray objectAtIndex:BASIC_STATE_INDEX] setValue:@"" forKey:@"value"] ;
             [[basicArray objectAtIndex:BASIC_STATE_INDEX] setValue:@"" forKey:@"id"] ;
+            
+            // Save Country in user defaults
+            [kUSERDEFAULTS setValue:textFldCountry.text forKey:@"Country"];
+            [kUSERDEFAULTS setValue:selectedCountryID forKey:@"CountryID"];
+            
+            [kUSERDEFAULTS setValue:textFldState.text forKey:@"State"];
+            [kUSERDEFAULTS setValue:selectedStateID forKey:@"StateID"];
+            [kUSERDEFAULTS synchronize];
         }
-        
         else {
             [textFldState resignFirstResponder] ;
             
@@ -703,6 +750,11 @@
                 selectedStateID = [[statesArray objectAtIndex:(int)[pickerView selectedRowInComponent:0]-1] valueForKey:@"id"];
                 
                 [[basicArray objectAtIndex:BASIC_STATE_INDEX] setValue:[[statesArray objectAtIndex:(int)[pickerView selectedRowInComponent:0]-1] valueForKey:@"name"] forKey:@"value"] ;
+                
+                // Save State in user defaults
+                [kUSERDEFAULTS setValue:textFldState.text forKey:@"State"];
+                [kUSERDEFAULTS setValue:selectedStateID forKey:@"StateID"];
+                [kUSERDEFAULTS synchronize];
             }
         }
     }
@@ -865,9 +917,9 @@
     
     NSMutableArray *array ;
     if (jobSearchController.active && ![jobSearchController.searchBar.text isEqualToString:@""])
-        array = [searchResults mutableCopy] ;
+    array = [searchResults mutableCopy] ;
     else
-        array = [jobArray mutableCopy] ;
+    array = [jobArray mutableCopy] ;
     
     if(indexPath.row != array.count) {
         
@@ -876,7 +928,10 @@
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:kEditJobIdentifier] ;
         
+        NSDictionary *dict = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%ld", (long)selectedSegment] forKey:@"segment"];
+        
         [self.navigationController pushViewController:viewController animated:YES] ;
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSetViewEditing object:nil userInfo:dict];
     }
 }
 

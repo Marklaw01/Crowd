@@ -64,7 +64,7 @@
     self.title = @"" ;
 }
 
--(void)revealViewSettings{
+-(void)revealViewSettings {
     // Set the side bar button action. When it's tapped, it'll show up the sidebar.
     menuBarBtn.target = self.revealViewController;
     menuBarBtn.action = @selector(revealToggle:);
@@ -84,17 +84,19 @@
 }
 
 #pragma mark - Public Methods
--(void)getMyStartupListForType:(BOOL)isUploadApp{
+-(void)getMyStartupListForType:(BOOL)isUploadApp {
     
     self.title = (isUploadApp == YES?@"Upload Application":@"Upload Profile") ;
     isUploadAppSelected = isUploadApp ;
 }
 
 #pragma mark - API Methods
--(void)getMyStartupsList{
-    if([UtilityClass checkInternetConnection]){
+-(void)getMyStartupsList {
+    if([UtilityClass checkInternetConnection]) {
         
-        if(pageNo == 1)[UtilityClass showHudWithTitle:kHUDMessage_PleaseWait] ;
+        if(pageNo == 1)
+            [UtilityClass showHudWithTitle:kHUDMessage_PleaseWait] ;
+        
         NSMutableDictionary *dictParam =[[NSMutableDictionary alloc] init];
         [dictParam setObject:[NSString stringWithFormat:@"%d",[UtilityClass getLoggedInUserID]] forKey:kStartupsAPI_UserID] ;
         [dictParam setObject:[NSString stringWithFormat:@"%d",MY_STARTUPS_SELECTED] forKey:kStartupsAPI_StartupType] ;
@@ -104,7 +106,7 @@
             [UtilityClass hideHud] ;
             if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode )  {
                 NSLog(@"responseDict: %@",responseDict) ;
-                if([responseDict valueForKey:kStartupsAPI_Startups]){
+                if([responseDict valueForKey:kStartupsAPI_Startups]) {
                     totalItems = [[responseDict valueForKey:kStartupsAPI_TotalItems] intValue] ;
                     for (NSDictionary *dict in (NSArray*)[responseDict valueForKey:kStartupsAPI_Startups]) {
                         [startupsArray addObject:dict] ;
@@ -150,19 +152,19 @@
     }
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if(indexPath.row == startupsArray.count) return 30 ;
     else return 100 ;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(indexPath.row == startupsArray.count){
+    if(indexPath.row == startupsArray.count) {
         [self getMyStartupsList] ;
     }
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(indexPath.row != startupsArray.count){
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if(indexPath.row != startupsArray.count) {
         [UtilityClass setStartupType:MY_STARTUPS_SELECTED] ;
         [UtilityClass setStartupDetails:(NSMutableDictionary*)[startupsArray objectAtIndex:indexPath.row]] ;
         

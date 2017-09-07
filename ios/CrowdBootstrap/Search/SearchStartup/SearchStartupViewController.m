@@ -263,12 +263,11 @@
         if(indexPath.row == startupsArray.count) return 30 ;
         else return 100 ;
     }
-   
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (!(searchController.active && ![searchController.searchBar.text isEqualToString:@""])){
-        if(indexPath.row == startupsArray.count){
+    if (!(searchController.active && ![searchController.searchBar.text isEqualToString:@""])) {
+        if(indexPath.row == startupsArray.count) {
             [self getStartupsListWithSearchText:@""] ;
         }
     }
@@ -278,7 +277,7 @@
     NSMutableArray *array ;
     if (searchController.active && ![searchController.searchBar.text isEqualToString:@""]) array = [searchResults mutableCopy] ;
     else array = [startupsArray mutableCopy] ;
-    if(indexPath.row != array.count){
+    if(indexPath.row != array.count) {
         [UtilityClass setStartupDetails:(NSMutableDictionary*)[array objectAtIndex:indexPath.row]] ;
         [UtilityClass setStartupInfoMode:YES] ;
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];

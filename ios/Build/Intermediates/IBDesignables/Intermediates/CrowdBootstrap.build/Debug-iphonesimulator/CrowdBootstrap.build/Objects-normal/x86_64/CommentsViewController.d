@@ -1,5 +1,5 @@
 dependencies: \
-  /Users/osx/Desktop/shikha/CrowdBootstap/Pods/QuickBlox/Quickblox.framework/Modules/module.modulemap \
-  /Users/osx/Desktop/shikha/CrowdBootstap/CrowdBootstrap/Forums/ForumDetail/Comments/CommentsViewController.m \
-  /Users/osx/Desktop/shikha/CrowdBootstap/CrowdBootstrap/Forums/ForumDetail/Comments/CommentsViewController.h \
-  /Users/osx/Desktop/shikha/CrowdBootstap/CrowdBootstrap/Notifications/NotificationsTableViewCell.h
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/Pods/QuickBlox/Quickblox.framework/Modules/module.modulemap \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/CrowdBootstrap/Messaging/Forums/ForumDetail/Comments/CommentsViewController.m \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/CrowdBootstrap/Messaging/Forums/ForumDetail/Comments/CommentsViewController.h \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/CrowdBootstrap/Messaging/Notifications/NotificationsTableViewCell.h

@@ -41,6 +41,9 @@
     BOOL                            isEntrepreneur ;
     BOOL                            isEditModeEnabled ;
     
+    NSString                        *strFundedBy;
+    NSString                        *strFundCreator;
+    NSString                        *strStartupProfileLink;
 }
 
 @property UIView *selectedItem;

@@ -74,7 +74,7 @@
 }
 
 #pragma mark - Public Methods
--(void)refreshUIContentWithTitle:(NSString*)viewTitle withContent:(NSString*)content{
+-(void)refreshUIContentWithTitle:(NSString*)viewTitle withContent:(NSString*)content {
     self.title = viewTitle ;
     contentTextView.text = content ;
 }

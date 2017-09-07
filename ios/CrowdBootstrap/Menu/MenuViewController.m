@@ -27,6 +27,27 @@
 #import "CompaniesViewController.h"
 #import "JobListViewController.h"
 #import "RecruiterViewController.h"
+#import "MyFundsViewController.h"
+#import "MyBetaTestsViewController.h"
+#import "MyBoardMembersViewController.h"
+#import "MyEarlyAdoptersViewController.h"
+#import "MyEndorsorsViewController.h"
+#import "MyFocusGroupsViewController.h"
+#import "MySoftwaresViewController.h"
+#import "MyServicesViewController.h"
+#import "MyAudioVideoViewController.h"
+#import "MyInformationViewController.h"
+#import "MyProductivityViewController.h"
+#import "MyHardwareViewController.h"
+#import "MyGroupsViewController.h"
+#import "MyImprovementToolsViewController.h"
+#import "MyCareersViewController.h"
+#import "MyConferencesViewController.h"
+#import "MyDemoDaysViewController.h"
+#import "MyMeetUpsViewController.h"
+#import "MyWebinarsViewController.h"
+#import "MyConsultingProjectsViewController.h"
+#import "MyAssetsViewController.h"
 
 @interface MenuViewController ()
 
@@ -36,25 +57,23 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     // Do any additional setup after loading the view.
     
-   // menuArray = @[@"userIdentifier",@"homeIdentifier",@"profileIdentifier",@"startupIdentifier",@"addStartupIdentifier",@"searchStartupIdentifier",@"searchContributorIdentifier",@"workOrdersIdentifier",@"chatIdentifier",@"notesIdentifier",@"viewProfileIdentifier",@"messagesdentifier",@"archivedNotIdentifier",@"settingsIdentifier",@"forumsIdentifier",@"archivedForumsIdentifier",@"campaignsIdentifier",@"paymentIdentifier",@"logoutIdentifier"];
+    // menuArray = @[@"userIdentifier",@"homeIdentifier",@"profileIdentifier",@"startupIdentifier",@"addStartupIdentifier",@"searchStartupIdentifier",@"searchContributorIdentifier",@"workOrdersIdentifier",@"chatIdentifier",@"notesIdentifier",@"viewProfileIdentifier",@"messagesdentifier",@"archivedNotIdentifier",@"settingsIdentifier",@"forumsIdentifier",@"archivedForumsIdentifier",@"campaignsIdentifier",@"paymentIdentifier",@"logoutIdentifier"];
     
-    menuArray = @[@"userIdentifier", @"homeIdentifier", @"My Profile", @"Startups", @"Contractors", @"Organizations", @"Messaging",@
-                  "Resources", @"Events", @"Opportunities", @"paymentIdentifier", @"logoutIdentifier"];
+    menuArray = @[@"userIdentifier", @"homeIdentifier", @"My Profile", @"Startups", @"Contractors", @"Organizations", @"Messaging", @"Resources", @"Events", @"Opportunities", @"paymentIdentifier", @"logoutIdentifier"];
     
     profileArray = @[@"entrepreneurVideoIdentifier", @"profileIdentifier", @"connectionsIdentifier", @"suggestKeywordsIdentifier", @"settingsIdentifier"] ;
     
     startupArray = @[@"roadmapVideoIdentifier",@"addStartupIdentifier",@"startupApplicationIdentifier",@"startupProfileIdentifier",@"currentStartupsIdentifier",@"fundsIdentifier",@"campaignsIdentifier",@"searchCampaignsIdentifier",@"manageWorkOrdersIdentifier"] ;
-    contractorsArray = @[@"contractorVideoIdentifier",@"searchContributorIdentifier",@"viewProfileIdentifier",@"workOrdersIdentifier"] ;
+    contractorsArray = @[@"contractorVideoIdentifier",@"searchContributorIdentifier",@"viewProfileIdentifier",@"workOrdersIdentifier", kMenuIdentifier_SelfImprovement, kMenuIdentifier_CareerAdvancement] ;
     
     organizationsArray = @[@"organizationVideoIdentifier",@"searchOrganizationIdentifier"] ;
     
     messagesArray = @[@"archivedForumsIdentifier",@"archivedNotIdentifier",@"notificationsIdentifier",@"chatIdentifier",@"forumsIdentifier",@"groupsIdentifier",@"messagesdentifier",@"notesIdentifier"] ;
-    resourcesArray = @[@"hardwareIdentifier",@"softwareIdentifier",@"servicesIdentifier",@"audioVideoIdentifier",@"informationIdentifier",@"productivityIdentifier"] ;
+    resourcesArray = @[@"hardwareIdentifier",@"softwareIdentifier",@"servicesIdentifier",@"audioVideoIdentifier",@"informationIdentifier",@"productivityIdentifier", kMenuIdentifier_communalAssets] ;
     eventsArray = @[@"conferencesIdentifier",@"demoDaysIdentifier",@"meetUpsIdentifier",@"webinarsIdentifier"] ;
-    opportunitiesArray = @[kMenuIdentifier_BetaTesters,kMenuIdentifier_boardMembers,kMenuIdentifier_communalAssets,kMenuIdentifier_Consulting,kMenuIdentifier_earlyAdaptors,kMenuIdentifier_endorsers,kMenuIdentifier_focusGroups,kMenuIdentifier_jobs,kMenuIdentifier_recruiter] ;
+    opportunitiesArray = @[kMenuIdentifier_BetaTesters,kMenuIdentifier_boardMembers,kMenuIdentifier_Consulting,kMenuIdentifier_earlyAdaptors,kMenuIdentifier_endorsers,kMenuIdentifier_focusGroups,kMenuIdentifier_jobs,kMenuIdentifier_recruiter] ;
     
     arrayForBool = [[NSMutableArray alloc] init] ;
     for (int i=0; i<[menuArray count]; i++) {
@@ -138,12 +157,12 @@
 }
 
 -(void)logoutUser {
-   
-  /*  [[QMServicesManager instance] logoutWithCompletion:^{
-        NSLog(@"Logged out from QuickBlox ") ;
-        // Logged out from QuickBlox
-        
-    }];*/
+    
+    /*  [[QMServicesManager instance] logoutWithCompletion:^{
+     NSLog(@"Logged out from QuickBlox ") ;
+     // Logged out from QuickBlox
+     
+     }];*/
     
     NSMutableDictionary *dictParam =[[NSMutableDictionary alloc] init];
     [dictParam setObject:[NSString stringWithFormat:@"%d",[UtilityClass getLoggedInUserID]] forKey:kLogOutAPI_UserID] ;
@@ -166,7 +185,7 @@
                 
                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
                 UINavigationController *navController = [storyboard instantiateViewControllerWithIdentifier:kRootNavControllerIdentifier] ;
-               // [self presentViewController:navController animated:YES completion:nil] ;
+                // [self presentViewController:navController animated:YES completion:nil] ;
                 
                 [self removeAllNotes] ;
                 
@@ -186,8 +205,8 @@
 #pragma mark - Core Data Methods
 -(void)removeAllNotes{
     [[AppDelegate appDelegate].coreDataManager fetchWithEntity:NOTES_ENTITY
-                            Predicate:nil
-                              success:^(NSArray *fetchLists)
+                                                     Predicate:nil
+                                                       success:^(NSArray *fetchLists)
      {
          // delete entity
          for (CDTestEntity *deleteEntity in fetchLists)
@@ -196,7 +215,7 @@
          }
          
      }
-                               failed:^(NSError *error)
+                                                        failed:^(NSError *error)
      {
          
      }];
@@ -251,7 +270,7 @@
         if ([[arrayForBool objectAtIndex:section] boolValue]) return opportunitiesArray.count ;
         else  return 0 ;
     }
-
+    
     else return 1;
 }
 
@@ -268,7 +287,7 @@
         
         cell.userNameLbl.text = [NSString stringWithFormat:@"%@ %@",[dict valueForKey:kLogInAPI_FirstName],[dict valueForKey:kLogInAPI_LastName]] ;
         [cell.userImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",APIPortToBeUsed,[dict valueForKey:kLogInAPI_UserImage]]] placeholderImage:[UIImage imageNamed:kImage_ProfilePicDefault]] ;
-      
+        
         cell.userImgView.layer.cornerRadius = 60;
         cell.userImgView.clipsToBounds = YES;
         
@@ -313,10 +332,10 @@
     sectionView.backgroundColor = [UIColor colorWithRed:3.0f/255.0f green:55.0f/255.0f blue:92.0f/255.0f alpha:1];
     sectionView.tag = section;
     
-//    [cell setSelectedBackgroundView:bgColorView];
+    //    [cell setSelectedBackgroundView:bgColorView];
     
     // Menu icon
-     UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(20,10 ,32, 31)];
+    UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(20,10 ,32, 31)];
     if(section == kMyProfielSectionCellIndex)
         imgView.image = [UIImage imageNamed:kMyProfileSectionIcon] ;
     else if(section == kStartupSectionCellIndex)
@@ -361,15 +380,15 @@
 }
 
 /*-(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-
-    UIView *sectionView = [tableView dequeueReusableCellWithIdentifier:[menuArray objectAtIndex:section]] ;
-    
-
+ 
+ UIView *sectionView = [tableView dequeueReusableCellWithIdentifier:[menuArray objectAtIndex:section]] ;
+ 
+ 
  UITapGestureRecognizer  *headerTapped   = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sectionHeaderTapped:)];
-    [sectionView addGestureRecognizer:headerTapped];
-    
-    return  sectionView;
-}*/
+ [sectionView addGestureRecognizer:headerTapped];
+ 
+ return  sectionView;
+ }*/
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -397,14 +416,14 @@
                 [UtilityClass setSearchContractorMode:YES] ;
             }
             else if(indexPath.row  == 2) {
-               [UtilityClass setProfileMode:PROFILE_MODE_MY_PROFILE] ;
+                [UtilityClass setProfileMode:PROFILE_MODE_MY_PROFILE] ;
             }
             else if(indexPath.row  == 3) {
                 [UtilityClass setStartupWorkOrderType:YES] ;
             }
-             break ;
+            break ;
         }
-         
+            
         case 5: //Companies
         {
             if(indexPath.row == 1) {
@@ -442,12 +461,12 @@
             
             UIAlertAction* yes = [UIAlertAction actionWithTitle:@"YES" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
                 
-            [self logoutUser] ;
-              /*// Logout
-                [UtilityClass setLogInStatus:NO] ;
-                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                UINavigationController *navController = [storyboard instantiateViewControllerWithIdentifier:kRootNavControllerIdentifier] ;
-                [self presentViewController:navController animated:YES completion:nil] ;*/
+                [self logoutUser] ;
+                /*// Logout
+                 [UtilityClass setLogInStatus:NO] ;
+                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                 UINavigationController *navController = [storyboard instantiateViewControllerWithIdentifier:kRootNavControllerIdentifier] ;
+                 [self presentViewController:navController animated:YES completion:nil] ;*/
                 
             }];
             UIAlertAction* no = [UIAlertAction actionWithTitle:@"NO" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
@@ -461,7 +480,7 @@
             
             break;
         }
-       
+            
         default:
             break;
     }
@@ -499,7 +518,7 @@
             UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
             [navController setViewControllers: @[dvc] animated: NO ];
             [dvc.view setUserInteractionEnabled:YES];
-           // [self.revealViewController removeOverlayButton];
+            // [self.revealViewController removeOverlayButton];
             
             // Messaging
             if([dvc isKindOfClass:[NotificationsViewController class]]) {
@@ -515,44 +534,100 @@
                 }
             }
             
-            // Resources
-            if([dvc isKindOfClass:[ResourcesViewController class]]) {
-                ResourcesViewController *viewController = (ResourcesViewController*)dvc;
+            // Messaging(Groups)
+            if([dvc isKindOfClass:[MyGroupsViewController class]]) {
+                MyGroupsViewController *viewController = (MyGroupsViewController*)dvc;
+                
+                if([sender isKindOfClass:[UITableViewCell class]]) {
+                    UITableViewCell *cell = (UITableViewCell *)sender ;
+                    NSString *selectedCellIdentifier = cell.reuseIdentifier ;
+                    
+                    if([selectedCellIdentifier isEqualToString:@"groupsIdentifier"]){
+                        [viewController refreshUIContentWithTitle:MESSAGE_GROUPS_TITLE withContent:@""] ;
+                    }
+                }
+            }
+            
+            // Hardwares
+            else if([dvc isKindOfClass:[MyHardwareViewController class]]) {
+                MyHardwareViewController *viewController = (MyHardwareViewController *)dvc;
                 
                 if([sender isKindOfClass:[UITableViewCell class]]) {
                     UITableViewCell *cell = (UITableViewCell *)sender ;
                     NSString *selectedCellIdentifier = cell.reuseIdentifier ;
                     
                     if([selectedCellIdentifier isEqualToString:@"hardwareIdentifier"]) {
-                        [viewController refreshUIContentWithTitle:RES_HARDWARE_TITLE withContent:RES_HARDWARE_CONTENT] ;
+                        [viewController refreshUIContentWithTitle:RES_HARDWARE_TITLE withContent:@""] ;
                     }
+                }
+            }
+            
+            // Softwares
+            else if([dvc isKindOfClass:[MySoftwaresViewController class]]) {
+                MySoftwaresViewController *viewController = (MySoftwaresViewController*)dvc;
+                
+                if([sender isKindOfClass:[UITableViewCell class]]) {
+                    UITableViewCell *cell = (UITableViewCell *)sender ;
+                    NSString *selectedCellIdentifier = cell.reuseIdentifier ;
                     
-                    else if([selectedCellIdentifier isEqualToString:@"softwareIdentifier"]) {
-                        [viewController refreshUIContentWithTitle:RES_SOFTWARE_TITLE withContent:RES_SOFTWARE_CONTENT] ;
+                    if([selectedCellIdentifier isEqualToString:@"softwareIdentifier"]) {
+                        [viewController refreshUIContentWithTitle:RES_SOFTWARE_TITLE withContent:@""] ;
                     }
+                }
+            }
+            
+            // Services
+            else if([dvc isKindOfClass:[MyServicesViewController class]]) {
+                MyServicesViewController *viewController = (MyServicesViewController*)dvc;
+                
+                if([sender isKindOfClass:[UITableViewCell class]]) {
+                    UITableViewCell *cell = (UITableViewCell *)sender ;
+                    NSString *selectedCellIdentifier = cell.reuseIdentifier ;
                     
-                    else if([selectedCellIdentifier isEqualToString:@"servicesIdentifier"]){
-                        [viewController refreshUIContentWithTitle:RES_SERVICES_TITLE withContent:RES_SERVICES_CONTENT] ;
+                    if([selectedCellIdentifier isEqualToString:@"servicesIdentifier"]){
+                        [viewController refreshUIContentWithTitle:RES_SERVICES_TITLE withContent:@""] ;
                     }
+                }
+            }
+            
+            // Audio/Video
+            else if([dvc isKindOfClass:[MyAudioVideoViewController class]]) {
+                MyAudioVideoViewController *viewController = (MyAudioVideoViewController*)dvc;
+                
+                if([sender isKindOfClass:[UITableViewCell class]]) {
+                    UITableViewCell *cell = (UITableViewCell *)sender ;
+                    NSString *selectedCellIdentifier = cell.reuseIdentifier ;
                     
-                    else if([selectedCellIdentifier isEqualToString:@"audioVideoIdentifier"]){
-                        [viewController refreshUIContentWithTitle:RES_AUDIOVIDEO_TITLE withContent:RES_AUDIOVIDEO_CONTENT] ;
+                    if([selectedCellIdentifier isEqualToString:@"audioVideoIdentifier"]){
+                        [viewController refreshUIContentWithTitle:RES_AUDIOVIDEO_TITLE withContent:@""] ;
                     }
+                }
+            }
+            
+            // Information
+            else if([dvc isKindOfClass:[MyInformationViewController class]]) {
+                MyInformationViewController *viewController = (MyInformationViewController*)dvc;
+                
+                if([sender isKindOfClass:[UITableViewCell class]]) {
+                    UITableViewCell *cell = (UITableViewCell *)sender ;
+                    NSString *selectedCellIdentifier = cell.reuseIdentifier ;
                     
-                    else if([selectedCellIdentifier isEqualToString:@"informationIdentifier"]){
-                        [viewController refreshUIContentWithTitle:RES_INFORMATION_TITLE withContent:RES_INFORMATION_CONTENT] ;
+                    if([selectedCellIdentifier isEqualToString:@"informationIdentifier"]){
+                        [viewController refreshUIContentWithTitle:RES_INFORMATION_TITLE withContent:@""] ;
                     }
+                }
+            }
+            
+            // Productivity
+            else if([dvc isKindOfClass:[MyProductivityViewController class]]) {
+                MyProductivityViewController *viewController = (MyProductivityViewController*)dvc;
+                
+                if([sender isKindOfClass:[UITableViewCell class]]) {
+                    UITableViewCell *cell = (UITableViewCell *)sender ;
+                    NSString *selectedCellIdentifier = cell.reuseIdentifier ;
                     
-                    else if([selectedCellIdentifier isEqualToString:@"productivityIdentifier"]){
-                        [viewController refreshUIContentWithTitle:RES_PRODUCTIVITY_TITLE withContent:RES_PRODUCTIVITY_CONTENT] ;
-                    }
-                    
-                    else if([selectedCellIdentifier isEqualToString:@"fundsIdentifier"]){
-                        [viewController refreshUIContentWithTitle:STARTUP_FUNDS_TITLE withContent:STARTUP_FUNDS_CONTENT] ;
-                    }
-                    
-                    else if([selectedCellIdentifier isEqualToString:@"groupsIdentifier"]){
-                        [viewController refreshUIContentWithTitle:MESSAGE_GROUPS_TITLE withContent:MESSAGE_GROUPS_CONTENT] ;
+                    if([selectedCellIdentifier isEqualToString:@"productivityIdentifier"]){
+                        [viewController refreshUIContentWithTitle:RES_PRODUCTIVITY_TITLE withContent:@""] ;
                     }
                 }
             }
@@ -565,70 +640,70 @@
                     UITableViewCell *cell = (UITableViewCell *)sender ;
                     NSString *selectedCellIdentifier = cell.reuseIdentifier ;
                     
-                    if([selectedCellIdentifier isEqualToString:@"conferencesIdentifier"]){
-                        [viewController refreshUIContentWithTitle:EVENT_CONFERENCES_TITLE withContent:EVENT_CONFERENCES_CONTENT] ;
-                    }
-                    
-                    else if([selectedCellIdentifier isEqualToString:@"demoDaysIdentifier"]){
-                       [viewController refreshUIContentWithTitle:EVENT_DEMODAYS_TITLE withContent:EVENT_DEMODAYS_CONTENT] ;
-                    }
-                    
-                    else if([selectedCellIdentifier isEqualToString:@"meetUpsIdentifier"]){
-                       [viewController refreshUIContentWithTitle:EVENT_MEETUPS_TITLE withContent:EVENT_MEETUPS_CONTENT] ;
-                    }
-                    else if([selectedCellIdentifier isEqualToString:@"webinarsIdentifier"]){
-                       [viewController refreshUIContentWithTitle:EVENT_WEBINARS_TITLE withContent:EVENT_WEBINARS_CONTENT] ;
-                    }
-                    
                     // Others
-                    
-                    else if([selectedCellIdentifier isEqualToString:@"searchCampaignsIdentifier"]){
+                    if([selectedCellIdentifier isEqualToString:@"searchCampaignsIdentifier"]){
                         [viewController refreshUIContentWithTitle:@"Search Campaigns" withContent:@""] ;
                     }
                     
                     else if([selectedCellIdentifier isEqualToString:@"manageWorkOrdersIdentifier"]){
                         [viewController refreshUIContentWithTitle:@"Manage Work Orders" withContent:@""] ;
                     }
-                    
                 }
             }
             
-            // Opportunities
-            else if([dvc isKindOfClass:[Opportunities_ViewController class]]){
-                Opportunities_ViewController *viewController = (Opportunities_ViewController*)dvc;
+            // Conferences
+            else if([dvc isKindOfClass:[MyConferencesViewController class]]) {
+                MyConferencesViewController *viewController = (MyConferencesViewController*)dvc;
                 
-                if([sender isKindOfClass:[UITableViewCell class]]){
+                if([sender isKindOfClass:[UITableViewCell class]]) {
                     UITableViewCell *cell = (UITableViewCell *)sender ;
                     NSString *selectedCellIdentifier = cell.reuseIdentifier ;
                     
-                    if([selectedCellIdentifier isEqualToString:kMenuIdentifier_BetaTesters]) {
-                        [viewController refreshUIContentWithTitle:OPP_BETATESTERS_TITLE withContent:OPP_BETATESTERS_CONTENT] ;
+                    if([selectedCellIdentifier isEqualToString:@"conferencesIdentifier"]){
+                        [viewController refreshUIContentWithTitle:EVENT_CONFERENCES_TITLE withContent:@""] ;
                     }
+                }
+            }
+            
+            // Meet Ups
+            else if([dvc isKindOfClass:[MyMeetUpsViewController class]]) {
+                MyMeetUpsViewController *viewController = (MyMeetUpsViewController*)dvc;
+                
+                if([sender isKindOfClass:[UITableViewCell class]]) {
+                    UITableViewCell *cell = (UITableViewCell *)sender ;
+                    NSString *selectedCellIdentifier = cell.reuseIdentifier ;
                     
-                    else if([selectedCellIdentifier isEqualToString:kMenuIdentifier_boardMembers]) {
-                        [viewController refreshUIContentWithTitle:OPP_BOARDMEMBERS_TITLE withContent:OPP_BOARDMEMBERS_CONTENT] ;
+                    if([selectedCellIdentifier isEqualToString:@"meetUpsIdentifier"]){
+                        [viewController refreshUIContentWithTitle:EVENT_MEETUPS_TITLE withContent:@""] ;
                     }
+                }
+            }
+            
+            // Demo Days
+            else if([dvc isKindOfClass:[MyDemoDaysViewController class]]) {
+                MyDemoDaysViewController *viewController = (MyDemoDaysViewController*)dvc;
+                
+                if([sender isKindOfClass:[UITableViewCell class]]) {
+                    UITableViewCell *cell = (UITableViewCell *)sender ;
+                    NSString *selectedCellIdentifier = cell.reuseIdentifier ;
                     
-                    else if([selectedCellIdentifier isEqualToString:kMenuIdentifier_Consulting]) {
-                        [viewController refreshUIContentWithTitle:OPP_CONSULTING_TITLE withContent:OPP_CONSULTING_CONTENT] ;
+                    if([selectedCellIdentifier isEqualToString:@"demoDaysIdentifier"]) {
+                        [viewController refreshUIContentWithTitle:EVENT_DEMODAYS_TITLE withContent:@""] ;
                     }
+                }
+            }
+            
+            // Webinars
+            else if([dvc isKindOfClass:[MyWebinarsViewController class]]) {
+                MyWebinarsViewController *viewController = (MyWebinarsViewController*)dvc;
+                
+                if([sender isKindOfClass:[UITableViewCell class]]) {
+                    UITableViewCell *cell = (UITableViewCell *)sender ;
+                    NSString *selectedCellIdentifier = cell.reuseIdentifier ;
                     
-                    else if([selectedCellIdentifier isEqualToString:kMenuIdentifier_earlyAdaptors]) {
-                        [viewController refreshUIContentWithTitle:OPP_EARLYADAPTORS_TITLE withContent:OPP_EARLYADAPTORS_CONTENT] ;
+                    if([selectedCellIdentifier isEqualToString:@"webinarsIdentifier"]) {
+                        [viewController refreshUIContentWithTitle:EVENT_WEBINARS_TITLE withContent:@""] ;
                     }
-                    
-                    else if([selectedCellIdentifier isEqualToString:kMenuIdentifier_endorsers]) {
-                        [viewController refreshUIContentWithTitle:OPP_ENDORSERS_TITLE withContent:OPP_ENDORSERS_CONTENT] ;
-                    }
-                    
-                    else if([selectedCellIdentifier isEqualToString:kMenuIdentifier_focusGroups]) {
-                        [viewController refreshUIContentWithTitle:OPP_FOCUSGROUPS_TITLE withContent:OPP_FOCUSGROUPS_CONTENT] ;
-                    }
-                    
-                    else if([selectedCellIdentifier isEqualToString:kMenuIdentifier_communalAssets]){
-                        [viewController refreshUIContentWithTitle:OPP_COMMUNALASSETS_TITLE withContent:OPP_COMMUNALASSETS_CONTENT] ;
-                    }
-                    
                 }
             }
             
@@ -674,10 +749,24 @@
                 }
             }
             
+            // Funds
+            else if([dvc isKindOfClass:[MyFundsViewController class]]) {
+                MyFundsViewController *viewController = (MyFundsViewController*)dvc;
+                
+                if([sender isKindOfClass:[UITableViewCell class]]) {
+                    UITableViewCell *cell = (UITableViewCell *)sender ;
+                    NSString *selectedCellIdentifier = cell.reuseIdentifier ;
+                    
+                    if([selectedCellIdentifier isEqualToString:@"fundsIdentifier"]){
+                        [viewController refreshUIContentWithTitle:STARTUP_FUNDS_TITLE withContent:@""] ;
+                    }
+                }
+            }
+            
             // Connections
             else if([dvc isKindOfClass:[ConnectionsViewController class]]) {
                 ConnectionsViewController *viewController = (ConnectionsViewController*)dvc;
-
+                
                 if([sender isKindOfClass:[UITableViewCell class]]) {
                     UITableViewCell *cell = (UITableViewCell *)sender ;
                     NSString *selectedCellIdentifier = cell.reuseIdentifier ;
@@ -718,6 +807,34 @@
                 }
             }
             
+            // Self Improvement
+            else if([dvc isKindOfClass:[MyImprovementToolsViewController class]]) {
+                MyImprovementToolsViewController *viewController = (MyImprovementToolsViewController*)dvc;
+                
+                if([sender isKindOfClass:[UITableViewCell class]]) {
+                    UITableViewCell *cell = (UITableViewCell *)sender ;
+                    NSString *selectedCellIdentifier = cell.reuseIdentifier ;
+                    
+                    if([selectedCellIdentifier isEqualToString:kMenuIdentifier_SelfImprovement]) {
+                        [viewController refreshUIContentWithTitle:CON_SELF_IMPROVEMENT_TITLE withContent:@""] ;
+                    }
+                }
+            }
+            
+            // Career Advancement
+            else if([dvc isKindOfClass:[MyCareersViewController class]]) {
+                MyCareersViewController *viewController = (MyCareersViewController*)dvc;
+                
+                if([sender isKindOfClass:[UITableViewCell class]]) {
+                    UITableViewCell *cell = (UITableViewCell *)sender ;
+                    NSString *selectedCellIdentifier = cell.reuseIdentifier ;
+                    
+                    if([selectedCellIdentifier isEqualToString:kMenuIdentifier_CareerAdvancement]) {
+                        [viewController refreshUIContentWithTitle:CON_CAREER_ADVANCEMENT_TITLE withContent:@""] ;
+                    }
+                }
+            }
+            
             // Search Company
             else if([dvc isKindOfClass:[CompaniesViewController class]]){
                 
@@ -726,7 +843,7 @@
                     NSString *selectedCellIdentifier = cell.reuseIdentifier ;
                     
                     if([selectedCellIdentifier isEqualToString:@"searchOrganizationIdentifier"]){
-
+                        
                     }
                     
                 }
@@ -746,7 +863,7 @@
                 }
             }
             
-            // Jobs
+            // Recruiter
             else if([dvc isKindOfClass:[RecruiterViewController class]]) {
                 RecruiterViewController *viewController = (RecruiterViewController *)dvc;
                 
@@ -760,22 +877,118 @@
                 }
             }
             
-            // Upload Application / Profile
-            else if([dvc isKindOfClass:[MyStartupsViewController class]]){
-                MyStartupsViewController *viewController = (MyStartupsViewController*)dvc;
+            // Beta Tester
+            else if([dvc isKindOfClass:[MyBetaTestsViewController class]]) {
+                MyBetaTestsViewController *viewController = (MyBetaTestsViewController*)dvc;
                 
-                if([sender isKindOfClass:[UITableViewCell class]]){
+                if([sender isKindOfClass:[UITableViewCell class]]) {
                     UITableViewCell *cell = (UITableViewCell *)sender ;
                     NSString *selectedCellIdentifier = cell.reuseIdentifier ;
                     
-                    if([selectedCellIdentifier isEqualToString:@"startupApplicationIdentifier"]){
+                    if([selectedCellIdentifier isEqualToString:kMenuIdentifier_BetaTesters]) {
+                        [viewController refreshUIContentWithTitle:OPP_BETATESTERS_TITLE withContent:@""] ;
+                    }
+                }
+            }
+
+            // Board Member
+            else if([dvc isKindOfClass:[MyBoardMembersViewController class]]) {
+                MyBoardMembersViewController *viewController = (MyBoardMembersViewController *)dvc;
+                
+                if([sender isKindOfClass:[UITableViewCell class]]) {
+                    UITableViewCell *cell = (UITableViewCell *)sender ;
+                    NSString *selectedCellIdentifier = cell.reuseIdentifier ;
+                    
+                    if([selectedCellIdentifier isEqualToString:kMenuIdentifier_boardMembers]) {
+                        [viewController refreshUIContentWithTitle:OPP_BOARDMEMBERS_TITLE withContent:@""] ;
+                    }
+                }
+            }
+            
+            // Communal Assets
+            else if([dvc isKindOfClass:[MyAssetsViewController class]]) {
+                MyAssetsViewController *viewController = (MyAssetsViewController*)dvc;
+                
+                if([sender isKindOfClass:[UITableViewCell class]]) {
+                    UITableViewCell *cell = (UITableViewCell *)sender ;
+                    NSString *selectedCellIdentifier = cell.reuseIdentifier ;
+                    
+                    if([selectedCellIdentifier isEqualToString:kMenuIdentifier_communalAssets]){
+                        [viewController refreshUIContentWithTitle:OPP_COMMUNALASSETS_TITLE withContent:@""] ;
+                    }
+                }
+            }
+            
+            // Early Adopters
+            else if([dvc isKindOfClass:[MyEarlyAdoptersViewController class]]) {
+                MyEarlyAdoptersViewController *viewController = (MyEarlyAdoptersViewController *)dvc;
+                
+                if([sender isKindOfClass:[UITableViewCell class]]) {
+                    UITableViewCell *cell = (UITableViewCell *)sender ;
+                    NSString *selectedCellIdentifier = cell.reuseIdentifier ;
+                    
+                    if([selectedCellIdentifier isEqualToString:kMenuIdentifier_earlyAdaptors]) {
+                        [viewController refreshUIContentWithTitle:OPP_EARLYADAPTORS_TITLE withContent:@""] ;
+                    }
+                }
+            }
+            
+            // Endorsors
+            else if([dvc isKindOfClass:[MyEndorsorsViewController class]]) {
+                MyEndorsorsViewController *viewController = (MyEndorsorsViewController *)dvc;
+                
+                if([sender isKindOfClass:[UITableViewCell class]]) {
+                    UITableViewCell *cell = (UITableViewCell *)sender ;
+                    NSString *selectedCellIdentifier = cell.reuseIdentifier ;
+                    
+                    if([selectedCellIdentifier isEqualToString:kMenuIdentifier_endorsers]) {
+                        [viewController refreshUIContentWithTitle:OPP_ENDORSERS_TITLE withContent:@""] ;
+                    }
+                }
+            }
+
+            // Focus Groups
+            else if([dvc isKindOfClass:[MyFocusGroupsViewController class]]) {
+                MyFocusGroupsViewController *viewController = (MyFocusGroupsViewController *)dvc;
+                
+                if([sender isKindOfClass:[UITableViewCell class]]) {
+                    UITableViewCell *cell = (UITableViewCell *)sender ;
+                    NSString *selectedCellIdentifier = cell.reuseIdentifier ;
+                    
+                    if([selectedCellIdentifier isEqualToString:kMenuIdentifier_focusGroups]) {
+                        [viewController refreshUIContentWithTitle:OPP_FOCUSGROUPS_TITLE withContent:@""] ;
+                    }
+                }
+            }
+            
+            // Consulting
+            else if([dvc isKindOfClass:[MyConsultingProjectsViewController class]]) {
+                MyConsultingProjectsViewController *viewController = (MyConsultingProjectsViewController*)dvc;
+                
+                if([sender isKindOfClass:[UITableViewCell class]]) {
+                    UITableViewCell *cell = (UITableViewCell *)sender ;
+                    NSString *selectedCellIdentifier = cell.reuseIdentifier ;
+                    
+                    if([selectedCellIdentifier isEqualToString:kMenuIdentifier_Consulting]) {
+                        [viewController refreshUIContentWithTitle:OPP_CONSULTING_TITLE withContent:@""] ;
+                    }
+                }
+            }
+            
+            // Upload Application / Profile
+            else if([dvc isKindOfClass:[MyStartupsViewController class]]) {
+                MyStartupsViewController *viewController = (MyStartupsViewController*)dvc;
+                
+                if([sender isKindOfClass:[UITableViewCell class]]) {
+                    UITableViewCell *cell = (UITableViewCell *)sender ;
+                    NSString *selectedCellIdentifier = cell.reuseIdentifier ;
+                    
+                    if([selectedCellIdentifier isEqualToString:@"startupApplicationIdentifier"]) {
                         [viewController getMyStartupListForType:YES] ;
                     }
-                    else if([selectedCellIdentifier isEqualToString:@"startupProfileIdentifier"]){
+                    else if([selectedCellIdentifier isEqualToString:@"startupProfileIdentifier"]) {
                         [viewController getMyStartupListForType:NO] ;
                     }
-                    
-                    
                 }
             }
             
@@ -786,13 +999,13 @@
     
 }
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

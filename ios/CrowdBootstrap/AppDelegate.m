@@ -108,7 +108,7 @@ NSString *const kAccountKey     = @"aNstpqyjBhYp2zTd4HFR";
     [self checkInternetConnectivity] ;
     
     if (TARGET_OS_SIMULATOR)
-     [UtilityClass setDeviceToken:kDefault_DeviceToken];
+        [UtilityClass setDeviceToken:kDefault_DeviceToken];
     
     [self initialCoreDataManager] ;
     
@@ -120,7 +120,31 @@ NSString *const kAccountKey     = @"aNstpqyjBhYp2zTd4HFR";
 
     [[FBSDKApplicationDelegate sharedInstance] application:application
                              didFinishLaunchingWithOptions:launchOptions];
+    
+    NSError *setCategoryError = nil;
+    [[AVAudioSession sharedInstance] setCategory: AVAudioSessionCategoryPlayback error: &setCategoryError];
+    
     return YES;
+}
+
+-(void)remoteControlReceivedWithEvent:(UIEvent *)event {
+    
+    switch (event.subtype) {
+        case UIEventSubtypeRemoteControlPlay:
+            NSLog(@"AppDelegate PLAY remoteControlReceivedWithEvent");
+            break;
+        case UIEventSubtypeRemoteControlPause:
+            NSLog(@"AppDelegate PAUSE UIEventSubtypeRemoteControlPause");
+            break;
+        case UIEventSubtypeRemoteControlNextTrack:
+            NSLog(@"AppDelegate NEXT UIEventSubtypeRemoteControlNextTrack");
+            break;
+        case UIEventSubtypeRemoteControlPreviousTrack:
+            NSLog(@"AppDelegate PREV UIEventSubtypeRemoteControlPreviousTrack");
+            break;
+        default:
+            break;
+    }
 }
 
 #pragma mark - Local Notifications
@@ -378,7 +402,6 @@ didReceiveLocalNotification: (UILocalNotification *)notification {
     /*[[NSNotificationCenter defaultCenter]
      postNotificationName:kNotificationPush_QB_ConnectChat
      object:self];*/
-    
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
@@ -386,12 +409,39 @@ didReceiveLocalNotification: (UILocalNotification *)notification {
     
     NSLog(@"applicationDidBecomeActive >> ") ;
     
+    int userId = [UtilityClass getLoggedInUserID];
+    
+    if (userId > 0) {
+        [self saveDeviceToken];
+    }
+    
     [self pushActionOnClick] ;
     
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma mark - Save Device Token
+- (void)saveDeviceToken {
+    if([UtilityClass checkInternetConnection]){
+        
+        NSMutableDictionary *dictParam =[[NSMutableDictionary alloc] init];
+        [dictParam setObject:[NSString stringWithFormat:@"%d",[UtilityClass getLoggedInUserID]] forKey:kStartupTeamAPI_UserID] ;
+        [dictParam setObject:[NSString stringWithFormat:@"%@",[UtilityClass getDeviceToken]] forKey:kLogInAPI_AccessToken] ;
+        [dictParam setObject:[NSString stringWithFormat:@"%@",[UtilityClass getDeviceToken]] forKey:kLogInAPI_DeviceToken] ;
+        [dictParam setObject:@"ios" forKey:kLogInAPI_DeviceType] ;
+        
+        NSLog(@"params: %@", dictParam);
+        
+        [ApiCrowdBootstrap saveDeviceTokenWithParameters:dictParam success:^(NSDictionary *responseDict) {
+            
+        } failure:^(NSError *error) {
+            [UtilityClass displayAlertMessage:error.description] ;
+            [UtilityClass hideHud] ;
+        }] ;
+    }
 }
 
 #pragma mark - NotificationServiceDelegate protocol

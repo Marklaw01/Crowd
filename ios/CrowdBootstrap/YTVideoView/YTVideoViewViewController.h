@@ -9,10 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "YTPlayerView.h"
 
-@interface YTVideoViewViewController : UIViewController{
+@interface YTVideoViewViewController : UIViewController <UIWebViewDelegate,YTPlayerViewDelegate> {
     IBOutlet UIBarButtonItem       *menuBarBtn;
     IBOutlet UIWebView             *webView ;
-    IBOutlet YTPlayerView          *playerView;
+    IBOutlet YTPlayerView          *playerVw;
 }
 
 -(void)refreshUIContentWithTitle:(NSString*)viewTitle withContent:(NSString*)content ;

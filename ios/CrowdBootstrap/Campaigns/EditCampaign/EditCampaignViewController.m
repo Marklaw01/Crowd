@@ -756,7 +756,7 @@
    
 }
 
--(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+-(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if(tableView == self.tblView){
         if(indexPath.section == EDIT_CAMPAIGN_UPLOAD_SECTION_INDEX){
             UploadVideoTableViewCell *cell = (UploadVideoTableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"UploadCell"] ;

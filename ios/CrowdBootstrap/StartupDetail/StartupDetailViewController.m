@@ -21,10 +21,12 @@
     // Do any additional setup after loading the view.
     [self resetUISettings] ;
     [self setSegmentControlSettings] ;
-    if([UtilityClass getStartupWorkOrderType] == YES){
+    if([UtilityClass getStartupWorkOrderType] == YES) {
         [self resetViewAccordingToSelectedSegment:TIMESHEET_SELECTED] ;
     }
-    
+    if([[NSString stringWithFormat:@"%@",[[UtilityClass getStartupDetails] valueForKey:@"isComeFromFeeds"]] isEqualToString:@"true"]) {
+        [self resetViewAccordingToSelectedSegment:TEAM_SELECTED] ;
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -33,7 +35,7 @@
 }
 
 #pragma mark - Custom Methods
--(void)resetUISettings{
+-(void)resetUISettings {
     
     [self resetStartupName] ;
     [[NSNotificationCenter defaultCenter]
@@ -44,17 +46,16 @@
                                              selector:@selector(updateStartupNameNotification:)
                                                  name:kNotificationUpdateStartupName
                                                object:nil];
-    
 }
 
 -(void)resetStartupName {
      self.title = [NSString stringWithFormat:@"%@",[[UtilityClass getStartupDetails] valueForKey:kStartupsAPI_StartupName]] ;
 }
 
--(void)setSegmentControlSettings{
+-(void)setSegmentControlSettings {
     
     UIFont *font ;
-    if([[NSString stringWithFormat:@"%@",[[UtilityClass getStartupDetails] valueForKey:kStartupsAPI_isEntrepreneur]] isEqualToString:@"true"]){
+    if([[NSString stringWithFormat:@"%@",[[UtilityClass getStartupDetails] valueForKey:kStartupsAPI_isEntrepreneur]] isEqualToString:@"true"]) {
         if(segmentedControl.numberOfSegments < NUMBER_OF_SEGMENTS_ENTREPRENEUR)[segmentedControl insertSegmentWithTitle:ROADMAP_DOC_TEXT atIndex:segmentedControl.numberOfSegments animated:NO] ;
        font = [UIFont boldSystemFontOfSize:7.0f];
     }

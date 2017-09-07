@@ -532,7 +532,7 @@
 -(void)addJob {
     if([UtilityClass checkInternetConnection]) {
         
-        [UtilityClass showHudWithTitle:kHUDMessage_UpdateCampaign] ;
+        [UtilityClass showHudWithTitle:kHUDMessage_PleaseWait] ;
         NSMutableDictionary *dictParam = [[NSMutableDictionary alloc] init];
         
         [dictParam setObject:[NSString stringWithFormat:@"%d",[UtilityClass getLoggedInUserID]] forKey:kAddJobAPI_UserID] ;
@@ -954,7 +954,7 @@
     [self moveToOriginalFrame] ;
 }
 
--(void)moveToOriginalFrame{
+-(void)moveToOriginalFrame {
     UIEdgeInsets contentInsets = UIEdgeInsetsZero;
     self.tblView.contentInset = contentInsets;
     self.tblView.scrollIndicatorInsets = contentInsets;

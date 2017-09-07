@@ -3,10 +3,10 @@
 <plist version="1.0">
 <dict>
 	<key>application-identifier</key>
-	<string>BUAP7HXFP3.org.cocoapods.QMUsersCacheModel</string>
+	<string>org.cocoapods.QMUsersCacheModel</string>
 	<key>keychain-access-groups</key>
 	<array>
-		<string>BUAP7HXFP3.org.cocoapods.QMUsersCacheModel</string>
+		<string>org.cocoapods.QMUsersCacheModel</string>
 	</array>
 </dict>
 </plist>

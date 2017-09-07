@@ -11,5 +11,6 @@
 @interface GraphicTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *graphicImg;
+@property (weak, nonatomic) IBOutlet UIButton *browseBtn;
 
 @end

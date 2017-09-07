@@ -28,48 +28,6 @@
 	</dict>
 	<dict>
 		<key>item</key>
-		<string>Date of Birth</string>
-		<key>value</key>
-		<string></string>
-	</dict>
-	<dict>
-		<key>item</key>
-		<string>Phone Number</string>
-		<key>value</key>
-		<string></string>
-	</dict>
-	<dict>
-		<key>item</key>
-		<string>Country</string>
-		<key>value</key>
-		<string></string>
-		<key>id</key>
-		<string></string>
-	</dict>
-	<dict>
-		<key>item</key>
-		<string>State</string>
-		<key>value</key>
-		<string></string>
-		<key>id</key>
-		<string></string>
-	</dict>
-	<dict>
-		<key>item</key>
-		<string>City</string>
-		<key>value</key>
-		<string></string>
-		<key>id</key>
-		<string></string>
-	</dict>
-	<dict>
-		<key>item</key>
-		<string>Best Availability</string>
-		<key>value</key>
-		<string></string>
-	</dict>
-	<dict>
-		<key>item</key>
 		<string>Password</string>
 		<key>value</key>
 		<string></string>

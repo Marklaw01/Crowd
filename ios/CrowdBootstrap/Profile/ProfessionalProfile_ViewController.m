@@ -463,7 +463,7 @@
     
     AccreditedTableViewCell *cell = [tblView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:kContProfAccreditedCellIndex inSection:0]] ;
     if(button.tag == YES_SELETCED){
-        if([cell.yesBtn.accessibilityValue isEqualToString:STARTUP_RADIOBUTON_SELECTED]){
+        if([cell.yesBtn.accessibilityValue isEqualToString:STARTUP_RADIOBUTON_SELECTED]) {
             [cell.yesBtn setBackgroundImage:[UIImage imageNamed:STARTUP_RADIOBUTTON_UNSELECTED] forState:UIControlStateNormal] ;
             cell.yesBtn.accessibilityValue = STARTUP_RADIOBUTTON_UNSELECTED ;
             [cell.noBtn setBackgroundImage:[UIImage imageNamed:STARTUP_RADIOBUTON_SELECTED] forState:UIControlStateNormal] ;
@@ -478,15 +478,15 @@
             [[profProfileArray objectAtIndex:kContProfAccreditedCellIndex] setValue:@"1" forKey:@"value"] ;
         }
     }
-    else{
-        if([cell.noBtn.accessibilityValue isEqualToString:STARTUP_RADIOBUTON_SELECTED]){
+    else {
+        if([cell.noBtn.accessibilityValue isEqualToString:STARTUP_RADIOBUTON_SELECTED]) {
             [cell.noBtn setBackgroundImage:[UIImage imageNamed:STARTUP_RADIOBUTTON_UNSELECTED] forState:UIControlStateNormal] ;
             cell.noBtn.accessibilityValue = STARTUP_RADIOBUTTON_UNSELECTED ;
             [cell.yesBtn setBackgroundImage:[UIImage imageNamed:STARTUP_RADIOBUTON_SELECTED] forState:UIControlStateNormal] ;
             cell.yesBtn.accessibilityValue = STARTUP_RADIOBUTON_SELECTED ;
             [[profProfileArray objectAtIndex:kContProfAccreditedCellIndex] setValue:@"1" forKey:@"value"] ;
         }
-        else{
+        else {
             [cell.noBtn setBackgroundImage:[UIImage imageNamed:STARTUP_RADIOBUTON_SELECTED] forState:UIControlStateNormal] ;
             cell.noBtn.accessibilityValue = STARTUP_RADIOBUTON_SELECTED ;
             [cell.yesBtn setBackgroundImage:[UIImage imageNamed:STARTUP_RADIOBUTTON_UNSELECTED] forState:UIControlStateNormal] ;
@@ -503,7 +503,7 @@
     // DobTableViewCell *cell = [tblView dequeueReusableCellWithIdentifier:kProfExperienceCellIdentifier] ;
     // [cell.textFld becomeFirstResponder] ;
     
-    if([UtilityClass GetUserType] == CONTRACTOR){
+    if([UtilityClass GetUserType] == CONTRACTOR) {
         
         if([sender tag] == kContProfExperienceCellIndex) selectedPickerViewType = PROFILE_PROF_EXPERIENCE_SELECTED ;
         else selectedPickerViewType = PROFILE_PROF_CONTRACTOR_TYPE_SELECTED ;
@@ -515,7 +515,6 @@
             else [pickerView selectRow:index+1 inComponent:0 animated:YES] ;
             
         }
-        
         else if([sender tag] == kContProfContractorTypeCellIndex) {
             selectedPickerViewType = PROFILE_PROF_CONTRACTOR_TYPE_SELECTED ;
             int index = [UtilityClass getPickerViewSelectedIndexFromArray:contractorTypeArray forID:selectedContractorTypeID] ;
@@ -543,28 +542,27 @@
     
     if([sender tag] == DONE_CLICKED){
         
-        if(selectedPickerViewType == PROFILE_PROF_EXPERIENCE_SELECTED){
-            if([pickerView selectedRowInComponent:0] == 0){
+        if(selectedPickerViewType == PROFILE_PROF_EXPERIENCE_SELECTED) {
+            if([pickerView selectedRowInComponent:0] == 0) {
                 // cell.textFld.text = @""  ;
                 selectedExperienceID = @"" ;
                 [[profProfileArray objectAtIndex:kContProfExperienceCellIndex] setValue:@"" forKey:@"value"] ;
             }
-            else{
+            else {
                 //cell.textFld.text = [[experienceArray objectAtIndex:[pickerView selectedRowInComponent:0]-1] valueForKey:@"name"]  ;
                 selectedExperienceID = [[experienceArray objectAtIndex:(int)[pickerView selectedRowInComponent:0]-1] valueForKey:@"id"]  ;
                 
                 [[profProfileArray objectAtIndex:kContProfExperienceCellIndex] setValue:[[experienceArray objectAtIndex:(int)[pickerView selectedRowInComponent:0]-1] valueForKey:@"name"] forKey:@"value"] ;
             }
         }
-        
-        else{
-            if([pickerView selectedRowInComponent:0] == 0){
+        else {
+            if([pickerView selectedRowInComponent:0] == 0) {
                 // cell.textFld.text = @""  ;
                 selectedContractorTypeID = @"" ;
                 
                 [[profProfileArray objectAtIndex:kContProfContractorTypeCellIndex] setValue:@"" forKey:@"value"] ;
             }
-            else{
+            else {
                 // cell.textFld.text = [[contractorTypeArray objectAtIndex:[pickerView selectedRowInComponent:0]-1] valueForKey:@"name"]  ;
                 selectedContractorTypeID = [[contractorTypeArray objectAtIndex:(int)[pickerView selectedRowInComponent:0]-1] valueForKey:@"id"]  ;
                 

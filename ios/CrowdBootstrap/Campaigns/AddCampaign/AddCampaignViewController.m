@@ -338,7 +338,7 @@
 
 - (IBAction)openStartupPickerView_ClickAction:(id)sender {
     [chooseStartupTxtFld becomeFirstResponder] ;
-    if(selectedStartupIndex != -1){
+    if(selectedStartupIndex != -1) {
         int index = [UtilityClass getPickerViewSelectedIndexFromArray:startupsArray forID:[[startupsArray objectAtIndex:selectedStartupIndex] valueForKey:@"id"]] ;
         if(index == -1)[pickerView selectRow:0 inComponent:0 animated:YES] ;
         else [pickerView selectRow:index+1 inComponent:0 animated:YES] ;
@@ -354,8 +354,10 @@
         [self dismissViewControllerAnimated:YES completion:nil] ;
     }]];
     [alertController addAction:[UIAlertAction actionWithTitle:([sender tag] == IMAGE_SELECTED?@"Upload Image":@"Upload Video") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        if([sender tag] == IMAGE_SELECTED)[self displayImagePickerWithType:NO withMediaType:YES] ;
-        else [self displayImagePickerWithType:NO withMediaType:NO] ;
+        if([sender tag] == IMAGE_SELECTED)
+            [self displayImagePickerWithType:NO withMediaType:YES] ;
+        else
+            [self displayImagePickerWithType:NO withMediaType:NO] ;
         
     }]];
     [alertController addAction:[UIAlertAction actionWithTitle:([sender tag] == IMAGE_SELECTED?@"Take Picture":@"Record Video") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -439,10 +441,16 @@
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
     picker.allowsEditing = YES;
-    if(isCameraMode) picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    else picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    if(isImageSelected) picker.mediaTypes = [NSArray arrayWithObject:(NSString *)kUTTypeImage];
-    else picker.mediaTypes = [NSArray arrayWithObjects:(NSString *)kUTTypeMovie,(NSString *)kUTTypeVideo, nil];
+    
+    if(isCameraMode)
+        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    else
+        picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    
+    if(isImageSelected)
+        picker.mediaTypes = [NSArray arrayWithObject:(NSString *)kUTTypeImage];
+    else
+        picker.mediaTypes = [NSArray arrayWithObjects:(NSString *)kUTTypeMovie,(NSString *)kUTTypeVideo, nil];
     [self.navigationController presentViewController:picker animated:YES completion:nil] ;
 }
 

@@ -103,7 +103,7 @@
     [self resetFieldsAccordingToEditMode] ;
 }
 
--(void)initializeSectionArray{
+-(void)initializeSectionArray {
     
     sectionsArray         = [[NSMutableArray alloc] init] ;
     keywordsArray         = [[NSMutableArray alloc] init] ;
@@ -140,7 +140,7 @@
     return tagsArray ;
 }
 
--(void)openTagsPopup{
+-(void)openTagsPopup {
     
     [self.view endEditing:YES] ;
     [self resetPopupArray] ;
@@ -323,10 +323,10 @@
     //[self resetUISettings] ;
     //[self initializeSectionArray] ;
     if(imageData) imageData = nil ;
-    if([UtilityClass checkInternetConnection]){
+    if([UtilityClass checkInternetConnection]) {
         
         [UtilityClass showHudWithTitle:kHUDMessage_PleaseWait] ;
-        NSMutableDictionary *dictParam =[[NSMutableDictionary alloc] init];
+        NSMutableDictionary *dictParam = [[NSMutableDictionary alloc] init];
         [dictParam setObject:[NSString stringWithFormat:@"%d",[UtilityClass getLoggedInUserID]] forKey:kStartupOverviewAPI_UserID] ;
         [dictParam setObject:[NSString stringWithFormat:@"%@",[[UtilityClass getStartupDetails] valueForKey:kStartupOverviewAPI_StartupID]] forKey:kStartupsAPI_StartupID] ;
        // NSLog(@"dictParam: %@",dictParam) ;
@@ -338,14 +338,23 @@
                for ( int i=0; i<sectionsArray.count ; i++ ) {
                    NSString *key = [[sectionsArray objectAtIndex:i] valueForKey:@"key"] ;
                    if(i != kCellIndex_OverviewRoadmapGraphic && i != kCellIndex_OverviewDeliverables  && i != kCellIndex_OverviewKeywords ){
-                       if([responseDict valueForKey:key])  [[sectionsArray objectAtIndex:i] setValue:[responseDict valueForKey:key] forKey:@"value"] ;
+                       if([responseDict valueForKey:key])
+                        [[sectionsArray objectAtIndex:i] setValue:[responseDict valueForKey:key] forKey:@"value"] ;
                    }
                }
                
-               if([responseDict objectForKey:kStartupOverviewAPI_RoadmapGraphic])[[sectionsArray objectAtIndex:kCellIndex_OverviewRoadmapGraphic] setValue:[responseDict objectForKey:kStartupOverviewAPI_RoadmapGraphic] forKey:@"value"];
+               strFundedBy = [responseDict valueForKey:@"funded_by"];
+               strFundCreator = [responseDict valueForKey:@"fund_creator"];
                
+               strStartupProfileLink = [responseDict valueForKey:@"startup_profile_file"];
+               // Save it locally
+               [kUSERDEFAULTS setValue:strStartupProfileLink forKey:@"StartupProfileLink"];
+
+               if([responseDict objectForKey:kStartupOverviewAPI_RoadmapGraphic])
+                [[sectionsArray objectAtIndex:kCellIndex_OverviewRoadmapGraphic] setValue:[responseDict objectForKey:kStartupOverviewAPI_RoadmapGraphic] forKey:@"value"];
                
-               if([responseDict objectForKey:kStartupOverviewAPI_Keywords])selectedKeywordsArray = [self resetTagsArrayWithData:[responseDict objectForKey:kStartupOverviewAPI_Keywords]] ;
+               if([responseDict objectForKey:kStartupOverviewAPI_Keywords])
+                selectedKeywordsArray = [self resetTagsArrayWithData:[responseDict objectForKey:kStartupOverviewAPI_Keywords]] ;
                
                if([responseDict objectForKey:kStartupOverviewAPI_RoadmapDeliverable])
                    roadmapArray = [NSMutableArray arrayWithArray:(NSArray*)[responseDict objectForKey:kStartupOverviewAPI_RoadmapDeliverable]] ;
@@ -364,17 +373,17 @@
     }
 }
 
--(void)updateStartupOverview{
+-(void)updateStartupOverview {
     
     if(![self validatetextFieldsWithSectionIndex:kCellIndex_OverviewStartupName]) return ;
     else if(![self validatetextFieldsWithSectionIndex:kCellIndex_OverviewDesc]) return ;
-    else if(selectedKeywordsArray.count < 1){
+    else if(selectedKeywordsArray.count < 1) {
         [self presentViewController:[UtilityClass displayAlertMessage:kAlert_Validation_Startup_Keyword] animated:YES completion:nil] ;
         return ;
     }
     else if(![self validatetextFieldsWithSectionIndex:kCellIndex_OverviewSupportReq]) return ;
     
-    if([UtilityClass checkInternetConnection]){
+    if([UtilityClass checkInternetConnection]) {
         
         [UtilityClass showHudWithTitle:kHUDMessage_UpdateStartup] ;
         [self getStartupOverviewDict] ;
@@ -395,7 +404,7 @@
                 
                 [self resetFieldsAccordingToEditMode] ;
             }
-            else if([responseDict objectForKey:@"errors"]){
+            else if([responseDict objectForKey:@"errors"]) {
                 NSDictionary *errorsData = (NSDictionary*)[responseDict objectForKey:@"errors"] ;
                 NSString *errorStr = @"" ;
                 for (NSString *value in [errorsData allValues]) {
@@ -614,7 +623,7 @@
         }
         else return 1;
     }
-    else{
+    else {
         return keywordsArray.count ;
     }
 }
@@ -682,6 +691,14 @@
         else if(indexPath.section == kCellIndex_OverviewDeliverables) {
             RoadmapTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ROADMAP_CELL_IDENTIFIER] ;
             cell.roadmapLbl.text = [NSString stringWithFormat:@"%@",[[roadmapArray objectAtIndex:indexPath.row] valueForKey:kStartupOverviewAPI_DeliverableName]] ;
+            if (![[[roadmapArray objectAtIndex:indexPath.row] valueForKey:kStartupOverviewAPI_DeliverableLink] isEqualToString:@""]) {
+//                cell.backgroundColor = [UIColor colorWithRed:5.0/255.0 green:106.0/255.0 blue:31.0/255.0 alpha:1.0f];
+                [cell.contentView setBackgroundColor:[UIColor colorWithRed:5.0/255.0 green:106.0/255.0 blue:31.0/255.0 alpha:1.0f]];
+                cell.roadmapLbl.textColor = [UIColor whiteColor];
+            } else {
+                cell.contentView.backgroundColor = [UIColor whiteColor];
+                cell.roadmapLbl.textColor = [UIColor blackColor];
+            }
             cell.selectionStyle = UITableViewCellSeparatorStyleNone ;
             return cell ;
         }
@@ -736,8 +753,21 @@
             cell.textFld.tag = indexPath.section ;
             cell.textFld.delegate = self ;
             
-            if(indexPath.section == kCellIndex_OverviewStartupName)cell.textFld.returnKeyType = UIReturnKeyNext ;
-            else cell.textFld.returnKeyType = UIReturnKeyDone ; ;
+            if (indexPath.section == kCellIndex_OverviewSupportReq) {
+                if ([strFundedBy isEqualToString:@""])
+                    cell.fundedByLbl.hidden = true;
+                else {
+                    cell.fundedByLbl.text = [NSString stringWithFormat:@"Funded By : %@", strFundedBy];
+                    cell.fundedByLbl.hidden = false;
+                }
+            }
+            else
+                cell.fundedByLbl.hidden = true;
+            
+            if(indexPath.section == kCellIndex_OverviewStartupName)
+                cell.textFld.returnKeyType = UIReturnKeyNext ;
+            else
+                cell.textFld.returnKeyType = UIReturnKeyDone ; ;
             return cell ;
         }
     }
@@ -769,6 +799,7 @@
         else if(indexPath.section == kCellIndex_OverviewDeliverables) return 35 ;
         else if(indexPath.section == kCellIndex_OverviewKeywords) return 70 ;
         else if(indexPath.section == sectionsArray.count) return 45 ;
+        else if (indexPath.section == kCellIndex_OverviewSupportReq) return 90;
         else return 75 ;
     }
     else {

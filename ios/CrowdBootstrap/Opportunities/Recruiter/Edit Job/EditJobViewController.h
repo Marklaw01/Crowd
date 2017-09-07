@@ -96,7 +96,9 @@ enum {
     int                                      selectedDatePickerType ;
     
     NSString                                 *prevDueDate ;
-    NSDateFormatter                          *dateFormatter ;    
+    NSDateFormatter                          *dateFormatter ;
+    NSInteger                                selectedSegment;
+
 }
 
 @property (strong, nonatomic) IBOutlet UITableView *tblView;

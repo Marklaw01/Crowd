@@ -12,6 +12,7 @@
     
     IBOutlet UITextField *fileNameTxtFld;
     IBOutlet UITextField *startupNameTxtFld;
+    IBOutlet UIButton *profileLinkBtn;
 }
 
 

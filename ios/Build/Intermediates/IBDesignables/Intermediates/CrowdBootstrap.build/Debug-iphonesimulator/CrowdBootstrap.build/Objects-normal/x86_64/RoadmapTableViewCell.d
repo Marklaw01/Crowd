@@ -1,4 +1,4 @@
 dependencies: \
-  /Users/osx/Desktop/shikha/CrowdBootstap/Pods/QuickBlox/Quickblox.framework/Modules/module.modulemap \
-  /Users/osx/Desktop/shikha/CrowdBootstap/CrowdBootstrap/StartupDetail/Info/RoadmapTableViewCell.m \
-  /Users/osx/Desktop/shikha/CrowdBootstap/CrowdBootstrap/StartupDetail/Info/RoadmapTableViewCell.h
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/Pods/QuickBlox/Quickblox.framework/Modules/module.modulemap \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/CrowdBootstrap/StartupDetail/Info/RoadmapTableViewCell.m \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/CrowdBootstrap/StartupDetail/Info/RoadmapTableViewCell.h

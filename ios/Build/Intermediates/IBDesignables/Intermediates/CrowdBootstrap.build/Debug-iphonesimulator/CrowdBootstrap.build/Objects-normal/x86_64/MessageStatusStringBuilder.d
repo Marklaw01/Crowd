@@ -1,4 +1,4 @@
 dependencies: \
-  /Users/osx/Desktop/shikha/CrowdBootstap/Pods/QuickBlox/Quickblox.framework/Modules/module.modulemap \
-  /Users/osx/Desktop/shikha/CrowdBootstap/CrowdBootstrap/MessageStatusStringBuilder.m \
-  /Users/osx/Desktop/shikha/CrowdBootstap/CrowdBootstrap/MessageStatusStringBuilder.h
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/Pods/QuickBlox/Quickblox.framework/Modules/module.modulemap \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/CrowdBootstrap/MessageStatusStringBuilder.m \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/CrowdBootstrap/MessageStatusStringBuilder.h

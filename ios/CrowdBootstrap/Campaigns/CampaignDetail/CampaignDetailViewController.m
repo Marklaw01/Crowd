@@ -193,7 +193,8 @@
         NSMutableDictionary *dictParam =[[NSMutableDictionary alloc] init];
         [dictParam setObject:[NSString stringWithFormat:@"%d",[UtilityClass getLoggedInUserID]] forKey:kUncommitCampaignAPI_UserID] ;
         [dictParam setObject:[[[UtilityClass getCampaignDetails] mutableCopy] valueForKey:kCampaignDetailAPI_CampaignID] forKey:kUncommitCampaignAPI_CampaignID] ;
-        
+        NSLog(@"Params: %@", dictParam);
+
         [ApiCrowdBootstrap uncommitCampaignWithParameters:dictParam success:^(NSDictionary *responseDict) {
             [UtilityClass hideHud] ;
             NSLog(@"responseDict %@", responseDict);
@@ -250,9 +251,12 @@
                     // Check for remaining amount to commit -> Target amount - Fund raised so far
                     float targetAmount = 0 ;
                     float fundRaised = 0 ;
-                    if([[[UtilityClass getCampaignDetails] valueForKey:kCampaignsAPI_TargetAmount] floatValue])targetAmount = [[[UtilityClass getCampaignDetails] valueForKey:kCampaignsAPI_TargetAmount] floatValue] ;
-                    if([[[UtilityClass getCampaignDetails] valueForKey:kCampaignsAPI_FundRaised] floatValue])fundRaised = [[[UtilityClass getCampaignDetails] valueForKey:kCampaignsAPI_FundRaised] floatValue] ;
-                    if(targetAmount-fundRaised > 0) [self navigateToScreenWithViewIdentifier:kCommitViewIdentifier] ;
+                    if([[[UtilityClass getCampaignDetails] valueForKey:kCampaignsAPI_TargetAmount] floatValue])
+                        targetAmount = [[[UtilityClass getCampaignDetails] valueForKey:kCampaignsAPI_TargetAmount] floatValue] ;
+                    if([[[UtilityClass getCampaignDetails] valueForKey:kCampaignsAPI_FundRaised] floatValue])
+                        fundRaised = [[[UtilityClass getCampaignDetails] valueForKey:kCampaignsAPI_FundRaised] floatValue] ;
+                    if(targetAmount-fundRaised > 0)
+                        [self navigateToScreenWithViewIdentifier:kCommitViewIdentifier] ;
                     else{
                          [self presentViewController:[UtilityClass displayAlertMessage:kAlert_TargetAmountAchieveCommit] animated:YES completion:nil] ;
                     }

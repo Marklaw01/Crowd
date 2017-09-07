@@ -301,7 +301,6 @@
         
         if((int)segmentControl.selectedSegmentIndex == PROFILE_STARTUPS_SELECTED)
             [self getStartupsProfileData] ;
-        
         else
             [self getBasicProfProfileData] ;
     }
@@ -340,11 +339,12 @@
             
             [profileImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",APIPortToBeUsed,[responseDict valueForKey:kProfileAPI_Image]]] placeholderImage:[UIImage imageNamed:kImage_ProfilePicDefault]] ;
             
-            if([UtilityClass GetUserType] == CONTRACTOR) hoursTxtFld.text = [NSString stringWithFormat:@"$%@/HR",[UtilityClass formatNumber:[responseDict objectForKey:kProfileAPI_PerHourRate]]];
+            if([UtilityClass GetUserType] == CONTRACTOR)
+                hoursTxtFld.text = [NSString stringWithFormat:@"$%@/HR",[UtilityClass formatNumber:[responseDict objectForKey:kProfileAPI_PerHourRate]]];
             else hoursTxtFld.text = @"$0/HR" ;
             
             // Check Follow/Unfollow
-            if([[responseDict objectForKey:kProfileAPI_isFollowing] intValue] == 0){
+            if([[responseDict objectForKey:kProfileAPI_isFollowing] intValue] == 0) {
                 [followButton setTitle:FOLLOW_TEXT forState:UIControlStateNormal] ;
                 [followButton setBackgroundImage:[UIImage imageNamed:FOLLOW_BUTTON_ICON] forState:UIControlStateNormal] ;
             }
@@ -366,7 +366,6 @@
             } else if([[responseDict objectForKey:kProfileAPI_connectionReceived] intValue] == 0 && [[responseDict objectForKey:kProfileAPI_connectionSent] intValue] == 0 && [[responseDict objectForKey:kProfileAPI_connectionStatus] intValue] == 0) {
                 [connectButton setTitle:CONNECT_TEXT forState:UIControlStateNormal] ;
             }
-            
             
             if([responseDict objectForKey:kProfileAPI_Rating]){
                 starView.value = [[responseDict objectForKey:kProfileAPI_Rating] floatValue] ;
@@ -392,7 +391,6 @@
                  postNotificationName:kNotificationStartupProfile
                  object:self];
             }
-            
         }
         else [self presentViewController:[UtilityClass displayAlertMessage:[responseDict valueForKey:@"message"]] animated:YES completion:nil];
         

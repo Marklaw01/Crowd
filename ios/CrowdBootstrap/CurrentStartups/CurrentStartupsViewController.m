@@ -187,7 +187,7 @@
                      pageNo ++ ;*/
                     
                     totalItems = [[responseDict valueForKey:kStartupsAPI_TotalItems] intValue] ;
-                    if(searchController.active && ![searchController.searchBar.text isEqualToString:@""]){
+                    if(searchController.active && ![searchController.searchBar.text isEqualToString:@""]) {
                         searchResults = [NSMutableArray arrayWithArray:[responseDict valueForKey:kStartupsAPI_Startups]] ;
                         //if(searchResults.count <1)[tblView setHidden:YES] ;
                         // else [tblView setHidden:NO] ;

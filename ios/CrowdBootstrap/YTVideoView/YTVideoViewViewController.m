@@ -86,8 +86,9 @@
     NSDictionary *playerVars = @{
                                  @"playsinline" : @1,
                                  };
-    [playerView loadWithVideoId:content playerVars:playerVars];
-    playerView.backgroundColor = [UIColor clearColor] ;
+    playerVw.delegate = self;
+    [playerVw loadWithVideoId:content playerVars:playerVars];
+    playerVw.backgroundColor = [UIColor clearColor] ;
 
 //    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.youtube.com/watch?v=%@",content]];
 //    NSURLRequest *request = [NSURLRequest requestWithURL:url];

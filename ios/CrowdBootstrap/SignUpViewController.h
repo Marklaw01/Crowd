@@ -24,31 +24,31 @@ enum {
 #define kLastNameIndex                                1
 #define kUsernameIndex                                2
 #define kEmailIndex                                   3
-#define kDobIndex                                     4
-#define kPhoneIndex                                   5
-#define kCountryIndex                                 6
-#define kStateIndex                                   7
-#define kCityIndex                                    8
-#define kBestAvailabilityIndex                        9
-#define kPasswordIndex                                10
-#define kConfirmPasswordIndex                         11
-#define kChooseSecurityQuesIndex                      12
-#define kORIndex                                      13
-#define kEnterSecurityQuesIndex                       14
-#define kTermsIndex                                   15
-#define kValidationIndex                              16
-#define kReferFriendIndex                             17
-#define kSignupIndex                                  18
+//#define kDobIndex                                     4
+//#define kPhoneIndex                                   5
+//#define kCountryIndex                                 6
+//#define kStateIndex                                   7
+//#define kCityIndex                                    8
+//#define kBestAvailabilityIndex                        9
+#define kPasswordIndex                                4
+#define kConfirmPasswordIndex                         5
+#define kChooseSecurityQuesIndex                      6
+#define kORIndex                                      7
+#define kEnterSecurityQuesIndex                       8
+#define kTermsIndex                                   9
+#define kValidationIndex                              10
+#define kReferFriendIndex                             11
+#define kSignupIndex                                  12
 
-#define kCountryCellIdentifier                        @"CountryCell"
+//#define kCountryCellIdentifier                        @"CountryCell"
 #define kTextFieldCellIdentifier                      @"TextFieldCell"
 #define kChooseSecurityQuesCellIdentifier             @"ChooseSecurityQuesCell"
 #define kORCellIdentifier                             @"OrCell"
 #define kEnterSecurityQuesCellIdentifier              @"EnterSecurityQuesCell"
 #define kValidationCellIdentifier                     @"ValidationCell"
 #define kSignupCellIdentifier                         @"SignupCell"
-#define kDobCellIdentifier                            @"DobCell"
-#define kPhoneCellIdentifier                          @"PhoneCell"
+//#define kDobCellIdentifier                            @"DobCell"
+//#define kPhoneCellIdentifier                          @"PhoneCell"
 #define kTermsCellIdentifier                          @"TermsCell"
 #define kReferFriendCellIdentifier                    @"ReferFriendCell"
 
@@ -71,12 +71,12 @@ enum {
     IBOutlet UIView                     *securityQuesView;
     IBOutlet UIPickerView               *pickerView;
     
-    IBOutlet UIDatePicker               *datePickerView;
-    IBOutlet UIView                     *datePickerViewContainer;
+//    IBOutlet UIDatePicker               *datePickerView;
+//    IBOutlet UIView                     *datePickerViewContainer;
     
     IBOutlet UIView                     *validationPopupView;
     
-    IBOutlet UIToolbar                  *phoneToolBar;
+//    IBOutlet UIToolbar                  *phoneToolBar;
     
     // Pop-Up View
     IBOutlet UIView *vwPopup;
@@ -86,17 +86,17 @@ enum {
     NSMutableArray                      *sectionsArray ;
     NSMutableArray                      *chooseSecurityQuesArray ;
     NSMutableArray                      *enterSecurityQuesArray ;
-    NSMutableArray                      *countryArray ;
-    NSMutableArray                      *statesArray ;
+//    NSMutableArray                      *countryArray ;
+//    NSMutableArray                      *statesArray ;
     NSArray                             *securityQuestionsArray ;
-    NSString                            *prevDueDate ;
-    NSString                            *phoneNumberStr ;
-    NSString                            *selectedCountryID ;
-    NSString                            *selectedStateID ;
+//    NSString                            *prevDueDate ;
+//    NSString                            *phoneNumberStr ;
+//    NSString                            *selectedCountryID ;
+//    NSString                            *selectedStateID ;
     int                                 selectedSecurityQuesIndex ;
     int                                 selectedCellIndex ;
     int                                 selectedPickerViewType ;
-    int                                 selectedDatePickerType ;
+//    int                                 selectedDatePickerType ;
     int                                 isTermsSelected ;
     
     

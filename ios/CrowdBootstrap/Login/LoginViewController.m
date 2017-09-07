@@ -63,7 +63,7 @@
 }
 
 #pragma mark - Validation Methods
--(void)validateTextFields{
+-(void)validateTextFields {
     
     [self resetUISettings] ;
     
@@ -73,19 +73,19 @@
     [self.tooltipManager setBackdropTapActionEnabled:YES] ;
     [self.tooltipManager setShadowColourForAllTooltips:[UIColor redColor]] ;
 
-    if(emailTxtFld.text.length <1){
+    if(emailTxtFld.text.length <1) {
         [UtilityClass setTextFieldValidationBorder:emailTxtFld] ;
         [self.tooltipManager addTooltipWithTargetView:emailTxtFld hostView:self.view tooltipText:kAlert_Email_Blank arrowDirection:JDFTooltipViewArrowDirectionUp width:emailTxtFld.frame.size.width];
         [self.tooltipManager showNextTooltip] ;
         return ;
     }
-    else if(![UtilityClass NSStringIsValidEmail:emailTxtFld.text]){
+    else if(![UtilityClass NSStringIsValidEmail:emailTxtFld.text]) {
         [UtilityClass setTextFieldValidationBorder:emailTxtFld] ;
         [self.tooltipManager addTooltipWithTargetView:emailTxtFld hostView:self.view tooltipText:kAlert_Valid_Email arrowDirection:JDFTooltipViewArrowDirectionUp width:emailTxtFld.frame.size.width];
         [self.tooltipManager showAllTooltips] ;
         return ;
     }
-    else if(passwordTxtFld.text.length <1){
+    else if(passwordTxtFld.text.length <1) {
         [UtilityClass setTextFieldValidationBorder:passwordTxtFld] ;
         [self.tooltipManager addTooltipWithTargetView:passwordTxtFld hostView:self.view tooltipText:kAlert_Password_Blank arrowDirection:JDFTooltipViewArrowDirectionUp width:passwordTxtFld.frame.size.width];
         [self.tooltipManager showNextTooltip] ;
@@ -98,32 +98,35 @@
 }
 
 #pragma mark - API Methods
--(void)loginApi{
+-(void)loginApi {
    // if(![UtilityClass getDeviceToken]) return ;
     
-    if([UtilityClass checkInternetConnection]){
+    if([UtilityClass checkInternetConnection]) {
         
         [UtilityClass showHudWithTitle:kHUDMessage_LogIn] ;
-        NSMutableDictionary *dictParam =[[NSMutableDictionary alloc] init];
+        NSMutableDictionary *dictParam = [[NSMutableDictionary alloc] init];
         [dictParam setObject:emailTxtFld.text forKey:kLogInAPI_Email] ;
         [dictParam setObject:passwordTxtFld.text forKey:kLogInAPI_Password] ;
-        [dictParam setObject:[NSString stringWithFormat:@"%@",[UtilityClass getDeviceToken]] forKey:kLogInAPI_AccessToken] ;
-        [dictParam setObject:[NSString stringWithFormat:@"%@",[UtilityClass getDeviceToken]] forKey:kLogInAPI_DeviceToken] ;
+        [dictParam setObject:@"" forKey:kLogInAPI_AccessToken] ; //[NSString stringWithFormat:@"%@",[UtilityClass getDeviceToken]]
+        [dictParam setObject:@"" forKey:kLogInAPI_DeviceToken] ; // [NSString stringWithFormat:@"%@",[UtilityClass getDeviceToken]]
         [dictParam setObject:@"ios" forKey:kLogInAPI_DeviceType] ;
         
         [ApiCrowdBootstrap loginWithParameters:dictParam success:^(NSDictionary *responseDict) {
-            //[UtilityClass hideHud] ;
+            //[UtilityClass hideHud] ;+
             NSLog(@"responseDict %@", responseDict);
-            if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode )  {
+            if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode ) {
                 
-                /*[UtilityClass hideHud] ;
-                NSLog(@"Login Successfull %d",[QBSession currentSession].currentUser.ID) ;
+                [UtilityClass hideHud] ;
+                NSLog(@"Login Successful %lu",[QBSession currentSession].currentUser.ID) ;
                 [UtilityClass setUserType:CONTRACTOR] ;
                 [UtilityClass setLogInStatus:YES] ;
                 
                 [UtilityClass setLoggedInUserID:[[responseDict valueForKey:@"user_id"] intValue]] ;
                 [UtilityClass setLoggedInUserQuickBloxID:[QBSession currentSession].currentUser.ID] ;
-                [UtilityClass setLoggedInUserDetails:[NSMutableDictionary dictionaryWithDictionary:responseDict]] ;
+                
+                NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:[responseDict mutableCopy]] ;
+                [dict setValue:[responseDict valueForKey:kLogInAPI_Quickblox_Password] forKey:kLogInAPI_Password] ;
+                [UtilityClass setLoggedInUserDetails:[NSMutableDictionary dictionaryWithDictionary:dict]] ;
                 [UtilityClass setNotificationSettings:@"true"] ;
                 
                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -131,10 +134,10 @@
                 [AppDelegate appDelegate].window.rootViewController = viewController ;
                 
                 //[self.navigationController pushViewController:viewController animated:YES] ;
-                [self presentViewController:viewController animated:YES completion:nil] ;*/
+                [self presentViewController:viewController animated:YES completion:nil] ;
                 
                 
-                
+                /*
                 QBUUser *qbUser = [QBUUser user]  ;
                 qbUser.email = emailTxtFld.text ;
                 qbUser.password = [responseDict valueForKey:kLogInAPI_Quickblox_Password] ;
@@ -162,13 +165,14 @@
                         
                         //[self.navigationController pushViewController:viewController animated:YES] ;
                         [self presentViewController:viewController animated:YES completion:nil] ;
-                        
+                 
                     } else {
                         [UtilityClass hideHud] ;
-                        [self presentViewController:[UtilityClass displayAlertMessage:errorMessage] animated:YES completion:nil] ;
+                        [self presentViewController:[UtilityClass displayAlertMessage:@"error"] animated:YES completion:nil] ;
                     }
                 }];
-                
+                 */
+            
             }
             else{
                 [UtilityClass hideHud] ;
@@ -181,7 +185,6 @@
             [UtilityClass displayAlertMessage:error.description] ;
             [UtilityClass hideHud] ;
         }] ;
-        
     }
 }
 

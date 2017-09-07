@@ -18,24 +18,23 @@
 #define kEventsSectionIcon             @"menu_events"
 #define kOpportunitiesSectionIcon      @"menu_opportunities"
 
+#define kMenuIdentifier_SelfImprovement      @"selfImprovementIdentifier"
+#define kMenuIdentifier_CareerAdvancement    @"careerAdvancementIdentifier"
 
-#define kMenuIdentifier_BetaTesters    @"betaTesterIdentifier"
-#define kMenuIdentifier_Consulting     @"consultingIdentifier"
-#define kMenuIdentifier_earlyAdaptors  @"earlyAdaptorsIdentifier"
-#define kMenuIdentifier_focusGroups    @"focusGroupsIdentifier"
 #define kMenuIdentifier_jobs           @"jobsIdentifier"
 #define kMenuIdentifier_recruiter      @"recruiterIdentifier"
+
+#define kMenuIdentifier_BetaTesters    @"betaTesterIdentifier"
 #define kMenuIdentifier_boardMembers   @"boardMemberIdentifier"
-#define kMenuIdentifier_communalAssets @"communalAssetsIdentifier"
+#define kMenuIdentifier_earlyAdaptors  @"earlyAdaptorsIdentifier"
 #define kMenuIdentifier_endorsers      @"endorsersIdentifier"
+#define kMenuIdentifier_focusGroups    @"focusGroupsIdentifier"
 
 #define kMenuIdentifier_Hardware       @"hardwareIdentifier"
 #define kMenuIdentifier_Software       @"softwareIdentifier"
-#define kMenuIdentifier_earlyAdaptors  @"earlyAdaptorsIdentifier"
-#define kMenuIdentifier_focusGroups    @"focusGroupsIdentifier"
-#define kMenuIdentifier_jobs           @"jobsIdentifier"
-#define kMenuIdentifier_recruiter      @"recruiterIdentifier"
 
+#define kMenuIdentifier_Consulting     @"consultingIdentifier"
+#define kMenuIdentifier_communalAssets @"communalAssetsIdentifier"
 
 
 #define kMyProfielSectionCellIndex     2

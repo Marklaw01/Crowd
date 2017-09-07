@@ -108,7 +108,7 @@ NSString *const kQMAuthSocialProvider = @"facebook";
         }
     };
     
-    void (^successBlock)(id, id) = ^(QBResponse *response, QBUUser *userProfile){
+    void (^successBlock)(id, id) = ^(QBResponse *response, QBUUser *userProfile) {
         
         weakSelf.isAuthorized = YES;
         userProfile.password = user.password;

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface FollowCampaignTableViewCell : UITableViewCell
+
 @property (strong, nonatomic) IBOutlet UIView *lblView;
 
 @property (strong, nonatomic) IBOutlet UILabel *lbl;
@@ -16,6 +17,9 @@
 
 
 @property (strong, nonatomic) IBOutlet UIButton *followBtn;
+@property (strong, nonatomic) IBOutlet UIButton *likeBtn;
 @property (strong, nonatomic) IBOutlet UIButton *postedByBtn;
+
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *constraintLikeBtnTrailing;
 
 @end

@@ -10,9 +10,12 @@
 
 @interface CommitTableViewCell : UITableViewCell
 @property (strong, nonatomic) IBOutlet UIButton *commitBtn;
+@property (strong, nonatomic) IBOutlet UIButton *noOfCommitsBtn;
+@property (strong, nonatomic) IBOutlet UIButton *inviteBtn;
 
 @property (strong, nonatomic) IBOutlet UILabel *progressLbl;
 @property (strong, nonatomic) IBOutlet UIProgressView *progressView;
+@property (strong, nonatomic) IBOutlet UILabel *fileTypeLbl;
 
 
 @end

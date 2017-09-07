@@ -48,9 +48,8 @@ enum{
     IBOutlet UIImageView               *imageView;
     
     IBOutlet UIProgressView            *progressView;
-    
-    
     IBOutlet UILabel                   *progressLbl;
+    
     NSData                             *imgData ;
     NSData                             *videoData ;
     NSMutableArray                     *keywordsArray ;

@@ -13,5 +13,6 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *fieldNameLbl;
 
+@property (strong, nonatomic) IBOutlet UILabel *fundedByLbl;
 
 @end

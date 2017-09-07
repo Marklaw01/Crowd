@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-enum{
+enum {
     COUNTRY_SELECTED,
     STATE_SELECTED
 };
@@ -36,6 +36,8 @@ enum{
     IBOutlet UIPickerView                    *pickerView;
     IBOutlet UIView                          *pickerViewContainer;
     
+    IBOutlet UILabel                           *lblNoJobsFound;
+
     NSMutableArray                           *basicArray ;
     NSMutableArray                           *countryArray ;
     NSMutableArray                           *statesArray ;

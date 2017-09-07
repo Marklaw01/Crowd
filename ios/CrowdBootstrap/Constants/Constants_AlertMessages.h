@@ -32,8 +32,25 @@
 //Startup Team
 #define kAlert_StartTeam                          @"Are you sure you want to "
 
-//Settings
+//Settings/Enable
 #define kAlert_Settings                           @"Are you sure you want to make your profile "
+#define kAlert_BetaTester                         @"Are you sure you want to register for Beta Tester opportunities?"
+#define kAlert_BoardMember                        @"Are you sure you want to register for Board Member opportunities?"
+#define kAlert_ConsultingProject                  @"Are you sure you want to register for Consulting opportunities?"
+#define kAlert_EarlyAdopter                       @"Are you sure you want to register for Early Adopter opportunities?"
+#define kAlert_Endorsor                           @"Are you sure you want to register for Endorser opportunities?"
+#define kAlert_FocusGroup                         @"Are you sure you want to register for Focus Group opportunities?"
+#define kAlertFeed_Update                         @"Are you sure you want to enable for "
+
+
+//Settings/Disable
+#define kAlert_NotABetaTester                     @"Are you sure you want to unregister for Beta Tester opportunities?"
+#define kAlert_NotABoardMember                    @"Are you sure you want to unregister for Board Member opportunities?"
+#define kAlert_NotAConsultingProject              @"Are you sure you want to unregister for Consulting opportunities?"
+#define kAlert_NotAEarlyAdopter                   @"Are you sure you want to unregister for Early Adopter opportunities?"
+#define kAlert_NotAEndorsor                       @"Are you sure you want to unregister for Endorser opportunities?"
+#define kAlert_NotAFocusGroup                     @"Are you sure you want to unregister for Focus Group opportunities?"
+#define kAlertFeed_NoUpdate                       @"Are you sure you want to disable for "
 
 // Forgot Password
 #define kAlert_BlankAnswer                        @"Please enter your answer"
@@ -77,7 +94,13 @@
 #define kAlert_CampaignTargetMarketdRequired      @"Enter at least one target market."
 
 // Post Job
-#define kAlert_IndustryKeywordRequired            @"Enter at least one industry keyword."
 #define kAlert_JobPostingKeywordRequired          @"Enter at least one job posting keyword."
 #define kAlert_SkillsKeywordRequired              @"Enter at least one skill."
 
+#define kAlert_IndustryKeywordRequired            @"Enter at least one industry keyword."
+#define kAlert_FundKeywordRequired                @"Enter at least one keyword."
+#define kAlert_ManagerKeywordRequired             @"Enter at least one manager."
+#define kAlert_SponsorKeywordRequired             @"Enter at least one sponsor."
+#define kAlert_PortfolioKeywordRequired           @"Enter at least one portfolio company."
+#define kAlert_TargetKeywordRequired              @"Enter at least one target keyword."
+#define kAlert_InterestKeywordRequired            @"Enter at least one interest keyword."

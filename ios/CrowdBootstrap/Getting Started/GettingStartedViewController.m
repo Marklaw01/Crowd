@@ -29,6 +29,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self saveDeviceToken];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -88,4 +90,26 @@
         };
     }
 }
+
+- (void)saveDeviceToken {
+    if([UtilityClass checkInternetConnection]){
+        
+        NSMutableDictionary *dictParam =[[NSMutableDictionary alloc] init];
+        [dictParam setObject:[NSString stringWithFormat:@"%d",[UtilityClass getLoggedInUserID]] forKey:kStartupTeamAPI_UserID] ;
+        [dictParam setObject:[NSString stringWithFormat:@"%@",[UtilityClass getDeviceToken]] forKey:kLogInAPI_AccessToken] ;
+        [dictParam setObject:[NSString stringWithFormat:@"%@",[UtilityClass getDeviceToken]] forKey:kLogInAPI_DeviceToken] ;
+        [dictParam setObject:@"ios" forKey:kLogInAPI_DeviceType] ;
+        
+        NSLog(@"params: %@", dictParam);
+        
+        [ApiCrowdBootstrap saveDeviceTokenWithParameters:dictParam success:^(NSDictionary *responseDict) {
+            NSLog(@"Success");
+
+        } failure:^(NSError *error) {
+            [UtilityClass displayAlertMessage:error.description] ;
+            [UtilityClass hideHud] ;
+        }] ;
+    }
+}
+
 @end

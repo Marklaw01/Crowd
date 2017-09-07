@@ -139,7 +139,6 @@
                         success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                         failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
 {
-    NSLog(@"Api URL: %@",URLString);
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithHTTPMethod:@"GET" URLString:URLString parameters:parameters success:success failure:failure];
 
     [self.operationQueue addOperation:operation];

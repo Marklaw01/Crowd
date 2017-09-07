@@ -333,7 +333,7 @@
         NSArray *array = [NSArray arrayWithArray:[[cofoundersArray objectAtIndex:indexPath.row] valueForKey:@"questions"]] ;
         for (int i = 0; i < array.count; i++) {
             // Label
-            UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(10, yPos, cell.frame.size.width-20, 35)] ;
+            UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(10, yPos, cell.frame.size.width-20, 30)] ;
             lbl.numberOfLines = 2 ;
             lbl.textColor = [UIColor colorWithRed:33.0f/255.0f green:33.0f/255.0f blue:33.0f/255.0f alpha:1];
             lbl.font = [UIFont systemFontOfSize:11];
@@ -434,7 +434,7 @@
     if(indexPath.section == sectionsArray.count) return 45 ;
     else if([title isEqualToString:@"cofounders"]) {
         NSArray *array = [NSArray arrayWithArray:[[cofoundersArray objectAtIndex:indexPath.row] valueForKey:@"questions"]] ;
-        return 82*array.count ;
+        return 77*array.count ;
     }
     else return 80 ;
 }

@@ -9,6 +9,8 @@
 #import "PaymentsViewController.h"
 #import "SWRevealViewController.h"
 #import "ShoppingCartDetailViewController.h"
+#import "PurchaseOrdersViewController.h"
+#import "MyLaunchDealsViewController.h"
 
 @interface PaymentsViewController ()
 
@@ -73,11 +75,11 @@
 }
 
 #pragma mark - TableView Delegate Methods
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return companyArray.count ;
 }
 
--(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+-(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"] ;
     cell.selectionStyle = UITableViewCellSelectionStyleNone ;
     cell.backgroundColor = [UIColor clearColor] ;
@@ -86,21 +88,52 @@
     return cell ;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 40 ;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    NSString *contentStr = [contentArray objectAtIndex:indexPath.row] ;
-    if(![contentStr isEqualToString:@""]){
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        ShoppingCartDetailViewController *viewController = (ShoppingCartDetailViewController*)[storyboard instantiateViewControllerWithIdentifier:kShoppingCartDetailViewIdentifier] ;
-        viewController.title = [companyArray objectAtIndex:indexPath.row] ;
-        viewController.contentStr = [contentArray objectAtIndex:indexPath.row] ;
-        
-        [self.navigationController pushViewController:viewController animated:YES] ;
+    switch (indexPath.row) {
+        case 0: // Group Buying
+        {
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"GroupBuying" bundle:nil];
+            PurchaseOrdersViewController *viewController = (PurchaseOrdersViewController*)[storyboard instantiateViewControllerWithIdentifier:kGroupBuyingViewIdentifier] ;
+            viewController.title = [companyArray objectAtIndex:indexPath.row] ;
+            
+            [self.navigationController pushViewController:viewController animated:YES] ;
+        }
+            break;
+        case 1: // Launch Deals
+        {
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"LaunchDeals" bundle:nil];
+            MyLaunchDealsViewController *viewController = (MyLaunchDealsViewController*)[storyboard instantiateViewControllerWithIdentifier:kLaunchDealsViewIdentifier] ;
+            viewController.title = [companyArray objectAtIndex:indexPath.row] ;
+            
+            [self.navigationController pushViewController:viewController animated:YES] ;
+        }
+            break;
+        default:
+        {
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            ShoppingCartDetailViewController *viewController = (ShoppingCartDetailViewController*)[storyboard instantiateViewControllerWithIdentifier:kShoppingCartDetailViewIdentifier] ;
+            viewController.title = [companyArray objectAtIndex:indexPath.row] ;
+            viewController.contentStr = [contentArray objectAtIndex:indexPath.row] ;
+            
+            [self.navigationController pushViewController:viewController animated:YES] ;
+        }
+            break;
     }
+    
+//    NSString *contentStr = [contentArray objectAtIndex:indexPath.row] ;
+//    if(![contentStr isEqualToString:@""]) {
+//        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//        ShoppingCartDetailViewController *viewController = (ShoppingCartDetailViewController*)[storyboard instantiateViewControllerWithIdentifier:kShoppingCartDetailViewIdentifier] ;
+//        viewController.title = [companyArray objectAtIndex:indexPath.row] ;
+//        viewController.contentStr = [contentArray objectAtIndex:indexPath.row] ;
+//        
+//        [self.navigationController pushViewController:viewController animated:YES] ;
+//    }
 }
 
 #pragma mark - IBAction Methods
@@ -116,7 +149,7 @@
 }
 
 - (IBAction)Submit_ClickAction:(id)sender {
-    if([agreeBtn.accessibilityLabel isEqualToString:CHECK_IMAGE]){
+    if([agreeBtn.accessibilityLabel isEqualToString:CHECK_IMAGE]) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:kHomeIdentifer] ;
         [self.navigationController pushViewController:viewController animated:YES] ;
@@ -127,7 +160,7 @@
 }
 
 - (IBAction)Agree_ClickAction:(id)sender {
-    if([agreeBtn.accessibilityLabel isEqualToString:CHECK_IMAGE ]){ // Check
+    if([agreeBtn.accessibilityLabel isEqualToString:CHECK_IMAGE ]) { // Check
         [agreeBtn setBackgroundImage:[UIImage imageNamed:UNCHECK_IMAGE] forState:UIControlStateNormal] ;
         agreeBtn.accessibilityLabel = UNCHECK_IMAGE ;
     }
@@ -141,25 +174,14 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:kNotificationViewIdentifier] ;
     [self.navigationController pushViewController:viewController animated:YES] ;
-    
 }
 
 - (IBAction)checkUncheck_ClickAction:(UIButton*)sender {
     NSLog(@"tag: %ld",(long)[sender tag]) ;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return 0;
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

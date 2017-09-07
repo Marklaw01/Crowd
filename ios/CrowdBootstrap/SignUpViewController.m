@@ -31,7 +31,7 @@ static NSString * const kClientId = @"502919930015-7na0abn25duqcvgqn81e1ptuuo8s9
     
     [self resetUISettings] ;
     [self getSecurityQuestions] ;
-    [self getCountriesList] ;
+//    [self getCountriesList] ;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -102,10 +102,12 @@ static NSString * const kClientId = @"502919930015-7na0abn25duqcvgqn81e1ptuuo8s9
     
     selectedSecurityQuesIndex    = -1 ;
     selectedCellIndex            = -1 ;
+    /*
     prevDueDate                  = @"" ;
     phoneNumberStr               = @"" ;
     selectedCountryID            = @"" ;
     selectedStateID              = @"" ;
+     */
     isTermsSelected              = 0 ;
     blockedCharacters = [[NSCharacterSet alphanumericCharacterSet] invertedSet] ;
     
@@ -114,9 +116,10 @@ static NSString * const kClientId = @"502919930015-7na0abn25duqcvgqn81e1ptuuo8s9
     singleTapGestureRecognizer.enabled = YES;
     singleTapGestureRecognizer.cancelsTouchesInView = NO;
     [tblView addGestureRecognizer:singleTapGestureRecognizer];
-    
+    /*
     [datePickerView setMaximumDate:[NSDate date]] ;
     [datePickerView addTarget:self action:@selector(datePickerChanged:) forControlEvents:UIControlEventValueChanged];
+     */
 }
 
 -(void)resetTableViewCell {
@@ -145,12 +148,12 @@ static NSString * const kClientId = @"502919930015-7na0abn25duqcvgqn81e1ptuuo8s9
             cell.plusBtn.hidden= NO ;
             cell.minusBtn.hidden= YES ;
         }
-        else{
+        else {
             if(i == chooseSecurityQuesArray.count-1) {
                 cell.plusBtn.hidden = NO ;
                 cell.minusBtn.hidden = YES ;
             }
-            else{
+            else {
                 cell.plusBtn.hidden = YES ;
                 cell.minusBtn.hidden = NO ;
             }
@@ -254,6 +257,7 @@ static NSString * const kClientId = @"502919930015-7na0abn25duqcvgqn81e1ptuuo8s9
     return paramArray ;
 }
 
+/*
 #pragma mark - API Methods
 -(void)getCountriesList {
     if([UtilityClass checkInternetConnection])  {
@@ -310,6 +314,7 @@ static NSString * const kClientId = @"502919930015-7na0abn25duqcvgqn81e1ptuuo8s9
     }
 }
 
+*/
 -(void)getSecurityQuestions {
     if([UtilityClass checkInternetConnection]) {
         
@@ -353,6 +358,7 @@ static NSString * const kClientId = @"502919930015-7na0abn25duqcvgqn81e1ptuuo8s9
     [dictParam setObject:[[sectionsArray objectAtIndex:kLastNameIndex] valueForKey:@"value"] forKey:kSignUpAPI_LastName] ;
     [dictParam setObject:[[sectionsArray objectAtIndex:kUsernameIndex] valueForKey:@"value"] forKey:kSignUpAPI_Username] ;
     [dictParam setObject:[[sectionsArray objectAtIndex:kEmailIndex] valueForKey:@"value"] forKey:kSignUpAPI_Email] ;
+    /*
     [dictParam setObject:[[sectionsArray objectAtIndex:kDobIndex] valueForKey:@"value"] forKey:kSignUpAPI_DateOfBirth] ;
     NSString *phone = phoneNumberStr ;
     if(phone.length > 0 && ![phone isEqualToString:@""] && ![phone isEqualToString:@" "] && (phone.length < PHONE_MIN_LENGTH || phone.length > PHONE_MAX_LENGTH )){
@@ -367,12 +373,16 @@ static NSString * const kClientId = @"502919930015-7na0abn25duqcvgqn81e1ptuuo8s9
     [dictParam setObject:selectedStateID forKey:kSignUpAPI_State] ;
     [dictParam setObject:[[sectionsArray objectAtIndex:kCityIndex] valueForKey:@"value"] forKey:kSignUpAPI_City] ;
     [dictParam setObject:[[sectionsArray objectAtIndex:kBestAvailabilityIndex] valueForKey:@"value"] forKey:kSignUpAPI_BestAvailability] ;
+     
+     */
     [dictParam setObject:[[sectionsArray objectAtIndex:kPasswordIndex] valueForKey:@"value"] forKey:kSignUpAPI_Password] ;
     [dictParam setObject:[[sectionsArray objectAtIndex:kConfirmPasswordIndex] valueForKey:@"value"] forKey:kSignUpAPI_ConfirmPassword] ;
     [dictParam setObject:[self setSecurityQuestionDictParamForApiWithArray:chooseSecurityQuesArray withType:YES] forKey:kSignUpAPI_ChooseSeurityQues] ;
     [dictParam setObject:[self setSecurityQuestionDictParamForApiWithArray:enterSecurityQuesArray withType:NO] forKey:kSignUpAPI_EnterSecurityQues] ;
     [dictParam setObject:[self setSecurityQuestionDictParamForApiWithArray:enterSecurityQuesArray withType:NO] forKey:kSignUpAPI_EnterSecurityQues] ;
     [dictParam setObject:[NSString stringWithFormat:@"%d",isTermsSelected] forKey:kSignUpAPI_Terms] ;
+    
+    NSLog(@"Signup Dict : %@",dictParam);
     
     if([UtilityClass checkInternetConnection]){
         
@@ -554,20 +564,8 @@ static NSString * const kClientId = @"502919930015-7na0abn25duqcvgqn81e1ptuuo8s9
 }
 
 - (IBAction)SignUp_ClickAction:(id)sender {
-     NSLog(@"phoneNumberStr: %@",phoneNumberStr) ;
-   /* UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:kLoginIdentifier] ;
-    [self.navigationController pushViewController:viewController animated:YES] ;*/
-    
-    // initialize tool tip
-   // [self resetUISettings] ;
-    
-    /*if(self.tooltipManager)self.tooltipManager = nil ;
-    self.tooltipManager = [[JDFSequentialTooltipManager alloc] initWithHostView:self.view];
-    self.tooltipManager.showsBackdropView = YES;
-    [self.tooltipManager setBackdropTapActionEnabled:YES] ;
-    [self.tooltipManager setShadowColourForAllTooltips:[UIColor redColor]] ;*/
-    
+//     NSLog(@"phoneNumberStr: %@",phoneNumberStr) ;
+
     // Mandatory Fields
     if (![self validatetextFieldsWithSectionIndex:kFirstNameIndex])            return ;
     else if (![self validatetextFieldsWithSectionIndex:kLastNameIndex])        return ;
@@ -600,15 +598,11 @@ static NSString * const kClientId = @"502919930015-7na0abn25duqcvgqn81e1ptuuo8s9
 - (IBAction)Dropdown_ClickAction:(id)sender {
     [securityQuesView setHidden:NO] ;
     
-    if([sender tag] == kCountryIndex) {
+    /*
+     if([sender tag] == kCountryIndex) {
         selectedPickerViewType = kCountrySelected ;
         DobTableViewCell *cell = [tblView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:kCountryIndex]] ;
         [cell.textFld becomeFirstResponder] ;
-       
-        /*NSString *countryID = [NSString stringWithFormat:@"%@",[[countryArray objectAtIndex:selectedCountryIndex] valueForKey:@"id"]] ;
-        int index = [UtilityClass getPickerViewSelectedIndexFromArray:countryArray forID:countryID] ;
-        if(index == -1)[pickerView selectRow:0 inComponent:0 animated:YES] ;
-        else [pickerView selectRow:index+1 inComponent:0 animated:YES] ;*/
     }
     else {
         
@@ -621,13 +615,9 @@ static NSString * const kClientId = @"502919930015-7na0abn25duqcvgqn81e1ptuuo8s9
             
             DobTableViewCell *cell = [tblView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:kStateIndex]] ;
             [cell.textFld becomeFirstResponder] ;
-            
-          /*  NSString *cityID = [NSString stringWithFormat:@"%@",[[cityArray objectAtIndex:selectedCityIndex] valueForKey:@"id"]] ;
-            int index = [UtilityClass getPickerViewSelectedIndexFromArray:cityArray forID:cityID] ;
-            if(index == -1)[pickerView selectRow:0 inComponent:0 animated:YES] ;
-            else [pickerView selectRow:index+1 inComponent:0 animated:YES] ;*/
         }
-    }
+    } 
+     */
      [pickerView reloadAllComponents] ;
 }
 
@@ -678,6 +668,7 @@ static NSString * const kClientId = @"502919930015-7na0abn25duqcvgqn81e1ptuuo8s9
          isTermsSelected = 1 ;
     }
 }
+/*
 
 - (IBAction)Calender_ClickAction:(id)sender {
     
@@ -697,6 +688,7 @@ static NSString * const kClientId = @"502919930015-7na0abn25duqcvgqn81e1ptuuo8s9
     [cell.textFld becomeFirstResponder] ;
 }
 
+ */
 #pragma mark - Social Sharing Action Methods
 - (IBAction)facebookShare_ClickAction:(id)sender {
     
@@ -839,16 +831,19 @@ static NSString * const kClientId = @"502919930015-7na0abn25duqcvgqn81e1ptuuo8s9
 }
 
 #pragma mark - ToolBar Buttons Methods
+/*
 - (IBAction)phoneToolbarButtons_ClickAction:(id)sender {
     PhoneTableViewCell *cell = [tblView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:kPhoneIndex]] ;
     [cell.textField resignFirstResponder] ;
     if([sender tag] == DONE_CLICKED) [[sectionsArray objectAtIndex:kPhoneIndex] setValue:cell.textField.text forKey:@"value"] ;
 }
 
+ */
 - (IBAction)toolbarButtons_ClickAction:(id)sender {
     [securityQuesView setHidden:YES] ;
     
     if([sender tag] == DONE_CLICKED) {
+        /*
         if(selectedPickerViewType == kCountrySelected || selectedPickerViewType == kStateSelected) {
             
             if(selectedPickerViewType == kCountrySelected) {
@@ -895,7 +890,8 @@ static NSString * const kClientId = @"502919930015-7na0abn25duqcvgqn81e1ptuuo8s9
                 }
             }
         }
-        else{
+         */
+//        else{
             ChooseSecurityQuesTableViewCell *cell = [tblView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:selectedCellIndex inSection:kChooseSecurityQuesIndex]] ;
             [cell.securityQuesTxtFld resignFirstResponder] ;
             if([pickerView selectedRowInComponent:0] == 0) {
@@ -914,9 +910,10 @@ static NSString * const kClientId = @"502919930015-7na0abn25duqcvgqn81e1ptuuo8s9
                 [[chooseSecurityQuesArray objectAtIndex:selectedCellIndex] setValue:[[securityQuestionsArray objectAtIndex:(int)[pickerView selectedRowInComponent:0]-1] valueForKey:@"name"] forKey:@"question"] ;
                 [[chooseSecurityQuesArray objectAtIndex:selectedCellIndex] setValue:[[securityQuestionsArray objectAtIndex:(int)[pickerView selectedRowInComponent:0]-1] valueForKey:@"id"] forKey:@"id"] ;
             }
-        }
+//        }
     }
     else {
+        /*
         if(selectedPickerViewType == kCountrySelected || selectedPickerViewType == kStateSelected) {
             if(selectedPickerViewType == kCountrySelected) {
                 DobTableViewCell *cell = [tblView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:kCountryIndex]] ;
@@ -931,7 +928,8 @@ static NSString * const kClientId = @"502919930015-7na0abn25duqcvgqn81e1ptuuo8s9
                 else cell.textFld.text = [[sectionsArray objectAtIndex:kStateIndex] valueForKey:@"value"]  ;
             }
         }
-        else {
+        */
+//        else {
             ChooseSecurityQuesTableViewCell *cell = [tblView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:selectedCellIndex inSection:kChooseSecurityQuesIndex]] ;
             [cell.securityQuesTxtFld resignFirstResponder] ;
             if([pickerView selectedRowInComponent:0] == 0){
@@ -942,12 +940,13 @@ static NSString * const kClientId = @"502919930015-7na0abn25duqcvgqn81e1ptuuo8s9
                 cell.securityQuesTxtFld.text = @"" ;
                 cell.securityQuesLbl.text = [[chooseSecurityQuesArray objectAtIndex:selectedCellIndex] valueForKey:@"question"]  ;
             }
-        }
+//        }
     }
     selectedPickerViewType = -1 ;
     [pickerView reloadAllComponents] ;
 }
 
+/*
 - (IBAction)DatePickerToolbarButtons_ClickAction:(id)sender {
     
     if([sender tag] == DONE_CLICKED) {
@@ -986,7 +985,9 @@ static NSString * const kClientId = @"502919930015-7na0abn25duqcvgqn81e1ptuuo8s9
     }
 }
 
+*/
 #pragma mark - DatePicker Value Changed
+/*
 - (void)datePickerChanged:(UIDatePicker *)datePicker
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -1000,6 +1001,7 @@ static NSString * const kClientId = @"502919930015-7na0abn25duqcvgqn81e1ptuuo8s9
     cell.textFld.text = strDate;
 }
 
+*/
 #pragma mark - TableView Delegate Methods
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if(section == kChooseSecurityQuesIndex)
@@ -1010,6 +1012,7 @@ static NSString * const kClientId = @"502919930015-7na0abn25duqcvgqn81e1ptuuo8s9
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    /*
     if(indexPath.section == kPhoneIndex) {
         PhoneTableViewCell *cell = (PhoneTableViewCell*)[tableView dequeueReusableCellWithIdentifier:kPhoneCellIdentifier] ;
         cell.selectionStyle = UITableViewCellSelectionStyleNone ;
@@ -1025,7 +1028,8 @@ static NSString * const kClientId = @"502919930015-7na0abn25duqcvgqn81e1ptuuo8s9
         
         return cell ;
     }
-    else if(indexPath.section == kChooseSecurityQuesIndex) {
+    */
+    if(indexPath.section == kChooseSecurityQuesIndex) {
         ChooseSecurityQuesTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kChooseSecurityQuesCellIdentifier] ;
         cell.selectionStyle = UITableViewCellSelectionStyleNone ;
         //cell.securityQuesTxtFld.inputView = securityQuesView ;
@@ -1120,6 +1124,7 @@ static NSString * const kClientId = @"502919930015-7na0abn25duqcvgqn81e1ptuuo8s9
         }
         return cell ;
     }
+    /*
     else if (indexPath.section == kCountryIndex || indexPath.section == kStateIndex){
         DobTableViewCell *cell = (DobTableViewCell*)[tableView dequeueReusableCellWithIdentifier:kCountryCellIdentifier] ;
        
@@ -1153,6 +1158,7 @@ static NSString * const kClientId = @"502919930015-7na0abn25duqcvgqn81e1ptuuo8s9
         
         return cell ;
     }
+    */
     else if(indexPath.section == kTermsIndex){
         PaymentsTableViewCell *cell = (PaymentsTableViewCell*)[tableView dequeueReusableCellWithIdentifier:kTermsCellIdentifier] ;
         cell.selectionStyle = UITableViewCellSelectionStyleNone ;
@@ -1194,10 +1200,10 @@ static NSString * const kClientId = @"502919930015-7na0abn25duqcvgqn81e1ptuuo8s9
         [UtilityClass addMarginsOnTextField:cell.textFld] ;
         if(indexPath.section == kPasswordIndex || indexPath.section == kConfirmPasswordIndex)cell.textFld.secureTextEntry = YES ;
         if(indexPath.section == kEmailIndex)cell.textFld.keyboardType = UIKeyboardTypeEmailAddress ;
-        else if(indexPath.section == kPhoneIndex){
+        /*(else if(indexPath.section == kPhoneIndex){
             cell.textFld.keyboardType = UIKeyboardTypeNumberPad ;
             cell.textFld.inputAccessoryView = phoneToolBar ;
-        }
+        }*/
         else if(indexPath.section == kFirstNameIndex || indexPath.section == kLastNameIndex ) cell.textFld.keyboardType = UIKeyboardTypeAlphabet ;
         else cell.textFld.keyboardType = UIKeyboardTypeDefault ;
         
@@ -1230,7 +1236,7 @@ static NSString * const kClientId = @"502919930015-7na0abn25duqcvgqn81e1ptuuo8s9
     
     selectedCellIndex = (int)textField.tag ;
     _selectedItem = textField ;
-    
+    /*
     if([textField tag] == kCountryIndex) {
         selectedPickerViewType = kCountrySelected ;
         int index = [UtilityClass getPickerViewSelectedIndexFromArray:countryArray forID:selectedCountryID] ;
@@ -1253,13 +1259,15 @@ static NSString * const kClientId = @"502919930015-7na0abn25duqcvgqn81e1ptuuo8s9
             else [pickerView selectRow:index+1 inComponent:0 animated:YES] ;
         }
     }
-    else if([textField tag] == kChooseSecurityQuesIndex) {
+    */
+    if([textField tag] == kChooseSecurityQuesIndex) {
         ChooseSecurityQuesTableViewCell *cell = [tblView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[textField.accessibilityValue intValue] inSection:kChooseSecurityQuesIndex]] ;
         if(textField == cell.securityQuesTxtFld ) {
             selectedCellIndex = [textField.accessibilityValue intValue] ;
             selectedPickerViewType = kSecurityQuesSelected ;
         }
     }
+    /*
     else if([textField tag] == kDobIndex) {
         selectedDatePickerType = kDobSelected ;
         datePickerView.datePickerMode = UIDatePickerModeDate ;
@@ -1268,17 +1276,18 @@ static NSString * const kClientId = @"502919930015-7na0abn25duqcvgqn81e1ptuuo8s9
         selectedDatePickerType = kBestAvailabilitySelected ;
         datePickerView.datePickerMode = UIDatePickerModeTime ;
     }
-    
+    */
     return YES ;
 }
 
 -(BOOL)textFieldShouldEndEditing:(UITextField *)textField {
     _selectedItem = nil ;
-    
+    /*
     if([textField tag] == kPhoneIndex) {
         PhoneTableViewCell *cell = [tblView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[textField tag] inSection:kPhoneIndex]] ;
         [[sectionsArray objectAtIndex:textField.tag] setValue:cell.textField.text forKey:@"value"] ;
     }
+     */
     return YES ;
 }
 
@@ -1309,7 +1318,7 @@ static NSString * const kClientId = @"502919930015-7na0abn25duqcvgqn81e1ptuuo8s9
         if(textField == cell.answerTxtFld) [[chooseSecurityQuesArray objectAtIndex:[textField.accessibilityValue intValue]] setValue:[textField.text stringByReplacingCharactersInRange:range withString:string] forKey:@"answer"] ;
     }
     else{
-        
+        /*
         // Phone Validation
         if([textField tag] == kPhoneIndex){
           NSLog(@"text: %@",textField.text) ;
@@ -1321,19 +1330,13 @@ static NSString * const kClientId = @"502919930015-7na0abn25duqcvgqn81e1ptuuo8s9
                 return YES ;
             }
             
-            /*[[sectionsArray objectAtIndex:textField.tag] setValue:[textField.text stringByReplacingCharactersInRange:range withString:string] forKey:@"value"] ;*/
-            
             NSString *str = [textField.text stringByReplacingCharactersInRange:range withString:string] ;
             if(str.length > PHONE_MAX_LENGTH) return YES ;
-           // phoneNumberStr = [textField.text stringByReplacingCharactersInRange:range withString:string] ;
-           // NSLog(@"str: %@",str) ;
-            
-            /* BOOL isValid = newLength <= PHONE_MAX_LENGTH || returnKey;
-            if(isValid)[[sectionsArray objectAtIndex:textField.tag] setValue:[textField.text stringByReplacingCharactersInRange:range withString:string] forKey:@"value"] ;
-            return isValid ;*/
+
         }
-        
-        else [[sectionsArray objectAtIndex:textField.tag] setValue:[textField.text stringByReplacingCharactersInRange:range withString:string] forKey:@"value"] ;
+        */
+//        else
+            [[sectionsArray objectAtIndex:textField.tag] setValue:[textField.text stringByReplacingCharactersInRange:range withString:string] forKey:@"value"] ;
     }
    
     return YES ;
@@ -1345,9 +1348,12 @@ static NSString * const kClientId = @"502919930015-7na0abn25duqcvgqn81e1ptuuo8s9
 }
 
 -(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
+    /*
     if(selectedPickerViewType == kCountrySelected) return countryArray.count+1 ;
     else if(selectedPickerViewType == kStateSelected) return statesArray.count+1 ;
-    else return securityQuestionsArray.count+1 ;
+     */
+//    else
+        return securityQuestionsArray.count+1 ;
 }
 
 /*-(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
@@ -1387,6 +1393,7 @@ static NSString * const kClientId = @"502919930015-7na0abn25duqcvgqn81e1ptuuo8s9
     label.lineBreakMode = NSLineBreakByWordWrapping;
     label.textAlignment = NSTextAlignmentCenter;
     label.numberOfLines = 0 ;
+    /*
     if(selectedPickerViewType == kCountrySelected){
         if(row == 0) label.text = [NSString stringWithFormat:@"%@ %@",kSelectDefaultText,[[sectionsArray objectAtIndex:kCountryIndex] valueForKey:@"item"]] ;
         else label.text = [[countryArray objectAtIndex:row-1] valueForKey:@"name"] ;
@@ -1396,11 +1403,11 @@ static NSString * const kClientId = @"502919930015-7na0abn25duqcvgqn81e1ptuuo8s9
         if(row == 0) label.text = [NSString stringWithFormat:@"%@ %@",kSelectDefaultText,[[sectionsArray objectAtIndex:kStateIndex] valueForKey:@"item"]] ;
         else label.text = [[statesArray objectAtIndex:row-1] valueForKey:@"name"] ;
     }
-    
-    else{
+    */
+//    else{
         if(row == 0) label.text = kSelectSecurityQuesDefaultText ;
         else label.text = [[securityQuestionsArray objectAtIndex:row-1] valueForKey:@"name"] ;
-    }
+//    }
     
     return label;
 }

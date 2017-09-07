@@ -252,18 +252,19 @@
     }
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if(indexPath.row != campaignsArray.count){
+    if(indexPath.row != campaignsArray.count) {
         NSString *viewIdentifier = kCampaignDetailIdentifier ;
-         if(selectedCampaignType == MY_CAMPAIGNS_SELECTED){
-         viewIdentifier = kEditCampaignViewIdentifier ;
-         [UtilityClass setCampaignMode:YES] ;
+         if(selectedCampaignType == MY_CAMPAIGNS_SELECTED) {
+             viewIdentifier = kEditCampaignViewIdentifier ;
+             [UtilityClass setCampaignMode:YES] ;
          }
          else {
-         viewIdentifier = kCampaignDetailIdentifier ;
-         [UtilityClass setCampaignMode:NO] ;
+             viewIdentifier = kCampaignDetailIdentifier ;
+             [UtilityClass setCampaignMode:NO] ;
          }
+        
         [UtilityClass setCampaignDetails:(NSMutableDictionary*)[campaignsArray objectAtIndex:indexPath.row]] ;
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:viewIdentifier] ;

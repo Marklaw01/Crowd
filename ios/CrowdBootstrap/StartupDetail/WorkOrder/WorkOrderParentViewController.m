@@ -28,16 +28,16 @@
 
 #pragma mark - Custom Methods
 -(void)setNavigationBar {
-    if([UtilityClass getStartupWorkOrderType] == YES){
+    if([UtilityClass getStartupWorkOrderType] == YES) {
         self.title  = [[UtilityClass getStartupDetails] valueForKey:kStartupsAPI_StartupName] ;
     }
-    else{
+    else {
         self.title  = @"" ;
     }
 }
 
 -(void)resetUISettings {
-    if([[NSString stringWithFormat:@"%@",[[UtilityClass getStartupDetails] valueForKey:kStartupsAPI_isEntrepreneur]] isEqualToString:@"true"]){
+    if([[NSString stringWithFormat:@"%@",[[UtilityClass getStartupDetails] valueForKey:kStartupsAPI_isEntrepreneur]] isEqualToString:@"true"]) {
         entrepreneurWorkOrderView.hidden = NO ;
         contractorWorkOrderView.hidden = YES ;
     }

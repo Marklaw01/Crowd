@@ -1,11 +1,11 @@
 dependencies: \
-  /Users/osx/Desktop/shikha/CrowdBootstap/Pods/QuickBlox/Quickblox.framework/Modules/module.modulemap \
-  /Users/osx/Desktop/shikha/CrowdBootstap/CrowdBootstrap/Suggest\ Keywords/SuggestKeywordsViewController.m \
-  /Users/osx/Desktop/shikha/CrowdBootstap/CrowdBootstrap/Suggest\ Keywords/SuggestKeywordsViewController.h \
-  /Users/osx/Desktop/shikha/CrowdBootstap/CrowdBootstrap/SWTableViewCell.h \
-  /Users/osx/Desktop/shikha/CrowdBootstap/CrowdBootstrap/SWCellScrollView.h \
-  /Users/osx/Desktop/shikha/CrowdBootstap/CrowdBootstrap/SWLongPressGestureRecognizer.h \
-  /Users/osx/Desktop/shikha/CrowdBootstap/CrowdBootstrap/SWUtilityButtonTapGestureRecognizer.h \
-  /Users/osx/Desktop/shikha/CrowdBootstap/CrowdBootstrap/NSMutableArray+SWUtilityButtons.h \
-  /Users/osx/Desktop/shikha/CrowdBootstap/CrowdBootstrap/SWRevealViewController.h \
-  /Users/osx/Desktop/shikha/CrowdBootstap/CrowdBootstrap/Suggest\ Keywords/SuggestKeywordsTableViewCell.h
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/Pods/QuickBlox/Quickblox.framework/Modules/module.modulemap \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/CrowdBootstrap/Suggest\ Keywords/SuggestKeywordsViewController.m \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/CrowdBootstrap/Suggest\ Keywords/SuggestKeywordsViewController.h \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/CrowdBootstrap/SWTableViewCell.h \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/CrowdBootstrap/SWCellScrollView.h \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/CrowdBootstrap/SWLongPressGestureRecognizer.h \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/CrowdBootstrap/SWUtilityButtonTapGestureRecognizer.h \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/CrowdBootstrap/NSMutableArray+SWUtilityButtons.h \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/CrowdBootstrap/SWRevealViewController.h \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/CrowdBootstrap/Suggest\ Keywords/SuggestKeywordsTableViewCell.h

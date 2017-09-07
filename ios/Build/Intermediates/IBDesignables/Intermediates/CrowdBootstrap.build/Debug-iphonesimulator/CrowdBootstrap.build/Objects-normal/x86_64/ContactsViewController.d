@@ -1,9 +1,9 @@
 dependencies: \
-  /Users/osx/Desktop/shikha/CrowdBootstap/Pods/QuickBlox/Quickblox.framework/Modules/module.modulemap \
-  /Users/osx/Desktop/shikha/CrowdBootstap/CrowdBootstrap/Chat/ContactsViewController.m \
-  /Users/osx/Desktop/shikha/CrowdBootstap/CrowdBootstrap/Chat/ContactsViewController.h \
-  /Users/osx/Desktop/shikha/CrowdBootstap/CrowdBootstrap/SWRevealViewController.h \
-  /Users/osx/Desktop/shikha/CrowdBootstap/CrowdBootstrap/Notifications/NotificationsTableViewCell.h \
-  /Users/osx/Desktop/shikha/CrowdBootstap/CrowdBootstrap/DialogTableViewCell.h \
-  /Users/osx/Desktop/shikha/CrowdBootstap/CrowdBootstrap/ChatViewController.h \
-  /Users/osx/Desktop/shikha/CrowdBootstap/CrowdBootstrap/Payments/PaymentsTableViewCell.h
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/Pods/QuickBlox/Quickblox.framework/Modules/module.modulemap \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/CrowdBootstrap/Messaging/Chat/ContactsViewController.m \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/CrowdBootstrap/Messaging/Chat/ContactsViewController.h \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/CrowdBootstrap/SWRevealViewController.h \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/CrowdBootstrap/Messaging/Notifications/NotificationsTableViewCell.h \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/CrowdBootstrap/Messaging/Chat/DialogTableViewCell.h \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/CrowdBootstrap/Messaging/Chat/ChatUser/ChatViewController.h \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/CrowdBootstrap/Payments/PaymentsTableViewCell.h

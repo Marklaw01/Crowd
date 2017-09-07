@@ -38,6 +38,12 @@
     
     startupNameTxtFld.text = [NSString stringWithFormat:@"%@",[[UtilityClass getStartupDetails] valueForKey:kStartupsAPI_StartupName]] ;
     
+    if ([[kUSERDEFAULTS valueForKey:@"StartupProfileLink"] isEqualToString:@""])
+        profileLinkBtn.hidden = true;
+    else {
+        profileLinkBtn.hidden = false;
+        [profileLinkBtn setTitle:[NSString stringWithFormat:@"Profile Uploaded Link : %@%@", APIPortToBeUsed, [kUSERDEFAULTS valueForKey:@"StartupProfileLink"]] forState:UIControlStateNormal];
+    }
 }
 
 #pragma mark - IBAction Method
@@ -47,6 +53,11 @@
 
 - (IBAction)Upload_ClickAction:(id)sender {
     [self.navigationController popViewControllerAnimated:YES] ;
+}
+
+- (IBAction)profileUploadedLink_ClickAction:(id)sender {
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@", APIPortToBeUsed, [kUSERDEFAULTS valueForKey:@"StartupProfileLink"]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:strUrl]];
 }
 
 #pragma mark - Disable Editing Method

@@ -71,7 +71,6 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:kNotificationViewIdentifier] ;
     [self.navigationController pushViewController:viewController animated:YES] ;
-    
 }
 
 #pragma mark - Public Methods

@@ -305,6 +305,284 @@
     textView.layer.borderWidth=1.0;
 }
 
+#pragma mark - Check if come from Add/Edit Screen
+#pragma mark Funds
++(BOOL)checkIsComingFrom_Funds_AddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs boolForKey:kComeFrom_Funds_AddEdit] ;
+}
+
++(void)setComingFrom_Funds_AddEditScreen:(BOOL)isFromAddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    [prefs setBool:isFromAddEditScreen forKey:kComeFrom_Funds_AddEdit ];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark Beta Tester
++(BOOL)checkIsComingFrom_BetaTester_AddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs boolForKey:kComeFrom_BetaTester_AddEdit] ;
+}
+
++(void)setComingFrom_BetaTester_AddEditScreen:(BOOL)isFromAddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    [prefs setBool:isFromAddEditScreen forKey:kComeFrom_BetaTester_AddEdit ];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark Board Member
++(BOOL)checkIsComingFrom_BoardMember_AddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs boolForKey:kComeFrom_BoardMember_AddEdit] ;
+}
+
++(void)setComingFrom_BoardMember_AddEditScreen:(BOOL)isFromAddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    [prefs setBool:isFromAddEditScreen forKey:kComeFrom_BoardMember_AddEdit ];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark Communal Asset
++(BOOL)checkIsComingFrom_CommunalAsset_AddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs boolForKey:kComeFrom_CommunalAsset_AddEdit] ;
+}
+
++(void)setComingFrom_CommunalAsset_AddEditScreen:(BOOL)isFromAddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    [prefs setBool:isFromAddEditScreen forKey:kComeFrom_CommunalAsset_AddEdit ];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark Consulting
++(BOOL)checkIsComingFrom_Consulting_AddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs boolForKey:kComeFrom_Consulting_AddEdit] ;
+}
+
++(void)setComingFrom_Consulting_AddEditScreen:(BOOL)isFromAddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    [prefs setBool:isFromAddEditScreen forKey:kComeFrom_Consulting_AddEdit ];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark Early Adopter
++(BOOL)checkIsComingFrom_EarlyAdopter_AddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs boolForKey:kComeFrom_EarlyAdopter_AddEdit] ;
+}
+
++(void)setComingFrom_EarlyAdopter_AddEditScreen:(BOOL)isFromAddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    [prefs setBool:isFromAddEditScreen forKey:kComeFrom_EarlyAdopter_AddEdit ];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark Endorsor
++(BOOL)checkIsComingFrom_Endorsor_AddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs boolForKey:kComeFrom_Endorsor_AddEdit] ;
+}
+
++(void)setComingFrom_Endorsor_AddEditScreen:(BOOL)isFromAddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    [prefs setBool:isFromAddEditScreen forKey:kComeFrom_Endorsor_AddEdit ];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark Focus Group
++(BOOL)checkIsComingFrom_FocusGroup_AddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs boolForKey:kComeFrom_FocusGroup_AddEdit] ;
+}
+
++(void)setComingFrom_FocusGroup_AddEditScreen:(BOOL)isFromAddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    [prefs setBool:isFromAddEditScreen forKey:kComeFrom_FocusGroup_AddEdit ];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark Hardware
++(BOOL)checkIsComingFrom_Hardware_AddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs boolForKey:kComeFrom_Hardware_AddEdit] ;
+}
+
++(void)setComingFrom_Hardware_AddEditScreen:(BOOL)isFromAddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    [prefs setBool:isFromAddEditScreen forKey:kComeFrom_Hardware_AddEdit];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark Software
++(BOOL)checkIsComingFrom_Software_AddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs boolForKey:kComeFrom_Software_AddEdit] ;
+}
+
++(void)setComingFrom_Software_AddEditScreen:(BOOL)isFromAddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    [prefs setBool:isFromAddEditScreen forKey:kComeFrom_Software_AddEdit];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark Services
++(BOOL)checkIsComingFrom_Service_AddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs boolForKey:kComeFrom_Service_AddEdit] ;
+}
+
++(void)setComingFrom_Service_AddEditScreen:(BOOL)isFromAddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    [prefs setBool:isFromAddEditScreen forKey:kComeFrom_Service_AddEdit];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark Audio Video
++(BOOL)checkIsComingFrom_AudioVideo_AddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs boolForKey:kComeFrom_AudioVideo_AddEdit] ;
+}
+
++(void)setComingFrom_AudioVideo_AddEditScreen:(BOOL)isFromAddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    [prefs setBool:isFromAddEditScreen forKey:kComeFrom_AudioVideo_AddEdit];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark Information
++(BOOL)checkIsComingFrom_Information_AddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs boolForKey:kComeFrom_Information_AddEdit] ;
+}
+
++(void)setComingFrom_Information_AddEditScreen:(BOOL)isFromAddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    [prefs setBool:isFromAddEditScreen forKey:kComeFrom_Information_AddEdit];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark Productivity
++(BOOL)checkIsComingFrom_Productivity_AddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs boolForKey:kComeFrom_Productivity_AddEdit] ;
+}
+
++(void)setComingFrom_Productivity_AddEditScreen:(BOOL)isFromAddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    [prefs setBool:isFromAddEditScreen forKey:kComeFrom_Productivity_AddEdit];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark Group
++(BOOL)checkIsComingFrom_Group_AddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs boolForKey:kComeFrom_Group_AddEdit] ;
+}
+
++(void)setComingFrom_Group_AddEditScreen:(BOOL)isFromAddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    [prefs setBool:isFromAddEditScreen forKey:kComeFrom_Group_AddEdit];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark Webinar
++(BOOL)checkIsComingFrom_Webinar_AddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs boolForKey:kComeFrom_Webinar_AddEdit] ;
+}
+
++(void)setComingFrom_Webinar_AddEditScreen:(BOOL)isFromAddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    [prefs setBool:isFromAddEditScreen forKey:kComeFrom_Webinar_AddEdit];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark Meet Up
++(BOOL)checkIsComingFrom_MeetUp_AddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs boolForKey:kComeFrom_MeetUp_AddEdit] ;
+}
+
++(void)setComingFrom_MeetUp_AddEditScreen:(BOOL)isFromAddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    [prefs setBool:isFromAddEditScreen forKey:kComeFrom_MeetUp_AddEdit];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark Demo Day
++(BOOL)checkIsComingFrom_DemoDay_AddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs boolForKey:kComeFrom_DemoDay_AddEdit] ;
+}
+
++(void)setComingFrom_DemoDay_AddEditScreen:(BOOL)isFromAddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    [prefs setBool:isFromAddEditScreen forKey:kComeFrom_DemoDay_AddEdit];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark Conference
++(BOOL)checkIsComingFrom_Conference_AddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs boolForKey:kComeFrom_Conference_AddEdit] ;
+}
+
++(void)setComingFrom_Conference_AddEditScreen:(BOOL)isFromAddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    [prefs setBool:isFromAddEditScreen forKey:kComeFrom_Conference_AddEdit];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark Career Advancement
++(BOOL)checkIsComingFrom_Career_AddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs boolForKey:kComeFrom_Career_AddEdit] ;
+}
+
++(void)setComingFrom_Career_AddEditScreen:(BOOL)isFromAddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    [prefs setBool:isFromAddEditScreen forKey:kComeFrom_Career_AddEdit];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark Self Improvement
++(BOOL)checkIsComingFrom_Improvement_AddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs boolForKey:kComeFrom_Improvement_AddEdit] ;
+}
+
++(void)setComingFrom_Improvement_AddEditScreen:(BOOL)isFromAddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    [prefs setBool:isFromAddEditScreen forKey:kComeFrom_Improvement_AddEdit];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+
+#pragma mark Launch Deals
++(BOOL)checkIsComingFrom_LaunchDeal_AddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs boolForKey:kComeFrom_LaunchDeal_AddEdit] ;
+}
+
++(void)setComingFrom_LaunchDeal_AddEditScreen:(BOOL)isFromAddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    [prefs setBool:isFromAddEditScreen forKey:kComeFrom_LaunchDeal_AddEdit];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark Group Buying
++(BOOL)checkIsComingFrom_PurchaseOrder_AddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs boolForKey:kComeFrom_PurchaseOrder_AddEdit] ;
+}
+
++(void)setComingFrom_PurchaseOrder_AddEditScreen:(BOOL)isFromAddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    [prefs setBool:isFromAddEditScreen forKey:kComeFrom_PurchaseOrder_AddEdit];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
 #pragma mark - NSUser Defaults
 +(NSInteger)GetUserType {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
@@ -333,7 +611,7 @@
     return [prefs valueForKey:STARTUP_VIEW_MODE] ;
 }
 
-+(void)setStartupViewMode:(NSString*)startupViewType{
++(void)setStartupViewMode:(NSString*)startupViewType {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
     [prefs setValue:startupViewType forKey:STARTUP_VIEW_MODE] ;
     [[NSUserDefaults standardUserDefaults] synchronize] ;
@@ -447,6 +725,18 @@
     else return YES ;
 }
 
+#pragma mark - Settings Details
++(NSMutableDictionary*)getUserSettingDetails {
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:kUserSettingInfo];
+    return [[NSKeyedUnarchiver unarchiveObjectWithData:data] mutableCopy];
+}
+
++(void)setUserSettingDetails:(NSMutableDictionary*)userDetailsDict {
+    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:userDetailsDict] forKey:kUserSettingInfo];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+
 #pragma mark - Login User Details
 +(NSMutableDictionary*)getLoggedInUserDetails {
     NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:kLoggedInUserInfo];
@@ -536,6 +826,413 @@
     [[NSUserDefaults standardUserDefaults] synchronize] ;
 }
 
+#pragma mark - Public Profile Settings
++(NSString*)getPublicProfileSettings {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs valueForKey:kPublicProfileSettings] ;
+}
+
++(void)setPublicProfileSettings:(NSString*)isEnabled {
+    [[NSUserDefaults standardUserDefaults] setValue:isEnabled forKey:kPublicProfileSettings];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark - Beta Tester Settings
++(NSString*)getBetaTesterSettings {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs valueForKey:kBetaTesterSettings] ;
+}
+
++(void)setBetaTesterSettings:(NSString*)isEnabled {
+    [[NSUserDefaults standardUserDefaults] setValue:isEnabled forKey:kBetaTesterSettings];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark - Board Member Settings
++(NSString*)getBoardMemberSettings {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs valueForKey:kBoardMemberSettings] ;
+}
+
++(void)setBoardMemberSettings:(NSString*)isEnabled {
+    [[NSUserDefaults standardUserDefaults] setValue:isEnabled forKey:kBoardMemberSettings];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark - Consulting Settings
++(NSString*)getConsultingSettings {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs valueForKey:kConsultingSettings] ;
+}
+
++(void)setConsultingSettings:(NSString*)isEnabled {
+    [[NSUserDefaults standardUserDefaults] setValue:isEnabled forKey:kConsultingSettings];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark - Early Adopter Settings
++(NSString*)getEarlyAdopterSettings {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs valueForKey:kEarlyAdopterSettings] ;
+}
+
++(void)setEarlyAdopterSettings:(NSString*)isEnabled {
+    [[NSUserDefaults standardUserDefaults] setValue:isEnabled forKey:kEarlyAdopterSettings];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark - Endorser Settings
++(NSString*)getEndorserSettings {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs valueForKey:kEndorserSettings] ;
+}
+
++(void)setEndorserSettings:(NSString*)isEnabled {
+    [[NSUserDefaults standardUserDefaults] setValue:isEnabled forKey:kEndorserSettings];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark - Focus Group Settings
++(NSString*)getFocusGroupSettings {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs valueForKey:kFocusGroupSettings] ;
+}
+
++(void)setFocusGroupSettings:(NSString*)isEnabled {
+    [[NSUserDefaults standardUserDefaults] setValue:isEnabled forKey:kFocusGroupSettings];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark - Audio/Video Settings
++(NSString*)getAudioVideoUpdatesSettings {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs valueForKey:kAudioVideoUpdateSettings] ;
+}
+
++(void)setAudioVideoUpdatesSettings:(NSString*)isEnabled {
+    [[NSUserDefaults standardUserDefaults] setValue:isEnabled forKey:kAudioVideoUpdateSettings];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark - Beta Test Updates Settings
++(NSString*)getBetaTestUpdatesSettings {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs valueForKey:kBetaTestUpdatesSettings] ;
+}
+
++(void)setBetaTestUpdatesSettings:(NSString*)isEnabled {
+    [[NSUserDefaults standardUserDefaults] setValue:isEnabled forKey:kBetaTestUpdatesSettings];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark - Board Member Updates Settings
++(NSString*)getBoardMemberUpdatesSettings {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs valueForKey:kBoardMemberUpdatesSettings] ;
+}
+
++(void)setBoardMemberUpdatesSettings:(NSString*)isEnabled {
+    [[NSUserDefaults standardUserDefaults] setValue:isEnabled forKey:kBoardMemberUpdatesSettings];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark - Campaign Followed Updates Settings
++(NSString*)getCampaignFollowedUpdatesSettings {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs valueForKey:kCampaignFollowedUpdatesSettings] ;
+}
+
++(void)setCampaignFollowedUpdatesSettings:(NSString*)isEnabled {
+    [[NSUserDefaults standardUserDefaults] setValue:isEnabled forKey:kCampaignFollowedUpdatesSettings];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark - Campaign Committed Updates Settings
++(NSString*)getCampaignCommittedUpdatesSettings {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs valueForKey:kCampaignCommittedUpdatesSettings] ;
+}
+
++(void)setCampaignCommittedUpdatesSettings:(NSString*)isEnabled {
+    [[NSUserDefaults standardUserDefaults] setValue:isEnabled forKey:kCampaignCommittedUpdatesSettings];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark - Career Updates Settings
++(NSString*)getCareerUpdatesSettings {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs valueForKey:kCareerUpdatesSettings] ;
+}
+
++(void)setCareerUpdatesSettings:(NSString*)isEnabled {
+    [[NSUserDefaults standardUserDefaults] setValue:isEnabled forKey:kCareerUpdatesSettings];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark - Communal Asset Updates Settings
++(NSString*)getCommunalAssetUpdatesSettings {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs valueForKey:kCommunalAssetUpdatesSettings] ;
+}
+
++(void)setCommunalAssetUpdatesSettings:(NSString*)isEnabled {
+    [[NSUserDefaults standardUserDefaults] setValue:isEnabled forKey:kCommunalAssetUpdatesSettings];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark - Conference Updates Settings
++(NSString*)getConferenceUpdatesSettings {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs valueForKey:kConferenceUpdatesSettings] ;
+}
+
++(void)setConferenceUpdatesSettings:(NSString*)isEnabled {
+    [[NSUserDefaults standardUserDefaults] setValue:isEnabled forKey:kConferenceUpdatesSettings];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark - Connection Updates Settings
++(NSString*)getConnectionUpdatesSettings {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs valueForKey:kConnectionUpdatesSettings] ;
+}
+
++(void)setConnectionUpdatesSettings:(NSString*)isEnabled {
+    [[NSUserDefaults standardUserDefaults] setValue:isEnabled forKey:kConnectionUpdatesSettings];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark - Consulting Updates Settings
++(NSString*)getConsultingUpdatesSettings {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs valueForKey:kConsultingUpdatesSettings] ;
+}
+
++(void)setConsultingUpdatesSettings:(NSString*)isEnabled {
+    [[NSUserDefaults standardUserDefaults] setValue:isEnabled forKey:kConsultingUpdatesSettings];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark - Demo Day Updates Settings
++(NSString*)getDemoDayUpdatesSettings {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs valueForKey:kDemoDayUpdatesSettings] ;
+}
+
++(void)setDemoDayUpdatesSettings:(NSString*)isEnabled {
+    [[NSUserDefaults standardUserDefaults] setValue:isEnabled forKey:kDemoDayUpdatesSettings];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark - Early Edopter Updates Settings
++(NSString*)getEarlyAdopterUpdatesSettings {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs valueForKey:kEarlyAdopterUpdatesSettings] ;
+}
+
++(void)setEarlyAdopterUpdatesSettings:(NSString*)isEnabled {
+    [[NSUserDefaults standardUserDefaults] setValue:isEnabled forKey:kEarlyAdopterUpdatesSettings];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark - Endorsor Updates Settings
++(NSString*)getEndorsorUpdatesSettings {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs valueForKey:kEndorsorUpdatesSettings] ;
+}
+
++(void)setEndorsorUpdatesSettings:(NSString*)isEnabled {
+    [[NSUserDefaults standardUserDefaults] setValue:isEnabled forKey:kEndorsorUpdatesSettings];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark - Focus Group Updates Settings
++(NSString*)getFocusGroupUpdatesSettings {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs valueForKey:kFocusGroupUpdatesSettings] ;
+}
+
++(void)setFocusGroupUpdatesSettings:(NSString*)isEnabled {
+    [[NSUserDefaults standardUserDefaults] setValue:isEnabled forKey:kFocusGroupUpdatesSettings];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark - Forum Updates Settings
++(NSString*)getForumUpdatesSettings {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs valueForKey:kForumUpdatesSettings] ;
+}
+
++(void)setForumUpdatesSettings:(NSString*)isEnabled {
+    [[NSUserDefaults standardUserDefaults] setValue:isEnabled forKey:kForumUpdatesSettings];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark - Fund Updates Settings
++(NSString*)getFundUpdatesSettings {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs valueForKey:kFundUpdatesSettings] ;
+}
+
++(void)setFundUpdatesSettings:(NSString*)isEnabled {
+    [[NSUserDefaults standardUserDefaults] setValue:isEnabled forKey:kFundUpdatesSettings];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark - Group Updates Settings
++(NSString*)getGroupUpdatesSettings {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs valueForKey:kGroupUpdatesSettings] ;
+}
+
++(void)setGroupUpdatesSettings:(NSString*)isEnabled {
+    [[NSUserDefaults standardUserDefaults] setValue:isEnabled forKey:kGroupUpdatesSettings];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark - Group Buying Updates Settings
++(NSString*)getGroupBuyingUpdatesSettings {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs valueForKey:kGroupBuyingUpdatesSettings] ;
+}
+
++(void)setGroupBuyingUpdatesSettings:(NSString*)isEnabled {
+    [[NSUserDefaults standardUserDefaults] setValue:isEnabled forKey:kGroupBuyingUpdatesSettings];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark - Hardware Updates Settings
++(NSString*)getHardwareUpdatesSettings {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs valueForKey:kHardwareUpdatesSettings] ;
+}
+
++(void)setHardwareUpdatesSettings:(NSString*)isEnabled {
+    [[NSUserDefaults standardUserDefaults] setValue:isEnabled forKey:kHardwareUpdatesSettings];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark - Information Updates Settings
++(NSString*)getInformationUpdatesSettings {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs valueForKey:kInformationUpdatesSettings] ;
+}
+
++(void)setInformationUpdatesSettings:(NSString*)isEnabled {
+    [[NSUserDefaults standardUserDefaults] setValue:isEnabled forKey:kInformationUpdatesSettings];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark - Job Updates Settings
++(NSString*)getJobUpdatesSettings {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs valueForKey:kJobUpdatesSettings] ;
+}
+
++(void)setJobUpdatesSettings:(NSString*)isEnabled {
+    [[NSUserDefaults standardUserDefaults] setValue:isEnabled forKey:kJobUpdatesSettings];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark - Launch Deal Updates Settings
++(NSString*)getLaunchDealUpdatesSettings {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs valueForKey:kLaunchDealUpdatesSettings] ;
+}
+
++(void)setLaunchDealUpdatesSettings:(NSString*)isEnabled {
+    [[NSUserDefaults standardUserDefaults] setValue:isEnabled forKey:kLaunchDealUpdatesSettings];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark - Meetup Updates Settings
++(NSString*)getMeetupUpdatesSettings {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs valueForKey:kMeetupUpdatesSettings] ;
+}
+
++(void)setMeetupUpdatesSettings:(NSString*)isEnabled {
+    [[NSUserDefaults standardUserDefaults] setValue:isEnabled forKey:kMeetupUpdatesSettings];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark - Organization Updates Settings
++(NSString*)getOrganizationUpdatesSettings {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs valueForKey:kOrganizationUpdatesSettings] ;
+}
+
++(void)setOrganizationUpdatesSettings:(NSString*)isEnabled {
+    [[NSUserDefaults standardUserDefaults] setValue:isEnabled forKey:kOrganizationUpdatesSettings];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark - Productivity Updates Settings
++(NSString*)getProductivityUpdatesSettings {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs valueForKey:kProductivityUpdatesSettings] ;
+}
+
++(void)setProductivityUpdatesSettings:(NSString*)isEnabled {
+    [[NSUserDefaults standardUserDefaults] setValue:isEnabled forKey:kProductivityUpdatesSettings];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark - Self Improvement Updates Settings
++(NSString*)getSelfImprovementUpdatesSettings {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs valueForKey:kSelfImprovementUpdatesSettings] ;
+}
+
++(void)setSelfImprovementUpdatesSettings:(NSString*)isEnabled {
+    [[NSUserDefaults standardUserDefaults] setValue:isEnabled forKey:kSelfImprovementUpdatesSettings];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark - Service Updates Settings
++(NSString*)getServiceUpdatesSettings {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs valueForKey:kServiceUpdatesSettings] ;
+}
+
++(void)setServiceUpdatesSettings:(NSString*)isEnabled {
+    [[NSUserDefaults standardUserDefaults] setValue:isEnabled forKey:kServiceUpdatesSettings];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark - Software Updates Settings
++(NSString*)getSoftwareUpdatesSettings {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs valueForKey:kSoftwareUpdatesSettings] ;
+}
+
++(void)setSoftwareUpdatesSettings:(NSString*)isEnabled {
+    [[NSUserDefaults standardUserDefaults] setValue:isEnabled forKey:kSoftwareUpdatesSettings];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark - Startup Updates Settings
++(NSString*)getStartupUpdatesSettings {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs valueForKey:kStartupUpdatesSettings] ;
+}
+
++(void)setStartupUpdatesSettings:(NSString*)isEnabled {
+    [[NSUserDefaults standardUserDefaults] setValue:isEnabled forKey:kStartupUpdatesSettings];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
+#pragma mark - Webinar Updates Settings
++(NSString*)getWebinarUpdatesSettings {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs valueForKey:kWebinarUpdatesSettings] ;
+}
+
++(void)setWebinarUpdatesSettings:(NSString*)isEnabled {
+    [[NSUserDefaults standardUserDefaults] setValue:isEnabled forKey:kWebinarUpdatesSettings];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
 #pragma mark - Campaign Detail
 +(NSMutableDictionary*)getCampaignDetails {
     NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:kCampaignDetail];
@@ -577,6 +1274,259 @@
 
 +(void)setJobDetails:(NSMutableDictionary*)jobDict {
     [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:jobDict] forKey:kJobDetail];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+#pragma mark - Funds Detail
++(NSMutableDictionary*)getFundsDetails {
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:kFundsDetail];
+    return [[NSKeyedUnarchiver unarchiveObjectWithData:data] mutableCopy];
+}
+
++(void)setFundsDetails:(NSMutableDictionary*)fundDict {
+    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:fundDict] forKey:kFundsDetail];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+#pragma mark - Beta Tests Detail
++(NSMutableDictionary*)getBetaTestDetails {
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:kBetaTestsDetail];
+    return [[NSKeyedUnarchiver unarchiveObjectWithData:data] mutableCopy];
+}
+
++(void)setBetaTestDetails:(NSMutableDictionary*)betaTestDict {
+    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:betaTestDict] forKey:kBetaTestsDetail];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+#pragma mark - Board Member Detail
++(NSMutableDictionary*)getBoardMemberDetails {
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:kBoardMemberDetail];
+    return [[NSKeyedUnarchiver unarchiveObjectWithData:data] mutableCopy];
+}
+
++(void)setBoardMemberDetails:(NSMutableDictionary*)boardMemberDict {
+    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:boardMemberDict] forKey:kBoardMemberDetail];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+#pragma mark - Communal Asset Detail
++(NSMutableDictionary*)getCommunalAssetDetails {
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:kCommunalAssetDetail];
+    return [[NSKeyedUnarchiver unarchiveObjectWithData:data] mutableCopy];
+}
+
++(void)setCommunalAssetDetails:(NSMutableDictionary*)communalAssetDict {
+    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:communalAssetDict] forKey:kCommunalAssetDetail];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+#pragma mark - Consulting Detail
++(NSMutableDictionary*)getConsultingDetails {
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:kConsultingDetail];
+    return [[NSKeyedUnarchiver unarchiveObjectWithData:data] mutableCopy];
+}
+
++(void)setConsultingDetails:(NSMutableDictionary*)consultingDict {
+    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:consultingDict] forKey:kConsultingDetail];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+#pragma mark - Early Adopter Detail
++(NSMutableDictionary*)getEarlyAdopterDetails {
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:kEarlyAdopterDetail];
+    return [[NSKeyedUnarchiver unarchiveObjectWithData:data] mutableCopy];
+}
+
++(void)setEarlyAdopterDetails:(NSMutableDictionary*)earlyAdopterDict {
+    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:earlyAdopterDict] forKey:kEarlyAdopterDetail];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+#pragma mark - Endorsor Detail
++(NSMutableDictionary*)getEndorsorDetails {
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:kEndorsorDetail];
+    return [[NSKeyedUnarchiver unarchiveObjectWithData:data] mutableCopy];
+}
+
++(void)setEndorsorDetails:(NSMutableDictionary*)endorsorDict {
+    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:endorsorDict] forKey:kEndorsorDetail];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+#pragma mark - Focus Group Detail
++(NSMutableDictionary*)getFocusGroupDetails {
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:kFocusGroupDetail];
+    return [[NSKeyedUnarchiver unarchiveObjectWithData:data] mutableCopy];
+}
+
++(void)setFocusGroupDetails:(NSMutableDictionary*)focusGroupDict {
+    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:focusGroupDict] forKey:kFocusGroupDetail];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+#pragma mark - Hardware Detail
++(NSMutableDictionary*)getHardwareDetails {
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:kHardwareDetail];
+    return [[NSKeyedUnarchiver unarchiveObjectWithData:data] mutableCopy];
+}
+
++(void)setHardwareDetails:(NSMutableDictionary*)hardwareDict {
+    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:hardwareDict] forKey:kHardwareDetail];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+#pragma mark - Software Detail
++(NSMutableDictionary*)getSoftwareDetails {
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:kSoftwareDetail];
+    return [[NSKeyedUnarchiver unarchiveObjectWithData:data] mutableCopy];
+}
+
++(void)setSoftwareDetails:(NSMutableDictionary*)softwareDict {
+    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:softwareDict] forKey:kSoftwareDetail];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+#pragma mark - Service Detail
++(NSMutableDictionary*)getServiceDetails {
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:kServiceDetail];
+    return [[NSKeyedUnarchiver unarchiveObjectWithData:data] mutableCopy];
+}
+
++(void)setServiceDetails:(NSMutableDictionary*)serviceDict {
+    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:serviceDict] forKey:kServiceDetail];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+#pragma mark - Audio Video Detail
++(NSMutableDictionary*)getAudioVideoDetails {
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:kAudioVideoDetail];
+    return [[NSKeyedUnarchiver unarchiveObjectWithData:data] mutableCopy];
+}
+
++(void)setAudioVideoDetails:(NSMutableDictionary*)audioVideoDict {
+    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:audioVideoDict] forKey:kAudioVideoDetail];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+#pragma mark - Information Detail
++(NSMutableDictionary*)getInformationDetails {
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:kInformationDetail];
+    return [[NSKeyedUnarchiver unarchiveObjectWithData:data] mutableCopy];
+}
+
++(void)setInformationDetails:(NSMutableDictionary*)informationDict {
+    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:informationDict] forKey:kInformationDetail];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+#pragma mark - Productivity Detail
++(NSMutableDictionary*)getProductivityDetails {
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:kProductivityDetail];
+    return [[NSKeyedUnarchiver unarchiveObjectWithData:data] mutableCopy];
+}
+
++(void)setProductivityDetails:(NSMutableDictionary*)productivityDict {
+    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:productivityDict] forKey:kProductivityDetail];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+#pragma mark - Group Detail
++(NSMutableDictionary*)getGroupDetails {
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:kGroupDetail];
+    return [[NSKeyedUnarchiver unarchiveObjectWithData:data] mutableCopy];
+}
+
++(void)setGroupDetails:(NSMutableDictionary*)groupDict {
+    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:groupDict] forKey:kGroupDetail];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+#pragma mark - Webinar Detail
++(NSMutableDictionary*)getWebinarDetails {
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:kWebinarDetail];
+    return [[NSKeyedUnarchiver unarchiveObjectWithData:data] mutableCopy];
+}
+
++(void)setWebinarDetails:(NSMutableDictionary*)webinarDict {
+    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:webinarDict] forKey:kWebinarDetail];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+#pragma mark - Meet Up Detail
++(NSMutableDictionary*)getMeetUpDetails {
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:kMeetUpDetail];
+    return [[NSKeyedUnarchiver unarchiveObjectWithData:data] mutableCopy];
+}
+
++(void)setMeetUpDetails:(NSMutableDictionary*)meetUpDict {
+    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:meetUpDict] forKey:kMeetUpDetail];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+#pragma mark - Demo Day Detail
++(NSMutableDictionary*)getDemoDayDetails {
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:kDemoDayDetail];
+    return [[NSKeyedUnarchiver unarchiveObjectWithData:data] mutableCopy];
+}
+
++(void)setDemoDayDetails:(NSMutableDictionary*)demoDayDict {
+    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:demoDayDict] forKey:kDemoDayDetail];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+#pragma mark - Conference Detail
++(NSMutableDictionary*)getConferenceDetails {
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:kConferenceDetail];
+    return [[NSKeyedUnarchiver unarchiveObjectWithData:data] mutableCopy];
+}
+
++(void)setConferenceDetails:(NSMutableDictionary*)conferenceDict {
+    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:conferenceDict] forKey:kConferenceDetail];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+#pragma mark - Career Detail
++(NSMutableDictionary*)getCareerDetails {
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:kCareerDetail];
+    return [[NSKeyedUnarchiver unarchiveObjectWithData:data] mutableCopy];
+}
+
++(void)setCareerDetails:(NSMutableDictionary*)careerDict {
+    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:careerDict] forKey:kCareerDetail];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+#pragma mark - Improvement Tool Detail
++(NSMutableDictionary*)getImprovementToolDetails {
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:kImprovementToolDetail];
+    return [[NSKeyedUnarchiver unarchiveObjectWithData:data] mutableCopy];
+}
+
++(void)setImprovementToolDetails:(NSMutableDictionary*)improvementToolDict {
+    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:improvementToolDict] forKey:kImprovementToolDetail];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+#pragma mark - Launch Deal Detail
++(NSMutableDictionary*)getLaunchDealDetails {
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:kLaunchDealDetail];
+    return [[NSKeyedUnarchiver unarchiveObjectWithData:data] mutableCopy];
+}
+
++(void)setLaunchDealDetails:(NSMutableDictionary*)launchDealDict {
+    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:launchDealDict] forKey:kLaunchDealDetail];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+#pragma mark - Group Buying/Purchase Order Detail
++(NSMutableDictionary*)getPurchaseOrderDetails {
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:kPurchaseOrderDetail];
+    return [[NSKeyedUnarchiver unarchiveObjectWithData:data] mutableCopy];
+}
+
++(void)setPurchaseOrderDetails:(NSMutableDictionary*)purchaseOrderDict {
+    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:purchaseOrderDict] forKey:kPurchaseOrderDetail];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
