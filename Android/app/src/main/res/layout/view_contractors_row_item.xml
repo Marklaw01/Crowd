@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingBottom="5dp"
+    android:paddingTop="5dp">
+
+
+    <com.crowdbootstrap.helper.CircleImageView
+        android:id="@+id/userimage"
+        android:layout_width="50sp"
+        android:layout_marginRight="10sp"
+        android:layout_height="50sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_ContractorName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="0.5"
+            android:gravity="left"
+            android:text="Contractor 1"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/mediumTextStyle" />
+
+
+        <TextView
+            android:id="@+id/tv_contractorContribution"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|right"
+            android:layout_weight="0.5"
+            android:gravity="right"
+            android:text="$21,230.00"
+            android:textColor="@color/green"
+            android:textSize="@dimen/mediumTextStyle" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

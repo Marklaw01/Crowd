@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="?attr/actionBarSize"
+    android:background="@color/app_backgroundColor"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/padding"
+    android:paddingLeft="@dimen/padding"
+    android:paddingRight="@dimen/padding">
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5sp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/et_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_weight="0.8"
+            android:background="@drawable/emailtextbox"
+            android:ems="10"
+            android:hint="@string/search"
+            android:imeActionLabel="Search"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:paddingLeft="10sp"
+            android:paddingRight="10sp"
+            android:singleLine="true"
+            android:textColor="@color/textColor"
+            android:textColorHint="@color/textColor"
+            android:textSize="@dimen/smallTextStyle">
+
+            <requestFocus />
+        </EditText>
+
+        <TextView
+            android:id="@+id/btn_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:background="@android:drawable/ic_menu_search"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+
+    <com.staging.loadmore_listview.LoadMoreListView
+        android:id="@+id/list_funds"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.8"
+        android:cacheColorHint="#FFFFFFFF"
+        android:divider="@color/lightGray"
+        android:dividerHeight="1dp"
+        android:fadingEdge="none"
+        android:fastScrollEnabled="true"
+        android:scrollingCache="false" />
+
+    <Button
+        android:id="@+id/btn_createFund"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/green_color_button"
+        android:text="@string/createFund"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+</LinearLayout>

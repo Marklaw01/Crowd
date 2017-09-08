@@ -1,0 +1,628 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+
+    android:orientation="vertical"
+    android:padding="15sp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Switch
+                android:id="@+id/switchNotification"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15sp"
+                android:switchPadding="10sp"
+                android:text="@string/notification"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/darkGrey" />
+
+            <Switch
+                android:id="@+id/switchPublicProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15sp"
+                android:switchPadding="10sp"
+                android:text="@string/publicProfileSetting"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+
+                android:textStyle="normal" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/darkGrey" />
+
+            <Switch
+                android:id="@+id/switchBetaTester"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15sp"
+                android:switchPadding="10sp"
+                android:text="Register for Beta Tester opportunities"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+
+                android:textStyle="normal" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/darkGrey" />
+
+            <Switch
+                android:id="@+id/sitchBoardMember"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15sp"
+                android:switchPadding="10sp"
+                android:text="Register for Board Member opportunities"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/darkGrey" />
+
+            <Switch
+                android:id="@+id/switchEarlyAdopter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15sp"
+                android:switchPadding="10sp"
+                android:text="Register for Early Adopter opportunities"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/darkGrey" />
+
+            <Switch
+                android:id="@+id/switchEndorser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15sp"
+                android:switchPadding="10sp"
+                android:text="Register for Endorser opportunities"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/darkGrey" />
+
+            <Switch
+                android:id="@+id/switchFocusGroups"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15sp"
+                android:switchPadding="10sp"
+                android:text="Register for Focus Group opportunities"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/darkGrey" />
+            <Switch
+                android:id="@+id/switchConsulting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15sp"
+                android:switchPadding="10sp"
+                android:text="Register for Consulting opportunities"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/darkGrey" />
+            <TextView
+                android:id="@+id/feedstxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginTop="35dp"
+                android:text="Feed Settings"
+                android:textSize="18sp"
+                android:textStyle="normal" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/darkGrey" />
+            <Switch
+                android:id="@+id/connectionsUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15sp"
+                android:switchPadding="10sp"
+                android:text="My Connection Updates"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/darkGrey" />
+            <Switch
+                android:id="@+id/startupUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15sp"
+                android:switchPadding="10sp"
+                android:text="Startup Updates"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/darkGrey" />
+            <Switch
+                android:id="@+id/fundUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15sp"
+                android:switchPadding="10sp"
+                android:text="Fund Updates"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/darkGrey" />
+            <Switch
+                android:id="@+id/campaignFollowedUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15sp"
+                android:switchPadding="10sp"
+                android:text="Campaign Followed Updates"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/darkGrey" />
+            <Switch
+                android:id="@+id/campaignCommitedUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15sp"
+                android:switchPadding="10sp"
+                android:text="Campaign Committed Updates"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/darkGrey" />
+            <Switch
+                android:id="@+id/selfImprovementUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15sp"
+                android:switchPadding="10sp"
+                android:text="Self Improvement Tool Updates"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/darkGrey" />
+            <Switch
+                android:id="@+id/careerHelpUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15sp"
+                android:switchPadding="10sp"
+                android:text="Career Help Tool Updates"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/darkGrey" />
+            <Switch
+                android:id="@+id/organizationUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15sp"
+                android:switchPadding="10sp"
+                android:text="Organization Updates"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/darkGrey" />
+            <Switch
+                android:id="@+id/forumUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15sp"
+                android:switchPadding="10sp"
+                android:text="Forum Updates"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/darkGrey" />
+            <Switch
+                android:id="@+id/groupUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15sp"
+                android:switchPadding="10sp"
+                android:text="Group Updates"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/darkGrey" />
+            <Switch
+                android:id="@+id/hadwareUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15sp"
+                android:switchPadding="10sp"
+                android:text="Hardware Updates"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/darkGrey" />
+            <Switch
+                android:id="@+id/softwareUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15sp"
+                android:switchPadding="10sp"
+                android:text="Software Updates"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/darkGrey" />
+            <Switch
+                android:id="@+id/serviceUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15sp"
+                android:switchPadding="10sp"
+                android:text="Service Updates"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/darkGrey" />
+            <Switch
+                android:id="@+id/audioVideoUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15sp"
+                android:switchPadding="10sp"
+                android:text="Audio/Video Updates"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/darkGrey" />
+            <Switch
+                android:id="@+id/informationUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15sp"
+                android:switchPadding="10sp"
+                android:text="Information Updates"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/darkGrey" />
+            <Switch
+                android:id="@+id/productivityUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15sp"
+                android:switchPadding="10sp"
+                android:text="Productivity Updates"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/darkGrey" />
+            <Switch
+                android:id="@+id/conferenceUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15sp"
+                android:switchPadding="10sp"
+                android:text="Conference Updates"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/darkGrey" />
+            <Switch
+                android:id="@+id/demodayUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15sp"
+                android:switchPadding="10sp"
+                android:text="Demo Day Updates"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/darkGrey" />
+            <Switch
+                android:id="@+id/meetupUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15sp"
+                android:switchPadding="10sp"
+                android:text="Meetup Updates"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/darkGrey" />
+            <Switch
+                android:id="@+id/webinarUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15sp"
+                android:switchPadding="10sp"
+                android:text="Webinar Updates"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/darkGrey" />
+            <Switch
+                android:id="@+id/betatestUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15sp"
+                android:switchPadding="10sp"
+                android:text="Beta Test Updates"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/darkGrey" />
+            <Switch
+                android:id="@+id/boardmemberUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15sp"
+                android:switchPadding="10sp"
+                android:text="Board Member Updates"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/darkGrey" />
+            <Switch
+                android:id="@+id/communalassetUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15sp"
+                android:switchPadding="10sp"
+                android:text="Communal Asset Updates"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/darkGrey" />
+            <Switch
+                android:id="@+id/consultingUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15sp"
+                android:switchPadding="10sp"
+                android:text="Consulting Updates"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/darkGrey" />
+            <Switch
+                android:id="@+id/earlyadopterUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15sp"
+                android:switchPadding="10sp"
+                android:text="Early Adopter Updates"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/darkGrey" />
+            <Switch
+                android:id="@+id/endorserUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15sp"
+                android:switchPadding="10sp"
+                android:text="Endorser Updates"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/darkGrey" />
+            <Switch
+                android:id="@+id/focusgroupUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15sp"
+                android:switchPadding="10sp"
+                android:text="Focus Group Updates"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/darkGrey" />
+            <Switch
+                android:id="@+id/jobUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15sp"
+                android:switchPadding="10sp"
+                android:text="Job Updates"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/darkGrey" />
+            <Switch
+                android:id="@+id/launchDealUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15sp"
+                android:switchPadding="10sp"
+                android:text="Launch Deal Updates"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/darkGrey" />
+            <Switch
+                android:id="@+id/groupBuyingUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15sp"
+                android:switchPadding="10sp"
+                android:text="Group Buying Updates"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/darkGrey" />
+            <TextView
+                android:id="@+id/txtVersion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="35dp"
+                android:text="Version: Crowd Bootstrap v1.29"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

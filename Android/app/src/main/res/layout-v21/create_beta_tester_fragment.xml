@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="?attr/actionBarSize"
+    android:background="@color/app_backgroundColor"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10sp">
+
+            <TextView
+                android:id="@+id/namelbl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:paddingRight="10sp"
+                android:singleLine="true"
+                android:text="@string/beta_test_s_title"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/mediumTextStyle"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/et_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+
+                android:background="@drawable/emailtextbox"
+                android:ems="10"
+                android:hint="@string/beta_test_s_title"
+                android:inputType="textCapWords"
+                android:maxLines="1"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/mediumTextStyle" />
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:paddingRight="10sp"
+                android:singleLine="true"
+                android:text="Beta Test Description"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/mediumTextStyle"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/et_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|top"
+
+                android:background="@drawable/multiline_textview"
+                android:ems="10"
+                android:gravity="left|top"
+                android:hint="@string/description"
+                android:inputType="textMultiLine|textCapSentences"
+                android:maxLines="10"
+                android:padding="10sp"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/mediumTextStyle" />
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:paddingRight="10sp"
+                android:singleLine="true"
+                android:text="Beta Test Start Date"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/mediumTextStyle"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/et_start_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:background="@drawable/calender_input"
+                android:cursorVisible="false"
+                android:ems="10"
+                android:focusable="false"
+                android:hint="@string/start_date"
+                android:inputType="none|textNoSuggestions"
+                android:maxLines="1"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:textColor="@color/textColor"
+
+                android:textSize="15sp" />
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:paddingRight="10sp"
+                android:singleLine="true"
+                android:text="Beta Test End Date"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/mediumTextStyle"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/et_endDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:background="@drawable/calender_input"
+                android:cursorVisible="false"
+                android:ems="10"
+                android:focusable="false"
+                android:hint="@string/endDate"
+                android:inputType="none|textNoSuggestions"
+                android:maxLines="1"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:textColor="@color/textColor"
+
+                android:textSize="15sp" />
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:paddingRight="10sp"
+                android:singleLine="true"
+                android:text="@string/target_market"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/mediumTextStyle"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/et_targetMarket"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+
+                android:background="@drawable/emailtextbox"
+                android:cursorVisible="false"
+                android:ems="10"
+                android:singleLine="true"
+                android:focusable="false"
+                android:hint="@string/target_market"
+                android:inputType="none"
+                android:maxLines="1"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/mediumTextStyle" />
+            <!--<TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sponsers"
+                android:paddingRight="10sp"
+                android:layout_marginTop="10sp"
+                android:singleLine="true"
+                android:textColor="@color/textColor"
+                android:textStyle="bold"
+                android:textSize="@dimen/mediumTextStyle" />
+            <EditText
+                android:id="@+id/et_fundsponsers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+
+                android:background="@drawable/emailtextbox"
+                android:cursorVisible="false"
+                android:ems="10"
+                android:focusable="false"
+                android:hint="@string/sponsers"
+                android:inputType="none"
+
+                android:maxLines="1"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/mediumTextStyle" />
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/industry"
+                android:paddingRight="10sp"
+                android:layout_marginTop="10sp"
+                android:singleLine="true"
+                android:textColor="@color/textColor"
+                android:textStyle="bold"
+                android:textSize="@dimen/mediumTextStyle" />
+            <EditText
+                android:id="@+id/et_industry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+
+                android:background="@drawable/emailtextbox"
+
+                android:cursorVisible="false"
+                android:ems="10"
+                android:focusable="false"
+                android:hint="@string/industry"
+                android:inputType="none"
+                android:maxLines="1"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/mediumTextStyle" />
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/portfolio_companies"
+                android:paddingRight="10sp"
+                android:layout_marginTop="10sp"
+                android:singleLine="true"
+                android:textColor="@color/textColor"
+                android:textStyle="bold"
+                android:textSize="@dimen/mediumTextStyle" />
+            <EditText
+                android:id="@+id/et_portfolio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+
+                android:background="@drawable/emailtextbox"
+
+                android:cursorVisible="false"
+                android:ems="10"
+                android:focusable="false"
+                android:hint="@string/portfolio_companies"
+                android:inputType="none"
+                android:maxLines="1"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/mediumTextStyle" />-->
+
+            <!--<TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/funds_closed_date"
+                android:paddingRight="10sp"
+                android:layout_marginTop="10sp"
+                android:singleLine="true"
+                android:textColor="@color/textColor"
+                android:textStyle="bold"
+                android:textSize="@dimen/mediumTextStyle" />
+            <EditText
+                android:id="@+id/et_fundsClosedDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:background="@drawable/calender_input"
+                android:cursorVisible="false"
+                android:ems="10"
+                android:focusable="false"
+                android:hint="@string/funds_closed_date"
+                android:inputType="none|textNoSuggestions"
+                android:maxLines="1"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:textColor="@color/textColor"
+
+                android:textSize="15sp" />-->
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:paddingRight="10sp"
+                android:singleLine="true"
+                android:text="Beta Test Keywords"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/mediumTextStyle"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/et_keywords"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+
+                android:background="@drawable/emailtextbox"
+                android:singleLine="true"
+                android:cursorVisible="false"
+                android:ems="10"
+                android:focusable="false"
+                android:hint="@string/keyword"
+                android:inputType="none"
+                android:maxLines="1"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/mediumTextStyle" />
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:paddingRight="10sp"
+                android:singleLine="true"
+                android:text="@string/interest_keyword"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/mediumTextStyle"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/et_interestKeywords"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+
+                android:background="@drawable/emailtextbox"
+                android:singleLine="true"
+                android:cursorVisible="false"
+                android:ems="10"
+                android:focusable="false"
+                android:hint="@string/interest_keyword"
+                android:inputType="none"
+                android:maxLines="1"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/mediumTextStyle" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20sp"
+                android:layout_weight="0.5"
+                android:text="Upload Image"
+
+                android:textColor="@color/textColor"
+
+                android:textSize="15sp" />
+
+            <ImageView
+                android:id="@+id/image_fundImage"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="5sp"
+                android:layout_marginTop="5sp"
+                android:layout_weight="0.5"
+                android:scaleType="centerInside"
+                android:src="@drawable/forum_dummy_image" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="0.5"
+                    android:gravity="left"
+                    android:text="Upload"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/mediumTextStyle" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="0.5"
+                    android:gravity="right"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/btn_plus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+
+                        android:background="@drawable/plus"
+                        android:gravity="center" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/spinner_uploadFileType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/spinner_field"
+                    android:entries="@array/uploadFileType"
+                    android:prompt="@string/chooseFileType"
+                    android:spinnerMode="dropdown"
+                    android:textSize="@dimen/smallTextStyle" />
+
+                <TextView
+                    android:id="@+id/btn_browse"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="15sp"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/gray_button"
+                    android:gravity="center"
+                    android:text="Browse"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/smallTextStyle" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_fileName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tv_fileName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/smallTextStyle" />
+
+                <ImageView
+                    android:id="@+id/tv_deleteFile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/delete_file" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_more"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:orientation="horizontal">
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/noteinfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginTop="5sp"
+                android:gravity="left"
+                android:text="@string/pleasenote"
+                android:textColor="@color/darkRed"
+                />
+
+            <Button
+                android:id="@+id/btn_submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10sp"
+
+                android:background="@drawable/blue_button"
+                android:gravity="center"
+                android:text="@string/apply"
+                android:textColor="@color/white"
+                android:textSize="@dimen/mediumTextStyle" />
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

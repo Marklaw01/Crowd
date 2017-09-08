@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/app_backgroundColor"
+    android:orientation="horizontal">
+
+    <com.crowdbootstrap.helper.CircleImageView
+        android:id="@+id/img_contractorImage"
+        android:layout_width="50sp"
+        android:layout_height="50sp"
+        android:layout_centerInParent="true"
+        android:layout_gravity="left|center"
+        android:layout_margin="5sp"
+        android:background="@drawable/ic_userprofile" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!--<CheckBox
+            android:id="@+id/text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+            android:gravity="center_vertical"
+            android:layout_gravity="center_vertical"
+            android:textSize="@dimen/smallTextStyle"
+            android:textColor="@color/textColor" />-->
+
+        <CheckBox
+            android:id="@+id/text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:gravity="left|center_vertical"
+            android:layout_gravity="left"
+            android:paddingTop="10sp"
+            android:paddingBottom="10sp"
+            android:textColor="@color/textColor"
+            android:button="@null"
+            android:textSize="@dimen/smallTextStyle"
+            android:text="Davind "
+            android:drawableRight="@drawable/checkbox"
+
+            />
+
+    </LinearLayout>
+
+</LinearLayout>
+
+

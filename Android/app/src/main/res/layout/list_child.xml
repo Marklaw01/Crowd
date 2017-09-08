@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/lblListItem"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/padding"
+        android:paddingLeft="@dimen/padding"
+        android:paddingTop="@dimen/padding"
+        android:singleLine="true"
+        android:text="Lorum Ipsum Lorum Ipsum Lorum IpsumLorum Ipsum Lorum IpsumLorum Ipsum Lorum IpsumLorum Ipsum Lorum IpsumLorum Ipsum Lorum IpsumLorum Ipsum Lorum IpsumLorum Ipsum Lorum IpsumLorum Ipsum Lorum IpsumLorum Ipsum Lorum Ipsum"
+        android:textColor="@color/textColor"
+        android:textSize="@dimen/mediumTextStyle" />
+
+</LinearLayout>

@@ -1,0 +1,624 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_backgroundColor"
+    android:orientation="vertical">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10sp">
+
+            <LinearLayout
+                android:id="@+id/layoutFundPostedBy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <EditText
+                    android:id="@+id/et_postedBy"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="0.5"
+                    android:background="@color/colorPrimary"
+                    android:cursorVisible="false"
+                    android:ems="10"
+                    android:focusable="false"
+                    android:inputType="none"
+                    android:padding="5dp"
+                    android:paddingLeft="10sp"
+                    android:paddingRight="10sp"
+                    android:singleLine="true"
+                    android:text="Posted By: "
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/mediumTextStyle">
+
+                </EditText>
+
+
+                <TextView
+                    android:id="@+id/cbx_Like"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="5sp"
+                    android:layout_weight="1"
+                    android:background="@color/darkGreen"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="@string/like"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/smallTextStyle" />
+
+                <TextView
+                    android:id="@+id/cbx_Follow"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="5sp"
+                    android:layout_weight="1"
+                    android:background="@color/darkGreen"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="@string/follow"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/smallTextStyle" />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/namelbl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/funds_title"
+                android:paddingRight="10sp"
+                android:layout_marginTop="10sp"
+                android:singleLine="true"
+                android:textColor="@color/textColor"
+                android:textStyle="bold"
+                android:textSize="@dimen/mediumTextStyle" />
+            <EditText
+                android:id="@+id/et_fundTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+
+                android:background="@drawable/emailtextbox"
+                android:cursorVisible="false"
+                android:ems="10"
+                android:focusable="false"
+                android:hint="@string/funds_title"
+                android:inputType="none"
+                android:maxLines="1"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/mediumTextStyle" />
+
+
+            <!--<LinearLayout
+                android:id="@+id/fund_summary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:background="@color/lightGray"
+                android:orientation="horizontal"
+                android:paddingBottom="5sp"
+                android:paddingLeft="@dimen/padding"
+                android:paddingTop="5sp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="0.8"
+                    android:gravity="left|center"
+                    android:text="@string/description"
+                    android:textColor="@color/textColor" />
+
+                <ImageView
+                    android:id="@+id/viewDescriptionArrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10sp"
+                    android:background="@drawable/arrow_downward"
+                    android:gravity="right|center" />
+            </LinearLayout>-->
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Fund's Description"
+                android:paddingRight="10sp"
+                android:layout_marginTop="10sp"
+                android:singleLine="true"
+                android:textColor="@color/textColor"
+                android:textStyle="bold"
+                android:textSize="@dimen/mediumTextStyle" />
+            <EditText
+                android:id="@+id/et_fundDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:background="@drawable/multiline_textview"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:gravity="top"
+                android:inputType="none"
+                android:maxLines="10"
+                android:padding="10sp"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/mediumTextStyle">
+
+            </EditText>
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/funds_managers"
+                android:paddingRight="10sp"
+                android:layout_marginTop="10sp"
+                android:singleLine="true"
+                android:textColor="@color/textColor"
+                android:textStyle="bold"
+                android:textSize="@dimen/mediumTextStyle" />
+            <EditText
+                android:id="@+id/et_fundManagers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+
+                android:background="@drawable/emailtextbox"
+                android:cursorVisible="false"
+                android:ems="10"
+                android:focusable="false"
+                android:hint="@string/funds_managers"
+                android:inputType="none"
+                android:maxLines="1"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/mediumTextStyle" />
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sponsers"
+                android:paddingRight="10sp"
+                android:layout_marginTop="10sp"
+                android:singleLine="true"
+                android:textColor="@color/textColor"
+                android:textStyle="bold"
+                android:textSize="@dimen/mediumTextStyle" />
+            <EditText
+                android:id="@+id/et_fundsponsers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+
+                android:background="@drawable/emailtextbox"
+                android:cursorVisible="false"
+                android:ems="10"
+                android:focusable="false"
+                android:hint="@string/sponsers"
+                android:inputType="none"
+
+                android:maxLines="1"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/mediumTextStyle" />
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/industry"
+                android:paddingRight="10sp"
+                android:layout_marginTop="10sp"
+                android:singleLine="true"
+                android:textColor="@color/textColor"
+                android:textStyle="bold"
+                android:textSize="@dimen/mediumTextStyle" />
+            <EditText
+                android:id="@+id/et_industry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+
+                android:background="@drawable/emailtextbox"
+
+                android:cursorVisible="false"
+                android:ems="10"
+                android:focusable="false"
+                android:hint="@string/industry"
+                android:inputType="none"
+                android:maxLines="1"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/mediumTextStyle" />
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/portfolio_companies"
+                android:paddingRight="10sp"
+                android:layout_marginTop="10sp"
+                android:singleLine="true"
+                android:textColor="@color/textColor"
+                android:textStyle="bold"
+                android:textSize="@dimen/mediumTextStyle" />
+            <EditText
+                android:id="@+id/et_portfolio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+
+                android:background="@drawable/emailtextbox"
+
+                android:cursorVisible="false"
+                android:ems="10"
+                android:focusable="false"
+                android:hint="@string/portfolio_companies"
+                android:inputType="none"
+                android:maxLines="1"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/mediumTextStyle" />
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/investment_start_date"
+                android:paddingRight="10sp"
+                android:layout_marginTop="10sp"
+                android:singleLine="true"
+                android:textColor="@color/textColor"
+                android:textStyle="bold"
+                android:textSize="@dimen/mediumTextStyle" />
+            <EditText
+                android:id="@+id/et_investmentStartDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:background="@drawable/calender_input"
+                android:cursorVisible="false"
+                android:ems="10"
+                android:focusable="false"
+                android:hint="@string/investment_start_date"
+                android:inputType="none|textNoSuggestions"
+                android:maxLines="1"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:textColor="@color/textColor"
+
+                android:textSize="15sp" />
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/investment_end_date"
+                android:paddingRight="10sp"
+                android:layout_marginTop="10sp"
+                android:singleLine="true"
+                android:textColor="@color/textColor"
+                android:textStyle="bold"
+                android:textSize="@dimen/mediumTextStyle" />
+            <EditText
+                android:id="@+id/et_investmentEndDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:background="@drawable/calender_input"
+                android:cursorVisible="false"
+                android:ems="10"
+                android:focusable="false"
+                android:hint="@string/investment_end_date"
+                android:inputType="none|textNoSuggestions"
+                android:maxLines="1"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:textColor="@color/textColor"
+
+                android:textSize="15sp" />
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/funds_closed_date"
+                android:paddingRight="10sp"
+                android:layout_marginTop="10sp"
+                android:singleLine="true"
+                android:textColor="@color/textColor"
+                android:textStyle="bold"
+                android:textSize="@dimen/mediumTextStyle" />
+            <EditText
+                android:id="@+id/et_fundsClosedDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:background="@drawable/calender_input"
+                android:cursorVisible="false"
+                android:ems="10"
+                android:focusable="false"
+                android:hint="@string/funds_closed_date"
+                android:inputType="none|textNoSuggestions"
+                android:maxLines="1"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:textColor="@color/textColor"
+
+                android:textSize="15sp" />
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/keyword"
+                android:paddingRight="10sp"
+                android:layout_marginTop="10sp"
+                android:singleLine="true"
+                android:textColor="@color/textColor"
+                android:textStyle="bold"
+                android:textSize="@dimen/mediumTextStyle" />
+            <EditText
+                android:id="@+id/et_keywords"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+
+                android:background="@drawable/emailtextbox"
+
+                android:cursorVisible="false"
+                android:ems="10"
+                android:focusable="false"
+                android:hint="@string/keyword"
+                android:inputType="none"
+                android:maxLines="1"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/mediumTextStyle" />
+
+            <ImageView
+                android:id="@+id/image_roadmap"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="5sp"
+                android:layout_marginTop="10sp"
+                android:scaleType="centerInside"
+                android:src="@drawable/forum_dummy_image" />
+            <!--<LinearLayout
+                android:id="@+id/roadmapGraphiclayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/roadmapGraphic"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10sp"
+                    android:background="@color/lightGray"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="5sp"
+                    android:paddingLeft="@dimen/padding"
+                    android:paddingTop="5sp">
+
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="0.8"
+                        android:gravity="left|center_vertical"
+                        android:text="@string/funds_image"
+                        android:textColor="@color/textColor" />
+
+                    <ImageView
+                        android:id="@+id/viewroadmapGraphicArrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10sp"
+                        android:background="@drawable/arrow_downward"
+                        android:gravity="right|center_vertical" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/roadmapGraphicexpandable"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:orientation="vertical">
+
+
+
+
+                </LinearLayout>
+            </LinearLayout>-->
+
+            <LinearLayout
+                android:id="@+id/parent_doc_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/btn_viewDocument"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10sp"
+                    android:background="@color/lightGray"
+                    android:orientation="horizontal"
+                    android:paddingBottom="5sp"
+                    android:paddingLeft="@dimen/padding"
+                    android:paddingTop="5sp">
+
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="0.8"
+                        android:gravity="left|center"
+                        android:text="@string/viewDocument"
+                        android:textColor="@color/textColor" />
+
+                    <ImageView
+                        android:id="@+id/viewDocumentArrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10sp"
+                        android:background="@drawable/arrow_downward"
+                        android:gravity="right|center" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/expandable_viewDocument"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/list_docs"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
+                        android:paddingLeft="@dimen/padding"
+                        android:textColor="@color/black" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/parent_audio_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/btn_playAudio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10sp"
+                    android:background="@color/lightGray"
+                    android:orientation="horizontal"
+                    android:paddingBottom="5sp"
+                    android:paddingLeft="@dimen/padding"
+                    android:paddingTop="5sp">
+
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="0.8"
+                        android:gravity="left|center"
+                        android:text="@string/playAudio"
+                        android:textColor="@color/textColor" />
+
+                    <ImageView
+                        android:id="@+id/viewplayAudioArrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10sp"
+                        android:background="@drawable/arrow_downward"
+                        android:gravity="right|center" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/expandable_playAudio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/list_audios"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+
+                        android:paddingLeft="@dimen/padding"
+
+                        android:textColor="@color/black" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/parent_video_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/btn_playVideo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10sp"
+                    android:background="@color/lightGray"
+                    android:orientation="horizontal"
+                    android:paddingBottom="5sp"
+                    android:paddingLeft="@dimen/padding"
+                    android:paddingTop="5sp">
+
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="0.8"
+                        android:gravity="left|center"
+                        android:text="@string/playVideo"
+                        android:textColor="@color/textColor" />
+
+                    <ImageView
+                        android:id="@+id/viewplayVideoArrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10sp"
+                        android:background="@drawable/arrow_downward"
+                        android:gravity="right|center" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/expandable_playVideo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/list_video"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:paddingLeft="@dimen/padding"
+                        android:textColor="@color/black" />
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

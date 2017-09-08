@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/documentlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/workorder_entrenprenuer_list_row_item_image"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="6">
+
+            <TextView
+                android:id="@+id/namelnl"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="2"
+                android:text="@string/date"
+                android:gravity="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/mediumTextStyle" />
+
+            <TextView
+                android:id="@+id/typelbl"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="@string/uploadername"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/mediumTextStyle" />
+
+            <TextView
+                android:id="@+id/statuslbl"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="@string/docroadmap"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/mediumTextStyle" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>

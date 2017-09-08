@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/questansrow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/questionlbl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/preferedstartupstage"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/mediumTextStyle" />
+
+        <EditText
+            android:id="@+id/answer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="7dp"
+            android:background="@drawable/emailtextbox"
+            android:focusable="true"
+            android:inputType="textCapSentences"
+            android:paddingLeft="5dp" />
+    </LinearLayout>
+
+</LinearLayout>

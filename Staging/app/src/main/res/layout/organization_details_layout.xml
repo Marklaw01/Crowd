@@ -1,0 +1,527 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@color/app_backgroundColor"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15sp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <EditText
+                    android:id="@+id/et_campaignName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/emailtextbox"
+                    android:cursorVisible="false"
+                    android:ems="10"
+                    android:focusable="false"
+                    android:hint="Campaign Name"
+                    android:inputType="none"
+                    android:paddingLeft="10sp"
+
+
+                    android:paddingRight="10sp"
+                    android:singleLine="true"
+                    android:textColor="@color/textColor"
+
+                    android:textSize="@dimen/mediumTextStyle">
+
+                    <requestFocus />
+                </EditText>
+
+
+                <TextView
+                    android:id="@+id/cbx_Follow"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="5sp"
+                    android:layout_weight="1"
+                    android:background="@color/darkGreen"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="@string/follow"
+                    android:textColor="@color/white"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/et_startupName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:background="@drawable/emailtextbox"
+                android:cursorVisible="false"
+                android:ems="10"
+                android:focusable="false"
+                android:hint="Startup Name"
+                android:inputType="none"
+                android:visibility="gone"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:singleLine="true"
+                android:textColor="@color/textColor"
+
+                android:textSize="@dimen/mediumTextStyle" />
+
+            <EditText
+                android:id="@+id/et_keywords"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:background="@drawable/emailtextbox"
+                android:cursorVisible="false"
+                android:ems="10"
+                android:focusable="false"
+                android:hint="Target Market"
+                android:inputType="none"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:singleLine="true"
+                android:textColor="@color/textColor"
+                android:visibility="gone"
+                android:textSize="@dimen/mediumTextStyle" />
+
+            <EditText
+                android:id="@+id/et_keywordsCampaign"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:background="@drawable/emailtextbox"
+                android:cursorVisible="false"
+                android:ems="10"
+                android:focusable="false"
+                android:hint="Campaign Keywords"
+                android:inputType="none"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:singleLine="true"
+                android:textColor="@color/textColor"
+
+                android:textSize="@dimen/mediumTextStyle" />
+
+            <EditText
+                android:id="@+id/et_dueDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:background="@drawable/calender_input"
+                android:cursorVisible="false"
+                android:ems="10"
+                android:focusable="false"
+                android:hint="Due Date"
+                android:visibility="gone"
+                android:inputType="none"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:singleLine="true"
+                android:textColor="@color/textColor"
+
+                android:textSize="@dimen/mediumTextStyle" />
+
+            <EditText
+                android:id="@+id/et_targetAmount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:background="@drawable/emailtextbox"
+                android:cursorVisible="false"
+                android:ems="10"
+                android:focusable="false"
+                android:hint="Target Amount"
+                android:inputType="none"
+                android:visibility="gone"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:singleLine="true"
+                android:textColor="@color/textColor"
+
+                android:textSize="@dimen/mediumTextStyle" />
+
+            <EditText
+                android:id="@+id/et_fundRaiseSoFor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:background="@drawable/emailtextbox"
+                android:cursorVisible="false"
+                android:ems="10"
+                android:focusable="false"
+                android:visibility="gone"
+                android:hint="Fund Raiser For"
+                android:inputType="none"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:singleLine="true"
+                android:textColor="@color/textColor"
+
+                android:textSize="@dimen/mediumTextStyle" />
+
+            <LinearLayout
+                android:id="@+id/btn_summary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:background="@color/lightGray"
+                android:orientation="horizontal"
+                android:paddingBottom="5sp"
+                android:paddingLeft="@dimen/padding"
+                android:paddingTop="5sp">
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="0.8"
+                    android:gravity="left|center"
+                    android:text="Description"
+                    android:textColor="@color/textColor" />
+
+                <ImageView
+                    android:id="@+id/viewsummaryArrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10sp"
+                    android:background="@drawable/arrow_downward"
+                    android:gravity="right|center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/expandable_Summary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/et_summary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/multiline_textview"
+                    android:cursorVisible="false"
+
+                    android:focusable="false"
+                    android:gravity="top"
+                    android:inputType="none"
+                    android:padding="10sp"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/mediumTextStyle">
+
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/roadmapGraphiclayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/roadmapGraphic"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10sp"
+                    android:background="@color/lightGray"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="5sp"
+                    android:paddingLeft="@dimen/padding"
+                    android:paddingTop="5sp">
+
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="0.8"
+                        android:gravity="left|center_vertical"
+                        android:text="Company Image"
+                        android:textColor="@color/textColor" />
+
+                    <ImageView
+                        android:id="@+id/viewroadmapGraphicArrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10sp"
+                        android:background="@drawable/arrow_downward"
+                        android:gravity="right|center_vertical" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/roadmapGraphicexpandable"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:orientation="vertical">
+
+
+                    <ImageView
+                        android:id="@+id/image_roadmap"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="5sp"
+                        android:layout_marginTop="5sp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/forum_dummy_image" />
+
+                    <!--<Button
+                        android:id="@+id/btn_editroadmap"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/darkGreen"
+                        android:text="@string/uploadRoadmapGraphic"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/mediumTextStyle" />-->
+
+
+                    <!--<ListView
+                        android:id="@+id/list_startups"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
+                        android:cacheColorHint="#FFFFFFFF"
+                        android:divider="@null"
+                        android:dividerHeight="0dp"
+                        android:fadingEdge="none"
+                        android:fastScrollEnabled="true"
+                        android:paddingLeft="@dimen/padding"
+                        android:scrollbars="vertical"
+                        android:scrollingCache="false" />-->
+                    <!--<Button
+                        android:id="@+id/btn_editroadmap"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/darkGreen"
+                        android:text="@string/editroadmap"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/mediumTextStyle" />
+-->
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btn_viewDocument"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:background="@color/lightGray"
+                android:orientation="horizontal"
+                android:paddingBottom="5sp"
+                android:paddingLeft="@dimen/padding"
+                android:paddingTop="5sp">
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="0.8"
+                    android:gravity="left|center"
+                    android:text="@string/viewDocument"
+                    android:textColor="@color/textColor" />
+
+                <ImageView
+                    android:id="@+id/viewDocumentArrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10sp"
+                    android:background="@drawable/arrow_downward"
+                    android:gravity="right|center" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/expandable_viewDocument"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="vertical">
+
+                <ListView
+                    android:id="@+id/list_docs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+
+                    android:cacheColorHint="#FFFFFFFF"
+                    android:divider="@null"
+                    android:dividerHeight="@null"
+                    android:fadingEdge="none"
+                    android:fastScrollEnabled="true"
+                    android:paddingLeft="@dimen/padding"
+
+                    android:scrollbars="vertical"
+                    android:scrollingCache="false" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btn_playAudio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:background="@color/lightGray"
+                android:orientation="horizontal"
+                android:paddingBottom="5sp"
+                android:paddingLeft="@dimen/padding"
+                android:paddingTop="5sp">
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="0.8"
+                    android:gravity="left|center"
+                    android:text="@string/playAudio"
+                    android:textColor="@color/textColor" />
+
+                <ImageView
+                    android:id="@+id/viewplayAudioArrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10sp"
+                    android:background="@drawable/arrow_downward"
+                    android:gravity="right|center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/expandable_playAudio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="vertical">
+
+                <ListView
+                    android:id="@+id/list_audios"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+
+                    android:cacheColorHint="#FFFFFFFF"
+                    android:divider="@null"
+                    android:dividerHeight="@null"
+                    android:fadingEdge="none"
+                    android:fastScrollEnabled="true"
+                    android:paddingLeft="@dimen/padding"
+
+                    android:scrollbars="vertical"
+                    android:scrollingCache="false" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/btn_playVideo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:background="@color/lightGray"
+                android:orientation="horizontal"
+                android:paddingBottom="5sp"
+                android:paddingLeft="@dimen/padding"
+                android:paddingTop="5sp">
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="0.8"
+                    android:gravity="left|center"
+                    android:text="@string/playVideo"
+                    android:textColor="@color/textColor" />
+
+                <ImageView
+                    android:id="@+id/viewplayVideoArrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10sp"
+                    android:background="@drawable/arrow_downward"
+                    android:gravity="right|center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/expandable_playVideo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="vertical">
+
+                <ListView
+                    android:id="@+id/list_video"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+
+                    android:cacheColorHint="#FFFFFFFF"
+                    android:divider="@null"
+                    android:dividerHeight="@null"
+                    android:fadingEdge="none"
+                    android:fastScrollEnabled="true"
+                    android:paddingLeft="@dimen/padding"
+
+                    android:scrollbars="vertical"
+                    android:scrollingCache="false" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:visibility="gone"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_ViewDonators"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginRight="10sp"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/green_color_button"
+                    android:text="@string/viewDonatingContractors"
+                    android:textSize="@dimen/mediumTextStyle" />
+
+                <Button
+                    android:id="@+id/btn_commit"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="10sp"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/blue_button"
+                    android:text="@string/commit"
+                    android:textSize="@dimen/mediumTextStyle" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>
