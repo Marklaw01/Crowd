@@ -1,0 +1,42 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "0d5a16a9-d8ae-a547-a51a-2f0067a96336++6680",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "0d5a16a9-d8ae-a547-a51a-2f0067a96336" : {
+
+    },
+    "0d5a16a9-d8ae-a547-a51a-2f0067a96336++6680" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "6BFAC2892B23A57ED94ED60955422F167FD0ED90" : 9223372036854775807,
+    "0d5a16a9-d8ae-a547-a51a-2f0067a96336" : 0,
+    "0d5a16a9-d8ae-a547-a51a-2f0067a96336++6680" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "76E880B9-4B1E-4D90-B030-4E8400A51E7A",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "6BFAC2892B23A57ED94ED60955422F167FD0ED90" : "",
+    "0d5a16a9-d8ae-a547-a51a-2f0067a96336" : "..\/..\/..",
+    "0d5a16a9-d8ae-a547-a51a-2f0067a96336++6680" : "CrowdBootstap\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "CrowdBootstrap",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "CrowdBootstrap.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "http:\/\/192.168.176.40:90\/svn\/crowdbootstrap",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "0d5a16a9-d8ae-a547-a51a-2f0067a96336"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "http:\/\/192.168.176.40:90\/svn\/crowdbootstrap",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "0d5a16a9-d8ae-a547-a51a-2f0067a96336++6680"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/ramankapur\/Crowd-Bootstrap.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "6BFAC2892B23A57ED94ED60955422F167FD0ED90"
+    }
+  ]
+}

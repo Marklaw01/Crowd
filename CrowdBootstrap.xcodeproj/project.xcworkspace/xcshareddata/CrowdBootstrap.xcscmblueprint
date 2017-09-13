@@ -1,0 +1,45 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "0d5a16a9-d8ae-a547-a51a-2f0067a96336++7019+++87BC3CB",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "0d5a16a9-d8ae-a547-a51a-2f0067a96336++7019+++87BC3CB" : {
+
+    },
+    "0d5a16a9-d8ae-a547-a51a-2f0067a96336++7019+++6F6CB36" : {
+
+    },
+    "0d5a16a9-d8ae-a547-a51a-2f0067a96336++7019+++985F383" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "0d5a16a9-d8ae-a547-a51a-2f0067a96336++7019+++87BC3CB" : 0,
+    "0d5a16a9-d8ae-a547-a51a-2f0067a96336++7019+++6F6CB36" : 0,
+    "0d5a16a9-d8ae-a547-a51a-2f0067a96336++7019+++985F383" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "B1F7AA2C-EB42-4842-AE4A-BB43ED65EB59",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "0d5a16a9-d8ae-a547-a51a-2f0067a96336++7019+++87BC3CB" : "..\/..\/..",
+    "0d5a16a9-d8ae-a547-a51a-2f0067a96336++7019+++6F6CB36" : "CrowdBootstrap\/",
+    "0d5a16a9-d8ae-a547-a51a-2f0067a96336++7019+++985F383" : "CrowdBootstrap\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "CrowdBootstrap",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "CrowdBootstrap.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "http:\/\/192.168.176.40:90\/svn\/crowdbootstrap",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "0d5a16a9-d8ae-a547-a51a-2f0067a96336++7019+++6F6CB36"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "http:\/\/192.168.176.40:90\/svn\/crowdbootstrap",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "0d5a16a9-d8ae-a547-a51a-2f0067a96336++7019+++87BC3CB"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "http:\/\/192.168.176.40:90\/svn\/crowdbootstrap",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "0d5a16a9-d8ae-a547-a51a-2f0067a96336++7019+++985F383"
+    }
+  ]
+}

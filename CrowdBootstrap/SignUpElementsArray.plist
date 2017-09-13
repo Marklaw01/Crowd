@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>item</key>
+		<string>First Name</string>
+		<key>value</key>
+		<string></string>
+	</dict>
+	<dict>
+		<key>item</key>
+		<string>Last Name</string>
+		<key>value</key>
+		<string></string>
+	</dict>
+	<dict>
+		<key>item</key>
+		<string>User Name</string>
+		<key>value</key>
+		<string></string>
+	</dict>
+	<dict>
+		<key>item</key>
+		<string>Email</string>
+		<key>value</key>
+		<string></string>
+	</dict>
+	<dict>
+		<key>item</key>
+		<string>Password</string>
+		<key>value</key>
+		<string></string>
+	</dict>
+	<dict>
+		<key>item</key>
+		<string>Confirm Password</string>
+		<key>value</key>
+		<string></string>
+	</dict>
+	<dict>
+		<key>item</key>
+		<string>Choose Security Question</string>
+		<key>value</key>
+		<array>
+			<dict>
+				<key>id</key>
+				<string></string>
+				<key>question</key>
+				<string></string>
+				<key>answer</key>
+				<string></string>
+			</dict>
+		</array>
+	</dict>
+	<dict>
+		<key>item</key>
+		<string>OR</string>
+		<key>value</key>
+		<string></string>
+	</dict>
+	<dict>
+		<key>item</key>
+		<string>Enter Security Question</string>
+		<key>value</key>
+		<array>
+			<dict>
+				<key>question</key>
+				<string></string>
+				<key>answer</key>
+				<string></string>
+			</dict>
+		</array>
+	</dict>
+	<dict>
+		<key>item</key>
+		<string>Terms</string>
+		<key>value</key>
+		<string></string>
+	</dict>
+	<dict>
+		<key>item</key>
+		<string>Validation</string>
+		<key>value</key>
+		<string></string>
+	</dict>
+	<dict>
+		<key>item</key>
+		<string>Refer Friend</string>
+		<key>value</key>
+		<string></string>
+	</dict>
+	<dict>
+		<key>item</key>
+		<string>Sign Up</string>
+		<key>value</key>
+		<string></string>
+	</dict>
+</array>
+</plist>

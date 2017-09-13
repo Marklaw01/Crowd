@@ -1,0 +1,27 @@
+dependencies: \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/Pods/QuickBlox/Quickblox.framework/Modules/module.modulemap \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/CrowdBootstrap/SignUpViewController.m \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/CrowdBootstrap/SignUpViewController.h \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/Pods/google-plus-ios-sdk/google-plus-ios-sdk-1.7.1/GooglePlus.framework/Headers/GooglePlus.h \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/Pods/google-plus-ios-sdk/google-plus-ios-sdk-1.7.1/GooglePlus.framework/Headers/GPPDeepLink.h \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/Pods/google-plus-ios-sdk/google-plus-ios-sdk-1.7.1/GooglePlus.framework/Headers/GPPShare.h \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/Pods/google-plus-ios-sdk/google-plus-ios-sdk-1.7.1/GooglePlus.framework/Headers/GPPSignIn.h \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/Pods/google-plus-ios-sdk/google-plus-ios-sdk-1.7.1/GooglePlus.framework/Headers/GPPSignInButton.h \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/Pods/google-plus-ios-sdk/google-plus-ios-sdk-1.7.1/GooglePlus.framework/Headers/GPPURLHandler.h \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/CrowdBootstrap/SignUp/TextFieldTableViewCell.h \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/CrowdBootstrap/ChooseSecurityQuesTableViewCell.h \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/CrowdBootstrap/EnterSecurityQuesTableViewCell.h \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/CrowdBootstrap/Profile/Basic/DobTableViewCell.h \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/CrowdBootstrap/Payments/PaymentsTableViewCell.h \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/CrowdBootstrap/Profile/Basic/PhoneTableViewCell.h \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/linkedin-sdk.framework/Headers/LISDK.h \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/linkedin-sdk.framework/Headers/LISDKSessionManager.h \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/linkedin-sdk.framework/Headers/LISDKSession.h \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/linkedin-sdk.framework/Headers/LISDKAccessToken.h \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/linkedin-sdk.framework/Headers/LISDKAPIError.h \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/linkedin-sdk.framework/Headers/LISDKAPIHelper.h \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/linkedin-sdk.framework/Headers/LISDKAPIResponse.h \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/linkedin-sdk.framework/Headers/LISDKCallbackHandler.h \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/linkedin-sdk.framework/Headers/LISDKDeeplinkHelper.h \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/linkedin-sdk.framework/Headers/LISDKErrorCode.h \
+  /Users/osx/Desktop/Crowd-Bootstrap-shikha_18jan_ios/ios/linkedin-sdk.framework/Headers/LISDKPermission.h
