@@ -16,7 +16,7 @@
 
 #define kDescMinCharLength                 10 
 
-@interface AddForumViewController : UIViewController<UITextFieldDelegate,UITextViewDelegate,UITableViewDataSource,UITableViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,TLTagsControlDelegate>{
+@interface AddForumViewController : UIViewController<UITextFieldDelegate,UITextViewDelegate,UITableViewDataSource,UITableViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,TLTagsControlDelegate> {
     
     IBOutlet UITextField               *titleTxtFld;
     IBOutlet UITextField               *startupTxtFld;

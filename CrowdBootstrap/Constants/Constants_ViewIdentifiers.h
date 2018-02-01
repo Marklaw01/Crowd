@@ -113,6 +113,16 @@
 #define kEditImprovementToolIdentifier            @"EditImprovementToolView"
 #define kCreatePurchaseOrderIdentifier            @"AddPurchaseOrderView"
 #define kEditPurchaseOrderIdentifier              @"EditPurchaseOrderView"
+#define kNewsDetailIdentifier                     @"NewsDetailView"
+#define kNetworkOptionsIdentifier                 @"NetworkOptionsView"
+#define kAddContactIdentifier                     @"AddContactView"
+#define kSearchConnectionIdentifier               @"SearchConnectionView"
+#define kAddNewUserIdentifier                     @"AddNewUserView"
+#define kManageGroupsIdentifier                   @"ManageGroupsView"
+#define kManageNotesIdentifier                    @"ManageNotesView"
+#define kBusinessCardDetailIdentifier             @"BusinessCardDetailView"
+#define kBusinessConnectionListIdentifier         @"ConnectionListView"
+#define kAddBusinessCardIdentifier                @"AddBusinessCardView"
 
 
 #pragma mark - Cell Identifers

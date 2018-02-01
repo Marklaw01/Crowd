@@ -1,1 +1,1 @@
-../../../../QuickBlox/Quickblox.framework/Versions/A/Headers/QBMPushMessageBase.h
+../../../../QuickBlox/Quickblox.framework/Headers/QBMPushMessageBase.h

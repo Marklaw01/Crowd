@@ -1,1 +1,1 @@
-../../../../QuickBlox/Quickblox.framework/Versions/A/Headers/QBConnection.h
+../../../../QuickBlox/Quickblox.framework/Headers/QBConnection.h

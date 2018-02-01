@@ -41,6 +41,9 @@ typedef void (^ProgressBlock)(double progress);
 #define CROWDBOOTSTRAP_PROFILE_ADD_STARTUPLIST     [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/addStartupList"]
 #define CROWDBOOTSTRAP_PROFILE_SETTINGS            [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/profileSettings"]
 
+//News/Blog Posts List
+#define CROWDBOOTSTRAP_NEWS_LIST                    [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/api/getBlogPosts"]
+
 //Feeds List
 #define CROWDBOOTSTRAP_FEEDS_LIST                    [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/userFeedList"]
 #define CROWDBOOTSTRAP_ADD_FEED                                  [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/addFeed"]
@@ -504,6 +507,7 @@ typedef void (^ProgressBlock)(double progress);
 #define CROWDBOOTSTRAP_NOTIFICATIONS_LIST          [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/UserNotifications"]
 #define CROWDBOOTSTRAP_REJECT_COMMITED_USER        [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/deleteCommitedUser"]
 #define CROWDBOOTSTRAP_RESET_PASSWORD_MAIL         [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/sendMailForResetPassword"]
+#define CROWDBOOTSTRAP_RESEND_CONFIRMATION_MAIL    [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/resendEmail"]
 #define CROWDBOOTSTRAP_MAX_LIMIT_RESET_PASSWPRD    [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/maxLimitResetPass"]
 #define CROWDBOOTSTRAP_STARTUPLIST_NOTES           [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/startupListForUser"]
 #define CROWDBOOTSTRAP_STARTUP_KEYWORDS            [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/startupKeywords"]
@@ -578,6 +582,7 @@ typedef void (^ProgressBlock)(double progress);
 #define CROWDBOOTSTRAP_DELETE_MEETUP                               [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/deleteMeetup"]
 #define CROWDBOOTSTRAP_DEACTIVATE_MEETUP                           [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/deactivateMeetup"]
 #define CROWDBOOTSTRAP_ACTIVATE_MEETUP                             [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/activateMeetup"]
+#define CROWDBOOTSTRAP_MEETUP_FORUMS                   [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/userForums"]
 #define CROWDBOOTSTRAP_MEETUP_KEYWORDS                   [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/meetupKeywordsList"]
 #define CROWDBOOTSTRAP_MEETUP_INDUSTRY_KEYWORDS                   [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/meetupInterestKeywordLists"]
 #define CROWDBOOTSTRAP_MEETUP_TARGET_KEYWORDS                    [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/meetupTargetMarketsList"]
@@ -741,6 +746,27 @@ typedef void (^ProgressBlock)(double progress);
 #define CROWDBOOTSTRAP_UNCOMMIT_PURCHASEORDER                               [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/groupbuyingUncommitment"]
 #define CROWDBOOTSTRAP_PURCHASEORDER_COMMITMENT_LIST                               [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/groupbuyingCommitmentList"]
 
+// Networking Options
+#define CROWDBOOTSTRAP_BUSINESS_CARD_LIST                    [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/businessCardList"]
+#define CROWDBOOTSTRAP_ADD_BUSINESS_CARD                    [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/addBusinessCard"]
+#define CROWDBOOTSTRAP_VIEW_BUSINESS_CARD                [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/businessCardDetails"]
+#define CROWDBOOTSTRAP_EDIT_BUSINESS_CARD                    [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/editBusinessCard"]
+#define CROWDBOOTSTRAP_BUSINESS_CONNECTION_TYPE                    [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/businessConnectionType"]
+#define CROWDBOOTSTRAP_ACTIVATE_BUSINESS_CARD                [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/activeBusinessCard"]
+#define CROWDBOOTSTRAP_DELETE_BUSINESS_CARD                [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/deleteBusinessCard"]
+#define CROWDBOOTSTRAP_SEARCH_BUSINESS_CONNECTION                    [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/searchBusinessNetworks"]
+#define CROWDBOOTSTRAP_BUSINESS_CARD_NOTES_LIST                    [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/businessCardNotesList"]
+#define CROWDBOOTSTRAP_ADD_BUSINESS_CARD_NOTE                [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/addBusinessCardNotes"]
+#define CROWDBOOTSTRAP_ADD_BUSINESS_NETWORK                [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/addBusinessNetwork"]
+#define CROWDBOOTSTRAP_EDIT_BUSINESS_CARD_NOTE                [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/editBusinessCardNotes"]
+#define CROWDBOOTSTRAP_ADD_BUSINESS_GROUP                [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/addbusinessUserConnectionType"]
+#define CROWDBOOTSTRAP_EDIT_BUSINESS_GROUP                [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/editbusinessUserConnectionType"]
+#define CROWDBOOTSTRAP_ADD_BUSINESS_CONTACT                    [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/addBusinessContact"]
+#define CROWDBOOTSTRAP_USER_AVAILABILITY                              [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/userAvailabilityStatus"]
+#define CROWDBOOTSTRAP_USER_VISIBILITY                              [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/userVisibilityStatus"]
+#define CROWDBOOTSTRAP_USERLIST_WITHINMILES                              [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/usersListWithinMiles"]
+#define CROWDBOOTSTRAP_USERLIST_WITHSAMELATLONG                              [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/userListWithSameLatLong"]
+
 
 @interface ApiCrowdBootstrap : NSObject
 
@@ -749,6 +775,8 @@ typedef void (^ProgressBlock)(double progress);
 +(void)logoutWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure;
 
 +(void)sendResetPasswordMailWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure;
+
++(void)resendConfirmationMailWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure;
 
 +(void)sendMaxLimitResetPasswordWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure;
 
@@ -788,6 +816,9 @@ typedef void (^ProgressBlock)(double progress);
 +(void)unregisterForRoleWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure;
 +(void)getRegisteredRoleListWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure;
 +(void)getSettingsListWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure;
+
+#pragma mark - News/Blog Post Api Methods
++(void)getNewsListWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure;
 
 #pragma mark - Feeds Api Methods
 +(void)getFeedsListWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure;
@@ -1365,6 +1396,7 @@ typedef void (^ProgressBlock)(double progress);
 +(void)deleteMeetUpWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure;
 +(void)activateMeetUpWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure;
 +(void)deActivateMeetUpWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure;
++(void)getMeetUpForums:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure;
 +(void)getMeetUpKeywordsList:(SuccessBlock)success failure:(FailureBlock)failure;
 +(void)getMeetUpIndustryKeywordsList:(SuccessBlock)success failure:(FailureBlock)failure;
 +(void)getMeetUpTargetMarketKeywordsListWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure;
@@ -1506,7 +1538,7 @@ typedef void (^ProgressBlock)(double progress);
 +(void)getLikeLaunchDealListWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure;
 +(void)getDislikeLaunchDealListWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure;
 
-#pragma mark - Grouyp Buying/Purchase Order Api Methods
+#pragma mark - Group Buying/Purchase Order Api Methods
 +(void)getSearchPurchaseOrderWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure;
 +(void)getMyPurchaseOrderListWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure;
 +(void)getPurchaseOrderKeywordsList:(SuccessBlock)success failure:(FailureBlock)failure;
@@ -1556,5 +1588,25 @@ typedef void (^ProgressBlock)(double progress);
 +(void)viewCompanyWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure;
 
 +(void)getCompanyKeywordList:(SuccessBlock)success failure:(FailureBlock)failure;
+
+#pragma mark - Networking Options Api Methods
++(void)setUserAvailabilityStatusWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure;
++(void)setUserVisibilityStatusWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure;
++(void)getUserListWithinMilesWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure;
++(void)getUserListWithSameLatLongWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure;
++(void)getBusinessCardListWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure;
++(void)activateBusinessCardWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure;
++(void)deleteBusinessCardWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure;
++(void)addBusinessCardWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure progress:(ProgressBlock)progress;
++(void)viewBusinessCardDetailsWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure;
++(void)editBusinessCardWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure progress:(ProgressBlock)progress;
++(void)getBusinessConnectionTypeListWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure;
++(void)searchBusinessConnectionWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure;
++(void)getBusinessCardNotesListWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure;
++(void)addBusinessCardNoteWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure;
++(void)editBusinessCardNoteWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure;
++(void)addBusinessNetworkWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure;
++(void)addBusinessUserGroupWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure;
++(void)addBusinessContactWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure progress:(ProgressBlock)progress;
 
 @end

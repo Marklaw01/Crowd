@@ -7,6 +7,16 @@
 //
 
 #import "QMBaseService.h"
+#import "QMSLog.h"
+
+BFTask *make_task(QMTaskSourceBlock b) {
+    
+    BFTaskCompletionSource *source =
+    [BFTaskCompletionSource taskCompletionSource];
+    if (b) { b(source); }
+    
+    return source.task;
+}
 
 @interface QMBaseService()
 
@@ -21,8 +31,8 @@
     self = [super init];
     if (self) {
         
-        self.serviceManager = serviceManager;
-        NSLog(@"Init - %@ service...", NSStringFromClass(self.class));
+        QMSLog(@"Init - %@ service...", NSStringFromClass(self.class));
+        _serviceManager = serviceManager;
         [self serviceWillStart];
     }
     return self;
@@ -32,7 +42,7 @@
     
 }
 
-#pragma mark - QMMemoryStorageProtocol
+//MARK: - QMMemoryStorageProtocol
 
 - (void)free {
     

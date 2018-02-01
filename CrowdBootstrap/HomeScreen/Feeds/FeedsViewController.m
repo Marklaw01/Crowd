@@ -22,14 +22,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    [self pullToRefresh];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
     feedsArray = [[NSMutableArray alloc] init];
     attachmentsArray = [[NSMutableArray alloc] init];
     tblView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     isPullToRefresh = false;
 
-    // Do any additional setup after loading the view.
     [self resetUISettings];
-    [self pullToRefresh];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -659,6 +662,10 @@
             [UtilityClass showHudWithTitle:kHUDMessage_PleaseWait] ;
         
         NSMutableDictionary *dictParam = [[NSMutableDictionary alloc] init];
+        
+        NSMutableDictionary *dic = [[UtilityClass getLoggedInUserDetails] mutableCopy];
+        int userId = [[dic valueForKey:@"user_id"] intValue];
+        if (userId > 0) {
         [dictParam setObject:[NSString stringWithFormat:@"%d",[UtilityClass getLoggedInUserID]] forKey:kFeedsAPI_UserID] ;
         [dictParam setObject:[NSString stringWithFormat:@"%d",pageNo] forKey:kFeedsAPI_PageNo] ;
         
@@ -720,6 +727,7 @@
             [UtilityClass displayAlertMessage:error.description];
             [UtilityClass hideHud] ;
         }] ;
+    }
     }
 }
 

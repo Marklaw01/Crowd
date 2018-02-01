@@ -1,1 +1,1 @@
-../../../../QuickBlox/Quickblox.framework/Versions/A/Headers/ChatServiceFramework.h
+../../../../QuickBlox/Quickblox.framework/Headers/ChatServiceFramework.h

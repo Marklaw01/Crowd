@@ -8,6 +8,13 @@
 
 #import "QMContactListService.h"
 
+#import "QMSLog.h"
+
+static inline BOOL isContactListEmpty(QBContactList *contactList) {
+    
+    return (contactList == nil || (contactList.contacts.count == 0 && contactList.pendingApproval.count == 0));
+}
+
 @interface QMContactListService()
 
 <QBChatDelegate>
@@ -22,7 +29,7 @@
 
 - (void)dealloc {
     
-    NSLog(@"%@ - %@",  NSStringFromSelector(_cmd), self);
+    QMSLog(@"%@ - %@",  NSStringFromSelector(_cmd), self);
     [[QBChat instance] removeDelegate:self];
     self.contactListMemoryStorage = nil;
 }
@@ -33,14 +40,14 @@
     self = [super initWithServiceManager:serviceManager];
     if (self) {
         
-        self.cacheDataSource = cacheDataSource;
+        _cacheDataSource = cacheDataSource;
         [self loadCachedData];
     }
     
     return self;
 }
 
-#pragma mark - Service will start
+//MARK: - Service will start
 
 - (void)serviceWillStart {
     
@@ -52,30 +59,24 @@
 
 - (void)loadCachedData {
     
-    dispatch_group_t loadCacheGroup = dispatch_group_create();
     __weak __typeof(self)weakSelf = self;
     
     if ([self.cacheDataSource respondsToSelector:@selector(cachedContactListItems:)]) {
         
-        dispatch_group_enter(loadCacheGroup);
+        
         [self.cacheDataSource cachedContactListItems:^(NSArray *collection) {
             
             [weakSelf.contactListMemoryStorage updateWithContactListItems:collection];
-            dispatch_group_leave(loadCacheGroup);
         }];
     }
     
-    dispatch_group_notify(loadCacheGroup, dispatch_get_main_queue(), ^{
-        
-        __typeof(weakSelf)strongSelf = weakSelf;
-        if ([strongSelf.multicastDelegate respondsToSelector:@selector(contactListServiceDidLoadCache)]) {
-            
-            [strongSelf.multicastDelegate contactListServiceDidLoadCache];
-        }
-    });
+    
+    if ([self.multicastDelegate respondsToSelector:@selector(contactListServiceDidLoadCache)]) {
+        [self.multicastDelegate contactListServiceDidLoadCache];
+    }
 }
 
-#pragma mark - Add Remove multicaste delegate
+//MARK: - Add Remove multicaste delegate
 
 - (void)addDelegate:(id <QMContactListServiceDelegate>)delegate {
     
@@ -87,14 +88,20 @@
     [self.multicastDelegate removeDelegate:delegate];
 }
 
-#pragma mark - QBChatDelegate
+//MARK: - QBChatDelegate
 
 - (void)chatContactListDidChange:(QBContactList *)contactList {
+    
+    if (isContactListEmpty(contactList)
+        && ![QBChat instance].isConnected) {
+        // no need to erase contact list cache due to chat
+        // disconnect triggers nil contact list change
+        return;
+    }
     
     [self.contactListMemoryStorage updateWithContactList:contactList];
     
     if ([self.multicastDelegate respondsToSelector:@selector(contactListService:contactListDidChange:)]) {
-        
         [self.multicastDelegate contactListService:self contactListDidChange:contactList];
     }
 }
@@ -102,12 +109,11 @@
 - (void)chatDidReceiveContactItemActivity:(NSUInteger)userID isOnline:(BOOL)isOnline status:(NSString *)status {
     
     if ([self.multicastDelegate respondsToSelector:@selector(contactListService:didReceiveContactItemActivity:isOnline:status:)]) {
-        
         [self.multicastDelegate contactListService:self didReceiveContactItemActivity:userID isOnline:isOnline status:status];
     }
 }
 
-#pragma mark - ContactList Request
+//MARK: - ContactList Request
 
 - (void)addUserToContactListRequest:(QBUUser *)user completion:(void(^)(BOOL success))completion {
     
@@ -141,7 +147,6 @@
     [[QBChat instance] removeUserFromContactList:userID completion:^(NSError *error) {
         
         if (completion) {
-            
             completion(error == nil);
         }
     }];
@@ -152,7 +157,6 @@
     [[QBChat instance] confirmAddContactRequest:userID completion:^(NSError *error) {
         
         if (completion) {
-            
             completion(error == nil);
         }
     }];
@@ -163,13 +167,12 @@
     [[QBChat instance] rejectAddContactRequest:userID completion:^(NSError *error) {
         
         if (completion) {
-            
             completion(error == nil);
         }
     }];
 }
 
-#pragma mark - QMUsersMemoryStorageDelegate
+//MARK: - QMUsersMemoryStorageDelegate
 
 - (NSArray *)contactsIDS {
     

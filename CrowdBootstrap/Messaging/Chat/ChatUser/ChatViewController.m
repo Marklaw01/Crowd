@@ -8,7 +8,7 @@
 
 #import "ChatViewController.h"
 #import "MessageStatusStringBuilder.h"
-#import "ServicesManager.h"
+#import "QMServicesManager.h"
 #import "KLCPopup.h"
 #import "NotificationsTableViewCell.h"
 
@@ -37,8 +37,7 @@ QMChatCellDelegate
 @property (nonatomic, strong) NSTimer *typingTimer;
 @property (nonatomic, strong) id observerWillResignActive;
 
-@property (nonatomic, strong) NSArray QB_GENERIC(QBChatMessage *) *unreadMessages;
-
+@property (nonatomic, strong) NSArray<QBChatMessage *> *unreadMessages;
 @property (nonatomic, strong) NSMutableSet *detailedCells;
 
 @end
@@ -84,10 +83,10 @@ QMChatCellDelegate
 - (void)connectDisconnectChatNotification:(NSNotification *) notification
 {
     if ([[notification name] isEqualToString:kNotificationPush_QB_ConnectChat]){
-       // if(ServicesManager.instance != nil)[ServicesManager.instance.chatService connectWithCompletionBlock:nil];
+        if(ServicesManager.instance != nil)[ServicesManager.instance.chatService connectWithCompletionBlock:nil];
     }
     else if ([[notification name] isEqualToString:kNotificationPush_QB_DisconnectChat]){
-       // if(ServicesManager.instance != nil)[ServicesManager.instance.chatService disconnectWithCompletionBlock:nil];
+        if(ServicesManager.instance != nil)[ServicesManager.instance.chatService disconnectWithCompletionBlock:nil];
     }
 }
 
@@ -111,7 +110,7 @@ QMChatCellDelegate
 }
 
 #pragma mark - Chat Info Methods
--(void)getUsersInfo{
+-(void)getUsersInfo {
     usersArray = [[NSMutableArray alloc] init] ;
     [[[ServicesManager instance].usersService getUsersWithIDs:self.dialog.occupantIDs] continueWithSuccessBlock:^id _Nullable(BFTask<NSArray<QBUUser *> *> * _Nonnull task) {
         usersArray = [NSMutableArray arrayWithArray:task.result] ;
@@ -201,11 +200,11 @@ QMChatCellDelegate
  
     
     [[ServicesManager instance].chatService addDelegate:self];
-    [ServicesManager instance].chatService.chatAttachmentService.delegate = self;
+    [[ServicesManager instance].chatService.chatAttachmentService addDelegate:self];
     
-    if ([[self storedMessages] count] > 0 && self.chatSectionManager.totalMessagesCount == 0) {
+    if ([[self storedMessages] count] > 0 && self.chatDataSource.messagesCount == 0) {
         // inserting all messages from memory storage
-        [self.chatSectionManager addMessages:[self storedMessages]];
+        [self.chatDataSource addMessages:[self storedMessages]];
     }
     self.title = [UtilityClass GetSelectedChatUserName];
     [self refreshMessagesShowingProgress:NO];
@@ -231,7 +230,7 @@ QMChatCellDelegate
 			
 			if ([messages count] > 0) {
                 NSLog(@"messages: %@",messages) ;
-				[weakSelf.chatSectionManager addMessages:messages];
+				[weakSelf.chatDataSource addMessages:messages];
 			}
             [UtilityClass hideHud] ;
             //[SVProgressHUD dismiss];
@@ -372,7 +371,7 @@ QMChatCellDelegate
 #pragma mark - Cell classes
 
 - (Class)viewClassForItem:(QBChatMessage *)item {
-    if (item.isNotificatonMessage) {
+    if (item.isNotificationMessage) {
         
         return [QMChatNotificationCell class];
 	}
@@ -401,7 +400,7 @@ QMChatCellDelegate
 	
     UIColor *textColor;
     
-    if (messageItem.isNotificatonMessage) {
+    if (messageItem.isNotificationMessage) {
         textColor =  [UIColor blackColor];
     }
     else {
@@ -438,7 +437,7 @@ QMChatCellDelegate
             topLabelText = [NSString stringWithFormat:@"@%lu",(unsigned long)messageItem.senderID];
             if(usersArray != nil && messageItem != nil){
                 for (QBUUser *qbUser in usersArray) {
-                    NSLog(@"senderID: %@ qbUser:%d",messageItem,qbUser.ID) ;
+                    NSLog(@"senderID: %@ qbUser:%lu",messageItem,(unsigned long)qbUser.ID) ;
                     if(qbUser.ID == messageItem.senderID) {
                         NSLog(@"fullName: %@",qbUser.fullName) ;
                         topLabelText = [NSString stringWithFormat:@"%@",qbUser.fullName];
@@ -482,7 +481,7 @@ QMChatCellDelegate
 
 - (CGSize)collectionView:(QMChatCollectionView *)collectionView dynamicSizeAtIndexPath:(NSIndexPath *)indexPath maxWidth:(CGFloat)maxWidth {
     
-    QBChatMessage *item = [self.chatSectionManager messageForIndexPath:indexPath];
+    QBChatMessage *item = [self.chatDataSource messageForIndexPath:indexPath];
     Class viewClass = [self viewClassForItem:item];
     CGSize size = CGSizeZero;
     
@@ -523,7 +522,7 @@ QMChatCellDelegate
 
 - (CGFloat)collectionView:(QMChatCollectionView *)collectionView minWidthAtIndexPath:(NSIndexPath *)indexPath {
     
-    QBChatMessage *item = [self.chatSectionManager messageForIndexPath:indexPath];
+    QBChatMessage *item = [self.chatDataSource messageForIndexPath:indexPath];
     
     CGSize size = CGSizeZero;
     if ([self.detailedCells containsObject:item.ID]) {
@@ -552,7 +551,7 @@ QMChatCellDelegate
  */
 - (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
     
-    QBChatMessage *item = [self.chatSectionManager messageForIndexPath:indexPath];
+    QBChatMessage *item = [self.chatDataSource messageForIndexPath:indexPath];
     Class viewClass = [self viewClassForItem:item];
     
     if (viewClass == [QMChatAttachmentIncomingCell class]
@@ -571,7 +570,7 @@ QMChatCellDelegate
  */
 - (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
     
-    QBChatMessage *message = [self.chatSectionManager messageForIndexPath:indexPath];
+    QBChatMessage *message = [self.chatDataSource messageForIndexPath:indexPath];
     
     Class viewClass = [self viewClassForItem:message];
     
@@ -605,7 +604,7 @@ QMChatCellDelegate
     layoutModel.topLabelHeight = 0.0f;
     layoutModel.maxWidthMarginSpace = 20.0f;
     
-    QBChatMessage *item = [self.chatSectionManager messageForIndexPath:indexPath];
+    QBChatMessage *item = [self.chatDataSource messageForIndexPath:indexPath];
     Class class = [self viewClassForItem:item];
     
     if (class == [QMChatAttachmentIncomingCell class] ||
@@ -670,7 +669,7 @@ QMChatCellDelegate
 		return;
 	}
 	
-	QBChatMessage *message = [self.chatSectionManager messageForIndexPath:indexPath];
+	QBChatMessage *message = [self.chatDataSource messageForIndexPath:indexPath];
 	
 	if (message.attachments == nil) {
 		return;
@@ -697,7 +696,7 @@ QMChatCellDelegate
 	
 	__weak typeof(self)weakSelf = self;
 	// Getting image from chat attachment service.
-	[[ServicesManager instance].chatService.chatAttachmentService getImageForAttachmentMessage:message completion:^(NSError *error, UIImage *image) {
+	[[ServicesManager instance].chatService.chatAttachmentService imageForAttachmentMessage:message completion:^(NSError *error, UIImage *image) {
 		//
 		
 		if ([(id<QMChatAttachmentCell>)cell attachmentID] != attachment.ID) return;
@@ -728,7 +727,7 @@ QMChatCellDelegate
         [[[ServicesManager instance].chatService loadEarlierMessagesWithChatDialogID:self.dialog.ID] continueWithBlock:^id(BFTask *task) {
             
             if ([task.result count] > 0) {
-                [weakSelf.chatSectionManager addMessages:task.result];
+                [weakSelf.chatDataSource addMessages:task.result];
             }
             
             return nil;
@@ -736,7 +735,7 @@ QMChatCellDelegate
     }
     
     // marking message as read if needed
-    QBChatMessage *itemMessage = [self.chatSectionManager messageForIndexPath:indexPath];
+    QBChatMessage *itemMessage = [self.chatDataSource messageForIndexPath:indexPath];
     [self sendReadStatusForMessage:itemMessage];
     
     return [super collectionView:collectionView cellForItemAtIndexPath:indexPath];
@@ -747,7 +746,7 @@ QMChatCellDelegate
 - (void)chatCellDidTapContainer:(QMChatCell *)cell {
     
     NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
-    QBChatMessage *currentMessage = [self.chatSectionManager messageForIndexPath:indexPath];
+    QBChatMessage *currentMessage = [self.chatDataSource messageForIndexPath:indexPath];
     
     if ([self.detailedCells containsObject:currentMessage.ID]) {
         [self.detailedCells removeObject:currentMessage.ID];
@@ -777,7 +776,7 @@ QMChatCellDelegate
     
     if ([self.dialog.ID isEqualToString:dialogID]) {
         
-        [self.chatSectionManager addMessages:messages];
+        [self.chatDataSource addMessages:messages];
     }
 }
 
@@ -785,7 +784,7 @@ QMChatCellDelegate
     
     if ([self.dialog.ID isEqualToString:dialogID]) {
         // Inserting message received from XMPP or self sent
-        [self.chatSectionManager addMessage:message];
+        [self.chatDataSource addMessage:message];
     }
 }
 
@@ -801,7 +800,7 @@ QMChatCellDelegate
     
     if ([self.dialog.ID isEqualToString:dialogID] && message.senderID == self.senderID) {
         
-        [self.chatSectionManager updateMessage:message];
+        [self.chatDataSource updateMessage:message];
     }
 }
 
@@ -809,7 +808,7 @@ QMChatCellDelegate
     
     if ([self.dialog.ID isEqualToString:dialogID]) {
         
-        [self.chatSectionManager updateMessages:messages];
+        [self.chatDataSource updateMessages:messages];
     }
 }
 
@@ -841,7 +840,7 @@ QMChatCellDelegate
 		
         if ([message.dialogID isEqualToString:self.dialog.ID]) {
             
-            [self.chatSectionManager updateMessage:message];
+            [self.chatDataSource updateMessage:message];
         }
     }
 }
@@ -861,7 +860,7 @@ QMChatCellDelegate
     
     if (cell == nil && progress < 1.0f) {
         
-        NSIndexPath *indexPath = [self.chatSectionManager indexPathForMessage:message];
+        NSIndexPath *indexPath = [self.chatDataSource indexPathForMessage:message];
         cell = (UICollectionViewCell <QMChatAttachmentCell> *)[self.collectionView cellForItemAtIndexPath:indexPath];
         [self.attachmentCells setObject:cell forKey:message.ID];
     }
@@ -935,7 +934,7 @@ QMChatCellDelegate
                                                                        
                                                                        // perform local attachment deleting
                                                                        [[ServicesManager instance].chatService deleteMessageLocally:message];
-                                                                       [strongSelf.chatSectionManager deleteMessage:message];
+                                                                       [strongSelf.chatDataSource deleteMessage:message];
                                                                    }
                                                                }];
         });

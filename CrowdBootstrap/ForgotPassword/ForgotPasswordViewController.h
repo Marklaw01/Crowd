@@ -11,10 +11,12 @@
 
 #define kMaximumAnswerCount            3
 
-@interface ForgotPasswordViewController : UIViewController<UITextFieldDelegate>{
+@interface ForgotPasswordViewController : UIViewController<UITextFieldDelegate> {
     
    IBOutlet UITextField *emailTextFld;
    IBOutlet UITextField *answerTxtFld;
+   IBOutlet UIButton *btnResetPassword;
+    
    IBOutlet UILabel *securityQuesDefaultLbl;
    IBOutlet UILabel *questionLbl;
     
@@ -31,5 +33,6 @@
     
 }
 @property (nonatomic, strong) JDFSequentialTooltipManager *tooltipManager;
+@property(nonatomic) BOOL isResendConfirmation;
 
 @end

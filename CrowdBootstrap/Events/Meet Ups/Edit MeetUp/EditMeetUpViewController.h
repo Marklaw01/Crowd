@@ -18,14 +18,23 @@
 #define MEETUP_TARGET_MARKET_KEYWORDS_SECTION_INDEX    5
 #define MEETUP_KEYWORDS_SECTION_INDEX    6
 #define MEETUP_INDUSTRY_KEYWORDS_SECTION_INDEX  7
-#define MEETUP_IMAGE_SECTION_INDEX       8
-#define MEETUP_DOCUMENT_SECTION_INDEX    9
-#define MEETUP_AUDIO_SECTION_INDEX       10
-#define MEETUP_VIDEO_SECTION_INDEX       11
+#define MEETUP_ADD_FORUM_SECTION_INDEX  8
+#define MEETUP_ACCESS_SECTION_INDEX  9
+#define MEETUP_NOTIFICATION_SECTION_INDEX  10
+#define MEETUP_IMAGE_SECTION_INDEX       11
+#define MEETUP_DOCUMENT_SECTION_INDEX    12
+#define MEETUP_AUDIO_SECTION_INDEX       13
+#define MEETUP_VIDEO_SECTION_INDEX       14
 
 enum {
     MEETUP_START_DATE_SELECTED,
     MEETUP_END_DATE_SELECTED
+};
+
+enum {
+    MEETUP_ADD_FORUM_SELECTED,
+    MEETUP_ACCESS_SELECTED,
+    MEETUP_NOTIFICATION_SELECTED
 };
 
 enum {
@@ -46,7 +55,7 @@ enum{
 #define kNoIndustryKeywordsFoundMessage           @"No Interest Keywords Found"
 #define kNoMeetUpKeywordsFoundMessage             @"No Meet Up Keywords Found"
 
-@interface EditMeetUpViewController : UIViewController<UITextFieldDelegate,UITableViewDataSource,UITableViewDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate, TLTagsControlDelegate, UISearchBarDelegate>
+@interface EditMeetUpViewController : UIViewController<UITextFieldDelegate,UITableViewDataSource,UITableViewDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate, TLTagsControlDelegate, UISearchBarDelegate, UIPickerViewDelegate>
 {
     // --- IBOutlets ---
     IBOutlet UITableView                      *popupTblView;
@@ -71,6 +80,10 @@ enum{
     IBOutlet UISearchBar                     *searchBarUsers;
     IBOutlet UILabel                         *lblNoUserAvailable;
     
+    // Picker View
+    IBOutlet UIView                          *pickerViewContainer;
+    IBOutlet UIPickerView                    *pickerView;
+
     // --- Variables ---
     NSMutableArray                            *sectionsArray ;
     NSMutableArray                            *arrayForBool;
@@ -100,8 +113,17 @@ enum{
     NSMutableArray                            *selectedIndustryKeywordNames ;
     NSMutableArray                            *selectedMeetUpKeywordNames ;
     
+    NSMutableArray                            *forumsArray;
+    NSString                                  *selectedForumID ;
+    NSMutableArray                            *accessLevelArray;
+    NSString                                  *selectedAccessLevel ;
+    NSMutableArray                            *notificationArray;
+    NSString                                  *selectedNotification ;
+
     int                                       selectedKeywordType ;
     int                                       selectedDatePickerType ;
+    int                                       selectedPickerType ;
+    NSString                                  *prevValue ;
     int                                       isFollowed ;
     int                                       isLiked ;
     

@@ -1,1 +1,1 @@
-../../../../QuickBlox/Quickblox.framework/Versions/A/Headers/QBCustomObjectsHeader.h
+../../../../QuickBlox/Quickblox.framework/Headers/QBCustomObjectsHeader.h

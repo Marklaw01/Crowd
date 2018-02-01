@@ -1,1 +1,1 @@
-../../../../QuickBlox/Quickblox.framework/Versions/A/Headers/QBMPushToken.h
+../../../../QuickBlox/Quickblox.framework/Headers/QBMPushToken.h

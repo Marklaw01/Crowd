@@ -7,19 +7,29 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Quickblox/QBMulticastDelegate.h>
+#import <Bolts/Bolts.h>
+
 #import "QMMemoryStorageProtocol.h"
 #import "QMServiceManagerProtocol.h"
+#import "QMCancellableService.h"
+
+NS_ASSUME_NONNULL_BEGIN
+
+typedef void(^QMTaskSourceBlock)(BFTaskCompletionSource * source);
+
+BFTask *make_task(QMTaskSourceBlock b);
 
 @interface QMBaseService : NSObject <QMMemoryStorageProtocol>
 
 /**
  *  Service manager reference.
  */
-@property (weak, nonatomic, readonly, QB_NULLABLE) id <QMServiceManagerProtocol> serviceManager;
+@property (weak, nonatomic, readonly, nullable) id <QMServiceManagerProtocol> serviceManager;
 
-- (QB_NULLABLE id)init __attribute__((unavailable("init is not a supported initializer for this class.")));
+- (id)init NS_UNAVAILABLE;
 
-- (QB_NULLABLE instancetype)initWithServiceManager:(QB_NONNULL id<QMServiceManagerProtocol>)serviceManager;
+- (instancetype)initWithServiceManager:(id<QMServiceManagerProtocol>)serviceManager;
 
 /**
  *  Called when the servise is will begin start
@@ -27,3 +37,5 @@
 - (void)serviceWillStart;
 
 @end
+
+NS_ASSUME_NONNULL_END

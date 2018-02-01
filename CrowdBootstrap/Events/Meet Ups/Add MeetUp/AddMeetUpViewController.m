@@ -47,8 +47,8 @@
 
 -(void)initializeSectionArray {
     
-    NSArray *fieldsArray = @[@"Meet Up Title", @"Meet Up Description", @"Meet Up Availability Start Date", @"Meet Up Availability End Date", @"Target Market", @"Meet Up Keywords", @"Interest Keywords", @"Upload Image"] ;
-    NSArray *parametersArray = @[kMeetUpAPI_Title, kMeetUpAPI_Description, kMeetUpAPI_StartDate, kMeetUpAPI_EndDate, kAddMeetUpAPI_Target_Market_Keywords, kAddMeetUpAPI_Keywords, kAddMeetUpAPI_IndustryKeywords, kMeetUpAPI_Image] ;
+    NSArray *fieldsArray = @[@"Meet Up Title", @"Meet Up Description", @"Meet Up Availability Start Date", @"Meet Up Availability End Date", @"Target Market", @"Meet Up Keywords", @"Interest Keywords", @"Add Forum", @"Meet Up Access", @"Meet Up Notification", @"Upload Image"] ;
+    NSArray *parametersArray = @[kMeetUpAPI_Title, kMeetUpAPI_Description, kMeetUpAPI_StartDate, kMeetUpAPI_EndDate, kAddMeetUpAPI_Target_Market_Keywords, kAddMeetUpAPI_Keywords, kAddMeetUpAPI_IndustryKeywords, kAddMeetUpAPI_ForumId, kAddMeetUpAPI_AccessLevel, kAddMeetUpAPI_Notification, kMeetUpAPI_Image] ;
     
     sectionsArray = [[NSMutableArray alloc] init] ;
     for (int i=0; i<fieldsArray.count ; i++) {
@@ -80,9 +80,15 @@
     selectedIndustryKeywordNames = [[NSMutableArray alloc] init] ;
     selectedMeetUpKeywordNames = [[NSMutableArray alloc] init] ;
     
+    forumsArray = [[NSMutableArray alloc] init];
+    accessLevelArray = [[NSMutableArray alloc] initWithObjects:@"Groups", @"Connections", @"Public", nil];
+    notificationArray = [[NSMutableArray alloc] initWithObjects:@"Groups", @"Connections", nil];
+
+    prevValue         = @"";
     prevDueDate       = @"" ;
     searchResultsForKeywords = [[NSMutableArray alloc] init];
 
+    selectedPickerType = -1;
     selectedDatePickerType = -1 ;
     selectedKeywordType = -1;
     
@@ -94,6 +100,7 @@
     [self getMeetUpKeywordsList];
     [self getMeetUpIndustryKeywordsList];
     [self getTargetMarketKeywordsList];
+    [self getMeetUpForums];
     
     [self.tblView reloadData] ;
 }
@@ -435,6 +442,22 @@
     else [self createMeetUp] ;
 }
 
+- (IBAction)DropdownButton_ClickAction:(id)sender {
+    TextFieldTableViewCell *cell;
+    if(selectedPickerType == MEETUP_ADD_FORUM_SELECTED) {
+        cell = [self.tblView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:MEETUP_ADD_FORUM_SECTION_INDEX]] ;
+        [cell.textFld becomeFirstResponder] ;
+    }
+    else if(selectedPickerType == MEETUP_ACCESS_SELECTED) {
+        cell = [self.tblView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:MEETUP_ACCESS_SECTION_INDEX]] ;
+        [cell.textFld becomeFirstResponder] ;
+    }
+    else {
+        cell = [self.tblView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:MEETUP_NOTIFICATION_SECTION_INDEX]] ;
+        [cell.textFld becomeFirstResponder] ;
+    }
+}
+
 #pragma mark - Image Picker Methods
 -(void)displayImagePickerWithType:(BOOL)isCameraMode withMediaType:(BOOL)isImageSelected{
     [self dismissViewControllerAnimated:YES completion:nil] ;
@@ -489,6 +512,46 @@
 }
 
 #pragma mark - ToolBar Buttons Action
+- (IBAction)PickerToolbarButtons_ClickAction:(id)sender {
+    TextFieldTableViewCell *cell;
+    
+    if([sender tag] == DONE_CLICKED) {
+        if(selectedPickerType == MEETUP_ADD_FORUM_SELECTED) {
+            cell = [self.tblView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:MEETUP_ADD_FORUM_SECTION_INDEX]] ;
+            [cell.textFld resignFirstResponder] ;
+//            cell.textFld.text = [dateFormatter stringFromDate:datePickerView.date];
+            [[sectionsArray objectAtIndex:MEETUP_ADD_FORUM_SECTION_INDEX] setValue:cell.textFld.text forKey:@"value"] ;
+        }
+        else if(selectedPickerType == MEETUP_ACCESS_SELECTED) {
+            cell = [self.tblView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:MEETUP_ACCESS_SECTION_INDEX]] ;
+            [cell.textFld resignFirstResponder] ;
+            [[sectionsArray objectAtIndex:MEETUP_ACCESS_SECTION_INDEX] setValue:cell.textFld.text forKey:@"value"] ;
+
+        } else {
+            cell = [self.tblView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:MEETUP_NOTIFICATION_SECTION_INDEX]] ;
+            [cell.textFld resignFirstResponder] ;
+            [[sectionsArray objectAtIndex:MEETUP_NOTIFICATION_SECTION_INDEX] setValue:cell.textFld.text forKey:@"value"] ;
+        }
+    }
+    else {
+        if(selectedPickerType == MEETUP_ADD_FORUM_SELECTED) {
+            cell = [self.tblView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:MEETUP_ADD_FORUM_SECTION_INDEX]] ;
+            [cell.textFld resignFirstResponder] ;
+            cell.textFld.text = prevValue ;
+        }
+        else if(selectedPickerType == MEETUP_ACCESS_SELECTED) {
+            cell = [self.tblView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:MEETUP_ACCESS_SECTION_INDEX]] ;
+            [cell.textFld resignFirstResponder] ;
+            cell.textFld.text = prevValue ;
+        }
+        else {
+            cell = [self.tblView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:MEETUP_NOTIFICATION_SECTION_INDEX]] ;
+            [cell.textFld resignFirstResponder] ;
+            cell.textFld.text = prevValue ;
+        }
+    }
+}
+
 - (IBAction)DatePickerToolbarButtons_ClickAction:(id)sender {
     DobTableViewCell *cell;
     
@@ -618,6 +681,41 @@
         }
         prevDueDate = textField.text ;
     }
+    
+    // Drop Down Fields
+    if(textField.tag == MEETUP_ADD_FORUM_SECTION_INDEX || textField.tag == MEETUP_ACCESS_SECTION_INDEX || textField.tag == MEETUP_NOTIFICATION_SECTION_INDEX) {
+        
+        if(textField.tag == MEETUP_ADD_FORUM_SECTION_INDEX) {
+            selectedPickerType = MEETUP_ADD_FORUM_SELECTED;
+            int index = [UtilityClass getPickerViewSelectedIndexFromArray:forumsArray forID:selectedForumID] ;
+            if(index == -1)
+                [pickerView selectRow:0 inComponent:0 animated:YES] ;
+            else
+                [pickerView selectRow:index+1 inComponent:0 animated:YES] ;
+        }
+        else if(textField.tag == MEETUP_ACCESS_SECTION_INDEX) {
+            selectedPickerType = MEETUP_ACCESS_SELECTED;
+
+            if ([textField.text isEqualToString:@""])
+                [pickerView selectRow:0 inComponent:0 animated:YES] ;
+            else {
+                int index = (int)[accessLevelArray indexOfObject:textField.text] ;
+                [pickerView selectRow:index+1 inComponent:0 animated:YES] ;
+            }
+        }
+        else {
+            selectedPickerType = MEETUP_NOTIFICATION_SELECTED;
+
+            if ([textField.text isEqualToString:@""])
+                [pickerView selectRow:0 inComponent:0 animated:YES] ;
+            else {
+                int index = (int)[notificationArray indexOfObject:textField.text] ;
+                [pickerView selectRow:index+1 inComponent:0 animated:YES] ;
+            }
+        }
+        prevValue = textField.text;
+        [pickerView reloadAllComponents];
+    }
 }
 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
@@ -741,6 +839,33 @@
 }
 
 #pragma mark - API Methods
+-(void)getMeetUpForums {
+    if([UtilityClass checkInternetConnection]) {
+        
+        [UtilityClass showHudWithTitle:kHUDMessage_PleaseWait] ;
+        NSMutableDictionary *dictParam = [[NSMutableDictionary alloc] init];
+        
+        [dictParam setObject:[NSString stringWithFormat:@"%d",[UtilityClass getLoggedInUserID]] forKey:kMeetUpAPI_UserID] ;
+
+        [ApiCrowdBootstrap getMeetUpForums:dictParam success:^(NSDictionary *responseDict)  {
+            [UtilityClass hideHud] ;
+            if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode ) {
+                NSLog(@"response : %@", responseDict);
+                [forumsArray removeAllObjects] ;
+                if([responseDict objectForKey:kMeetUpAPI_ForumsList]) {
+                    [forumsArray addObjectsFromArray:(NSArray*)[responseDict valueForKey:kMeetUpAPI_ForumsList]] ;
+                }
+            }
+            else if([[responseDict valueForKey:@"code"] intValue] == kErrorCode) {
+                forumsArray = [NSMutableArray arrayWithArray:[responseDict valueForKey:kMeetUpAPI_ForumsList]] ;
+            }
+        } failure:^(NSError *error) {
+            [UtilityClass displayAlertMessage:error.description] ;
+            [UtilityClass hideHud] ;
+        }] ;
+    }
+}
+
 -(void)getMeetUpKeywordsList {
     if([UtilityClass checkInternetConnection]) {
         
@@ -854,6 +979,10 @@
         [dictParam setObject:@"" forKey:kMeetUpAPI_Audio] ;
         [dictParam setObject:@"" forKey:kMeetUpAPI_Video] ;
         
+        [dictParam setObject:selectedForumID forKey:kAddMeetUpAPI_ForumId] ;
+        [dictParam setObject:selectedAccessLevel forKey:kAddMeetUpAPI_AccessLevel] ;
+        [dictParam setObject:selectedNotification forKey:kAddMeetUpAPI_Notification] ;
+
         NSLog(@"dictParam: %@",dictParam) ;
         CommitTableViewCell *cell = [self.tblView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:sectionsArray.count]] ;
         
@@ -905,7 +1034,7 @@
                 return meetUpKeywordsArray.count ;
         }
     } else {
-        if(section <= MEETUP_INDUSTRY_KEYWORDS_SECTION_INDEX || section == sectionsArray.count)
+        if(section <= MEETUP_NOTIFICATION_SECTION_INDEX || section == sectionsArray.count)
             return 1;
         else {
             if ([[arrayForBool objectAtIndex:section] boolValue])
@@ -1084,6 +1213,26 @@
             
             return cell ;
         }
+        else if(indexPath.section == MEETUP_ADD_FORUM_SECTION_INDEX || indexPath.section == MEETUP_ACCESS_SECTION_INDEX || indexPath.section == MEETUP_NOTIFICATION_SECTION_INDEX) {
+            TextFieldTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DropDownCell"] ;
+            
+            [UtilityClass setTextFieldBorder:cell.textFld] ;
+            [UtilityClass addMarginsOnTextField:cell.textFld] ;
+            
+            cell.textFld.inputView = pickerViewContainer;
+            
+            cell.fieldNameLbl.text = [[sectionsArray objectAtIndex:indexPath.section] valueForKey:@"field"] ;
+            cell.fieldNameLbl.hidden = false;
+            
+            cell.textFld.placeholder = [NSString stringWithFormat:@"%@",[[sectionsArray objectAtIndex:indexPath.section] valueForKey:@"field"]] ;
+            cell.textFld.text = [NSString stringWithFormat:@"%@",[[sectionsArray objectAtIndex:indexPath.section] valueForKey:@"value"]] ;
+            
+            cell.selectionStyle = UITableViewCellSeparatorStyleNone ;
+            cell.textFld.tag = indexPath.section ;
+            cell.textFld.delegate = self ;
+            
+            return cell ;
+        }
         else {
             TextFieldTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TEXTFIELD__CELL_IDENTIFIER] ;
             
@@ -1141,7 +1290,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if(section <= MEETUP_INDUSTRY_KEYWORDS_SECTION_INDEX || section == sectionsArray.count)return 0;
+    if(section <= MEETUP_NOTIFICATION_SECTION_INDEX || section == sectionsArray.count)return 0;
     else return 45 ;
 }
 
@@ -1185,6 +1334,81 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section {
     view.tintColor = [UIColor clearColor];
+}
+
+#pragma mark - Picker View Delegate Methods
+-(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1 ;
+}
+
+-(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    if (selectedPickerType == MEETUP_ADD_FORUM_SELECTED)
+        return forumsArray.count+1 ;
+    else if (selectedPickerType == MEETUP_ACCESS_SELECTED)
+        return accessLevelArray.count+1 ;
+    else
+        return notificationArray.count+1;
+}
+
+-(NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    if (selectedPickerType == MEETUP_ADD_FORUM_SELECTED) {
+        if(row == 0)
+            return @"Select from Options";
+        else
+            return [[forumsArray objectAtIndex:row-1] valueForKey:@"forum_name"] ;
+    }
+    else if (selectedPickerType == MEETUP_ACCESS_SELECTED) {
+        if(row == 0)
+            return @"Select from Options";
+        else
+            return [accessLevelArray objectAtIndex:row-1] ;
+    }
+    else {
+        if(row == 0)
+            return @"Select from Options";
+        else
+            return [notificationArray objectAtIndex:row-1] ;
+    }
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    
+    if (selectedPickerType == MEETUP_ADD_FORUM_SELECTED) {
+        TextFieldTableViewCell *cell = [self.tblView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:MEETUP_ADD_FORUM_SECTION_INDEX]] ;
+        if (row == 0) {
+            cell.textFld.text = @"";
+            selectedForumID = @"";
+        } else {
+            cell.textFld.text = forumsArray[row-1][@"forum_name"];
+            selectedForumID = forumsArray[row-1][@"id"];
+            NSLog(@"Selected Forum - %@: %@",cell.textFld.text, selectedForumID);
+        }
+        [[sectionsArray objectAtIndex:MEETUP_ADD_FORUM_SECTION_INDEX] setValue:cell.textFld.text forKey:@"value"] ;
+    }
+    else if (selectedPickerType == MEETUP_ACCESS_SELECTED) {
+        TextFieldTableViewCell *cell = [self.tblView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:MEETUP_ACCESS_SECTION_INDEX]] ;
+        if (row == 0) {
+            cell.textFld.text = @"";
+            selectedAccessLevel = @"";
+        } else {
+            cell.textFld.text = accessLevelArray[row-1];
+            selectedAccessLevel = [NSString stringWithFormat:@"%ld",(long)row];
+            NSLog(@"Selected Access Level - %@: %@",cell.textFld.text, selectedAccessLevel);
+        }
+        [[sectionsArray objectAtIndex:MEETUP_ACCESS_SECTION_INDEX] setValue:cell.textFld.text forKey:@"value"] ;
+    }
+    else {
+        TextFieldTableViewCell *cell = [self.tblView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:MEETUP_NOTIFICATION_SECTION_INDEX]] ;
+        if (row == 0) {
+            cell.textFld.text = @"";
+            selectedNotification = @"";
+        } else {
+            cell.textFld.text = notificationArray[row-1];
+            selectedNotification = [NSString stringWithFormat:@"%ld",(long)row];
+            NSLog(@"Selected Notification - %@: %@",cell.textFld.text, selectedNotification);
+        }
+        [[sectionsArray objectAtIndex:MEETUP_NOTIFICATION_SECTION_INDEX] setValue:cell.textFld.text forKey:@"value"] ;
+    }
 }
 
 @end

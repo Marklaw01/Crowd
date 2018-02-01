@@ -13,7 +13,11 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imgView;
 @property (weak, nonatomic) IBOutlet UIButton *btnViewProfile;
 @property (weak, nonatomic) IBOutlet UILabel *lblName;
-@property (weak, nonatomic) IBOutlet UILabel *lblDesc
-;
+@property (weak, nonatomic) IBOutlet UILabel *lblDesc;
+
+@property (weak, nonatomic) IBOutlet UILabel *lblStatus;
+
+@property (weak, nonatomic) IBOutlet UIButton *btnRadio;
+@property (weak, nonatomic) IBOutlet UIButton *btnDelete;
 
 @end

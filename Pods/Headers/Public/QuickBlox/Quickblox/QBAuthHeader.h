@@ -1,1 +1,1 @@
-../../../../QuickBlox/Quickblox.framework/Versions/A/Headers/QBAuthHeader.h
+../../../../QuickBlox/Quickblox.framework/Headers/QBAuthHeader.h

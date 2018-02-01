@@ -1,1 +1,1 @@
-../../../../QuickBlox/Quickblox.framework/Versions/A/Headers/QBASession.h
+../../../../QuickBlox/Quickblox.framework/Headers/QBASession.h

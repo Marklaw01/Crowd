@@ -9,6 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "QMPlaceHolderTextView.h"
 
+typedef NS_ENUM(NSUInteger, QMToolbarPosition) {
+    QMToolbarPositionRight,
+    QMToolbarPositionLeft,
+    QMToolbarPositionBottom
+};
+
+
+
+
 /**
  *  A constant value representing the default spacing to use for the left and right edges
  *  of the toolbar content view.
@@ -39,6 +48,13 @@ FOUNDATION_EXPORT const CGFloat kQMToolbarContentViewHorizontalSpacingDefault;
  *  Set this value to `nil` to remove the button.
  */
 @property (weak, nonatomic) UIButton *leftBarButtonItem;
+
+/**
+ *  Specifies the amount of spacing between the content view and the leading edge of leftBarButtonItem.
+ *
+ *  @discussion The default value is `8.0f`.
+ */
+@property (assign, nonatomic) CGFloat leftContentPadding;
 
 /**
  *  Specifies the width of the leftBarButtonItem.
@@ -77,6 +93,13 @@ FOUNDATION_EXPORT const CGFloat kQMToolbarContentViewHorizontalSpacingDefault;
 @property (assign, nonatomic) CGFloat rightBarButtonItemWidth;
 
 /**
+ *  Specifies the amount of spacing between the content view and the trailing edge of rightBarButtonItem.
+ *
+ *  @discussion The default value is `8.0f`.
+ */
+@property (assign, nonatomic) CGFloat rightContentPadding;
+
+/**
  *  The container view for the rightBarButtonItem.
  *
  *  @discussion
@@ -86,7 +109,7 @@ FOUNDATION_EXPORT const CGFloat kQMToolbarContentViewHorizontalSpacingDefault;
  */
 @property (weak, nonatomic, readonly) UIView *rightBarButtonContainerView;
 
-#pragma mark - Class methods
+//MARK: - Class methods
 
 /**
  *  Returns the `UINib` object initialized for a `QMToolbarContentView`.

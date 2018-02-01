@@ -8,61 +8,168 @@
 
 #import "QMChatContainerView.h"
 
+@interface QMChatContainerView()
+
+@property (strong, nonatomic) UIImageView *preview;
+@property (readwrite, strong, nonatomic) UIBezierPath *maskPath;
+
+@end
+
 @implementation QMChatContainerView
+
+static NSMutableDictionary *_imaages = nil;
+
++ (void)initialize {
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _imaages = [NSMutableDictionary dictionary];
+    });
+}
+
++ (UIImage *)bubleImageWithArrowSize:(CGSize)arrowSize
+                           fillColor:(UIColor *)fillColor
+                        cornerRadius:(NSUInteger)cornerRadius
+                           leftArrow:(BOOL)leftArrow {
+    
+    NSString *identifier = [NSString stringWithFormat:@"%@_%tu_%tu_%d",
+                            NSStringFromCGSize(arrowSize),
+                            fillColor.hash,
+                            cornerRadius,
+                            leftArrow];
+    
+    UIImage *img = _imaages[identifier];
+    cornerRadius = MIN(cornerRadius, 10);
+    int space = leftArrow ? arrowSize.width : 0;
+    float leftCap = space +  cornerRadius + 1;
+    float topCap = cornerRadius;
+    
+    CGSize size = CGSizeMake(arrowSize.width + (space +  cornerRadius * 2) +2,
+                             cornerRadius * 2 + arrowSize.height);
+    
+    if (img) {
+        return img;
+    }
+    
+    
+    UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
+    
+    [fillColor setFill];
+    
+    CGRect rect = CGRectMake(0, 0, size.width, size.height);
+    
+    BOOL arrow = arrowSize.width + arrowSize.height;
+    
+    UIBezierPath *rectanglePath = nil;
+    if (!arrow) {
+        
+        rectanglePath =
+        [UIBezierPath bezierPathWithRoundedRect:rect
+                                   cornerRadius:cornerRadius];
+    }
+    else {
+        
+        CGFloat x = leftArrow ? arrowSize.width : CGRectGetMinX(rect);
+        CGFloat y = CGRectGetMinY(rect);
+        CGFloat w = CGRectGetWidth(rect);
+        CGFloat h = CGRectGetHeight(rect);
+        //// Subframes
+        CGRect arrowRect = CGRectMake((leftArrow ?  0 : x + w - arrowSize.width),
+                                      y + h - arrowSize.height,
+                                      arrowSize.width, arrowSize.height);
+        //// Rectangle Drawing
+        rectanglePath =
+        [UIBezierPath bezierPathWithRoundedRect:CGRectMake(x, y, w - arrowSize.width, h)
+                              byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight | (leftArrow ? UIRectCornerBottomRight : UIRectCornerBottomLeft)
+                                    cornerRadii:CGSizeMake(cornerRadius, cornerRadius)];
+        
+        [rectanglePath moveToPoint:CGPointMake(CGRectGetMaxX(arrowRect) + arrowSize.width,
+                                               CGRectGetMaxY(arrowRect))];
+        
+        [rectanglePath addLineToPoint:CGPointMake(CGRectGetMaxX(arrowRect),
+                                                  CGRectGetMaxY(arrowRect))];
+        [rectanglePath addLineToPoint:CGPointMake(CGRectGetMaxX(arrowRect) - (leftArrow ?  0 : arrowSize.width),
+                                                  CGRectGetMaxY(arrowRect) - arrowSize.height)];
+        [rectanglePath addLineToPoint:CGPointMake(CGRectGetMaxX(arrowRect) - arrowSize.width,
+                                                  CGRectGetMaxY(arrowRect))];
+    }
+    
+    [rectanglePath fill];
+    
+
+    img = UIGraphicsGetImageFromCurrentImageContext();
+
+    UIGraphicsEndImageContext();
+    
+    img = [img stretchableImageWithLeftCapWidth:leftCap
+                                   topCapHeight:topCap];
+    _imaages[identifier] = img;
+    
+    return img;
+}
 
 - (void)awakeFromNib {
     
     [super awakeFromNib];
-    self.backgroundColor = [UIColor clearColor];
+    self.opaque = YES;
+    _preview =
+    [[UIImageView alloc] initWithFrame:self.bounds];
+    _preview.userInteractionEnabled = YES;
+    _preview.autoresizingMask =
+    UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    UIImage *bubleImg =
+    [QMChatContainerView bubleImageWithArrowSize:self.arrowSize
+                                       fillColor:self.bgColor
+                                    cornerRadius:self.cornerRadius
+                                       leftArrow:self.leftArrow];
+    
+    _preview.image = bubleImg;
+    
+    _preview.highlightedImage = bubleImg;
+    
+    [self insertSubview:_preview atIndex:0];
 }
 
-- (void)drawRect:(CGRect)rect {
-    
-    [self drawCanvas1WithRect:rect];
+- (UIImage *)backgroundImage {
+    return _preview.image;
 }
 
-- (void)drawCanvas1WithRect:(CGRect)rect  {
+- (void)setBgColor:(UIColor *)bgColor {
     
-    if (self.highlighted) {
+    if (![_bgColor isEqual:bgColor]) {
         
-        [self.highlightColor setFill];
-    }
-    else {
+        //awakefromnib
+        if (_bgColor) {
+            
+            UIImage *bubleImg =
+            [QMChatContainerView bubleImageWithArrowSize:self.arrowSize
+                                               fillColor:bgColor
+                                            cornerRadius:self.cornerRadius
+                                               leftArrow:self.leftArrow];
+            _preview.image = bubleImg;
+        }
         
-        [self.bgColor setFill];
+        _bgColor = bgColor;
     }
+}
+
+- (void)setHighlightColor:(UIColor *)highlightColor {
     
-    if (!self.arrow) {
+    if (![_highlightColor isEqual:highlightColor]) {
         
-         UIBezierPath *rectanglePath = [UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:self.cornerRadius];
-        [rectanglePath fill];
-        return;
+        if (_highlightColor) {
+            
+            UIImage *bubleImg =
+            [QMChatContainerView bubleImageWithArrowSize:self.arrowSize
+                                               fillColor:highlightColor
+                                            cornerRadius:self.cornerRadius
+                                               leftArrow:self.leftArrow];
+            _preview.highlightedImage = bubleImg;
+        }
+        
+        _highlightColor = highlightColor;
     }
-    
-    CGFloat x = self.leftArrow ? self.arrowSize.width : CGRectGetMinX(rect);
-    CGFloat y = CGRectGetMinY(rect);
-    CGFloat w = CGRectGetWidth(rect);
-    CGFloat h = CGRectGetHeight(rect);
-    //// Subframes
-    CGRect arrowRect = CGRectMake((self.leftArrow ?  0 : x + w - self.arrowSize.width),
-                                  y + h - self.arrowSize.height,
-                                  self.arrowSize.width, self.arrowSize.height);
-    //// Rectangle Drawing
-    UIBezierPath* rectanglePath =
-    [UIBezierPath bezierPathWithRoundedRect:CGRectMake(x, y, w - self.arrowSize.width, h)
-                          byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight | (self.leftArrow ? UIRectCornerBottomRight : UIRectCornerBottomLeft)
-                                cornerRadii:CGSizeMake(self.cornerRadius, self.cornerRadius)];
-    
-    [rectanglePath closePath];
-    [rectanglePath fill];
-    //// arrow Drawing
-    UIBezierPath* arrowPath = UIBezierPath.bezierPath;
-    [arrowPath moveToPoint: CGPointMake(CGRectGetMaxX(arrowRect) + self.arrowSize.width, CGRectGetMaxY(arrowRect))];
-    [arrowPath addLineToPoint:CGPointMake(CGRectGetMaxX(arrowRect), CGRectGetMaxY(arrowRect))];
-    [arrowPath addLineToPoint:CGPointMake(CGRectGetMaxX(arrowRect) - (self.leftArrow ?  0 : self.arrowSize.width), CGRectGetMaxY(arrowRect) - self.arrowSize.height)];
-    [arrowPath addLineToPoint:CGPointMake(CGRectGetMaxX(arrowRect) - self.arrowSize.width, CGRectGetMaxY(arrowRect))];
-    [arrowPath closePath];
-    [arrowPath fill];
+
 }
 
 - (void)setHighlighted:(BOOL)highlighted {
@@ -70,14 +177,8 @@
     if (_highlighted != highlighted) {
         _highlighted = highlighted;
         
-        [self setNeedsDisplay];
+        _preview.alpha = highlighted ? 0.6 : 1;
     }
-}
-
-- (void)setBounds:(CGRect)bounds {
-    [super setBounds:bounds];
-    
-    [self setNeedsDisplay];
 }
 
 @end

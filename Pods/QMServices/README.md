@@ -1,4 +1,6 @@
-**Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
+[![CocoaPods](https://img.shields.io/cocoapods/v/QMServices.svg)](https://cocoapods.org/pods/QMServices)
+[![CocoaPods](https://img.shields.io/cocoapods/dt/QMServices.svg)](https://cocoapods.org/pods/QMServices)
+[![CocoaPods](https://img.shields.io/cocoapods/dm/QMServices.svg)](https://cocoapods.org/pods/QMServices)
 
 - [QMServices](#qmservices)
 - [Features](#features)
@@ -11,6 +13,7 @@
 - [Architecture](#architecture)
 - [Getting started](#getting-started)
 	- [Service Manager](#service-manager)
+	- [Logs](#logs)
 	- [Authentication](#authentication)
 		- [Login](#login)
 		- [Logout](#logout)
@@ -289,13 +292,21 @@ Also for prefetching initial dialogs and messages you have to implement **QMChat
 }
 ```
 
-## Authentication
+## Logs
 
-We encourage to use automatic session creation, to simplify communication with backend:
+By default QMServices logging its information in developer console. You may want to disable them (for example for production, logs can slow your app sometimes). In order to do so use QMServicesManager static method:
 
 ```objective-c
-[QBSettings setAutoCreateSessionEnabled:YES];
++ (void)enableLogging:(BOOL)flag;
 ```
+
+Just set it, for example, in your AppDelegate class like this:
+
+```objective-c
+[QMServicesManager enableLogging:NO];
+```
+
+## Authentication
 
 ### Login
 
@@ -1394,6 +1405,11 @@ Load users to memory storage from disc cache.
 
 ```
 
+###Get users
+
+There are several ways to get users by methods below. By default every get method first checking for a specific user in cache. If such user was found in cache method will exclude him from server request, and send request only for users, that weren't found in local cache.  If you want to update users in cache, you need to force them to be loaded from server, even though they are already being cached.
+Every get method has also its implementation with forceLoad flag, set it to YES in order to force users loading from server.
+
 Get user by id:
 
 ```objective-c
@@ -1465,6 +1481,8 @@ Get users by logins with extended pagination parameters:
 - (BFTask<NSArray<QBUUser *> *> *)getUsersWithLogins:(NSArray<NSString *> *)logins page:(QBGeneralResponsePage *)page;
 
 ```
+
+###Search users
 
 Search for users by full name:
 

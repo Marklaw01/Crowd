@@ -78,7 +78,7 @@
     [[TWMessageBarManager sharedInstance] showMessageWithTitle:NSLocalizedString(@"SA_STR_ERROR", nil) description:errorMessage type:TWMessageBarMessageTypeError];
 }
 
-- (void)downloadCurrentEnvironmentUsersWithSuccessBlock:(void(^)(NSArray *latestUsers))successBlock errorBlock:(void(^)(NSError *error))errorBlock {
+- (void)downloadCurrentEnvironmentUsersWithSuccessBlock:(void(^)(NSArray<QBUUser *> *latestUsers))successBlock errorBlock:(void(^)(NSError *error))errorBlock {
     
     __weak __typeof(self)weakSelf = self;
     [[self.usersService searchUsersWithTags:@[[self currentEnvironment]]] continueWithBlock:^id(BFTask *task) {
@@ -128,16 +128,16 @@
 
 #pragma mark - Last activity date
 
-- (void)setLastActivityDate:(NSDate *)lastActivityDate {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:lastActivityDate forKey:kLastActivityDateKey];
-    [defaults synchronize];
-}
-
-- (NSDate *)lastActivityDate {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    return [defaults objectForKey:kLastActivityDateKey];
-}
+//- (void)setLastActivityDate:(NSDate *)lastActivityDate {
+//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    [defaults setObject:lastActivityDate forKey:kLastActivityDateKey];
+//    [defaults synchronize];
+//}
+//
+//- (NSDate *)lastActivityDate {
+//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    return [defaults objectForKey:kLastActivityDateKey];
+//}
 
 #pragma mark QMChatServiceCache delegate
 

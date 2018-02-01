@@ -1,1 +1,1 @@
-../../../../QuickBlox/Quickblox.framework/Versions/A/Headers/QBResponsePage.h
+../../../../QuickBlox/Quickblox.framework/Headers/QBResponsePage.h

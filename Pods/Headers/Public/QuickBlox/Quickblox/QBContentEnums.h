@@ -1,1 +1,1 @@
-../../../../QuickBlox/Quickblox.framework/Versions/A/Headers/QBContentEnums.h
+../../../../QuickBlox/Quickblox.framework/Headers/QBContentEnums.h

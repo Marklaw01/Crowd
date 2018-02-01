@@ -1,1 +1,1 @@
-../../../../QuickBlox/Quickblox.framework/Versions/A/Headers/QBMSubscription.h
+../../../../QuickBlox/Quickblox.framework/Headers/QBMSubscription.h

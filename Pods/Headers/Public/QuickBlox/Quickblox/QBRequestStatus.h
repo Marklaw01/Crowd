@@ -1,1 +1,1 @@
-../../../../QuickBlox/Quickblox.framework/Versions/A/Headers/QBRequestStatus.h
+../../../../QuickBlox/Quickblox.framework/Headers/QBRequestStatus.h

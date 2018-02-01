@@ -1,1 +1,1 @@
-../../../../QuickBlox/Quickblox.framework/Versions/A/Headers/QBError.h
+../../../../QuickBlox/Quickblox.framework/Headers/QBError.h

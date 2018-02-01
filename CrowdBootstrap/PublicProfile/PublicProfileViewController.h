@@ -29,6 +29,8 @@
     int                          selectedUserType ;
     int                          quickBloxID ;
     int                          connectionID;
+    
+    NSDictionary                 *profileDict;
 }
 
 @property(strong, nonatomic)NSString *profileMode ;

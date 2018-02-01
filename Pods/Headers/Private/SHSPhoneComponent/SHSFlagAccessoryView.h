@@ -1,1 +1,1 @@
-../../../SHSPhoneComponent/SHSPhoneComponents/SHSFlagAccessoryView.h
+../../../SHSPhoneComponent/SHSPhoneComponents/Library/SHSFlagAccessoryView.h

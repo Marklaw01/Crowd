@@ -1,1 +1,1 @@
-../../../../QuickBlox/Quickblox.framework/Versions/A/Headers/QBChatDefinitions.h
+../../../../QuickBlox/Quickblox.framework/Headers/QBChatDefinitions.h

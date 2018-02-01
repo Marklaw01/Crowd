@@ -1,1 +1,1 @@
-../../../SHSPhoneComponent/SHSPhoneComponents/SHSPhoneNumberFormatter+UserConfig.h
+../../../SHSPhoneComponent/SHSPhoneComponents/Library/SHSPhoneNumberFormatter+UserConfig.h

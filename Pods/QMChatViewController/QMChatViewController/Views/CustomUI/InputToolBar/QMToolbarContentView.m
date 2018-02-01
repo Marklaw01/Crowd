@@ -8,8 +8,18 @@
 
 #import "QMToolbarContentView.h"
 #import "UIView+QM.h"
+#import "QMChatResources.h"
+#import "QMAudioRecordButton.h"
+#import "QMToolbarContainer.h"
 
 const CGFloat kQMToolbarContentViewHorizontalSpacingDefault = 8.0f;
+
+
+@interface QMToolbarButton : UIButton
+
+@property (assign, nonatomic) QMToolbarPosition *position;
+
+@end
 
 @interface QMToolbarContentView()
 
@@ -24,6 +34,9 @@ const CGFloat kQMToolbarContentViewHorizontalSpacingDefault = 8.0f;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftHorizontalSpacingConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightHorizontalSpacingConstraint;
 
+@property (weak, nonatomic) QMToolbarContainer *rightToolbarContainer;
+@property (weak, nonatomic) QMToolbarContainer *leftToolbarContainer;
+
 @end
 
 @implementation QMToolbarContentView
@@ -32,8 +45,7 @@ const CGFloat kQMToolbarContentViewHorizontalSpacingDefault = 8.0f;
 
 + (UINib *)nib {
     
-    return [UINib nibWithNibName:NSStringFromClass(QMToolbarContentView.class)
-                          bundle:[NSBundle bundleForClass:QMToolbarContentView.class]];
+    return [QMChatResources nibWithNibName:NSStringFromClass([QMToolbarContentView class])];
 }
 
 #pragma mark - Initialization
@@ -41,6 +53,11 @@ const CGFloat kQMToolbarContentViewHorizontalSpacingDefault = 8.0f;
 - (void)awakeFromNib {
     
     [super awakeFromNib];
+    [self initialize];
+    
+}
+
+- (void)initialize {
     
     [self setTranslatesAutoresizingMaskIntoConstraints:NO];
     
@@ -48,6 +65,8 @@ const CGFloat kQMToolbarContentViewHorizontalSpacingDefault = 8.0f;
     self.rightHorizontalSpacingConstraint.constant = kQMToolbarContentViewHorizontalSpacingDefault;
     
     self.backgroundColor = [UIColor clearColor];
+    
+    
 }
 
 - (void)dealloc {
@@ -137,6 +156,7 @@ const CGFloat kQMToolbarContentViewHorizontalSpacingDefault = 8.0f;
     _rightBarButtonItem = rightBarButtonItem;
 }
 
+
 - (void)setRightBarButtonItemWidth:(CGFloat)rightBarButtonItemWidth {
     
     self.rightBarButtonContainerViewWidthConstraint.constant = rightBarButtonItemWidth;
@@ -150,9 +170,31 @@ const CGFloat kQMToolbarContentViewHorizontalSpacingDefault = 8.0f;
     return self.leftBarButtonContainerViewWidthConstraint.constant;
 }
 
+- (void)setRightContentPadding:(CGFloat)rightContentPadding {
+    
+    self.rightHorizontalSpacingConstraint.constant = rightContentPadding;
+    [self setNeedsUpdateConstraints];
+}
+
+- (void)setLeftContentPadding:(CGFloat)leftContentPadding {
+    
+    self.leftHorizontalSpacingConstraint.constant = leftContentPadding;
+    [self setNeedsUpdateConstraints];
+}
+
 - (CGFloat)rightBarButtonItemWidth {
     
     return self.rightBarButtonContainerViewWidthConstraint.constant;
+}
+
+- (CGFloat)rightContentPadding {
+    
+    return self.rightHorizontalSpacingConstraint.constant;
+}
+
+- (CGFloat)leftContentPadding {
+    
+    return self.leftHorizontalSpacingConstraint.constant;
 }
 
 #pragma mark - UIView overrides

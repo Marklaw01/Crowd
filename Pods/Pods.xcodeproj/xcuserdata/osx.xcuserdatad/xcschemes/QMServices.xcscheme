@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '7CEA269DC8308B05455AF8B77AABFBC2'
+               BlueprintIdentifier = '61258CF850E9D9064CEE4ACD7141AD62'
                BlueprintName = 'QMServices'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libQMServices.a'>

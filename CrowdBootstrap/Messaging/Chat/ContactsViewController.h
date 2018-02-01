@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "KLCPopup.h"
 
 enum {
     CHATS_SELECTED,
@@ -21,7 +22,7 @@ enum {
 #define MIN_GROUP_CHAT_MEM_REQ           3
 
 @interface ContactsViewController : UIViewController<UITextFieldDelegate,QMChatServiceDelegate,
-QMAuthServiceDelegate,QMChatConnectionDelegate>{
+QMAuthServiceDelegate,QMChatConnectionDelegate> {
     IBOutlet UISegmentedControl          *segmentControl;
     IBOutlet UILabel                     *NoChatsAvailableLbl;
     //IBOutlet UITableView                 *tblView;

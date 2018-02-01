@@ -1,1 +1,1 @@
-../../../../QuickBlox/Quickblox.framework/Versions/A/Headers/QBSettings.h
+../../../../QuickBlox/Quickblox.framework/Headers/QBSettings.h

@@ -37,14 +37,14 @@
 #define kMenuIdentifier_communalAssets @"communalAssetsIdentifier"
 
 
-#define kMyProfielSectionCellIndex     2
-#define kStartupSectionCellIndex       3
-#define kContractorSectionCellIndex    4
-#define kOrganizationSectionCellIndex  5
-#define kMessagesSectionCellIndex      6
-#define kResourcesSectionCellIndex     7
-#define kEventsSectionCellIndex        8
-#define kOpportunitiesSectionCellIndex 9
+#define kMyProfielSectionCellIndex     3
+#define kStartupSectionCellIndex       4
+#define kContractorSectionCellIndex    5
+#define kOrganizationSectionCellIndex  6
+#define kMessagesSectionCellIndex      7
+#define kResourcesSectionCellIndex     8
+#define kEventsSectionCellIndex        9
+#define kOpportunitiesSectionCellIndex 10
 
 
 

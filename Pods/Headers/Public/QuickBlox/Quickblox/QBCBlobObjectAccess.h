@@ -1,1 +1,1 @@
-../../../../QuickBlox/Quickblox.framework/Versions/A/Headers/QBCBlobObjectAccess.h
+../../../../QuickBlox/Quickblox.framework/Headers/QBCBlobObjectAccess.h

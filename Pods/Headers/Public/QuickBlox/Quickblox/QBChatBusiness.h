@@ -1,1 +1,1 @@
-../../../../QuickBlox/Quickblox.framework/Versions/A/Headers/QBChatBusiness.h
+../../../../QuickBlox/Quickblox.framework/Headers/QBChatBusiness.h

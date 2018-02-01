@@ -1,1 +1,1 @@
-../../../../QuickBlox/Quickblox.framework/Versions/A/Headers/QBCOPermissions.h
+../../../../QuickBlox/Quickblox.framework/Headers/QBCOPermissions.h

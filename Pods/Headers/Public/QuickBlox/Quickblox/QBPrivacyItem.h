@@ -1,1 +1,1 @@
-../../../../QuickBlox/Quickblox.framework/Versions/A/Headers/QBPrivacyItem.h
+../../../../QuickBlox/Quickblox.framework/Headers/QBPrivacyItem.h

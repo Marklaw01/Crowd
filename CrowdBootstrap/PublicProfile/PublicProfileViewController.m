@@ -234,6 +234,24 @@
     [self followUnfollowUserWithStatus:status] ;
 }
 
+- (IBAction)BusinessCardButton_ClickAction:(UIButton*)button {
+    
+    //TODO: Redirect to Business Card Details Screen
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NetworkingOptions" bundle:nil];
+    UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:kBusinessCardDetailIdentifier] ;
+    
+//    NSDictionary *userDict = [[NSDictionary alloc] init];
+//    [userDict setValue:[NSString stringWithFormat:@"%d", connectionTypeID] forKey:kBusinessAPI_ConnectionId];
+//    [userDict setValue:[NSString stringWithFormat:@"%d", businessCardID] forKey:kBusinessAPI_CardId];
+//
+//    NSLog(@"%@",userDict);
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSendProfileInfo object:@"PublicProfile" userInfo:profileDict];
+    
+    [self.navigationController pushViewController:viewController animated:true];
+
+}
+
 - (IBAction)connectButton_ClickAction:(UIButton*)button {
     
     NSString *btnText = button.titleLabel.text;
@@ -326,12 +344,25 @@
         
         if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode)  {
             NSLog(@"responseDict: %@",responseDict) ;
+            
+            profileDict = [NSDictionary dictionaryWithDictionary:responseDict];
+            
             // Get QuickBlox ID
-           if([[responseDict objectForKey:kProfileAPI_QuickbloxID] intValue]) quickBloxID = [[responseDict objectForKey:kProfileAPI_QuickbloxID] intValue] ;
+           if([[responseDict objectForKey:kProfileAPI_QuickbloxID] intValue])
+               quickBloxID = [[responseDict objectForKey:kProfileAPI_QuickbloxID] intValue] ;
             
             // Get Connection ID
-            if([[responseDict objectForKey:kProfileAPI_connectionID] intValue]) connectionID = [[responseDict objectForKey:kProfileAPI_connectionID] intValue] ;
+            if([[responseDict objectForKey:kProfileAPI_connectionID] intValue])
+                connectionID = [[responseDict objectForKey:kProfileAPI_connectionID] intValue] ;
             
+            // Get Business Card ID
+//            if([[responseDict objectForKey:kBusinessAPI_CardId] intValue])
+//                businessCardID = [[responseDict objectForKey:kBusinessAPI_CardId] intValue] ;
+//
+//            // Get Connection Type ID
+//            if([[responseDict objectForKey:kBusinessAPI_ConnectionId] intValue])
+//                connectionTypeID = [[responseDict objectForKey:kBusinessAPI_ConnectionId] intValue] ;
+
             // Update Profile Info
             userNameTxtFld.text = [responseDict objectForKey:kProfileAPI_Name] ;
             
@@ -404,11 +435,11 @@
 
 -(void)getStartupsProfileData {
     NSMutableDictionary *dictParam =[[NSMutableDictionary alloc] init];
-    if([UtilityClass getProfileMode] == PROFILE_MODE_RECOMMENDED || [UtilityClass getProfileMode] == PROFILE_MODE_SEARCH || [UtilityClass getProfileMode] == PROFILE_MODE_TEAM){
+    if([UtilityClass getProfileMode] == PROFILE_MODE_RECOMMENDED || [UtilityClass getProfileMode] == PROFILE_MODE_SEARCH || [UtilityClass getProfileMode] == PROFILE_MODE_TEAM) {
         [dictParam setObject:[NSString stringWithFormat:@"%@",[[UtilityClass getContractorDetails] valueForKey:kRecommendedContAPI_ContractorID]] forKey:kProfileAPI_UserID] ;
-        if([UtilityClass getProfileMode] == PROFILE_MODE_TEAM ){
+        if([UtilityClass getProfileMode] == PROFILE_MODE_TEAM ) {
             NSString *role = [[UtilityClass getCampaignDetails] valueForKey:kStartupTeamAPI_MemberRole] ;
-            if(role){
+            if(role) {
                 if([role isEqualToString:TEAM_TYPE_ENTREPRENEUR])[dictParam setObject:ENTREPRENEUR_TEXT forKey:kProfileAPI_UserType] ;
                 else [dictParam setObject:CONTRACTOR_TEXT forKey:kProfileAPI_UserType] ;
             }

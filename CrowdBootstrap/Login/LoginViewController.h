@@ -15,7 +15,9 @@
 enum{
     HOME_SELECTED,
     SIGNUP_SELECTED,
-    FORGOT_PASSWORD_SELECTED
+    FORGOT_PASSWORD_SELECTED,
+    RESEND_CONFIRMATION_SELECTED,
+    ABOUT_SELECTED
 };
 
 
@@ -24,7 +26,9 @@ enum{
      IBOutlet UITextField *emailTxtFld;
      IBOutlet UITextField *passwordTxtFld;
     
+    BOOL isResendConfirmation;
 }
 @property (nonatomic, strong) JDFSequentialTooltipManager *tooltipManager;
+- (IBAction)btnAboutCorwdClicked:(id)sender;
 
 @end

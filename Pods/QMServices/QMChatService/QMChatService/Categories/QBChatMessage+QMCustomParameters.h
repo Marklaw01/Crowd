@@ -6,38 +6,43 @@
 //  Copyright (c) 2015 Quickblox. All rights reserved.
 //
 
-#import <Quickblox/QBChatMessage.h>
 #import "QMChatTypes.h"
+#import "QBChatAttachment+QMCustomParameters.h"
+#import <CoreLocation/CoreLocation.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface QBChatMessage (QMCustomParameters)
 
 /**
  *  Message
  */
-@property (strong, nonatomic, QB_NULLABLE) NSString *saveToHistory;
+@property (strong, nonatomic, nullable) NSString *saveToHistory;
 @property (assign, nonatomic) QMMessageType messageType;
-@property (strong, nonatomic, QB_NULLABLE) NSString *chatMessageID;
+@property (strong, nonatomic, nullable) NSString *chatMessageID;
 @property (assign, nonatomic) BOOL messageDeliveryStatus;
 @property (assign, nonatomic) QMMessageAttachmentStatus attachmentStatus;
+@property (assign, nonatomic) CLLocationCoordinate2D locationCoordinate;
+
 
 /**
  *  Dialog
  */
-@property (strong, nonatomic, readonly, QB_NULLABLE) QBChatDialog *dialog;
+@property (strong, nonatomic, readonly, nullable) QBChatDialog *dialog;
 @property (assign, nonatomic) QMDialogUpdateType dialogUpdateType;
-@property (strong, nonatomic, QB_NULLABLE) NSArray QB_GENERIC(NSNumber *) *currentOccupantsIDs;
-@property (strong, nonatomic, QB_NULLABLE) NSArray QB_GENERIC(NSNumber *) *addedOccupantsIDs;
-@property (strong, nonatomic, QB_NULLABLE) NSArray QB_GENERIC(NSNumber *) *deletedOccupantsIDs;
-@property (strong, nonatomic, QB_NULLABLE) NSString *dialogName;
-@property (strong, nonatomic, QB_NULLABLE) NSString *dialogPhoto;
-@property (strong, nonatomic, QB_NULLABLE) NSDate *dialogUpdatedAt;
+@property (strong, nonatomic, nullable) NSArray<NSNumber *> *currentOccupantsIDs;
+@property (strong, nonatomic, nullable) NSArray<NSNumber *> *addedOccupantsIDs;
+@property (strong, nonatomic, nullable) NSArray<NSNumber *> *deletedOccupantsIDs;
+@property (strong, nonatomic, nullable) NSString *dialogName;
+@property (strong, nonatomic, nullable) NSString *dialogPhoto;
+@property (strong, nonatomic, nullable) NSDate *dialogUpdatedAt;
 
 /**
  *  Save values from QBChatDialog to message custom parameters
  *
  *  @param dialog QBChatDialog that will be saved
  */
-- (void)updateCustomParametersWithDialog:(QB_NONNULL QBChatDialog *)dialog;
+- (void)updateCustomParametersWithDialog:(QBChatDialog *)dialog;
 
 /**
  *  This method is used to determine if the message data item contains text or media.
@@ -59,6 +64,41 @@
  *  @return A boolean value specifying whether or not this is a notification message.
  *  Return `YES` if this item is a notification message, and `NO` if it is a text message.
  */
-- (BOOL)isNotificatonMessage;
+- (BOOL)isNotificationMessage;
+
+/**
+ *  This method is used to determine if the message data item is location.
+ *
+ *  @return A boolean value specifying whether or not this is a location message.
+ *  Return `YES` if this item is a location message, and `NO` if it is a text message.
+ */
+- (BOOL)isLocationMessage;
+
+/**
+ *  This method is used to determine if the message data item is audio attachment.
+ *
+ *  @return A boolean value specifying whether or not this is a message with audio attachment.
+ *  Return `YES` if this item is a audio attachment, and `NO` if it is a text message.
+ */
+- (BOOL)isAudioAttachment;
+
+/**
+ *  This method is used to determine if the message data item is video attachment.
+ *
+ *  @return A boolean value specifying whether or not this is a message with video attachment.
+ *  Return `YES` if this item is a video attachment, and `NO` if it is a text message.
+ */
+- (BOOL)isVideoAttachment;
+
+/**
+ *  This method is used to determine if the message data item is image attachment.
+ *
+ *  @return A boolean value specifying whether or not this is a message with image attachment.
+ *  Return `YES` if this item is a image attachment, and `NO` if it is a text message.
+ */
+- (BOOL)isImageAttachment;
+
 
 @end
+
+NS_ASSUME_NONNULL_END

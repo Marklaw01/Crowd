@@ -1,1 +1,1 @@
-../../../../QuickBlox/Quickblox.framework/Versions/A/Headers/QBPushNotificationsDefinitions.h
+../../../../QuickBlox/Quickblox.framework/Headers/QBPushNotificationsDefinitions.h

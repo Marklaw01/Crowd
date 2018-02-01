@@ -1,1 +1,1 @@
-../../../../QuickBlox/Quickblox.framework/Versions/A/Headers/BaseServiceFramework.h
+../../../../QuickBlox/Quickblox.framework/Headers/BaseServiceFramework.h

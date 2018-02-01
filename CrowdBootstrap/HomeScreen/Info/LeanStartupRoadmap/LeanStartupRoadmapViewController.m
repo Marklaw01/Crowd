@@ -72,10 +72,21 @@
     roadmap = [[Roadmap alloc] init];
     index_down = 0;
     index_up = 0;
+    
+    loadingIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake((webViewPopup.frame.size.width/2)-50, (webViewPopup.frame.size.height/2)-40, 40, 40)];
+    [loadingIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
+    [loadingIndicator setHidesWhenStopped:YES];
+    [webViewPopup addSubview:loadingIndicator];
 }
 
 -(void)resetUISettings {
     self.title = @"Lean Startup Roadmap" ;
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy"];
+    NSString *yearString = [formatter stringFromDate:[NSDate date]];
+    
+    btnLicense.titleLabel.text = [NSString stringWithFormat:@"License - Required Attribution: © %@ Crowd Bootstrap",yearString];
 }
 
 - (void) registerNib {
@@ -215,9 +226,18 @@
 // Set Webview Content Font
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
+    [loadingIndicator startAnimating];
+
     int fontSize = 80;
     NSString *jsString = [[NSString alloc] initWithFormat:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '%d%%'", fontSize];
     [webViewPopup stringByEvaluatingJavaScriptFromString:jsString];
+    
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    //Check here if still webview is loding the content
+    [loadingIndicator stopAnimating];
 }
 
 #pragma mark - API Methods
@@ -359,4 +379,23 @@
     btnTemplate.hidden = true;
     constraintScrollDownLabel.constant = 20.0;
 }
+
+- (IBAction)btnLicenseClicked:(id)sender {
+    
+    [self animatePopup];
+    
+    // Set Title
+    lblTitle.text = @"License";
+
+    [webViewPopup loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
+    
+    // Set description
+    NSURL *url = [NSURL URLWithString:LICENSE_LINK];
+    [webViewPopup loadRequest:[NSURLRequest requestWithURL:url]];
+    
+    btnSample.hidden = true;
+    btnTemplate.hidden = true;
+    constraintScrollDownLabel.constant = 20.0;
+}
+
 @end

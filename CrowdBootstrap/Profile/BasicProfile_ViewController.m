@@ -482,7 +482,7 @@
         
         return cell ;
     }
-    else if(indexPath.row == BASIC_COUNTRY_CELL_INDEX || indexPath.row == BASIC_CITY_CELL_INDEX){
+    else if(indexPath.row == BASIC_COUNTRY_CELL_INDEX || indexPath.row == BASIC_CITY_CELL_INDEX) {
         DobTableViewCell *cell = (DobTableViewCell*)[tableView dequeueReusableCellWithIdentifier:BASIC_COUNTRY_CELL_IDENTIFIER] ;
         cell.selectionStyle = UITableViewCellSelectionStyleNone ;
         cell.fieldNameLbl.text = [NSString stringWithFormat:@"%@",[[basicProfileArray objectAtIndex:indexPath.row] valueForKey:@"field"]] ;
@@ -501,12 +501,12 @@
         
         return cell ;
     }
-    else if(indexPath.row == basicProfileArray.count){
+    else if(indexPath.row == basicProfileArray.count) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:BASIC_SUBMIT_CELL_IDENTIFIER] ;
         cell.selectionStyle = UITableViewCellSelectionStyleNone ;
         return cell ;
     }
-    else if(indexPath.row == BASIC_PHONE_CELL_INDEX){
+    else if(indexPath.row == BASIC_PHONE_CELL_INDEX) {
         PhoneTableViewCell *cell = (PhoneTableViewCell*)[tableView dequeueReusableCellWithIdentifier:BASIC_PHONE_CELL_IDENTIFIER] ;
         cell.selectionStyle = UITableViewCellSelectionStyleNone ;
         cell.fieldNameLbl.text = [NSString stringWithFormat:@"%@",[[basicProfileArray objectAtIndex:indexPath.row] valueForKey:@"field"]] ;
@@ -541,11 +541,11 @@
         else cell.textFld.text = @""  ;
          cell.textFld.userInteractionEnabled = YES ;
         
-        if(indexPath.row == BASIC_EMAIL_CELL_INDEX){
+        if(indexPath.row == BASIC_EMAIL_CELL_INDEX) {
             cell.textFld.keyboardType = UIKeyboardTypeEmailAddress ;
             cell.textFld.userInteractionEnabled = NO ;
         }
-        else if(indexPath.row == BASIC_PHONE_CELL_INDEX){
+        else if(indexPath.row == BASIC_PHONE_CELL_INDEX) {
             cell.textFld.keyboardType = UIKeyboardTypeNumberPad ;
             cell.textFld.inputAccessoryView = numberToolbar ;
          }
@@ -557,7 +557,7 @@
     }
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if(indexPath.row == BASIC_BIO_CELL_INDEX) return 130 ;
     else if(indexPath.row == basicProfileArray.count) return 45 ;
     else return 75 ;
@@ -568,12 +568,12 @@
     [self.view endEditing:YES];
     [pickerViewContainer setHidden:YES] ;
     [self disablePriceTextField] ;
-    if(selectedPickerViewType == PROFILE_COUNTRY_SELECTED){
+    if(selectedPickerViewType == PROFILE_COUNTRY_SELECTED) {
         DobTableViewCell *cell = [tblView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:BASIC_COUNTRY_CELL_INDEX inSection:0]] ;
         [cell.textFld resignFirstResponder] ;
         cell.textFld.text = [[basicProfileArray objectAtIndex:BASIC_COUNTRY_CELL_INDEX] valueForKey:@"value"]  ;
     }
-    else if(selectedPickerViewType == PROFILE_CITY_SELECTED){
+    else if(selectedPickerViewType == PROFILE_CITY_SELECTED) {
         DobTableViewCell *cell = [tblView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:BASIC_CITY_CELL_INDEX inSection:0]] ;
         [cell.textFld resignFirstResponder] ;
         cell.textFld.text = [[basicProfileArray objectAtIndex:BASIC_CITY_CELL_INDEX] valueForKey:@"value"]  ;
@@ -584,11 +584,11 @@
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder] ;
    
-    if([textField tag] == BASIC_EMAIL_CELL_INDEX -1){
+    if([textField tag] == BASIC_EMAIL_CELL_INDEX -1) {
        PhoneTableViewCell *cell = [tblView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:BASIC_PHONE_CELL_INDEX inSection:0]] ;
         [cell.textField becomeFirstResponder] ;
     }
-    else if([textField tag] == BASIC_PHONE_CELL_INDEX && [UtilityClass GetUserType] == ENTREPRENEUR){
+    else if([textField tag] == BASIC_PHONE_CELL_INDEX && [UtilityClass GetUserType] == ENTREPRENEUR) {
         TextFieldTableViewCell *cell = [tblView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:basicProfileArray.count-1 inSection:0]] ;
         [cell.textFld becomeFirstResponder] ;
     }
@@ -598,11 +598,11 @@
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     _selectedItem = textField ;
      [pickerViewContainer setHidden:YES] ;
-    if(textField.tag == BASIC_DOB_CELL_INDEX){
+    if(textField.tag == BASIC_DOB_CELL_INDEX) {
          DobTableViewCell *cell = [tblView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:BASIC_DOB_CELL_INDEX inSection:0]] ;
         [datePickerView setDate:[dateFormatter dateFromString:cell.textFld.text] animated:YES] ;
     }
-    if(textField.tag == BASIC_COUNTRY_CELL_INDEX){
+    if(textField.tag == BASIC_COUNTRY_CELL_INDEX) {
         selectedPickerViewType = PROFILE_COUNTRY_SELECTED ;
         int index = [UtilityClass getPickerViewSelectedIndexFromArray:countryArray forID:selectedCountryID] ;
         if(index == -1)[pickerView selectRow:0 inComponent:0 animated:YES] ;
@@ -610,12 +610,12 @@
     }
     else if(textField.tag == BASIC_CITY_CELL_INDEX) {
         NSString *countryID = [NSString stringWithFormat:@"%@",selectedCountryID] ;
-        if( [countryID isEqualToString:@""] || [countryID isEqualToString:@"0"]){
+        if( [countryID isEqualToString:@""] || [countryID isEqualToString:@"0"]) {
             [self presentViewController:[UtilityClass displayAlertMessage:kSelectCountryDefaultText] animated:YES completion:nil] ;
             [textField resignFirstResponder] ;
             return NO ;
         }
-        else{
+        else {
             [self getCitisListWithCountryID:[selectedCountryID intValue]] ;
             selectedPickerViewType = PROFILE_CITY_SELECTED ;
             int index = [UtilityClass getPickerViewSelectedIndexFromArray:cityArray forID:selectedCityID] ;

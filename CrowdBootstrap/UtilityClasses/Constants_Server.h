@@ -9,9 +9,9 @@
 #ifndef ConstantsServer_h
 #define ConstantsServer_h
 
-//#define APIPortToBeUsed                           @"http://crowdbootstrap.trantorinc.com"
-#define APIPortToBeUsed                           @"http://crowdbootstrap.com/"
-//#define APIPortToBeUsed                             @"http://stage.crowdbootstrap.com/"
+//#define APIPortToBeUsed                             @"http://crowdbootstrap.trantorinc.com"
+//#define APIPortToBeUsed                             @"http://crowdbootstrap.com/"
+#define APIPortToBeUsed                             @"http://stage.crowdbootstrap.com/"
 
 #define kSuccessCode                              200
 #define kErrorCode                                404
@@ -1460,6 +1460,10 @@
 #define kEditMeetUpAPI_Doc_Del                    @"document_del"
 #define kEditMeetUpAPI_Audio_Del                  @"audio_del"
 #define kEditMeetUpAPI_Video_Del                  @"video_del"
+#define kAddMeetUpAPI_ForumId                     @"forum_id"
+#define kAddMeetUpAPI_AccessLevel                 @"access_level"
+#define kAddMeetUpAPI_Notification                @"send_notifications"
+#define kMeetUpAPI_ForumsList                     @"Forums"
 
 #pragma mark - Meet Up's Keywords API Keys
 #define kMeetUpAPI_KeywordList                @"keyword_list"
@@ -1805,6 +1809,17 @@
 #define kMessagesAPI_MessageSender               @"sender"
 #define kMessagesAPI_MessageTime                 @"time"
 
+#pragma mark - News/Blog Post List Api Keys
+#define kNewsAPI_UserID                      @"user_id"
+#define kNewsAPI_PageNo                      @"page_no"
+#define kNewsAPI_List                        @"result_list"
+#define kNewsAPI_TotalItems                  @"TotalItems"
+#define kNewsAPI_NewsID                      @"blog_id"
+#define kNewsAPI_Title                       @"blog_title"
+#define kNewsAPI_Desc                        @"short_desc"
+#define kNewsAPI_Date                        @"date"
+#define kNewsAPI_Link                        @"link"
+
 #pragma mark - Feeds List Api Keys
 #define kFeedsAPI_UserID                      @"user_id"
 #define kFeedsAPI_PageNo                      @"page_no"
@@ -2086,8 +2101,49 @@
 #define kSettingAPI_Feeds_LaunchDeal            @"feeds_launchdeal"
 #define kSettingAPI_Feeds_PurchaseOrder         @"feeds_purchaseorder"
 
-
-
+#pragma mark - Networking Options Keys
+#define kBusinessAPI_UserID                     @"user_id"
+#define kBusinessAPI_CardList                   @"businessCards"
+#define kBusinessAPI_CardId                     @"card_id"
+#define kBusinessAPI_BusinessCardId             @"business_card_id"
+#define kBusinessAPI_Description                @"description"
+#define kBusinessAPI_Id                         @"id"
+#define kBusinessAPI_UserBio                    @"user_bio"
+#define kBusinessAPI_UserInterest               @"user_interest"
+#define kBusinessAPI_CardImage                  @"image"
+#define kBusinessAPI_Status                     @"status"
+#define kBusinessAPI_ConnectionType             @"businessConnectionTypes"
+#define kBusinessAPI_PageNo                     @"page_no"
+#define kBusinessAPI_SearchText                 @"search_text"
+#define kBusinessAPI_TotalItems                 @"TotalItems"
+#define kBusinessAPI_ConnectionList             @"Contractors"
+#define kBusinessAPI_Name                       @"name"
+#define kBusinessAPI_Bio                        @"bio"
+#define kBusinessAPI_UserImage                  @"image"
+#define kBusinessAPI_UserProfileImage           @"profile_image"
+#define kBusinessAPI_ConnectionStatus           @"is_network"
+#define kBusinessAPI_ConnectionTypeId           @"business_connection_type_id"
+#define kBusinessAPI_ConnectionId               @"connection_type_id"
+#define kBusinessAPI_ContractorId               @"id"
+#define kBusinessAPI_ConnectedToId              @"connected_to"
+#define kBusinessAPI_NoteId                     @"note_id"
+#define kBusinessAPI_NoteDesc                   @"notes_detail"
+#define kBusinessAPI_GroupData                  @"data"
+#define kBusinessAPI_CreatedBy                  @"created_by"
+#define kBusinessAPI_Phone                      @"phone"
+#define kBusinessAPI_Email                      @"email"
+#define kBusinessAPI_Note                       @"note"
+#define kBusinessAPI_Latitude                   @"latitude"
+#define kBusinessAPI_Longitude                  @"longitude"
+#define kBusinessAPI_AvailabilityStatus         @"availability_status"
+#define kBusinessAPI_VisibilityStatus           @"visibility_status"
+#define kBusinessAPI_UserList                   @"user_list"
+#define kBusinessAPI_Statement                  @"statement"
+#define kBusinessAPI_UserStatement              @"user_card_statement"
+#define kBusinessAPI_UserName                   @"user_name"
+#define kBusinessAPI_UsrImage                   @"user_image"
+#define kBusinessAPI_LinkedIn_UserName          @"linkedin_username"
+#define kBusinessAPI_LinkedIn_UserImage         @"linkedin_image"
 
 #pragma mark - Reset Password Mail Api Keys
 #define kResetPasswordMailAPI_Email              @"user_email"

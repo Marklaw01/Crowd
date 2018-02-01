@@ -15,6 +15,7 @@
     __weak IBOutlet UIImageView *imgViewArrowLeft;
     __weak IBOutlet UIImageView *imgViewArrowRight;
     __weak IBOutlet UILabel *lblScroll;
+    __weak IBOutlet UIButton *btnLicense;
     
     __weak IBOutlet UICollectionView             *collectionViewRoadmap ;
 
@@ -31,6 +32,7 @@
     NSMutableArray                   *upwardArray ;
     NSMutableArray                   *roadMapArray ;
     NSMutableArray                   *downwardArray ;
+    UIActivityIndicatorView          *loadingIndicator;
 }
 
 @property (nonatomic) CGFloat lastContentOffset;
@@ -41,5 +43,6 @@
 - (IBAction)btnSampleClicked:(id)sender;
 - (IBAction)btnTemplateClicked:(id)sender;
 - (IBAction)btnRoadmapTemplateClicked:(id)sender;
+- (IBAction)btnLicenseClicked:(id)sender;
 
 @end

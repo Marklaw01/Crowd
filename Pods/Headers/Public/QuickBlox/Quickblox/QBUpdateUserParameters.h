@@ -1,1 +1,1 @@
-../../../../QuickBlox/Quickblox.framework/Versions/A/Headers/QBUpdateUserParameters.h
+../../../../QuickBlox/Quickblox.framework/Headers/QBUpdateUserParameters.h

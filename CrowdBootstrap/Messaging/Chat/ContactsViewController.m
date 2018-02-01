@@ -174,8 +174,7 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
     if ([ServicesManager instance].isAuthorized) {
         [self loadDialogs];
     }
-    else{
-       
+    else {
         ServicesManager *servicesManager = [ServicesManager instance];
         NSLog(@"currentUser: %@",servicesManager.currentUser) ;
         if (servicesManager.currentUser != nil) {
@@ -210,6 +209,7 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
 
 
 - (void)loadDialogs {
+    NSLog(@"%@", [ServicesManager instance].lastActivityDate);
     
     if ([ServicesManager instance].lastActivityDate != nil) {
         [UtilityClass showHudWithTitle:kHUDMessage_PleaseWait] ;
@@ -336,7 +336,7 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
 }
 
 - (IBAction)Cancel_ClickAction:(id)sender {
-     [popupView dismissPresentingPopup] ;
+     [popupView removeFromSuperview] ;
 }
 
 - (IBAction)groupButton_ClickAction:(id)sender {
@@ -509,7 +509,7 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
             
             [ServicesManager.instance.chatService createPrivateChatDialogWithOpponent:user completion:^(QBResponse *response, QBChatDialog *createdDialog) {
                 if (!response.success && createdDialog == nil) {
-                    NSLog(@"errror >> ") ;
+                    NSLog(@"errror >> %@", response.error) ;
                 }
                 else {
                     NSLog(@"Success >> ") ;

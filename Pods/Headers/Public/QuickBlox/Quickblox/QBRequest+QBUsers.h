@@ -1,1 +1,1 @@
-../../../../QuickBlox/Quickblox.framework/Versions/A/Headers/QBRequest+QBUsers.h
+../../../../QuickBlox/Quickblox.framework/Headers/QBRequest+QBUsers.h

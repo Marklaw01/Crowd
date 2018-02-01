@@ -1,1 +1,1 @@
-../../../SHSPhoneComponent/SHSPhoneComponents/SHSPhoneLibrary.h
+../../../SHSPhoneComponent/SHSPhoneComponents/Library/SHSPhoneLibrary.h

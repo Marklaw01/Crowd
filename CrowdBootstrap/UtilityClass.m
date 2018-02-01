@@ -130,9 +130,12 @@
 
 
 +(BOOL)NSStringIsValidPassword:(NSString *)checkString{
-    int numberofCharacters = 0;
     NSString *specialCharacterString = @"!~`@#$%^&*-+();:={}[],.<>?\\/\"\'";
-    BOOL lowerCaseLetter,upperCaseLetter,digit,specialCharacter = 0;
+    BOOL lowerCaseLetter = 0;
+    BOOL upperCaseLetter = 0;
+    BOOL digit = 0;
+    BOOL specialCharacter = 0;
+    
     if([checkString length] >= 8)
     {
         for (int i = 0; i < [checkString length]; i++)

@@ -56,6 +56,12 @@
     answerCount = 1 ;
     [UtilityClass addMarginsOnTextField:emailTextFld] ;
     [UtilityClass addMarginsOnTextField:answerTxtFld] ;
+    
+    if (_isResendConfirmation) {
+        [btnResetPassword setTitle:@"Resend Confirmation" forState:UIControlStateNormal];
+    } else {
+        [btnResetPassword setTitle:@"Reset Password" forState:UIControlStateNormal];
+    }
 }
 
 -(void)navigateToLoginScreen{
@@ -122,6 +128,28 @@
                     [UtilityClass hideHud] ;
                 }] ;
             }
+        }
+    }
+}
+
+-(void)validateResendConfirmationEmail {
+    
+    if(emailTextFld.text.length <1){
+        [UtilityClass setTextFieldValidationBorder:emailTextFld] ;
+        [self.tooltipManager addTooltipWithTargetView:emailTextFld hostView:self.view tooltipText:kAlert_EnterRegisteredEmail arrowDirection:JDFTooltipViewArrowDirectionUp width:emailTextFld.frame.size.width];
+        [self.tooltipManager showNextTooltip] ;
+        return ;
+    }
+    else
+    {
+        if(![UtilityClass NSStringIsValidEmail:emailTextFld.text]){
+            [UtilityClass setTextFieldValidationBorder:emailTextFld] ;
+            [self.tooltipManager addTooltipWithTargetView:emailTextFld hostView:self.view tooltipText:kAlert_Valid_Email arrowDirection:JDFTooltipViewArrowDirectionUp width:emailTextFld.frame.size.width];
+            [self.tooltipManager showNextTooltip] ;
+            return ;
+        }
+        else {
+            [self resendConfirmationMail];
         }
     }
 }
@@ -228,6 +256,33 @@
     }
 }
 
+-(void)resendConfirmationMail{
+    if([UtilityClass checkInternetConnection]){
+        
+        [UtilityClass showHudWithTitle:kHUDMessage_ForgotPassword] ;
+        
+        NSMutableDictionary *dictParam =[[NSMutableDictionary alloc] init];
+        [dictParam setObject:emailTextFld.text forKey:kResetPasswordMailAPI_Email] ;
+        NSLog(@"dictParam: %@",dictParam) ;
+        
+        [ApiCrowdBootstrap resendConfirmationMailWithParameters:dictParam success:^(NSDictionary *responseDict) {
+            NSLog(@"responseDict: %@",responseDict) ;
+            if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode)  {
+                [UtilityClass showNotificationMessgae:kAlert_ResendConfirmationMail withResultType:@"1" withDuration:1.5] ;
+                [self navigateToLoginScreen] ;
+            }
+            else
+                [self presentViewController:[UtilityClass displayAlertMessage:kAlert_EmailNotRegistered] animated:YES completion:nil];
+            //[self presentViewController:[UtilityClass displayAlertMessage:[responseDict valueForKey:@"message"]] animated:YES completion:nil];
+            [UtilityClass hideHud] ;
+            
+        } failure:^(NSError *error) {
+            [UtilityClass displayAlertMessage:error.description] ;
+            [UtilityClass hideHud] ;
+        }] ;
+    }
+}
+
 -(void)sendMaxLimitForResetPassword{
     if([UtilityClass checkInternetConnection]){
         
@@ -269,9 +324,15 @@
     self.tooltipManager.showsBackdropView = YES;
     [self.tooltipManager setBackdropTapActionEnabled:YES] ;
     [self.tooltipManager setShadowColourForAllTooltips:[UIColor redColor]] ;
-    
-    if(emailTextFld.hidden == NO && questionLbl.hidden == YES) [self validateEmail] ;
-    else [self validateAnswer] ;
+   
+    if (_isResendConfirmation) {
+        [self validateResendConfirmationEmail];
+    } else {
+        if(emailTextFld.hidden == NO && questionLbl.hidden == YES)
+            [self validateEmail] ;
+        else
+            [self validateAnswer] ;
+    }
 }
 
 - (IBAction)Cancel_ClickAction:(id)sender {

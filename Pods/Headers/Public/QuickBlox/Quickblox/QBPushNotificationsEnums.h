@@ -1,1 +1,1 @@
-../../../../QuickBlox/Quickblox.framework/Versions/A/Headers/QBPushNotificationsEnums.h
+../../../../QuickBlox/Quickblox.framework/Headers/QBPushNotificationsEnums.h

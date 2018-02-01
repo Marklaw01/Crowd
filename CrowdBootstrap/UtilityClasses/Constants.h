@@ -340,6 +340,12 @@ enum {
     ADD_PURCHASE_ORDER_SELECTED
 };
 
+// Search User/ Add New User
+enum {
+    SEARCH_USER_SELECTED,
+    ADD_NEW_USER_SELECTED
+};
+
 #define kQuickblox_ApplicationID                  41172;
 #define kQuickblox_AuthKey                        @"atp85LpFMSSk-My";
 #define kQuickblox_AuthSecret                     @"xu5sSy6uPsf9BA5";
@@ -414,6 +420,7 @@ enum {
 #define kSearchLaunchDealPlaceholder              @"Search by LaunchDeal Title or keywords."
 #define kSearchImprovementPlaceholder             @"Search by Improvement Title or keywords."
 #define kSearchPurchaseOrderPlaceholder           @"Search by Purchase Order Title or keywords."
+#define kSearchUserPlaceholder                    @"Search Users by name"
 
 #pragma mark - plist
 #define kSignupElementsPlist                      @"SignUpElementsArray"
@@ -422,6 +429,7 @@ enum {
 #define EXPLAINER_VIDEO_LINK                      @"https://www.youtube.com/watch?v=t4qOmcKPsC0"
 #define ACCREDITED_INVESTOR_HTML                  @"accredited_investor"
 #define VENTURE_CAPITAL_LINK                      @"http://crowdbootstrap.com/contractors/venture-capital-apps"
+#define LICENSE_LINK                              @"https://creativecommons.org/licenses/by-nc-sa/4.0/"
 #define ROADMAP_TEMPLATE_LINK                     @"http://crowdbootstrap.com/contractors/roadmap-template-apps"
 #define PRIVACY_POLICY_LINK                       @"http://crowdbootstrap.com/users/privacy-policy"
 #define TERMS_CONDITIONS_LINK                     @"http://crowdbootstrap.com/users/terms--and-conditions"
@@ -454,6 +462,7 @@ enum {
 #define STARTUP_RADIOBUTTON_UNSELECTED            @"upload_radiobtnUnselected"
 #define kImage_ProfilePicDefault                  @"Profile_userDefaultImg"
 #define kImage_GraphicPicDefault                  @"RoadmapGraphic.png"
+#define kPlaceholderImage_Logo                    @"Default.png"
 #define LEAN_STARTUP_ROADMAP_IMAGE                @"road"
 #define kImage_ForumPicDefault                    @"forum_img.png"
 #define kImage_UserPicDefault                     @"Chat_user"
@@ -503,6 +512,8 @@ enum {
 
 #define STARTUP_FUNDS_TITLE                       @"Funds"
 #define MESSAGE_GROUPS_TITLE                      @"Groups"
+#define NETWORKING_OPTIONS_TITLE                  @"Networking Options"
+#define START_TITLE                               @"Start"
 
 
 #endif /* Constants_h */

@@ -1,8 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment version="2048" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -21,7 +25,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="44" height="45"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="L8j-KZ-jCD" secondAttribute="trailing" id="g6v-Rm-dY7"/>
                             <constraint firstItem="L8j-KZ-jCD" firstAttribute="top" secondItem="W0n-sL-BzS" secondAttribute="top" id="hKc-3S-wOj"/>
@@ -39,33 +43,33 @@
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NickName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FVl-fR-cgk" customClass="TTTAttributedLabel">
                                         <rect key="frame" x="0.0" y="0.0" width="149" height="21"/>
-                                        <color key="backgroundColor" red="0.5758987968" green="0.63260070530000001" blue="0.69994870580000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.5758987968" green="0.63260070530000001" blue="0.69994870580000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" identifier="incCellTopLabelHeight" id="xq4-Ck-zDx"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Message Text" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ct-WW-zaC" customClass="TTTAttributedLabel">
                                         <rect key="frame" x="0.0" y="21" width="149" height="29"/>
-                                        <color key="backgroundColor" red="0.0" green="0.50196081399917603" blue="0.25098040699958801" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.0" green="0.50196081399917603" blue="0.25098040699958801" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="16:44" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sp9-fQ-dGT" customClass="TTTAttributedLabel">
                                         <rect key="frame" x="0.0" y="50" width="149" height="21"/>
-                                        <color key="backgroundColor" red="0.0" green="1" blue="0.50196081399917603" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.0" green="1" blue="0.50196081399917603" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" identifier="incCellBottomLabelHeight" id="cbV-gS-CjC"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="FVl-fR-cgk" firstAttribute="leading" secondItem="cBa-gJ-Bzq" secondAttribute="leading" id="1M0-Jz-tpk"/>
                                     <constraint firstAttribute="trailing" secondItem="sp9-fQ-dGT" secondAttribute="trailing" id="2F6-kG-fDd"/>
@@ -80,7 +84,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="cBa-gJ-Bzq" firstAttribute="leading" secondItem="lux-vg-6Z5" secondAttribute="leading" constant="11" identifier="incCellMsgContainerLeadingToContainerLeading" id="Iyk-PP-Jxf"/>
                             <constraint firstAttribute="width" constant="163" id="JJF-la-T3e"/>
@@ -90,23 +94,22 @@
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="color" keyPath="bgColor">
-                                <color key="value" red="0.74387138850000001" green="0.53844690574737053" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="color" keyPath="highlightColor">
-                                <color key="value" red="0.5758987968" green="0.63260070530000001" blue="0.69994870580000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="value" red="0.5758987968" green="0.63260070530000001" blue="0.69994870580000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                <integer key="value" value="4"/>
+                                <real key="value" value="4"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="boolean" keyPath="leftArrow" value="YES"/>
                             <userDefinedRuntimeAttribute type="size" keyPath="arrowSize">
-                                <size key="value" width="8" height="12"/>
+                                <size key="value" width="8" height="8"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="boolean" keyPath="arrow" value="YES"/>
                         </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
-                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
                 <constraint firstItem="lux-vg-6Z5" firstAttribute="top" secondItem="C3M-tc-m20" secondAttribute="top" identifier="incCellContainerTopToCellTop" id="2aL-wM-yzn"/>
@@ -119,7 +122,7 @@
             <connections>
                 <outlet property="avatarContainerViewHeightConstraint" destination="k76-lq-EWW" id="KiD-XX-AP2"/>
                 <outlet property="avatarContainerViewWidthConstraint" destination="zVA-fi-2bt" id="wkW-g4-JZT"/>
-                <outlet property="avatarView" destination="L8j-KZ-jCD" id="RMc-ll-773"/>
+                <outlet property="avatarView" destination="L8j-KZ-jCD" id="kYF-ZE-tdV"/>
                 <outlet property="bottomLabel" destination="sp9-fQ-dGT" id="WMF-R7-pVN"/>
                 <outlet property="bottomLabelHeightConstraint" destination="cbV-gS-CjC" id="FIq-MS-I8U"/>
                 <outlet property="containerView" destination="lux-vg-6Z5" id="AK5-pz-Tza"/>

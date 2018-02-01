@@ -1,1 +1,1 @@
-../../../../QuickBlox/Quickblox.framework/Versions/A/Headers/ChatDelegates.h
+../../../../QuickBlox/Quickblox.framework/Headers/ChatDelegates.h

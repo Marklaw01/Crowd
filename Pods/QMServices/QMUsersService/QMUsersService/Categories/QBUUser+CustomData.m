@@ -8,20 +8,13 @@
 
 #import "QBUUser+CustomData.h"
 #import <objc/runtime.h>
+#import "QMSLog.h"
 
 NSString *const kQMAvatarUrlKey = @"avatar_url";
 NSString *const kQMStatusKey = @"status";
 NSString *const kQMIsImportKey = @"is_import";
 
-@interface QBUUser (QMAssociatedObject)
-
-@property (strong, nonatomic, readwrite) NSMutableDictionary *context;
-
-@end
-
 @implementation QBUUser (QMAssociatedObject)
-
-@dynamic context;
 
 - (NSMutableDictionary *)context {
     
@@ -30,15 +23,10 @@ NSString *const kQMIsImportKey = @"is_import";
     if (!context) {
         
         context = self.jsonObject;
-        [self setContext:context];
+        objc_setAssociatedObject(self, @selector(context), context, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     
     return context;
-}
-
-- (void)setContext:(NSMutableDictionary *)context {
-    
-    objc_setAssociatedObject(self, @selector(context), context, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (NSMutableDictionary *)jsonObject {
@@ -49,13 +37,31 @@ NSString *const kQMIsImportKey = @"is_import";
     if (jsonData) {
         
         NSDictionary *representationObject = [NSJSONSerialization JSONObjectWithData:jsonData
-                                                                             options:NSJSONReadingMutableContainers
+                                                                             options:0
                                                                                error:&error];
-        return representationObject.mutableCopy;
+        
+        if (error != nil) {
+            
+            QMSLog(@"Error serializing data to JSON: %@", error);
+            return [[NSMutableDictionary alloc] init];
+        }
+        
+        NSMutableDictionary *mutableObject = [representationObject mutableCopy];
+        
+        // removing possible null values
+        [representationObject enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL * __unused stop) {
+            
+            if (obj == [NSNull null]) {
+                
+                [mutableObject removeObjectForKey:key];
+            }
+        }];
+        
+        return mutableObject;
     }
     else {
         
-        return @{}.mutableCopy;
+        return [[NSMutableDictionary alloc] init];
     }
 }
 
@@ -63,8 +69,14 @@ NSString *const kQMIsImportKey = @"is_import";
     
     NSError *error = nil;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self.context
-                                                       options:NSJSONWritingPrettyPrinted
+                                                       options:0
                                                          error:&error];
+    
+    if (error != nil) {
+        
+        QMSLog(@"Error serializing JSON to data: %@", error);
+        return;
+    }
     
     self.customData = [[NSString alloc] initWithData:jsonData
                                             encoding:NSUTF8StringEncoding];
@@ -78,7 +90,7 @@ NSString *const kQMIsImportKey = @"is_import";
 @dynamic status;
 @dynamic isImport;
 
-#pragma mark - Is import
+//MARK: - Is import
 
 - (void)setIsImport:(BOOL)isImport {
     
@@ -92,11 +104,11 @@ NSString *const kQMIsImportKey = @"is_import";
     return isImprot.boolValue;
 }
 
-#pragma mark - Status
+//MARK: - Status
 
 - (void)setStatus:(NSString *)status {
     
-    self.context[kQMStatusKey] = status;
+    self.context[kQMStatusKey] = [status copy];
     [self synchronize];
 }
 
@@ -105,11 +117,11 @@ NSString *const kQMIsImportKey = @"is_import";
     return self.context[kQMStatusKey];
 }
 
-#pragma mark - Avatar url
+//MARK: - Avatar url
 
 - (void)setAvatarUrl:(NSString *)avatarUrl {
     
-    self.context[kQMAvatarUrlKey] = avatarUrl;
+    self.context[kQMAvatarUrlKey] = [avatarUrl copy];
     [self synchronize];
 }
 

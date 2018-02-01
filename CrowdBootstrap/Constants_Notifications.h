@@ -33,6 +33,7 @@
 #define kNotificationUpdateStartupName            @"UpdateStartupNameNotification"
 #define kNotificationStartupDisableTextField      @"StartupDisableTextFieldNotification"
 #define kNotificationIconOnNavigationBar          @"SetNotificationIconOnNavigationBarNotification"
+#define kNotificationSegmentControl               @"SetNotificationSegmentControl"
 #define kNotificationSetViewEditing               @"SetViewEditingNotification"
 #define kNotificationSetFundViewEditing           @"SetFundViewEditingNotification"
 #define kNotificationSetBetaTestViewEditing       @"SetBetaTestViewEditingNotification"
@@ -57,6 +58,12 @@
 #define kNotificationSetLaunchDealViewEditing     @"SetLaunchDealViewEditingNotification"
 #define kNotificationSetImprovementViewEditing    @"SetImprovementViewEditingNotification"
 #define kNotificationSetPurchaseOrderViewEditing  @"SetPurchaseOrderViewEditingNotification"
+#define kNotificationSendUserInfo                 @"kNotificationSendUserInfo"
+#define kNotificationSendNotesInfo                @"kNotificationSendNotesInfo"
+#define kNotificationSendCardInfo                 @"kNotificationSendCardInfo"
+#define kNotificationSendConnections              @"kNotificationSendConnections"
+#define kNotificationSendLinkedInInfo             @"kNotificationSendLinkedInInfo"
+#define kNotificationSendProfileInfo              @"kNotificationSendProfileInfo"
 
 #pragma mark - Push Notifications
 #define kNotificationPush_AddTeamMember           @"AddTeamMemberPushNotification"

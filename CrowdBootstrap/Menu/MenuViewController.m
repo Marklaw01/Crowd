@@ -48,6 +48,7 @@
 #import "MyWebinarsViewController.h"
 #import "MyConsultingProjectsViewController.h"
 #import "MyAssetsViewController.h"
+#import "GettingStartedViewController.h"
 
 @interface MenuViewController ()
 
@@ -61,7 +62,7 @@
     
     // menuArray = @[@"userIdentifier",@"homeIdentifier",@"profileIdentifier",@"startupIdentifier",@"addStartupIdentifier",@"searchStartupIdentifier",@"searchContributorIdentifier",@"workOrdersIdentifier",@"chatIdentifier",@"notesIdentifier",@"viewProfileIdentifier",@"messagesdentifier",@"archivedNotIdentifier",@"settingsIdentifier",@"forumsIdentifier",@"archivedForumsIdentifier",@"campaignsIdentifier",@"paymentIdentifier",@"logoutIdentifier"];
     
-    menuArray = @[@"userIdentifier", @"homeIdentifier", @"My Profile", @"Startups", @"Contractors", @"Organizations", @"Messaging", @"Resources", @"Events", @"Opportunities", @"paymentIdentifier", @"logoutIdentifier"];
+    menuArray = @[@"userIdentifier", @"startIdentifier", @"homeIdentifier", @"My Profile", @"Startups", @"Contractors", @"Organizations", @"Messaging", @"Resources", @"Events", @"Opportunities", @"paymentIdentifier", @"logoutIdentifier"];
     
     profileArray = @[@"entrepreneurVideoIdentifier", @"profileIdentifier", @"connectionsIdentifier", @"suggestKeywordsIdentifier", @"settingsIdentifier"] ;
     
@@ -71,8 +72,11 @@
     organizationsArray = @[@"organizationVideoIdentifier",@"searchOrganizationIdentifier"] ;
     
     messagesArray = @[@"archivedForumsIdentifier",@"archivedNotIdentifier",@"notificationsIdentifier",@"chatIdentifier",@"forumsIdentifier",@"groupsIdentifier",@"messagesdentifier",@"notesIdentifier"] ;
+    
     resourcesArray = @[@"hardwareIdentifier",@"softwareIdentifier",@"servicesIdentifier",@"audioVideoIdentifier",@"informationIdentifier",@"productivityIdentifier", kMenuIdentifier_communalAssets] ;
+    
     eventsArray = @[@"conferencesIdentifier",@"demoDaysIdentifier",@"meetUpsIdentifier",@"webinarsIdentifier"] ;
+    
     opportunitiesArray = @[kMenuIdentifier_BetaTesters,kMenuIdentifier_boardMembers,kMenuIdentifier_Consulting,kMenuIdentifier_earlyAdaptors,kMenuIdentifier_endorsers,kMenuIdentifier_focusGroups,kMenuIdentifier_jobs,kMenuIdentifier_recruiter] ;
     
     arrayForBool = [[NSMutableArray alloc] init] ;
@@ -176,12 +180,13 @@
         [ApiCrowdBootstrap logoutWithParameters:dictParam success:^(NSDictionary *responseDict) {
             [UtilityClass hideHud] ;
             NSLog(@"responseDict %@", responseDict);
-            if([[responseDict valueForKey:@"message"] isEqualToString:@"Success"] )  {
+            if([[responseDict valueForKey:@"message"] isEqualToString:@"Success"] ) {
                 
                 [UtilityClass setLogInStatus:NO] ;
                 
                 [UtilityClass setLoggedInUserID:-1] ;
                 [UtilityClass setLoggedInUserDetails:nil] ;
+                [[ServicesManager instance] logoutWithCompletion:nil];
                 
                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
                 UINavigationController *navController = [storyboard instantiateViewControllerWithIdentifier:kRootNavControllerIdentifier] ;
@@ -203,7 +208,7 @@
 }
 
 #pragma mark - Core Data Methods
--(void)removeAllNotes{
+-(void)removeAllNotes {
     [[AppDelegate appDelegate].coreDataManager fetchWithEntity:NOTES_ENTITY
                                                      Predicate:nil
                                                        success:^(NSArray *fetchLists)
@@ -395,22 +400,20 @@
     switch (indexPath.section) {
         case 0: //User Info
             break;
-            
-        case 1: //Home
+        case 1: // Start
             break;
-            
-        case 2: //My Profile
+        case 2: //Home
             break;
-            
-        case 3: //Startups
+        case 3: //My Profile
+            break;
+        case 4: //Startups
         {
             if(indexPath.row  == 4) {
                 [UtilityClass setStartupWorkOrderType:NO] ;
             }
             break;
         }
-            
-        case 4: //Contractors
+        case 5: //Contractors
         {
             if(indexPath.row == 1) {
                 [UtilityClass setSearchContractorMode:YES] ;
@@ -423,39 +426,32 @@
             }
             break ;
         }
-            
-        case 5: //Companies
+        case 6: //Companies
         {
             if(indexPath.row == 1) {
                 [UtilityClass setSearchCompanyMode:YES] ;
             }
             break ;
         }
-            
-        case 6: //Messaging
+        case 7: //Messaging
             break ;
-            
-        case 7: //Resources
+        case 8: //Resources
         {
             //[UtilityClass setSelectedMenuTitle:@"test"] ;
             break ;
         }
-            
-        case 8: //Events
+        case 9: //Events
         {
             //[UtilityClass setSelectedMenuTitle:@"test"] ;
             break ;
         }
-            
-        case 9: //Opportunities
+        case 10: //Opportunities
         {
             break ;
         }
-            
-        case 10: //Shopping Cart
+        case 11: //Shopping Cart
             break;
-            
-        case 11: //Logout
+        case 12: //Logout
         {
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:kAlert_Logout preferredStyle:UIAlertControllerStyleAlert];
             
@@ -480,7 +476,6 @@
             
             break;
         }
-            
         default:
             break;
     }
@@ -548,6 +543,20 @@
                 }
             }
             
+            // Getting Started
+            if([dvc isKindOfClass:[GettingStartedViewController class]]) {
+                GettingStartedViewController *viewController = (GettingStartedViewController*)dvc;
+
+                if([sender isKindOfClass:[UITableViewCell class]]) {
+                    UITableViewCell *cell = (UITableViewCell *)sender ;
+                    NSString *selectedCellIdentifier = cell.reuseIdentifier ;
+
+                    if([selectedCellIdentifier isEqualToString:@"startIdentifier"]) {
+                        [viewController refreshUIContentWithTitle:START_TITLE withContent:@""] ;
+                    }
+                }
+            }
+
             // Hardwares
             else if([dvc isKindOfClass:[MyHardwareViewController class]]) {
                 MyHardwareViewController *viewController = (MyHardwareViewController *)dvc;
@@ -584,7 +593,7 @@
                     UITableViewCell *cell = (UITableViewCell *)sender ;
                     NSString *selectedCellIdentifier = cell.reuseIdentifier ;
                     
-                    if([selectedCellIdentifier isEqualToString:@"servicesIdentifier"]){
+                    if([selectedCellIdentifier isEqualToString:@"servicesIdentifier"]) {
                         [viewController refreshUIContentWithTitle:RES_SERVICES_TITLE withContent:@""] ;
                     }
                 }

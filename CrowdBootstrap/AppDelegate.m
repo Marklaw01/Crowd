@@ -9,16 +9,16 @@
 #import "AppDelegate.h"
 #import "AFNetworking.h"
 #import "CDTestEntity.h"
-#import "ServicesManager.h"
+#import "QMServicesManager.h"
 #import <TWMessageBarManager/TWMessageBarManager.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <linkedin-sdk/LISDK.h>
 
 // Live Quickblox Details
-const NSUInteger kApplicationID = 41172;
-NSString *const kAuthKey        = @"atp85LpFMSSk-My";
-NSString *const kAuthSecret     = @"xu5sSy6uPsf9BA5";
-NSString *const kAccountKey     = @"aNstpqyjBhYp2zTd4HFR";
+//const NSUInteger kApplicationID = 41172;
+//NSString *const kAuthKey        = @"atp85LpFMSSk-My";
+//NSString *const kAuthSecret     = @"xu5sSy6uPsf9BA5";
+//NSString *const kAccountKey     = @"aNstpqyjBhYp2zTd4HFR";
 
 
 // Staging Quickblox Details
@@ -27,6 +27,17 @@ NSString *const kAccountKey     = @"aNstpqyjBhYp2zTd4HFR";
 //NSString *const kAuthSecret     = @"mUJHuFX3m-uXu2x";
 //NSString *const kAccountKey     = @"8RTz3Q7iLeGokw3MrzP5";
 
+// Gagan Account Quickblox Details
+//const NSUInteger kApplicationID = 67594;
+//NSString *const kAuthKey        = @"aVE4hNYCmNYgOy3";
+//NSString *const kAuthSecret     = @"PuLUxjKY7hfPqL7";
+//NSString *const kAccountKey     = @"8RTz3Q7iLeGokw3MrzP5";
+
+// Staging new Quickblox Details
+const NSUInteger kApplicationID = 60018;
+NSString *const kAuthKey        = @"nCM6zy5xEU4nT43";
+NSString *const kAuthSecret     = @"bx6WyhWzRKDtspS";
+NSString *const kAccountKey     = @"8RTz3Q7iLeGokw3MrzP5";
 
 @interface AppDelegate ()
 
@@ -34,7 +45,7 @@ NSString *const kAccountKey     = @"aNstpqyjBhYp2zTd4HFR";
 
 @implementation AppDelegate
 
-+ (AppDelegate *)appDelegate{
++ (AppDelegate *)appDelegate {
     return (AppDelegate *)[[UIApplication sharedApplication] delegate];
 }
 
@@ -50,7 +61,7 @@ NSString *const kAccountKey     = @"aNstpqyjBhYp2zTd4HFR";
     [QBSettings setAutoReconnectEnabled:YES];
     
     
-    [QBSettings setChatDNSLookupCacheEnabled:YES];
+//    [QBSettings setChatDNSLookupCacheEnabled:YES];
     
     // enabling carbons for chat
     [QBSettings setCarbonsEnabled:YES];
@@ -72,6 +83,7 @@ NSString *const kAccountKey     = @"aNstpqyjBhYp2zTd4HFR";
         self.window.rootViewController = viewController ;
         
         [UtilityClass setStartupViewMode:ADD_STARTUP_TITLE] ;
+        
         
         ServicesManager *servicesManager = [ServicesManager instance];
         
@@ -99,7 +111,6 @@ NSString *const kAccountKey     = @"aNstpqyjBhYp2zTd4HFR";
          self.window.rootViewController = navController ;
         [UtilityClass setNotificationSettings:@"true"] ;
     }
-    
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent] ;
     // other setup tasks here....
@@ -494,6 +505,16 @@ didReceiveLocalNotification: (UILocalNotification *)notification {
         BOOL handled = [[FBSDKApplicationDelegate sharedInstance] application:app openURL:url sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey] annotation:options[UIApplicationOpenURLOptionsAnnotationKey]];
         return handled;
     }
+}
 
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    if ([LISDKCallbackHandler shouldHandleUrl:url]) {
+        return [LISDKCallbackHandler application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
+    }
+    else {
+        BOOL handled = [[FBSDKApplicationDelegate sharedInstance] application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
+        return handled;
+    }
+    return YES;
 }
 @end

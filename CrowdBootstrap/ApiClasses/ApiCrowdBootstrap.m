@@ -57,6 +57,19 @@
     }] ;
 }
 
++(void)resendConfirmationMailWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure{
+    AFHTTPRequestOperationManager *operationManager = [AFHTTPRequestOperationManager manager];
+    
+    operationManager.requestSerializer = [AFJSONRequestSerializer serializer];
+    operationManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"] ;
+    [operationManager GET:CROWDBOOTSTRAP_RESEND_CONFIRMATION_MAIL parameters:dictParameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        success(responseObject);
+        
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        failure(error) ;
+    }] ;
+}
+
 +(void)sendMaxLimitResetPasswordWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure{
     AFHTTPRequestOperationManager *operationManager = [AFHTTPRequestOperationManager manager];
     
@@ -9343,6 +9356,20 @@
     }] ;
 }
 
+#pragma mark - News/Blog Post Api Methods
++(void)getNewsListWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure {
+    AFHTTPRequestOperationManager *operationManager = [AFHTTPRequestOperationManager manager];
+    
+    operationManager.requestSerializer = [AFJSONRequestSerializer serializer];
+    operationManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"] ;
+    [operationManager POST:CROWDBOOTSTRAP_NEWS_LIST parameters:dictParameters success:^(AFHTTPRequestOperation * operation, id  responseObject) {
+        success(responseObject);
+        
+    } failure:^(AFHTTPRequestOperation * operation, NSError * error) {
+        failure(error) ;
+    }] ;
+}
+
 #pragma mark - Feeds Api Methods
 +(void)getFeedsListWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure {
     AFHTTPRequestOperationManager *operationManager = [AFHTTPRequestOperationManager manager];
@@ -10541,6 +10568,21 @@
     }] ;
 }
 
++(void)getMeetUpForums:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure {
+    AFHTTPRequestOperationManager *operationManager = [AFHTTPRequestOperationManager manager];
+    
+    operationManager.requestSerializer = [AFJSONRequestSerializer serializer];
+    operationManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"] ;
+    
+    [operationManager GET:CROWDBOOTSTRAP_MEETUP_FORUMS parameters:dictParameters success:^(AFHTTPRequestOperation *operation, id responseObject){
+        success(responseObject);
+        
+    }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(error) ;
+        
+    }];
+}
+
 +(void)getMeetUpKeywordsList:(SuccessBlock)success failure:(FailureBlock)failure {
     AFHTTPRequestOperationManager *operationManager = [AFHTTPRequestOperationManager manager];
     
@@ -10680,6 +10722,18 @@
         [formData appendPartWithFormData:[[NSString stringWithFormat:@"%@",[dictParameters objectForKey:kAddMeetUpAPI_Target_Market_Keywords]] dataUsingEncoding:NSUTF8StringEncoding]
                                     name:kAddMeetUpAPI_Target_Market_Keywords];
         
+        // Append MeetUp Forum
+        [formData appendPartWithFormData:[[NSString stringWithFormat:@"%@",[dictParameters objectForKey:kAddMeetUpAPI_ForumId]] dataUsingEncoding:NSUTF8StringEncoding]
+                                    name:kAddMeetUpAPI_ForumId];
+
+        // Append MeetUp Access
+        [formData appendPartWithFormData:[[NSString stringWithFormat:@"%@",[dictParameters objectForKey:kAddMeetUpAPI_AccessLevel]] dataUsingEncoding:NSUTF8StringEncoding]
+                                    name:kAddMeetUpAPI_AccessLevel];
+
+        // Append MeetUp Notification
+        [formData appendPartWithFormData:[[NSString stringWithFormat:@"%@",[dictParameters objectForKey:kAddMeetUpAPI_Notification]] dataUsingEncoding:NSUTF8StringEncoding]
+                                    name:kAddMeetUpAPI_Notification];
+
         // Append MeetUp Document
         [formData appendPartWithFormData:[[NSString stringWithFormat:@"%@",[dictParameters objectForKey:kMeetUpAPI_Document]] dataUsingEncoding:NSUTF8StringEncoding]
                                     name:kMeetUpAPI_Document];
@@ -14178,6 +14232,386 @@
     } failure:^(AFHTTPRequestOperation * operation, NSError * error) {
         failure(error) ;
     }] ;
+}
+
+#pragma mark - Networking Options Api Methods
++(void)setUserAvailabilityStatusWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure {
+    AFHTTPRequestOperationManager *operationManager = [AFHTTPRequestOperationManager manager];
+    
+    operationManager.requestSerializer = [AFJSONRequestSerializer serializer];
+    operationManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"] ;
+    [operationManager POST:CROWDBOOTSTRAP_USER_AVAILABILITY parameters:dictParameters success:^(AFHTTPRequestOperation * operation, id  responseObject) {
+        success(responseObject);
+        
+    } failure:^(AFHTTPRequestOperation * operation, NSError * error) {
+        failure(error) ;
+    }] ;
+}
+
++(void)setUserVisibilityStatusWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure {
+    AFHTTPRequestOperationManager *operationManager = [AFHTTPRequestOperationManager manager];
+    
+    operationManager.requestSerializer = [AFJSONRequestSerializer serializer];
+    operationManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"] ;
+    [operationManager POST:CROWDBOOTSTRAP_USER_VISIBILITY parameters:dictParameters success:^(AFHTTPRequestOperation * operation, id  responseObject) {
+        success(responseObject);
+        
+    } failure:^(AFHTTPRequestOperation * operation, NSError * error) {
+        failure(error) ;
+    }] ;
+}
+
++(void)getUserListWithinMilesWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure {
+    AFHTTPRequestOperationManager *operationManager = [AFHTTPRequestOperationManager manager];
+    
+    operationManager.requestSerializer = [AFJSONRequestSerializer serializer];
+    operationManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"] ;
+    [operationManager POST:CROWDBOOTSTRAP_USERLIST_WITHINMILES parameters:dictParameters success:^(AFHTTPRequestOperation * operation, id  responseObject) {
+        success(responseObject);
+        
+    } failure:^(AFHTTPRequestOperation * operation, NSError * error) {
+        failure(error) ;
+    }] ;
+}
+
++(void)getUserListWithSameLatLongWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure {
+    AFHTTPRequestOperationManager *operationManager = [AFHTTPRequestOperationManager manager];
+    
+    operationManager.requestSerializer = [AFJSONRequestSerializer serializer];
+    operationManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"] ;
+    [operationManager POST:CROWDBOOTSTRAP_USERLIST_WITHSAMELATLONG parameters:dictParameters success:^(AFHTTPRequestOperation * operation, id  responseObject) {
+        success(responseObject);
+        
+    } failure:^(AFHTTPRequestOperation * operation, NSError * error) {
+        failure(error) ;
+    }] ;
+}
+
++(void)getBusinessCardListWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure {
+    AFHTTPRequestOperationManager *operationManager = [AFHTTPRequestOperationManager manager];
+    
+    operationManager.requestSerializer = [AFJSONRequestSerializer serializer];
+    operationManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"] ;
+    [operationManager GET:CROWDBOOTSTRAP_BUSINESS_CARD_LIST parameters:dictParameters success:^(AFHTTPRequestOperation * operation, id  responseObject) {
+        success(responseObject);
+        
+    } failure:^(AFHTTPRequestOperation * operation, NSError * error) {
+        failure(error) ;
+    }] ;
+}
+
++(void)activateBusinessCardWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure {
+    AFHTTPRequestOperationManager *operationManager = [AFHTTPRequestOperationManager manager];
+    
+    operationManager.requestSerializer = [AFJSONRequestSerializer serializer];
+    operationManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"] ;
+    [operationManager POST:CROWDBOOTSTRAP_ACTIVATE_BUSINESS_CARD parameters:dictParameters success:^(AFHTTPRequestOperation * operation, id  responseObject) {
+        success(responseObject);
+        
+    } failure:^(AFHTTPRequestOperation * operation, NSError * error) {
+        failure(error) ;
+    }] ;
+}
+
++(void)deleteBusinessCardWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure {
+    AFHTTPRequestOperationManager *operationManager = [AFHTTPRequestOperationManager manager];
+    
+    operationManager.requestSerializer = [AFJSONRequestSerializer serializer];
+    operationManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"] ;
+    [operationManager POST:CROWDBOOTSTRAP_DELETE_BUSINESS_CARD parameters:dictParameters success:^(AFHTTPRequestOperation * operation, id  responseObject) {
+        success(responseObject);
+        
+    } failure:^(AFHTTPRequestOperation * operation, NSError * error) {
+        failure(error) ;
+    }] ;
+}
+
++(void)addBusinessCardWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure progress:(ProgressBlock)progress {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    [manager setRequestSerializer:[AFHTTPRequestSerializer serializer]];
+    
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"] ;
+    
+    AFHTTPRequestOperation *requestOperation = [manager POST:CROWDBOOTSTRAP_ADD_BUSINESS_CARD parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        
+        // Append User ID
+        [formData appendPartWithFormData:[[NSString stringWithFormat:@"%@",[dictParameters objectForKey:kBusinessAPI_UserID]] dataUsingEncoding:NSUTF8StringEncoding]
+                                    name:kBusinessAPI_UserID];
+        // Append User Bio
+        [formData appendPartWithFormData:[[NSString stringWithFormat:@"%@",[dictParameters objectForKey:kBusinessAPI_UserBio]] dataUsingEncoding:NSUTF8StringEncoding]
+                                    name:kBusinessAPI_UserBio];
+        // Append User Interest
+        [formData appendPartWithFormData:[[NSString stringWithFormat:@"%@",[dictParameters objectForKey:kBusinessAPI_UserInterest]] dataUsingEncoding:NSUTF8StringEncoding]
+                                    name:kBusinessAPI_UserInterest];
+        
+        // Append User Statement
+        [formData appendPartWithFormData:[[NSString stringWithFormat:@"%@",[dictParameters objectForKey:kBusinessAPI_Statement]] dataUsingEncoding:NSUTF8StringEncoding]
+                                    name:kBusinessAPI_Statement];
+
+        // Append LinkedIn User Image
+        [formData appendPartWithFormData:[[NSString stringWithFormat:@"%@",[dictParameters objectForKey:kBusinessAPI_LinkedIn_UserImage]] dataUsingEncoding:NSUTF8StringEncoding]
+                                    name:kBusinessAPI_LinkedIn_UserImage];
+
+        // Append LinkedIn User Name
+        [formData appendPartWithFormData:[[NSString stringWithFormat:@"%@",[dictParameters objectForKey:kBusinessAPI_LinkedIn_UserName]] dataUsingEncoding:NSUTF8StringEncoding]
+                                    name:kBusinessAPI_LinkedIn_UserName];
+
+        // Append Business Card Image
+        if([dictParameters objectForKey:kBusinessAPI_CardImage]){
+            NSData *imageData = (NSData*)[dictParameters objectForKey:kBusinessAPI_CardImage] ;
+            //            NSString *imageFileName = [NSString stringWithFormat:@"%@.png",[[dictParameters objectForKey:kGroupAPI_Title] stringByReplacingOccurrencesOfString:@" " withString:@"" ]] ;
+            
+            // Append Image
+            [formData appendPartWithFileData:imageData
+                                        name:kBusinessAPI_CardImage
+                                    fileName:@"image.png"
+                                    mimeType:@"image/png"];
+        }
+        
+    } success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSLog(@"responseObject: %@",responseObject) ;
+        // NSDictionary *json = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:nil];
+        success(responseObject);
+        
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        NSLog(@"error: %@",error) ;
+        failure(error) ;
+    }] ;
+    
+    [requestOperation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+        
+        double percentDone = (double)totalBytesWritten / (double)totalBytesExpectedToWrite;
+        NSLog(@"Upload Progress: %f", percentDone);
+        progress(percentDone) ;
+    }];
+}
+
++(void)viewBusinessCardDetailsWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure {
+    AFHTTPRequestOperationManager *operationManager = [AFHTTPRequestOperationManager manager];
+    
+    operationManager.requestSerializer = [AFJSONRequestSerializer serializer];
+    operationManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"] ;
+    [operationManager POST:CROWDBOOTSTRAP_VIEW_BUSINESS_CARD parameters:dictParameters success:^(AFHTTPRequestOperation * operation, id  responseObject) {
+        success(responseObject);
+        
+    } failure:^(AFHTTPRequestOperation * operation, NSError * error) {
+        failure(error) ;
+    }] ;
+}
+
++(void)editBusinessCardWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure progress:(ProgressBlock)progress {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    [manager setRequestSerializer:[AFHTTPRequestSerializer serializer]];
+    
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"] ;
+    
+    AFHTTPRequestOperation *requestOperation = [manager POST:CROWDBOOTSTRAP_EDIT_BUSINESS_CARD parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        
+        // Append Card ID
+        [formData appendPartWithFormData:[[NSString stringWithFormat:@"%@",[dictParameters objectForKey:kBusinessAPI_Id]] dataUsingEncoding:NSUTF8StringEncoding]
+                                    name:kBusinessAPI_Id];
+        // Append User Bio
+        [formData appendPartWithFormData:[[NSString stringWithFormat:@"%@",[dictParameters objectForKey:kBusinessAPI_UserBio]] dataUsingEncoding:NSUTF8StringEncoding]
+                                    name:kBusinessAPI_UserBio];
+        // Append User Interest
+        [formData appendPartWithFormData:[[NSString stringWithFormat:@"%@",[dictParameters objectForKey:kBusinessAPI_UserInterest]] dataUsingEncoding:NSUTF8StringEncoding]
+                                    name:kBusinessAPI_UserInterest];
+        
+        // Append User Statement
+        [formData appendPartWithFormData:[[NSString stringWithFormat:@"%@",[dictParameters objectForKey:kBusinessAPI_Statement]] dataUsingEncoding:NSUTF8StringEncoding]
+                                    name:kBusinessAPI_Statement];
+        
+        // Append LinkedIn User Image
+        [formData appendPartWithFormData:[[NSString stringWithFormat:@"%@",[dictParameters objectForKey:kBusinessAPI_LinkedIn_UserImage]] dataUsingEncoding:NSUTF8StringEncoding]
+                                    name:kBusinessAPI_LinkedIn_UserImage];
+        
+        // Append LinkedIn User Name
+        [formData appendPartWithFormData:[[NSString stringWithFormat:@"%@",[dictParameters objectForKey:kBusinessAPI_LinkedIn_UserName]] dataUsingEncoding:NSUTF8StringEncoding]
+                                    name:kBusinessAPI_LinkedIn_UserName];
+
+        // Append Business Card Image
+        if([dictParameters objectForKey:kBusinessAPI_CardImage]){
+            NSData *imageData = (NSData*)[dictParameters objectForKey:kBusinessAPI_CardImage] ;
+            //            NSString *imageFileName = [NSString stringWithFormat:@"%@.png",[[dictParameters objectForKey:kGroupAPI_Title] stringByReplacingOccurrencesOfString:@" " withString:@"" ]] ;
+            
+            // Append Image
+            [formData appendPartWithFileData:imageData
+                                        name:kBusinessAPI_CardImage
+                                    fileName:@"image.png"
+                                    mimeType:@"image/png"];
+        }
+        
+    } success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSLog(@"responseObject: %@",responseObject) ;
+        // NSDictionary *json = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:nil];
+        success(responseObject);
+        
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        NSLog(@"error: %@",error) ;
+        failure(error) ;
+    }] ;
+    
+    [requestOperation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+        
+        double percentDone = (double)totalBytesWritten / (double)totalBytesExpectedToWrite;
+        NSLog(@"Upload Progress: %f", percentDone);
+        progress(percentDone) ;
+    }];
+}
+
++(void)getBusinessConnectionTypeListWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure {
+    AFHTTPRequestOperationManager *operationManager = [AFHTTPRequestOperationManager manager];
+    
+    operationManager.requestSerializer = [AFJSONRequestSerializer serializer];
+    operationManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"] ;
+    [operationManager POST:CROWDBOOTSTRAP_BUSINESS_CONNECTION_TYPE parameters:dictParameters success:^(AFHTTPRequestOperation * operation, id  responseObject) {
+        success(responseObject);
+        
+    } failure:^(AFHTTPRequestOperation * operation, NSError * error) {
+        failure(error) ;
+    }] ;
+}
+
++(void)searchBusinessConnectionWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure {
+    AFHTTPRequestOperationManager *operationManager = [AFHTTPRequestOperationManager manager];
+    
+    operationManager.requestSerializer = [AFJSONRequestSerializer serializer];
+    operationManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"] ;
+    [operationManager GET:CROWDBOOTSTRAP_SEARCH_BUSINESS_CONNECTION parameters:dictParameters success:^(AFHTTPRequestOperation * operation, id  responseObject) {
+        success(responseObject);
+        
+    } failure:^(AFHTTPRequestOperation * operation, NSError * error) {
+        failure(error) ;
+    }] ;
+}
+
++(void)getBusinessCardNotesListWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure {
+    AFHTTPRequestOperationManager *operationManager = [AFHTTPRequestOperationManager manager];
+    
+    operationManager.requestSerializer = [AFJSONRequestSerializer serializer];
+    operationManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"] ;
+    [operationManager GET:CROWDBOOTSTRAP_BUSINESS_CARD_NOTES_LIST parameters:dictParameters success:^(AFHTTPRequestOperation * operation, id  responseObject) {
+        success(responseObject);
+        
+    } failure:^(AFHTTPRequestOperation * operation, NSError * error) {
+        failure(error) ;
+    }] ;
+}
+
++(void)addBusinessCardNoteWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure {
+    AFHTTPRequestOperationManager *operationManager = [AFHTTPRequestOperationManager manager];
+    
+    operationManager.requestSerializer = [AFJSONRequestSerializer serializer];
+    operationManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"] ;
+    [operationManager POST:CROWDBOOTSTRAP_ADD_BUSINESS_CARD_NOTE parameters:dictParameters success:^(AFHTTPRequestOperation * operation, id  responseObject) {
+        success(responseObject);
+        
+    } failure:^(AFHTTPRequestOperation * operation, NSError * error) {
+        failure(error) ;
+    }] ;
+}
+
++(void)editBusinessCardNoteWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure {
+    AFHTTPRequestOperationManager *operationManager = [AFHTTPRequestOperationManager manager];
+    
+    operationManager.requestSerializer = [AFJSONRequestSerializer serializer];
+    operationManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"] ;
+    [operationManager POST:CROWDBOOTSTRAP_EDIT_BUSINESS_CARD_NOTE parameters:dictParameters success:^(AFHTTPRequestOperation * operation, id  responseObject) {
+        success(responseObject);
+        
+    } failure:^(AFHTTPRequestOperation * operation, NSError * error) {
+        failure(error) ;
+    }] ;
+}
+
++(void)addBusinessNetworkWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure {
+    AFHTTPRequestOperationManager *operationManager = [AFHTTPRequestOperationManager manager];
+    
+    operationManager.requestSerializer = [AFJSONRequestSerializer serializer];
+    operationManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"] ;
+    [operationManager POST:CROWDBOOTSTRAP_ADD_BUSINESS_NETWORK parameters:dictParameters success:^(AFHTTPRequestOperation * operation, id  responseObject) {
+        success(responseObject);
+        
+    } failure:^(AFHTTPRequestOperation * operation, NSError * error) {
+        failure(error) ;
+    }] ;
+}
+
++(void)addBusinessUserGroupWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure {
+    AFHTTPRequestOperationManager *operationManager = [AFHTTPRequestOperationManager manager];
+    
+    operationManager.requestSerializer = [AFJSONRequestSerializer serializer];
+    operationManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"] ;
+    [operationManager POST:CROWDBOOTSTRAP_ADD_BUSINESS_GROUP parameters:dictParameters success:^(AFHTTPRequestOperation * operation, id  responseObject) {
+        success(responseObject);
+        
+    } failure:^(AFHTTPRequestOperation * operation, NSError * error) {
+        failure(error) ;
+    }] ;
+}
+
++(void)addBusinessContactWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure progress:(ProgressBlock)progress {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    [manager setRequestSerializer:[AFHTTPRequestSerializer serializer]];
+    
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"] ;
+    
+    AFHTTPRequestOperation *requestOperation = [manager POST:CROWDBOOTSTRAP_ADD_BUSINESS_CONTACT parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        
+        // Append User ID
+        [formData appendPartWithFormData:[[NSString stringWithFormat:@"%@",[dictParameters objectForKey:kBusinessAPI_CreatedBy]] dataUsingEncoding:NSUTF8StringEncoding]
+                                    name:kBusinessAPI_CreatedBy];
+        // Append User Name
+        [formData appendPartWithFormData:[[NSString stringWithFormat:@"%@",[dictParameters objectForKey:kBusinessAPI_Name]] dataUsingEncoding:NSUTF8StringEncoding]
+                                    name:kBusinessAPI_Name];
+        
+        // Append User Phone
+        [formData appendPartWithFormData:[[NSString stringWithFormat:@"%@",[dictParameters objectForKey:kBusinessAPI_Phone]] dataUsingEncoding:NSUTF8StringEncoding]
+                                    name:kBusinessAPI_Phone];
+
+        // Append User Email
+        [formData appendPartWithFormData:[[NSString stringWithFormat:@"%@",[dictParameters objectForKey:kBusinessAPI_Email]] dataUsingEncoding:NSUTF8StringEncoding]
+                                    name:kBusinessAPI_Email];
+
+        // Append Note
+        [formData appendPartWithFormData:[[NSString stringWithFormat:@"%@",[dictParameters objectForKey:kBusinessAPI_Note]] dataUsingEncoding:NSUTF8StringEncoding]
+                                    name:kBusinessAPI_Note];
+
+        // Append Connection Type
+        [formData appendPartWithFormData:[[NSString stringWithFormat:@"%@",[dictParameters objectForKey:kBusinessAPI_ConnectionId]] dataUsingEncoding:NSUTF8StringEncoding]
+                                    name:kBusinessAPI_ConnectionId];
+
+        // Append Business Card Image
+        if([dictParameters objectForKey:kBusinessAPI_CardImage]){
+            NSData *imageData = (NSData*)[dictParameters objectForKey:kBusinessAPI_CardImage] ;
+            //            NSString *imageFileName = [NSString stringWithFormat:@"%@.png",[[dictParameters objectForKey:kGroupAPI_Title] stringByReplacingOccurrencesOfString:@" " withString:@"" ]] ;
+            
+            // Append Image
+            [formData appendPartWithFileData:imageData
+                                        name:kBusinessAPI_CardImage
+                                    fileName:@"image.png"
+                                    mimeType:@"image/png"];
+        }
+        
+    } success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSLog(@"responseObject: %@",responseObject) ;
+        // NSDictionary *json = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:nil];
+        success(responseObject);
+        
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        NSLog(@"error: %@",error) ;
+        failure(error) ;
+    }] ;
+    
+    [requestOperation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+        
+        double percentDone = (double)totalBytesWritten / (double)totalBytesExpectedToWrite;
+        NSLog(@"Upload Progress: %f", percentDone);
+        progress(percentDone) ;
+    }];
 }
 
 #pragma mark - AFNetworking Methods -

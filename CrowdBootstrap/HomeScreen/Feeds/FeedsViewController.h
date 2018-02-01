@@ -10,7 +10,7 @@
 
 #define kCellIdentifier_Feeds                 @"feedsCell"
 
-@interface FeedsViewController : UIViewController<UITableViewDataSource, UITabBarDelegate> {
+@interface FeedsViewController : UIViewController<UITableViewDataSource, UITableViewDelegate> {
     // IBOutlets
     IBOutlet UITableView        *tblView;
     IBOutlet UILabel            *lblNoFeedsAvailable;

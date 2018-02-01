@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "NotificationService.h"
 
+#import "QMServicesManager.h"
 /**
  *  Implements logic connected with user's memory/disc storage, error handling, top bar notifications.
  */
@@ -32,13 +33,13 @@
 /**
  *  Download users accordingly to self.currentEnvironment
  */
-- (void)downloadCurrentEnvironmentUsersWithSuccessBlock:(void(^)(NSArray QB_GENERIC(QBUUser *) *latestUsers))successBlock errorBlock:(void(^)(NSError *error))errorBlock;
+- (void)downloadCurrentEnvironmentUsersWithSuccessBlock:(void(^)(NSArray<QBUUser *> *latestUsers))successBlock errorBlock:(void(^)(NSError *error))errorBlock;
 
 /**
  *  Sorted array of users.
  *
  *  @return sorted array of users from memory storage
  */
-- (NSArray QB_GENERIC(QBUUser *) *)sortedUsers;
+- (NSArray <QBUUser *> *)sortedUsers;
 
 @end

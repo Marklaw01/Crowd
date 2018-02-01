@@ -1,1 +1,1 @@
-../../../../QuickBlox/Quickblox.framework/Versions/A/Headers/QBContactListItem.h
+../../../../QuickBlox/Quickblox.framework/Headers/QBContactListItem.h

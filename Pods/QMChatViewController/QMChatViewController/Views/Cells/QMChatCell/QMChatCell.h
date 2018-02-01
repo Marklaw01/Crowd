@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "QMChatContainerView.h"
-#import "TTTAttributedLabel.h"
+#import <TTTAttributedLabel/TTTAttributedLabel.h>
 #import "QMChatCellLayoutAttributes.h"
 #import "QMImageView.h"
 
@@ -23,6 +23,7 @@ struct QMChatLayoutModel {
     CGFloat spaceBetweenTopLabelAndTextView;
     CGFloat spaceBetweenTextViewAndBottomLabel;
     CGFloat maxWidthMarginSpace;
+    CGFloat maxWidth;
 };
 
 typedef struct QMChatLayoutModel QMChatCellLayoutModel;
@@ -36,6 +37,9 @@ typedef struct QMChatLayoutModel QMChatCellLayoutModel;
  */
 @protocol QMChatCellDelegate <NSObject>
 
+/**
+ *  Protocol methods down below are required to be implemented
+ */
 @required
 
 /**
@@ -51,6 +55,11 @@ typedef struct QMChatLayoutModel QMChatCellLayoutModel;
  *  @param cell The cell that received the tap touch event.
  */
 - (void)chatCellDidTapContainer:(QMChatCell *)cell;
+
+/**
+ *  Protocol methods down below are optional and can be ignored
+ */
+@optional
 
 /**
  *  Tells the delegate that the cell has been tapped at the point specified by position.
@@ -71,6 +80,14 @@ typedef struct QMChatLayoutModel QMChatCellLayoutModel;
  *  @see `QMChatCell`
  */
 - (void)chatCell:(QMChatCell *)cell didPerformAction:(SEL)action withSender:(id)sender;
+
+/**
+ *  Tells the delegate that cell receive a tap action on text with a specific checking result.
+ *
+ *  @param cell               cell that received action
+ *  @param textCheckingResult text checking result
+ */
+- (void)chatCell:(QMChatCell *)cell didTapOnTextCheckingResult:(NSTextCheckingResult *)textCheckingResult;
 
 @end
 
@@ -104,12 +121,11 @@ typedef struct QMChatLayoutModel QMChatCellLayoutModel;
  *  Doing so could result in unexpected behavior.
  */
 @property (weak, nonatomic, readonly) UIView *avatarContainerView;
-@property (weak, nonatomic, readonly) UIImage *avatarImageView;
 
 /**
  *  Property to set avatar view
  */
-@property (weak, nonatomic) IBOutlet QMImageView *avatarView;
+@property (weak, nonatomic, readonly) QMImageView *avatarView;
 
 /**
  *  Returns chat message attributed label.
@@ -149,7 +165,7 @@ typedef struct QMChatLayoutModel QMChatCellLayoutModel;
  */
 @property (weak, nonatomic) id <QMChatCellDelegate> delegate;
 
-#pragma mark - Class methods
+//MARK: - Class methods
 
 /**
  *  Returns the `UINib` object initialized for the cell.
@@ -184,5 +200,12 @@ typedef struct QMChatLayoutModel QMChatCellLayoutModel;
  *  @return QMChatCellLayoutModel struct
  */
 + (QMChatCellLayoutModel)layoutModel;
+
+/**
+ Registers cell for data view
+
+ @param dataView data view. UITableView or UICollectionView
+ */
++ (void)registerForReuseInView:(id)dataView;
 
 @end

@@ -1,1 +1,1 @@
-../../../../QuickBlox/Quickblox.framework/Versions/A/Headers/QBUUser.h
+../../../../QuickBlox/Quickblox.framework/Headers/QBUUser.h

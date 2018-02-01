@@ -24,6 +24,9 @@
     // Do any additional setup after loading the view.
     [self resetUISettings] ;
     [self addTxtFldLeftView] ;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
     [self navigationBarSettings] ;
 }
 
@@ -37,6 +40,7 @@
     [UtilityClass setTextFieldBorder:emailTxtFld] ;
     [UtilityClass setTextFieldBorder:passwordTxtFld] ;
 }
+
 
 -(void)navigationBarSettings{
     [self.navigationController setNavigationBarHidden:YES] ;
@@ -99,7 +103,6 @@
 
 #pragma mark - API Methods
 -(void)loginApi {
-   // if(![UtilityClass getDeviceToken]) return ;
     
     if([UtilityClass checkInternetConnection]) {
         
@@ -107,22 +110,21 @@
         NSMutableDictionary *dictParam = [[NSMutableDictionary alloc] init];
         [dictParam setObject:emailTxtFld.text forKey:kLogInAPI_Email] ;
         [dictParam setObject:passwordTxtFld.text forKey:kLogInAPI_Password] ;
-        [dictParam setObject:@"" forKey:kLogInAPI_AccessToken] ; //[NSString stringWithFormat:@"%@",[UtilityClass getDeviceToken]]
-        [dictParam setObject:@"" forKey:kLogInAPI_DeviceToken] ; // [NSString stringWithFormat:@"%@",[UtilityClass getDeviceToken]]
+        [dictParam setObject:@"" forKey:kLogInAPI_AccessToken] ;
+        [dictParam setObject:[NSString stringWithFormat:@"%@",[UtilityClass getDeviceToken]] forKey:kLogInAPI_DeviceToken] ;
         [dictParam setObject:@"ios" forKey:kLogInAPI_DeviceType] ;
-        
+        NSLog(@"Params: %@", dictParam);
+    
         [ApiCrowdBootstrap loginWithParameters:dictParam success:^(NSDictionary *responseDict) {
-            //[UtilityClass hideHud] ;+
             NSLog(@"responseDict %@", responseDict);
             if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode ) {
                 
                 [UtilityClass hideHud] ;
-                NSLog(@"Login Successful %lu",[QBSession currentSession].currentUser.ID) ;
+                NSLog(@"Login Successful :%@",responseDict) ;
                 [UtilityClass setUserType:CONTRACTOR] ;
                 [UtilityClass setLogInStatus:YES] ;
                 
                 [UtilityClass setLoggedInUserID:[[responseDict valueForKey:@"user_id"] intValue]] ;
-                [UtilityClass setLoggedInUserQuickBloxID:[QBSession currentSession].currentUser.ID] ;
                 
                 NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:[responseDict mutableCopy]] ;
                 [dict setValue:[responseDict valueForKey:kLogInAPI_Quickblox_Password] forKey:kLogInAPI_Password] ;
@@ -133,53 +135,12 @@
                 UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"RevealView"] ;
                 [AppDelegate appDelegate].window.rootViewController = viewController ;
                 
-                //[self.navigationController pushViewController:viewController animated:YES] ;
                 [self presentViewController:viewController animated:YES completion:nil] ;
-                
-                
-                /*
-                QBUUser *qbUser = [QBUUser user]  ;
-                qbUser.email = emailTxtFld.text ;
-                qbUser.password = [responseDict valueForKey:kLogInAPI_Quickblox_Password] ;
-                //qbUser.password = passwordTxtFld.text ;
-                [UtilityClass showHudWithTitle:kHUDMessage_LogIn] ;
-                [ServicesManager.instance logInWithUser:qbUser completion:^(BOOL success, NSString *errorMessage) {
-                    if (success) {
-                        //__typeof(self) strongSelf = weakSelf;
-                        
-                        [UtilityClass hideHud] ;
-                        NSLog(@"Login Successfull %lu",[QBSession currentSession].currentUser.ID) ;
-                        [UtilityClass setUserType:CONTRACTOR] ;
-                        [UtilityClass setLogInStatus:YES] ;
-                        
-                        [UtilityClass setLoggedInUserID:[[responseDict valueForKey:@"user_id"] intValue]] ;
-                        [UtilityClass setLoggedInUserQuickBloxID:[QBSession currentSession].currentUser.ID] ;
-                        NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:[responseDict mutableCopy]] ;
-                        [dict setValue:[responseDict valueForKey:kLogInAPI_Quickblox_Password] forKey:kLogInAPI_Password] ;
-                        [UtilityClass setLoggedInUserDetails:[NSMutableDictionary dictionaryWithDictionary:dict]] ;
-                        [UtilityClass setNotificationSettings:@"true"] ;
-                        
-                        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                        UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"RevealView"] ;
-                        [AppDelegate appDelegate].window.rootViewController = viewController ;
-                        
-                        //[self.navigationController pushViewController:viewController animated:YES] ;
-                        [self presentViewController:viewController animated:YES completion:nil] ;
-                 
-                    } else {
-                        [UtilityClass hideHud] ;
-                        [self presentViewController:[UtilityClass displayAlertMessage:@"error"] animated:YES completion:nil] ;
-                    }
-                }];
-                 */
-            
             }
-            else{
+            else {
                 [UtilityClass hideHud] ;
                 [self presentViewController:[UtilityClass displayAlertMessage:[responseDict valueForKey:@"message"]] animated:YES completion:nil];
             }
-            
-            
         } failure:^(NSError *error) {
             NSLog(@"error %@", error.description);
             [UtilityClass displayAlertMessage:error.description] ;
@@ -187,58 +148,6 @@
         }] ;
     }
 }
-
-
-/*-(void)loginApi{
-    if([UtilityClass checkInternetConnection]){
-        
-        [UtilityClass showHudWithTitle:kHUDMessage_LogIn] ;
-        NSMutableDictionary *dictParam =[[NSMutableDictionary alloc] init];
-        [dictParam setObject:emailTxtFld.text forKey:kLogInAPI_Email] ;
-        [dictParam setObject:passwordTxtFld.text forKey:kLogInAPI_Password] ;
-        [dictParam setObject:[NSString stringWithFormat:@"%@",[UtilityClass getDeviceToken]] forKey:kLogInAPI_AccessToken] ;
-        [dictParam setObject:[NSString stringWithFormat:@"%@",[UtilityClass getDeviceToken]] forKey:kLogInAPI_DeviceToken] ;
-        [dictParam setObject:@"ios" forKey:kLogInAPI_DeviceType] ;
-        
-        [QBRequest logInWithUserEmail:emailTxtFld.text password:passwordTxtFld.text successBlock:^(QBResponse * _Nonnull response, QBUUser * _Nullable user) {
-            
-            NSLog(@"Login Successfull") ;
-            [ApiCrowdBootstrap loginWithParameters:dictParam success:^(NSDictionary *responseDict) {
-                [UtilityClass hideHud] ;
-                NSLog(@"responseDict %@", responseDict);
-                if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode )  {
-                    
-                    [UtilityClass setUserType:CONTRACTOR] ;
-                    [UtilityClass setLogInStatus:YES] ;
-                    
-                    [UtilityClass setLoggedInUserID:[[responseDict valueForKey:@"user_id"] intValue]] ;
-                    [UtilityClass setLoggedInUserDetails:[NSMutableDictionary dictionaryWithDictionary:responseDict]] ;
-                    [UtilityClass setNotificationSettings:@"true"] ;
-                    
-                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                    UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"RevealView"] ;
-                    [AppDelegate appDelegate].window.rootViewController = viewController ;
-                    
-                    //[self.navigationController pushViewController:viewController animated:YES] ;
-                    [self presentViewController:viewController animated:YES completion:nil] ;
-                }
-                else [self presentViewController:[UtilityClass displayAlertMessage:[responseDict valueForKey:@"message"]] animated:YES completion:nil];
-                
-                
-            } failure:^(NSError *error) {
-                NSLog(@"error %@", error.description);
-                [UtilityClass displayAlertMessage:error.description] ;
-                [UtilityClass hideHud] ;
-            }] ;
-            
-        } errorBlock:^(QBResponse * _Nonnull response) {
-            [UtilityClass displayAlertMessage:response.error.description] ;
-            [UtilityClass hideHud] ;
-        } ] ;
-        
-        
-    }
-}*/
 
 #pragma mark - Disable Editing Method
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -263,17 +172,39 @@
             break;
             
         case FORGOT_PASSWORD_SELECTED:
+        {
             viewIdentifierName = kForgotPasswordIdentifier ;
+            isResendConfirmation = false;
+            break;
+        }
+        case RESEND_CONFIRMATION_SELECTED: {
+            viewIdentifierName = kForgotPasswordIdentifier ;
+            isResendConfirmation = true;
+            break;
+        }
+            
+        case ABOUT_SELECTED:
+            viewIdentifierName = kHomeIdentifer ;
+            [self.navigationController setNavigationBarHidden:NO] ;
+
             break;
             
         default:
             break;
     }
     
-    if(viewIdentifierName){
+    if(viewIdentifierName) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:viewIdentifierName] ;
-        [self.navigationController pushViewController:viewController animated:YES] ;
+        
+        if ([viewIdentifierName  isEqual: kForgotPasswordIdentifier]) {
+            ForgotPasswordViewController *viewController = (ForgotPasswordViewController*)[storyboard instantiateViewControllerWithIdentifier:viewIdentifierName] ;
+            viewController.isResendConfirmation = isResendConfirmation;
+            [self.navigationController pushViewController:viewController animated:YES] ;
+                
+        } else {
+            UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:viewIdentifierName] ;
+            [self.navigationController pushViewController:viewController animated:YES] ;
+        }
     }
 }
 
@@ -314,5 +245,6 @@
     // Pass the selected object to the new view controller.
 }
 */
+
 
 @end

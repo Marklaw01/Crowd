@@ -17,11 +17,20 @@
 #define MEETUP_TARGET_MARKET_KEYWORDS_SECTION_INDEX    4
 #define MEETUP_KEYWORDS_SECTION_INDEX    5
 #define MEETUP_INDUSTRY_KEYWORDS_SECTION_INDEX  6
-#define MEETUP_IMAGE_SECTION_INDEX    7
+#define MEETUP_ADD_FORUM_SECTION_INDEX  7
+#define MEETUP_ACCESS_SECTION_INDEX  8
+#define MEETUP_NOTIFICATION_SECTION_INDEX  9
+#define MEETUP_IMAGE_SECTION_INDEX    10
 
 enum {
     MEETUP_START_DATE_SELECTED,
     MEETUP_END_DATE_SELECTED
+};
+
+enum {
+    MEETUP_ADD_FORUM_SELECTED,
+    MEETUP_ACCESS_SELECTED,
+    MEETUP_NOTIFICATION_SELECTED
 };
 
 enum {
@@ -41,16 +50,21 @@ enum{
 #define kNoMeetUpKeywordsFoundMessage            @"No Meet Up Keywords Found"
 
 
-@interface AddMeetUpViewController : UIViewController<UITextFieldDelegate,UITableViewDataSource,UITableViewDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate, TLTagsControlDelegate, UISearchBarDelegate>
+@interface AddMeetUpViewController : UIViewController<UITextFieldDelegate,UITableViewDataSource,UITableViewDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate, TLTagsControlDelegate, UISearchBarDelegate, UIPickerViewDelegate>
 {
     // --- IBOutlets ---
     IBOutlet UITableView                      *popupTblView;
     IBOutlet UIView                           *popupView;
     IBOutlet UISearchBar                      *searchBarKeywords;
 
+    // DatePicker View
     IBOutlet UIDatePicker                     *datePickerView;
     IBOutlet UIView                           *datePickerViewContainer;
     
+    // Picker View
+    IBOutlet UIView                          *pickerViewContainer;
+    IBOutlet UIPickerView                    *pickerView;
+
     // --- Variables ---
     NSMutableArray                            *sectionsArray ;
     NSMutableArray                            *arrayForBool;
@@ -78,11 +92,20 @@ enum{
     NSMutableArray                            *selectedIndustryKeywordNames ;
     NSMutableArray                            *selectedMeetUpKeywordNames ;
     
-    NSMutableArray                           *searchResultsForKeywords;
+    NSMutableArray                            *searchResultsForKeywords;
+    
+    NSMutableArray                            *forumsArray;
+    NSString                                  *selectedForumID ;
+    NSMutableArray                            *accessLevelArray;
+    NSString                                  *selectedAccessLevel ;
+    NSMutableArray                            *notificationArray;
+    NSString                                  *selectedNotification ;
 
     int                                       selectedKeywordType ;
     int                                       selectedDatePickerType ;
-    
+    int                                       selectedPickerType ;
+    NSString                                  *prevValue ;
+
     NSString                                 *prevDueDate ;
     NSDateFormatter                          *dateFormatter ;
     UIImage                                  *chosenImage;
