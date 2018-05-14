@@ -1,6 +1,7 @@
 package com.staging.utilities;
 
 import android.text.Editable;
+import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
@@ -10,6 +11,7 @@ import java.lang.ref.WeakReference;
  * Created by neelmani.karn on 5/12/2016.
  */
 public class UsPhoneNumberFormatter implements TextWatcher {
+
     //This TextWatcher sub-class formats entered numbers as 1 (123) 456-7890
     private boolean mFormatting; // this is a flag which prevents the
     // stack(onTextChanged)
@@ -18,11 +20,9 @@ public class UsPhoneNumberFormatter implements TextWatcher {
     private String mLastBeforeText;
     private WeakReference<EditText> mWeakEditText;
 
-    /**
-     * @param weakEditText
-     */
     public UsPhoneNumberFormatter(WeakReference<EditText> weakEditText) {
         this.mWeakEditText = weakEditText;
+
     }
 
     @Override
@@ -36,7 +36,8 @@ public class UsPhoneNumberFormatter implements TextWatcher {
     }
 
     @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
+    public void onTextChanged(CharSequence s, int start, int before,
+                              int count) {
         // TODO: Do nothing
     }
 
@@ -44,14 +45,18 @@ public class UsPhoneNumberFormatter implements TextWatcher {
     public void afterTextChanged(Editable s) {
         // Make sure to ignore calls to afterTextChanged caused by the work
         // done below
+
+
         if (!mFormatting) {
+
             mFormatting = true;
             int curPos = mLastStartLocation;
             String beforeValue = mLastBeforeText;
             String currentValue = s.toString();
             String formattedValue = formatUsNumber(s);
             if (currentValue.length() > beforeValue.length()) {
-                int setCusorPos = formattedValue.length() - (beforeValue.length() - curPos);
+                int setCusorPos = formattedValue.length()
+                        - (beforeValue.length() - curPos);
                 mWeakEditText.get().setSelection(setCusorPos < 0 ? 0 : setCusorPos);
             } else {
                 int setCusorPos = formattedValue.length()
@@ -80,7 +85,6 @@ public class UsPhoneNumberFormatter implements TextWatcher {
         // Now only digits are remaining
         String allDigitString = text.toString();
 
-
         int totalDigitCount = allDigitString.length();
 
         if (totalDigitCount == 0
@@ -90,6 +94,7 @@ public class UsPhoneNumberFormatter implements TextWatcher {
             // expected value so we'll remove all formatting
             text.clear();
             text.append(allDigitString);
+
             return allDigitString;
         }
         int alreadyPlacedDigitCount = 0;
@@ -100,15 +105,12 @@ public class UsPhoneNumberFormatter implements TextWatcher {
             clearFlag = false;
             return "";
         }
-
-
-
         if (allDigitString.startsWith("1")) {
             formattedString.append("1 ");
             alreadyPlacedDigitCount++;
         }else{
             formattedString.append("1 ");
-            alreadyPlacedDigitCount++;
+
         }
         // The first 3 numbers beyond '1' must be enclosed in brackets "()"
         if (totalDigitCount - alreadyPlacedDigitCount > 3) {

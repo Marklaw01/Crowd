@@ -382,7 +382,7 @@ public class AddUserFeedsFragment extends Fragment implements onActivityResultLi
         try {
             boolean alreadyexist = false, already = false;
             for (int i = 0; i < pathofmedia.size(); i++) {
-                if ((pathofmedia.get(i).getPath().equals(path))/* && (pathofmedia.get(i).getPath().equals(fileName))*/) {
+                if ((pathofmedia.get(i).getPath().equals(path))/* && (groupNameList.get(i).getPath().equals(fileName))*/) {
                     alreadyexist = true;
                 }
             }
@@ -397,7 +397,7 @@ public class AddUserFeedsFragment extends Fragment implements onActivityResultLi
                     }
                 }
                 for (int i = 0; i < pathofmedia.size(); i++) {
-                    if ((pathofmedia.get(i).getTag() == tagno)/* && (pathofmedia.get(i).getPath().equals(fileName))*/) {
+                    if ((pathofmedia.get(i).getTag() == tagno)/* && (groupNameList.get(i).getPath().equals(fileName))*/) {
                         already = true;
                         pathofmedia.remove(i);
                         break;
@@ -409,7 +409,7 @@ public class AddUserFeedsFragment extends Fragment implements onActivityResultLi
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //selection = pathofmedia.size();
+        //selection = groupNameList.size();
     }
 
     long totalSize = 0;
@@ -420,7 +420,7 @@ public class AddUserFeedsFragment extends Fragment implements onActivityResultLi
             if ((ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 requestPermission();
             } else {
-                AlertDialog.Builder builderSingle = new AlertDialog.Builder(getActivity()/*new ContextThemeWrapper(getActivity(), android.R.style.Theme_Holo_Light_Dialog)*/);
+                AlertDialog.Builder builderSingle = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
                 final CharSequence[] opsChars = {"Upload Image", "Take Picture"};
                 builderSingle.setCancelable(true);
                 builderSingle.setItems(opsChars, new DialogInterface.OnClickListener() {
@@ -948,8 +948,8 @@ public class AddUserFeedsFragment extends Fragment implements onActivityResultLi
                     try {
                         /*ArrayList<File> files = new ArrayList<File>();
                         ArrayList<FileBody> bin = new ArrayList<FileBody>();
-                        for (int i = 0; i < pathofmedia.size(); i++) {
-                            files.add(new File(pathofmedia.get(i).getPath()));
+                        for (int i = 0; i < groupNameList.size(); i++) {
+                            files.add(new File(groupNameList.get(i).getPath()));
                         }*/
 
                         /*for (int i = 0; i < files.size(); i++) {

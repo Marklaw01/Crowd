@@ -109,11 +109,18 @@ public class ViewContractorsFragment extends Fragment implements AdapterView.OnI
                 switch (index) {
                     case 0:
                         if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
-                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity(),R.style.MyDialogTheme);
 
                             alertDialogBuilder
                                     .setMessage("Do you accept this commitment on your campaign?")
                                     .setCancelable(false)
+                                    .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int arg1) {
+                                            dialog.dismiss();
+                                        }
+                                    })
                                     .setNegativeButton("No", new DialogInterface.OnClickListener() {
 
                                         @Override

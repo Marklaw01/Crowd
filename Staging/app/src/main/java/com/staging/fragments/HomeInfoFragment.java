@@ -18,6 +18,7 @@ import com.staging.R;
 import com.staging.activities.HomeActivity;
 import com.staging.activities.IndependentContractorActivity;
 import com.staging.activities.LeanStartupRoadmap;
+import com.staging.activities.LoginActivity;
 import com.staging.activities.OurMissionActivity;
 import com.staging.activities.OurValuesActivity;
 import com.staging.activities.OurVisionActivity;
@@ -39,7 +40,7 @@ public class HomeInfoFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
-        ((HomeActivity) getActivity()).setActionBarTitle("Home");
+
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
     }
@@ -52,7 +53,6 @@ public class HomeInfoFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
-
 
         try {
             MobileAds.initialize(getActivity(), Constants.Ad_UNIT_ID);

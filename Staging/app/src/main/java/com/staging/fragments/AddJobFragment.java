@@ -296,7 +296,7 @@ public class AddJobFragment extends Fragment implements onActivityResultListener
         try {
             boolean alreadyexist = false, already = false;
             for (int i = 0; i < pathofmedia.size(); i++) {
-                if ((pathofmedia.get(i).getPath().equals(path))/* && (pathofmedia.get(i).getPath().equals(fileName))*/) {
+                if ((pathofmedia.get(i).getPath().equals(path))/* && (groupNameList.get(i).getPath().equals(fileName))*/) {
                     alreadyexist = true;
                 }
             }
@@ -311,7 +311,7 @@ public class AddJobFragment extends Fragment implements onActivityResultListener
                     }
                 }
                 for (int i = 0; i < pathofmedia.size(); i++) {
-                    if ((pathofmedia.get(i).getTag() == tagno)/* && (pathofmedia.get(i).getPath().equals(fileName))*/) {
+                    if ((pathofmedia.get(i).getTag() == tagno)/* && (groupNameList.get(i).getPath().equals(fileName))*/) {
                         already = true;
                         pathofmedia.remove(i);
                         break;
@@ -323,7 +323,7 @@ public class AddJobFragment extends Fragment implements onActivityResultListener
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //selection = pathofmedia.size();
+        //selection = groupNameList.size();
     }
 
 

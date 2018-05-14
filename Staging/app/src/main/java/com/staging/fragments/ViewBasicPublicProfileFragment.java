@@ -4,9 +4,11 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,10 +25,11 @@ import org.json.JSONObject;
 /**
  * Created by neelmani.karn on 2/2/2016.
  */
-public class ViewBasicPublicProfileFragment extends Fragment implements AsyncTaskCompleteListener<String> {
+public class ViewBasicPublicProfileFragment extends Fragment implements View.OnClickListener, AsyncTaskCompleteListener<String> {
 
     private TextView tv_bio, tv_name, tv_email, tv_dob, tv_phone, tv_city, tv_country, tv_myInterests;
 
+    private Button btn_addStartup;
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -72,6 +75,27 @@ public class ViewBasicPublicProfileFragment extends Fragment implements AsyncTas
     public void onResume() {
         super.onResume();
         //((HomeActivity) getActivity()).setOnBackPressedListener(this);
+
+        if (Constants.COMMING_FROM_INTENT.equalsIgnoreCase("Teams")) {
+            btn_addStartup.setText("Rate Contractor");
+
+        } else if (Constants.COMMING_FROM_INTENT.equalsIgnoreCase("public")) {
+            btn_addStartup.setText("Rate Contractor");
+        } else if (Constants.COMMING_FROM_INTENT.equalsIgnoreCase("entrepreneur")) {
+            btn_addStartup.setText("Rate Entrepreneur");
+        } else if (Constants.COMMING_FROM_INTENT.equalsIgnoreCase("STARTUP_DETAILS")) {
+            btn_addStartup.setVisibility(View.GONE);
+        } else if (Constants.COMMING_FROM_INTENT.equalsIgnoreCase("searchprofile")) {
+            btn_addStartup.setText("Add Contractor");
+        } else if (Constants.COMMING_FROM_INTENT.equalsIgnoreCase("recommendedContractors")) {
+            btn_addStartup.setText("Add Contractor");
+        } else if (Constants.COMMING_FROM_INTENT.equalsIgnoreCase("campaignsearch")) {
+            btn_addStartup.setVisibility(View.GONE);
+        } else if (Constants.COMMING_FROM_INTENT.compareTo("home") == 0) {
+            btn_addStartup.setVisibility(View.GONE);
+        } else {
+            btn_addStartup.setVisibility(View.VISIBLE);
+        }
     }
 
     View rootView;
@@ -90,10 +114,11 @@ public class ViewBasicPublicProfileFragment extends Fragment implements AsyncTas
             tv_city = (TextView) rootView.findViewById(R.id.tv_city);
             tv_country = (TextView) rootView.findViewById(R.id.tv_country);
             tv_myInterests = (TextView) rootView.findViewById(R.id.tv_myInterests);
+            btn_addStartup = (Button) rootView.findViewById(R.id.addcontributorVal);
 
             tv_myInterests.setVisibility(View.VISIBLE);
-            ((HomeActivity) getActivity()).setOnBackPressedListener(this);
 
+            btn_addStartup.setOnClickListener(this);
             ViewEntrepreneurPublicProfileFragment.cbx_Follow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -142,7 +167,8 @@ public class ViewBasicPublicProfileFragment extends Fragment implements AsyncTas
 
         } else {
             rootView = inflater.inflate(R.layout.fragment_view_basic_public_profile, container, false);
-
+            btn_addStartup = (Button) rootView.findViewById(R.id.addcontributorVal);
+            btn_addStartup.setOnClickListener(this);
             tv_bio = (TextView) rootView.findViewById(R.id.tv_bio);
             tv_name = (TextView) rootView.findViewById(R.id.tv_name);
             tv_email = (TextView) rootView.findViewById(R.id.tv_email);
@@ -152,7 +178,6 @@ public class ViewBasicPublicProfileFragment extends Fragment implements AsyncTas
             tv_country = (TextView) rootView.findViewById(R.id.tv_country);
             tv_myInterests = (TextView) rootView.findViewById(R.id.tv_myInterests);
 
-            ((HomeActivity) getActivity()).setOnBackPressedListener(this);
             tv_myInterests.setVisibility(View.GONE);
 
             ViewContractorPublicProfileFragment.connectOptionProfile.setOnClickListener(new View.OnClickListener() {
@@ -162,7 +187,7 @@ public class ViewBasicPublicProfileFragment extends Fragment implements AsyncTas
                     if (ViewContractorPublicProfileFragment.connectOptionProfile.getText().toString().trim().compareTo("Connect") == 0) {
                         if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
                             ((HomeActivity) getActivity()).showProgressDialog();
-                            Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.CONNECT_USER_TAG, Constants.CONNECT_USER_URL+"?connection_by="+ ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID)+"&connection_to="+ ViewContractorPublicProfileFragment.userId + "&status=0", Constants.HTTP_GET, "Home Activity");
+                            Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.CONNECT_USER_TAG, Constants.CONNECT_USER_URL + "?connection_by=" + ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID) + "&connection_to=" + ViewContractorPublicProfileFragment.userId + "&status=0", Constants.HTTP_GET, "Home Activity");
                             a.execute();
                         } else {
                             //((HomeActivity) getActivity()).dismissProgressDialog();
@@ -172,32 +197,37 @@ public class ViewBasicPublicProfileFragment extends Fragment implements AsyncTas
                     } else if (ViewContractorPublicProfileFragment.connectOptionProfile.getText().toString().trim().compareTo("Disconnect") == 0) {
                         if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
                             ((HomeActivity) getActivity()).showProgressDialog();
-                            Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.DISCONNECT_USER_TAG, Constants.DISCONNECT_USER_URL+"?user_id="+ ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID)+"&connection_id="+ connectionID, Constants.HTTP_GET, "Home Activity");
+                            Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.DISCONNECT_USER_TAG, Constants.DISCONNECT_USER_URL + "?user_id=" + ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID) + "&connection_id=" + connectionID, Constants.HTTP_GET, "Home Activity");
                             a.execute();
                         } else {
                             //((HomeActivity) getActivity()).dismissProgressDialog();
                             ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
                         }
 
-                    }
-                    else if (ViewContractorPublicProfileFragment.connectOptionProfile.getText().toString().trim().compareTo("Request Sent") == 0) {
+                    } else if (ViewContractorPublicProfileFragment.connectOptionProfile.getText().toString().trim().compareTo("Request Sent") == 0) {
                         if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
                             ((HomeActivity) getActivity()).showProgressDialog();
-                            Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.DISCONNECT_USER_TAG, Constants.DISCONNECT_USER_URL+"?user_id="+ ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID)+"&connection_id="+ connectionID, Constants.HTTP_GET, "Home Activity");
+                            ViewContractorPublicProfileFragment.connectOptionProfile.setText("Connect");
+                            Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.DISCONNECT_USER_TAG, Constants.DISCONNECT_USER_URL + "?user_id=" + ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID) + "&connection_id=" + connectionID, Constants.HTTP_GET, "Home Activity");
                             a.execute();
                         } else {
                             //((HomeActivity) getActivity()).dismissProgressDialog();
                             ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
                         }
 
-                    }
-                    else if (ViewContractorPublicProfileFragment.connectOptionProfile.getText().toString().trim().compareTo("Respond") == 0) {
+                    } else if (ViewContractorPublicProfileFragment.connectOptionProfile.getText().toString().trim().compareTo("Respond") == 0) {
 
-                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
-
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
                         alertDialogBuilder
                                 .setMessage("Do you want to accept the connection request")
                                 .setCancelable(false)
+                                .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int arg1) {
+                                        dialog.dismiss();
+                                    }
+                                })
                                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
 
                                     @Override
@@ -206,7 +236,7 @@ public class ViewBasicPublicProfileFragment extends Fragment implements AsyncTas
 
                                         if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
                                             ((HomeActivity) getActivity()).showProgressDialog();
-                                            Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.DISCONNECT_USER_TAG, Constants.DISCONNECT_USER_URL+"?user_id="+ ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID)+"&connection_id="+ connectionID, Constants.HTTP_GET, "Home Activity");
+                                            Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.DISCONNECT_USER_TAG, Constants.DISCONNECT_USER_URL + "?user_id=" + ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID) + "&connection_id=" + connectionID, Constants.HTTP_GET, "Home Activity");
                                             a.execute();
                                         } else {
                                             //((HomeActivity) getActivity()).dismissProgressDialog();
@@ -221,7 +251,7 @@ public class ViewBasicPublicProfileFragment extends Fragment implements AsyncTas
                                         dialog.cancel();
                                         if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
                                             ((HomeActivity) getActivity()).showProgressDialog();
-                                            Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.ACCEPT_CONNECTION_USER_TAG, Constants.ACCEPT_CONNECTION_USER_URL+"?user_id="+ ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID)+"&connection_id="+ connectionID+ "&status=1", Constants.HTTP_GET, "Home Activity");
+                                            Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.ACCEPT_CONNECTION_USER_TAG, Constants.ACCEPT_CONNECTION_USER_URL + "?user_id=" + ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID) + "&connection_id=" + connectionID + "&status=1", Constants.HTTP_GET, "Home Activity");
                                             a.execute();
                                         } else {
                                             //((HomeActivity) getActivity()).dismissProgressDialog();
@@ -254,6 +284,8 @@ public class ViewBasicPublicProfileFragment extends Fragment implements AsyncTas
                                 jsonObject.put("user_id", ViewContractorPublicProfileFragment.userId);
                                 jsonObject.put("followed_by", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
                                 jsonObject.put("status", 1);
+
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -354,17 +386,13 @@ public class ViewBasicPublicProfileFragment extends Fragment implements AsyncTas
 
                         if ((connectionRecieved.compareTo("1") == 0) && (connectionSent.compareTo("0") == 0) && (connectionStatus.compareTo("0") == 0)) {
                             ViewContractorPublicProfileFragment.connectOptionProfile.setText("Respond");
-                        }
-                        else if((connectionRecieved.compareTo("1") == 0) && (connectionSent.compareTo("0") == 0) && (connectionStatus.compareTo("1") == 0)){
+                        } else if ((connectionRecieved.compareTo("1") == 0) && (connectionSent.compareTo("0") == 0) && (connectionStatus.compareTo("1") == 0)) {
                             ViewContractorPublicProfileFragment.connectOptionProfile.setText("Disconnect");
-                        }
-                        else if((connectionRecieved.compareTo("0") == 0) && (connectionSent.compareTo("1") == 0) && (connectionStatus.compareTo("0") == 0)){
+                        } else if ((connectionRecieved.compareTo("0") == 0) && (connectionSent.compareTo("1") == 0) && (connectionStatus.compareTo("0") == 0)) {
                             ViewContractorPublicProfileFragment.connectOptionProfile.setText("Request Sent");
-                        }
-                        else if((connectionRecieved.compareTo("0") == 0) && (connectionSent.compareTo("1") == 0) && (connectionStatus.compareTo("1") == 0)){
+                        } else if ((connectionRecieved.compareTo("0") == 0) && (connectionSent.compareTo("1") == 0) && (connectionStatus.compareTo("1") == 0)) {
                             ViewContractorPublicProfileFragment.connectOptionProfile.setText("Disconnect");
-                        }
-                        else if((connectionRecieved.compareTo("0") == 0) && (connectionSent.compareTo("0") == 0) && (connectionStatus.compareTo("0") == 0)){
+                        } else if ((connectionRecieved.compareTo("0") == 0) && (connectionSent.compareTo("0") == 0) && (connectionStatus.compareTo("0") == 0)) {
                             ViewContractorPublicProfileFragment.connectOptionProfile.setText("Connect");
                         }
 
@@ -506,9 +534,7 @@ public class ViewBasicPublicProfileFragment extends Fragment implements AsyncTas
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            }
-
-            else if (tag.equalsIgnoreCase(Constants.ACCEPT_CONNECTION_USER_TAG)) {
+            } else if (tag.equalsIgnoreCase(Constants.ACCEPT_CONNECTION_USER_TAG)) {
                 ((HomeActivity) getActivity()).dismissProgressDialog();
                 try {
                     JSONObject jsonObject = new JSONObject(result);
@@ -526,12 +552,57 @@ public class ViewBasicPublicProfileFragment extends Fragment implements AsyncTas
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            }
-
-
-            else {
+            } else {
                 ((HomeActivity) getActivity()).dismissProgressDialog();
             }
         }
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        switch (view.getId()) {
+
+            case R.id.addcontributorVal:
+                if (Constants.COMMING_FROM_INTENT.equalsIgnoreCase("Teams") || Constants.COMMING_FROM_INTENT.equalsIgnoreCase("home")) {
+                    Fragment rateContributor = new RateContributor();
+                    ((HomeActivity) getActivity()).replaceFragment(rateContributor);
+                    /*FragmentTransaction transactionRate = getParentFragment().getFragmentManager().beginTransaction();
+
+                    transactionRate.replace(R.id.container, rateContributor);
+                    transactionRate.addToBackStack(null);
+
+                    transactionRate.commit();*/
+                } else if (Constants.COMMING_FROM_INTENT.equalsIgnoreCase("entrepreneur")) {
+                    Fragment rateContributor = new RateContributor();
+                    ((HomeActivity) getActivity()).replaceFragment(rateContributor);
+                    /*FragmentTransaction transactionRate = getParentFragment().getFragmentManager().beginTransaction();
+
+                    transactionRate.replace(R.id.container, rateContributor);
+                    transactionRate.addToBackStack(null);
+
+                    transactionRate.commit();*/
+                } else {
+                    Fragment rateContributor = new AddContributor();
+
+                    Bundle bundle = new Bundle();
+                    Log.e("contractor_id", ViewContractorPublicProfileFragment.userId);
+                    bundle.putString("contractor_id", ViewContractorPublicProfileFragment.userId);
+                    bundle.putString("contractor_name", ViewContractorPublicProfileFragment.tv_username.getText().toString().trim());
+                    bundle.putString("hourly_rate", ViewContractorPublicProfileFragment.tv_rate.getText().toString().trim());
+
+                    rateContributor.setArguments(bundle);
+                    ((HomeActivity) getActivity()).replaceFragment(rateContributor);
+                    /*FragmentTransaction transactionRate = getParentFragment().getFragmentManager().beginTransaction();
+                    transactionRate.replace(R.id.container, rateContributor);
+                    transactionRate.addToBackStack(null);
+
+                    transactionRate.commit();*/
+                }
+
+                break;
+        }
+
+
     }
 }

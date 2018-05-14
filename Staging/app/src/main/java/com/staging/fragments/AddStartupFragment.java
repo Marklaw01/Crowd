@@ -879,7 +879,7 @@ public class AddStartupFragment extends Fragment implements onActivityResultList
 
     protected void alertDialogForPicture() {
         try {
-            AlertDialog.Builder builderSingle = new AlertDialog.Builder(getActivity()/*new ContextThemeWrapper(getActivity(), android.R.style.Theme_Holo_Light_Dialog)*/);
+            AlertDialog.Builder builderSingle =  new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
             final CharSequence[] opsChars = {"Upload Image", "Take Picture"};
             builderSingle.setCancelable(true);
             builderSingle.setItems(opsChars, new DialogInterface.OnClickListener() {

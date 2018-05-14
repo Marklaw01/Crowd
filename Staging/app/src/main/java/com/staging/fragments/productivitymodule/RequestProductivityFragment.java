@@ -234,7 +234,7 @@ public class RequestProductivityFragment extends Fragment implements onActivityR
         endDateTV.setText("Productivity Tool Availability End Date");
         titleTV.setText("Productivity Tool Title");
         descriptionlbl.setText("Productivity Tool Description");
-
+        et_title.setHint("Productivity Tool Title");
         spinner_uploadFileType = (Spinner) rootView.findViewById(R.id.spinner_uploadFileType);
         pathofmedia = new ArrayList<Mediabeans>();
         // tv = (TextView) rootView.findViewById(R.id.tv);
@@ -289,7 +289,7 @@ public class RequestProductivityFragment extends Fragment implements onActivityR
 
         btn_browse.setTag(0);
         btn_browse.setOnClickListener(this);
-        btnCreate.setText("Create");
+        btnCreate.setText("Submit");
 
         btn_plus.setOnClickListener(this);
         btnCreate.setOnClickListener(this);

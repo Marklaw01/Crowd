@@ -167,7 +167,7 @@ public class JobsFragment extends Fragment implements AdapterView.OnItemClickLis
                     if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
                         ((HomeActivity) getActivity()).showProgressDialog();
                         String searchedKey = ((HomeActivity) getActivity()).utilitiesClass.removeSpecialCharacters(et_search.getText().toString().trim());
-                        Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.SEARCH_JOBLIST_TAG, Constants.SEARCH_JOBLIST_URL + "?user_id=" + ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID) + "&search_text=" + searchedKey + "&page_no=" + current_page + "&county_id=" + COUNTRY_ID + "&state_id=" + STATE_ID, Constants.HTTP_GET, "Home Activity");
+                        Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.SEARCH_JOBLIST_TAG, Constants.SEARCH_JOBLIST_URL + "?user_id=" + ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID) + "&search_text=" + searchedKey + "&page_no=" + current_page + "&country_id=" + COUNTRY_ID + "&state_id=" + STATE_ID, Constants.HTTP_GET, "Home Activity");
                         a.execute();
                     } else {
                         ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));

@@ -234,6 +234,7 @@ public class RequestHardwareFragment extends Fragment implements onActivityResul
         endDateTV.setText("Hardware Availability End Date");
         titleTV.setText("Hardware Title");
         descriptionlbl.setText("Hardware Description");
+        et_title.setHint("Hardware Title");
 
         spinner_uploadFileType = (Spinner) rootView.findViewById(R.id.spinner_uploadFileType);
         pathofmedia = new ArrayList<Mediabeans>();
@@ -289,7 +290,7 @@ public class RequestHardwareFragment extends Fragment implements onActivityResul
 
         btn_browse.setTag(0);
         btn_browse.setOnClickListener(this);
-        btnCreate.setText("Create");
+        btnCreate.setText("Submit");
         btn_plus.setOnClickListener(this);
         btnCreate.setOnClickListener(this);
         image_fundImage.setOnClickListener(this);

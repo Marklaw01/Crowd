@@ -81,14 +81,14 @@
                 android:id="@+id/tv_sender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
+                android:layout_marginTop="15sp"
                 android:layout_weight="0.5"
+                android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:maxLines="2"
                 android:text="Sender"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/green"
-                android:layout_marginTop="15sp"
                 android:textSize="@dimen/smallTextStyle"
                 android:textStyle="normal" />
 
@@ -96,22 +96,23 @@
                 android:id="@+id/tv_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
+                android:layout_marginTop="15sp"
                 android:layout_weight="0.5"
+                android:ellipsize="end"
                 android:gravity="right"
                 android:maxLines="2"
                 android:text="Sender"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/green"
-                android:layout_marginTop="15sp"
                 android:textSize="@dimen/smallTextStyle"
                 android:textStyle="normal" />
         </LinearLayout>
 
 
-
-
     </LinearLayout>
+
+
+
 
 
 </LinearLayout>

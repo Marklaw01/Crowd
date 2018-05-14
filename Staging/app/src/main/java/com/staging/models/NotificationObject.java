@@ -4,7 +4,7 @@ package com.staging.models;
  * Created by neelmani.karn on 2/8/2016.
  */
 public class NotificationObject {
-    String id, name, createdTime, descriptoin, sender, createdDate;
+    String id, name, createdTime, descriptoin, sender, createdDate, ownerName, ownerImage;
 
     public String getCreatedDate() {
         return createdDate;
@@ -24,6 +24,22 @@ public class NotificationObject {
 
     public String getId() {
         return id;
+    }
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+    }
+
+    public String getOwnerImage() {
+        return ownerImage;
+    }
+
+    public void setOwnerImage(String ownerImage) {
+        this.ownerImage = ownerImage;
     }
 
     public void setId(String id) {

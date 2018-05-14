@@ -157,6 +157,7 @@ public class GroupBuyingDetailFragment extends Fragment implements View.OnClickL
         endDateTV.setText("Group Buying Availability End Date");
         titleTV.setText("Group Buying Title");
         descriptionlbl.setText("Group Buying Description");
+        et_title.setHint("Group Buying Title");
         expandable_playAudio.getViewTreeObserver().addOnPreDrawListener(
                 new ViewTreeObserver.OnPreDrawListener() {
 

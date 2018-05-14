@@ -299,6 +299,7 @@ public class UpdateRequestAudioVideoFragment extends Fragment implements onActiv
         titleTV.setText("Audio/Video Title");
         descriptionlbl.setText("Audio/Video Description");
 
+        et_title.setHint("Audio/Video Title");
 
 
         searchFocusGroups = (Button) rootView.findViewById(R.id.searchBoardMember);
@@ -439,6 +440,7 @@ public class UpdateRequestAudioVideoFragment extends Fragment implements onActiv
         et_interestKeywords.setOnClickListener(this);
 
         btn_plus.setOnClickListener(this);
+        btnCreate.setText("Submit");
         btnCreate.setOnClickListener(this);
         image_fundImage.setOnClickListener(this);
         tv_deleteFile.setOnClickListener(this);
@@ -707,7 +709,7 @@ public class UpdateRequestAudioVideoFragment extends Fragment implements onActiv
 
     protected void alertDialogForPicture() {
         try {
-            AlertDialog.Builder builderSingle = new AlertDialog.Builder(getActivity()/*new ContextThemeWrapper(getActivity(), android.R.style.Theme_Holo_Light_Dialog)*/);
+            AlertDialog.Builder builderSingle = new AlertDialog.Builder(getActivity(),R.style.MyDialogTheme);
             final CharSequence[] opsChars = {"Upload Image", "Take Picture"};
             builderSingle.setCancelable(true);
             builderSingle.setItems(opsChars, new DialogInterface.OnClickListener() {
@@ -1721,7 +1723,7 @@ public class UpdateRequestAudioVideoFragment extends Fragment implements onActiv
                                     Toast.makeText(getActivity(), "Your resource is updated successfully.", Toast.LENGTH_LONG).show();
                                     getActivity().onBackPressed();
                                 } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
-
+                                    Toast.makeText(getActivity(), jsonObject.optString("message"), Toast.LENGTH_LONG).show();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();

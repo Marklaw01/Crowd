@@ -281,6 +281,7 @@ public class RequestBetaTesterFragment extends Fragment implements onActivityRes
         btn_browse.setOnClickListener(this);
 
         btn_plus.setOnClickListener(this);
+        btnCreate.setText("Submit");
         btnCreate.setOnClickListener(this);
         image_fundImage.setOnClickListener(this);
         tv_deleteFile.setOnClickListener(this);
@@ -1341,6 +1342,7 @@ public class RequestBetaTesterFragment extends Fragment implements onActivityRes
                                     Toast.makeText(getActivity(), jsonObject.getString("message"), Toast.LENGTH_LONG).show();
                                     getActivity().onBackPressed();
                                 } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
+
                                     if (jsonObject.has("errors")) {
                                        /* if (!jsonObject.optJSONObject("errors").optString("username").isEmpty()) {
                                             Toast.makeText(getActivity(), jsonObject.optJSONObject("errors").optString("description"), Toast.LENGTH_LONG).show();

@@ -107,7 +107,7 @@ public class RequestCommunalAssetsFragment extends Fragment implements onActivit
     private Button btnCreate;
     private LinearLayout layout_more;
     private TextView btn_browse;
-    private TextView startDateTV, endDateTV, titleTV, keywordTV,descriptionLbl;
+    private TextView startDateTV, endDateTV, titleTV, keywordTV, descriptionLbl;
     private ImageView btn_plus;
     private LinearLayout layout;
     private boolean filepicker;
@@ -168,6 +168,7 @@ public class RequestCommunalAssetsFragment extends Fragment implements onActivit
         }
 
     }
+
     /**
      * Set Start Investment Date on edit text
      */
@@ -206,7 +207,6 @@ public class RequestCommunalAssetsFragment extends Fragment implements onActivit
             e.printStackTrace();
         }
     }*/
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.create_boardmember_fragment, container, false);
@@ -289,15 +289,14 @@ public class RequestCommunalAssetsFragment extends Fragment implements onActivit
         };*/
 
 
-
         btn_browse.setTag(0);
         btn_browse.setOnClickListener(this);
-        btnCreate.setText("Create");
+        btnCreate.setText("Submit");
         btn_plus.setOnClickListener(this);
         btnCreate.setOnClickListener(this);
         image_fundImage.setOnClickListener(this);
         tv_deleteFile.setOnClickListener(this);
-
+        et_title.setHint("Communal Asset Title");
         et_start_date.setOnClickListener(this);
         //et_fundsClosedDate.setOnClickListener(this);
         et_endDate.setOnClickListener(this);
@@ -1110,7 +1109,6 @@ public class RequestCommunalAssetsFragment extends Fragment implements onActivit
             }
 
 
-
         }
     }
 
@@ -1219,7 +1217,7 @@ public class RequestCommunalAssetsFragment extends Fragment implements onActivit
                                 /*for (int i = 0; i < bin.size(); i++) {
                                     entity.addPart("docs[]", bin.get(i));
                                 }*/
-                            if (videoFileBody!= null) {
+                            if (videoFileBody != null) {
                                 entity.addPart("video", videoFileBody);
                             }
                             if (audioFileBody != null) {
@@ -1232,7 +1230,7 @@ public class RequestCommunalAssetsFragment extends Fragment implements onActivit
                             for (String key : map.keySet()) {
                                 entity.addPart(key, new StringBody(map.get(key), "text/plain", Charset.forName("UTF-8")));
                             }
-                            if (videoFileBody!= null) {
+                            if (videoFileBody != null) {
                                 entity.addPart("video", videoFileBody);
                             }
                             if (audioFileBody != null) {

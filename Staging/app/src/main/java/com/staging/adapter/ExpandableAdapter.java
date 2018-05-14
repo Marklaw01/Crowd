@@ -102,9 +102,9 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();
 
             if (groupPosition == 5) {
-                v = inflater.inflate(R.layout.navigation_child_item_dummy, parent, false);
+                v = inflater.inflate(R.layout.navigation_child_item, parent, false);
             } else if (groupPosition == 6) {
-                v = inflater.inflate(R.layout.navigation_child_item_dummy, parent, false);
+                v = inflater.inflate(R.layout.navigation_child_item, parent, false);
             }
 
             else if (groupPosition == 7) {
@@ -113,7 +113,7 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
             else if (groupPosition == 4) {
 
                 if (childPosition == 5) {
-                    v = inflater.inflate(R.layout.navigation_child_item_dummy, parent, false);
+                    v = inflater.inflate(R.layout.navigation_child_item, parent, false);
                 } else {
                     v = inflater.inflate(R.layout.navigation_child_item, parent, false);
                 }

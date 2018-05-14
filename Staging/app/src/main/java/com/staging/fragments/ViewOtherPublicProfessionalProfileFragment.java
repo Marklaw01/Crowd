@@ -2,9 +2,11 @@ package com.staging.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,7 +24,7 @@ import org.json.JSONObject;
 /**
  * Created by neelmani.karn on 2/2/2016.
  */
-public class ViewOtherPublicProfessionalProfileFragment extends Fragment implements AsyncTaskCompleteListener<String> {
+public class ViewOtherPublicProfessionalProfileFragment extends Fragment implements AsyncTaskCompleteListener<String>, View.OnClickListener {
 
     /*Textview for contractors*/
     private TextView tv_experience, tv_keyword, tv_qualification, tv_certification, tv_skills, tv_industryfocus, tv_preferedstartup, tv_contributortype;
@@ -32,6 +34,7 @@ public class ViewOtherPublicProfessionalProfileFragment extends Fragment impleme
     private TextView tv_conpanyName, tv_companyUrl, tv_Description, tv_keyword_entrepreneur, tv_qualification_entrepreneur, tv_skills_entrepreneur, tv_industryfocus_entrepreneur;
 
 
+    private Button btn_addStartup;
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
@@ -77,6 +80,30 @@ public class ViewOtherPublicProfessionalProfileFragment extends Fragment impleme
 
         super.onResume();
         // ((HomeActivity) getActivity()).setOnBackPressedListener(this);
+
+
+        if (Constants.COMMING_FROM_INTENT.equalsIgnoreCase("Teams")) {
+            btn_addStartup.setVisibility(View.GONE);
+
+        } else if (Constants.COMMING_FROM_INTENT.equalsIgnoreCase("public")) {
+            btn_addStartup.setVisibility(View.GONE);
+        } else if (Constants.COMMING_FROM_INTENT.equalsIgnoreCase("entrepreneur")) {
+            btn_addStartup.setVisibility(View.GONE);
+        } else if (Constants.COMMING_FROM_INTENT.equalsIgnoreCase("STARTUP_DETAILS")) {
+            btn_addStartup.setVisibility(View.GONE);
+        } else if (Constants.COMMING_FROM_INTENT.equalsIgnoreCase("searchprofile")) {
+            btn_addStartup.setText("Add Contractor");
+        } else if (Constants.COMMING_FROM_INTENT.equalsIgnoreCase("recommendedContractors")) {
+            btn_addStartup.setText("Add Contractor");
+        } else if (Constants.COMMING_FROM_INTENT.equalsIgnoreCase("campaignsearch")) {
+            btn_addStartup.setVisibility(View.GONE);
+        } else if (Constants.COMMING_FROM_INTENT.compareTo("home") == 0) {
+            btn_addStartup.setVisibility(View.GONE);
+        } else if (Constants.COMMING_FROM_INTENT.compareTo(Constants.LIKE_DISLIKE) == 0) {
+            btn_addStartup.setVisibility(View.GONE);
+        } else {
+            btn_addStartup.setVisibility(View.VISIBLE);
+        }
     }
 
     View rootView;
@@ -99,7 +126,8 @@ public class ViewOtherPublicProfessionalProfileFragment extends Fragment impleme
             tv_industryfocus = (TextView) rootView.findViewById(R.id.tv_industryfocus);
             tv_preferedstartup = (TextView) rootView.findViewById(R.id.tv_preferedstartup);
             tv_contributortype = (TextView) rootView.findViewById(R.id.tv_contributortype);
-
+            btn_addStartup = (Button) rootView.findViewById(R.id.addcontributor);
+            btn_addStartup.setOnClickListener(this);
 
             tv_conpanyName = (TextView) rootView.findViewById(R.id.tv_conpanyName);
             tv_companyUrl = (TextView) rootView.findViewById(R.id.tv_companyUrl);
@@ -158,7 +186,8 @@ public class ViewOtherPublicProfessionalProfileFragment extends Fragment impleme
         } else {
             rootView = inflater.inflate(R.layout.fragment_view_professional_public_profile, container, false);
 
-
+            btn_addStartup = (Button) rootView.findViewById(R.id.addcontributor);
+            btn_addStartup.setOnClickListener(this);
             contractor_layout = (LinearLayout) rootView.findViewById(R.id.contractor_layout);
             entrepreneur_layout = (LinearLayout) rootView.findViewById(R.id.entrepreneur_layout);
             entrepreneur_layout.setVisibility(View.GONE);
@@ -507,6 +536,54 @@ public class ViewOtherPublicProfessionalProfileFragment extends Fragment impleme
             } else {
                 ((HomeActivity) getActivity()).dismissProgressDialog();
             }
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+
+            case R.id.addcontributor:
+
+
+                if (Constants.COMMING_FROM_INTENT.equalsIgnoreCase("Teams") || Constants.COMMING_FROM_INTENT.equalsIgnoreCase("home")) {
+                    Fragment rateContributor = new RateContributor();
+                    ((HomeActivity) getActivity()).replaceFragment(rateContributor);
+                    /*FragmentTransaction transactionRate = getParentFragment().getFragmentManager().beginTransaction();
+
+                    transactionRate.replace(R.id.container, rateContributor);
+                    transactionRate.addToBackStack(null);
+
+                    transactionRate.commit();*/
+                } else if (Constants.COMMING_FROM_INTENT.equalsIgnoreCase("entrepreneur")) {
+                    Fragment rateContributor = new RateContributor();
+                    ((HomeActivity) getActivity()).replaceFragment(rateContributor);
+                    /*FragmentTransaction transactionRate = getParentFragment().getFragmentManager().beginTransaction();
+
+                    transactionRate.replace(R.id.container, rateContributor);
+                    transactionRate.addToBackStack(null);
+
+                    transactionRate.commit();*/
+                } else {
+                    Fragment rateContributor = new AddContributor();
+
+                    Bundle bundle = new Bundle();
+                    Log.e("contractor_id", ViewOtherContractorPublicProfileFragment.userId);
+                    bundle.putString("contractor_id", ViewOtherContractorPublicProfileFragment.userId);
+                    bundle.putString("contractor_name", ViewOtherContractorPublicProfileFragment.tv_username.getText().toString().trim());
+                    bundle.putString("hourly_rate", ViewOtherContractorPublicProfileFragment.tv_rate.getText().toString().trim());
+
+                    rateContributor.setArguments(bundle);
+                    ((HomeActivity) getActivity()).replaceFragment(rateContributor);
+                    /*FragmentTransaction transactionRate = getParentFragment().getFragmentManager().beginTransaction();
+                    transactionRate.replace(R.id.container, rateContributor);
+                    transactionRate.addToBackStack(null);
+
+                    transactionRate.commit();*/
+                }
+
+                break;
+
         }
     }
 }

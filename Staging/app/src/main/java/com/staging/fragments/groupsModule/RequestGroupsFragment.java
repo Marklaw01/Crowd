@@ -256,7 +256,8 @@ public class RequestGroupsFragment extends Fragment implements onActivityResultL
         endDateTV.setText("Group Availability End Date");
         titleTV.setText("Group Title");
         descriptionlbl.setText("Group Description");
-        btnCreate.setText("Create");
+        btnCreate.setText("Submit");
+        et_title.setHint("Group Title");
         myCalendarInvestmentStartDate = Calendar.getInstance();
         investmentStartdate = new DatePickerDialog.OnDateSetListener() {
             @Override

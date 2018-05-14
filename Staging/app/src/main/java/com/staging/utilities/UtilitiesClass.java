@@ -129,7 +129,7 @@ public class UtilitiesClass {
         {
             if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) context, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                    AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
+                    AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context, R.style.MyDialogTheme);
                     alertBuilder.setCancelable(true);
                     alertBuilder.setTitle("Permission necessary");
                     alertBuilder.setMessage("External storage permission is necessary");
@@ -245,7 +245,7 @@ public class UtilitiesClass {
     public void showSettingsAlert() {
 
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context, R.style.MyDialogTheme);
 
         // Setting Dialog Title
         alertDialog.setTitle("Network settings");
@@ -519,7 +519,7 @@ public class UtilitiesClass {
     }
 
     public void alertDialogSingleButton(String message) {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context, R.style.MyDialogTheme);
 
         alertDialogBuilder
                 .setMessage(message)

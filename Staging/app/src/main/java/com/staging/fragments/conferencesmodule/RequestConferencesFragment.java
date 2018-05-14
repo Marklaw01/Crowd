@@ -234,7 +234,7 @@ public class RequestConferencesFragment extends Fragment implements onActivityRe
         endDateTV.setText("Conference Availability End Date");
         titleTV.setText("Conference Title");
         descriptionlbl.setText("Conference Description");
-
+        et_title.setHint("Conference Title");
         spinner_uploadFileType = (Spinner) rootView.findViewById(R.id.spinner_uploadFileType);
         pathofmedia = new ArrayList<Mediabeans>();
         // tv = (TextView) rootView.findViewById(R.id.tv);
@@ -289,7 +289,7 @@ public class RequestConferencesFragment extends Fragment implements onActivityRe
 
         btn_browse.setTag(0);
         btn_browse.setOnClickListener(this);
-        btnCreate.setText("Create");
+        btnCreate.setText("Submit");
         btn_plus.setOnClickListener(this);
         btnCreate.setOnClickListener(this);
         image_fundImage.setOnClickListener(this);
@@ -1337,6 +1337,7 @@ public class RequestConferencesFragment extends Fragment implements onActivityRe
                                     Toast.makeText(getActivity(), "Your event is created successfully.", Toast.LENGTH_LONG).show();
                                     getActivity().onBackPressed();
                                 } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
+
                                     if (jsonObject.has("errors")) {
                                        /* if (!jsonObject.optJSONObject("errors").optString("username").isEmpty()) {
                                             Toast.makeText(getActivity(), jsonObject.optJSONObject("errors").optString("description"), Toast.LENGTH_LONG).show();

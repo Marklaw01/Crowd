@@ -306,6 +306,8 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
         parent_layout = (LinearLayout) rootView.findViewById(R.id.parent_layout);
 
         btnCreate = (Button) rootView.findViewById(R.id.btn_submit);
+
+
         btn_browse = (TextView) rootView.findViewById(R.id.btn_browse);
         //btn_delete = (ImageView) rootView.findViewById(R.id.btn_delete);
         btn_plus = (ImageView) rootView.findViewById(R.id.btn_plus);
@@ -407,6 +409,7 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
         et_fundsClosedDate.setOnClickListener(this);
         et_investmentEndDate.setOnClickListener(this);
         btn_plus.setOnClickListener(this);
+        btnCreate.setText("Submit");
         btnCreate.setOnClickListener(this);
         image_fundImage.setOnClickListener(this);
         tv_deleteFile.setOnClickListener(this);
@@ -644,7 +647,7 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
         try {
             boolean alreadyexist = false, already = false;
             for (int i = 0; i < pathofmedia.size(); i++) {
-                if ((pathofmedia.get(i).getPath().equals(path))/* && (pathofmedia.get(i).getPath().equals(fileName))*/) {
+                if ((pathofmedia.get(i).getPath().equals(path))/* && (groupNameList.get(i).getPath().equals(fileName))*/) {
                     alreadyexist = true;
                 }
             }
@@ -659,7 +662,7 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
                     }
                 }
                 for (int i = 0; i < pathofmedia.size(); i++) {
-                    if ((pathofmedia.get(i).getTag() == tagno)/* && (pathofmedia.get(i).getPath().equals(fileName))*/) {
+                    if ((pathofmedia.get(i).getTag() == tagno)/* && (groupNameList.get(i).getPath().equals(fileName))*/) {
                         already = true;
                         pathofmedia.remove(i);
                         break;
@@ -671,7 +674,7 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //selection = pathofmedia.size();
+        //selection = groupNameList.size();
     }
 
     long totalSize = 0;
@@ -679,7 +682,7 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
 
     protected void alertDialogForPicture() {
         try {
-            AlertDialog.Builder builderSingle = new AlertDialog.Builder(getActivity()/*new ContextThemeWrapper(getActivity(), android.R.style.Theme_Holo_Light_Dialog)*/);
+            AlertDialog.Builder builderSingle = new AlertDialog.Builder(getActivity(),R.style.MyDialogTheme);
             final CharSequence[] opsChars = {"Upload Image", "Take Picture"};
             builderSingle.setCancelable(true);
             builderSingle.setItems(opsChars, new DialogInterface.OnClickListener() {
@@ -1713,8 +1716,8 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
                     try {
                        /* ArrayList<File> files = new ArrayList<File>();
                         ArrayList<FileBody> bin = new ArrayList<FileBody>();
-                        for (int i = 0; i < pathofmedia.size(); i++) {
-                            files.add(new File(pathofmedia.get(i).getPath()));
+                        for (int i = 0; i < groupNameList.size(); i++) {
+                            files.add(new File(groupNameList.get(i).getPath()));
                         }
 
                         for (int i = 0; i < files.size(); i++) {
@@ -1897,7 +1900,7 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
                                     Toast.makeText(getActivity(), "Your fund is updated successfully.", Toast.LENGTH_LONG).show();
                                     getActivity().onBackPressed();
                                 } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
-
+                                    Toast.makeText(getActivity(), jsonObject.optString("message"), Toast.LENGTH_LONG).show();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();

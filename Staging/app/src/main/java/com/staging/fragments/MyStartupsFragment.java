@@ -194,7 +194,7 @@ public class MyStartupsFragment extends Fragment implements AdapterView.OnItemCl
                                     currentStartupsList.add(currentStartUpObject);
                                 }
                             } else {
-                                AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
+                                AlertDialog.Builder builder1 =  new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
                                 builder1.setMessage("No Startups Available Yet.");
                                 builder1.setCancelable(true);
 
@@ -211,7 +211,7 @@ public class MyStartupsFragment extends Fragment implements AdapterView.OnItemCl
                             }
 
                         } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
-                            AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
+                            AlertDialog.Builder builder1 =  new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
                             builder1.setMessage("No Startups Available Yet.");
                             builder1.setCancelable(true);
 

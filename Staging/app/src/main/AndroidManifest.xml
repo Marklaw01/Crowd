@@ -19,6 +19,17 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
+
+    <!--permission for MAps-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <meta-data
+        android:name="com.google.android.gms.version"
+        android:value="@integer/google_play_services_version" />
+
+
+
     <permission
         android:name="com.staging.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
@@ -58,6 +69,10 @@
             android:authorities="com.facebook.app.FacebookContentProvider16..."
             android:exported="true" />
 -->
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="@string/google_maps_key"/>
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
         <provider
             android:name="com.facebook.FacebookContentProvider"

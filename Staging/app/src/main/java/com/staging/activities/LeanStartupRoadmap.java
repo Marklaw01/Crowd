@@ -43,6 +43,7 @@ import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Created by sunakshi.gautam on 9/8/2016.
@@ -59,6 +60,7 @@ public class LeanStartupRoadmap extends BaseActivity implements AsyncTaskComplet
     private TextView horizontalText;
     private TextView ventureText;
     private TextView roadmapTemplate;
+    private TextView licenseInfo;
     // private RelativeLayout belowlayout;
     private LinearLayout aboveLayout;
     private ImageView roadmapImage;
@@ -114,6 +116,8 @@ public class LeanStartupRoadmap extends BaseActivity implements AsyncTaskComplet
         roadmapImage = (ImageView) findViewById(R.id.roadmapImage);
         ventureText = (TextView) findViewById(R.id.ventureText);
         roadmapTemplate = (TextView) findViewById(R.id.templateText);
+        licenseInfo  = (TextView) findViewById(R.id.licenceLink);
+        licenseInfo.setText("License - Required Attribution: © "+String.valueOf(Calendar.getInstance().get(Calendar.YEAR))+" Crowd Bootstrap");
 
         utilitiesClass = UtilitiesClass.getInstance(LeanStartupRoadmap.this);
         networkConnectivity = NetworkConnectivity.getInstance(LeanStartupRoadmap.this);
@@ -138,9 +142,80 @@ public class LeanStartupRoadmap extends BaseActivity implements AsyncTaskComplet
 
         roadmapTemplate.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                AlertDialog.Builder alert = new AlertDialog.Builder(LeanStartupRoadmap.this);
-                alert.setTitle("Roadmap Template");
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("http://docs.google.com/gview?embedded=true&url=" + "http://stage.crowdbootstrap.com/img/sampledoc/0.0_Lean_Startup_Roadmap_Template_v8.0.pdf"));
+                intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                startActivity(intent);
+            }
+        });
+
+
+
+//        roadmapTemplate.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//
+//
+//
+//                AlertDialog.Builder alert = new AlertDialog.Builder(LeanStartupRoadmap.this, R.style.MyDialogTheme);
+//                alert.setTitle("Roadmap Template");
+//
+//
+//                LinearLayout layoutHorizontal = new LinearLayout(LeanStartupRoadmap.this);
+//                layoutHorizontal.setOrientation(LinearLayout.HORIZONTAL);
+//                layoutHorizontal.setGravity(Gravity.RIGHT);
+//                LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//                layoutHorizontal.setLayoutParams(parms);
+//
+//
+//                TextView scrollDownText = new TextView(LeanStartupRoadmap.this);
+//                scrollDownText.setText("Scroll Down\t\t");
+////                    scrollDownText.setGravity(Gravity.RIGHT);
+//
+//
+////                    sampleText.setGravity(Gravity.RIGHT);
+//
+//                layoutHorizontal.addView(scrollDownText);
+//
+//
+//                LinearLayout layout = new LinearLayout(LeanStartupRoadmap.this);
+//                layout.setOrientation(LinearLayout.VERTICAL);
+//                layout.addView(layoutHorizontal);
+//                WebView wv = new WebView(LeanStartupRoadmap.this);
+//
+//                wv.getSettings().setLoadsImagesAutomatically(true);
+//                wv.getSettings().setJavaScriptEnabled(true);
+//                wv.getSettings().setAllowContentAccess(true);
+//                wv.loadUrl("http://stage.crowdbootstrap.com/img/sampledoc/0.0_Lean_Startup_Roadmap_Template_v8.0.pdf");
+//
+//                wv.setWebViewClient(new WebViewClient() {
+//                    @Override
+//                    public boolean shouldOverrideUrlLoading(WebView view, String url) {
+//                        view.loadUrl(url);
+//
+//                        return true;
+//                    }
+//                });
+//                layout.addView(wv);
+//                alert.setView(layout);
+//                alert.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int id) {
+//                        dialog.dismiss();
+//                    }
+//                });
+//                alert.show();
+//            }
+//        });
+
+
+        licenseInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(LeanStartupRoadmap.this, R.style.MyDialogTheme);
+                alert.setTitle("License Information");
 
 
                 LinearLayout layoutHorizontal = new LinearLayout(LeanStartupRoadmap.this);
@@ -168,7 +243,7 @@ public class LeanStartupRoadmap extends BaseActivity implements AsyncTaskComplet
                 wv.getSettings().setLoadsImagesAutomatically(true);
                 wv.getSettings().setJavaScriptEnabled(true);
                 wv.getSettings().setAllowContentAccess(true);
-                wv.loadUrl("http://stage.crowdbootstrap.com/contractors/roadmap-template-apps");
+                wv.loadUrl("https://creativecommons.org/licenses/by-nc-sa/4.0/");
 
                 wv.setWebViewClient(new WebViewClient() {
                     @Override
@@ -193,7 +268,7 @@ public class LeanStartupRoadmap extends BaseActivity implements AsyncTaskComplet
         ventureText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder alert = new AlertDialog.Builder(LeanStartupRoadmap.this);
+                AlertDialog.Builder alert = new AlertDialog.Builder(LeanStartupRoadmap.this, R.style.MyDialogTheme);
                 alert.setTitle("Venture Capital");
 
 
@@ -288,7 +363,7 @@ public class LeanStartupRoadmap extends BaseActivity implements AsyncTaskComplet
                 @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
                 @Override
                 public void onClick(View v) {
-                    AlertDialog.Builder alert = new AlertDialog.Builder(LeanStartupRoadmap.this);
+                    AlertDialog.Builder alert = new AlertDialog.Builder(LeanStartupRoadmap.this, R.style.MyDialogTheme);
                     alert.setTitle(title);
 
 
@@ -421,7 +496,7 @@ public class LeanStartupRoadmap extends BaseActivity implements AsyncTaskComplet
                 @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
                 @Override
                 public void onClick(View v) {
-                    AlertDialog.Builder alert = new AlertDialog.Builder(LeanStartupRoadmap.this);
+                    AlertDialog.Builder alert = new AlertDialog.Builder(LeanStartupRoadmap.this, R.style.MyDialogTheme);
                     alert.setTitle(title);
 
                     LinearLayout layoutHorizontal = new LinearLayout(LeanStartupRoadmap.this);

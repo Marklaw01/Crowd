@@ -285,6 +285,7 @@ public class CreateFundFragment extends Fragment implements onActivityResultList
         et_fundsClosedDate.setOnClickListener(this);
         et_investmentEndDate.setOnClickListener(this);
         btn_plus.setOnClickListener(this);
+        btnCreate.setText("Submit");
         btnCreate.setOnClickListener(this);
         image_fundImage.setOnClickListener(this);
         tv_deleteFile.setOnClickListener(this);
@@ -435,7 +436,7 @@ public class CreateFundFragment extends Fragment implements onActivityResultList
         try {
             boolean alreadyexist = false, already = false;
             for (int i = 0; i < pathofmedia.size(); i++) {
-                if ((pathofmedia.get(i).getPath().equals(path))/* && (pathofmedia.get(i).getPath().equals(fileName))*/) {
+                if ((pathofmedia.get(i).getPath().equals(path))/* && (groupNameList.get(i).getPath().equals(fileName))*/) {
                     alreadyexist = true;
                 }
             }
@@ -450,7 +451,7 @@ public class CreateFundFragment extends Fragment implements onActivityResultList
                     }
                 }
                 for (int i = 0; i < pathofmedia.size(); i++) {
-                    if ((pathofmedia.get(i).getTag() == tagno)/* && (pathofmedia.get(i).getPath().equals(fileName))*/) {
+                    if ((pathofmedia.get(i).getTag() == tagno)/* && (groupNameList.get(i).getPath().equals(fileName))*/) {
                         already = true;
                         pathofmedia.remove(i);
                         break;
@@ -462,7 +463,7 @@ public class CreateFundFragment extends Fragment implements onActivityResultList
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //selection = pathofmedia.size();
+        //selection = groupNameList.size();
     }
 
     long totalSize = 0;
@@ -1066,6 +1067,8 @@ public class CreateFundFragment extends Fragment implements onActivityResultList
                     }
                 } catch (JSONException e) {
                     ((HomeActivity) getActivity()).dismissProgressDialog();
+
+
                     e.printStackTrace();
                 }
             } else if (tag.equals(Constants.SPONSORS_LIST_TAG)) {
@@ -1237,8 +1240,8 @@ public class CreateFundFragment extends Fragment implements onActivityResultList
                     try {
                         /*ArrayList<File> files = new ArrayList<File>();
                         ArrayList<FileBody> bin = new ArrayList<FileBody>();
-                        for (int i = 0; i < pathofmedia.size(); i++) {
-                            files.add(new File(pathofmedia.get(i).getPath()));
+                        for (int i = 0; i < groupNameList.size(); i++) {
+                            files.add(new File(groupNameList.get(i).getPath()));
                         }*/
 
                         /*for (int i = 0; i < files.size(); i++) {
@@ -1419,11 +1422,14 @@ public class CreateFundFragment extends Fragment implements onActivityResultList
                                     Toast.makeText(getActivity(), "Your fund is created successfully.", Toast.LENGTH_LONG).show();
                                     getActivity().onBackPressed();
                                 } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
-                                    if (jsonObject.has("errors")) {
+
                                        /* if (!jsonObject.optJSONObject("errors").optString("username").isEmpty()) {
                                             Toast.makeText(getActivity(), jsonObject.optJSONObject("errors").optString("description"), Toast.LENGTH_LONG).show();
                                         }*/
-                                    }
+
+
+                                        Toast.makeText(getActivity(), jsonObject.optString("message"), Toast.LENGTH_LONG).show();
+
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();

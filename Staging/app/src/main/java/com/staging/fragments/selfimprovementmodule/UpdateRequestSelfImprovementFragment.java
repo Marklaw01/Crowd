@@ -298,7 +298,7 @@ public class UpdateRequestSelfImprovementFragment extends Fragment implements on
         titleTV.setText("Self Improvement Title");
         descriptionlbl.setText("Self Improvement Description");
 
-
+        et_title.setHint("Self Improvement Title");
 
         searchFocusGroups = (Button) rootView.findViewById(R.id.searchBoardMember);
         searchFocusGroups.setVisibility(View.GONE);
@@ -438,6 +438,7 @@ public class UpdateRequestSelfImprovementFragment extends Fragment implements on
         et_interestKeywords.setOnClickListener(this);
 
         btn_plus.setOnClickListener(this);
+        btnCreate.setText("Submit");
         btnCreate.setOnClickListener(this);
         image_fundImage.setOnClickListener(this);
         tv_deleteFile.setOnClickListener(this);
@@ -705,7 +706,7 @@ public class UpdateRequestSelfImprovementFragment extends Fragment implements on
 
     protected void alertDialogForPicture() {
         try {
-            AlertDialog.Builder builderSingle = new AlertDialog.Builder(getActivity()/*new ContextThemeWrapper(getActivity(), android.R.style.Theme_Holo_Light_Dialog)*/);
+            AlertDialog.Builder builderSingle = new AlertDialog.Builder(getActivity(),R.style.MyDialogTheme);
             final CharSequence[] opsChars = {"Upload Image", "Take Picture"};
             builderSingle.setCancelable(true);
             builderSingle.setItems(opsChars, new DialogInterface.OnClickListener() {
@@ -1719,7 +1720,7 @@ public class UpdateRequestSelfImprovementFragment extends Fragment implements on
                                     Toast.makeText(getActivity(), "Your tool is updated successfully.", Toast.LENGTH_LONG).show();
                                     getActivity().onBackPressed();
                                 } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
-
+                                    Toast.makeText(getActivity(), jsonObject.optString("message"), Toast.LENGTH_LONG).show();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();

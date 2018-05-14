@@ -146,7 +146,7 @@ public class BetaTesterAdapter extends BaseAdapter implements View.OnClickListen
             holder.tv_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showDialog(position, "Do you want to delete this Beta Tester?", Constants.BETA_TESTER_DELETE_URL);
+                    showDialog(position, "Do you want to delete this beta test?", Constants.BETA_TESTER_DELETE_URL);
                 }
             });
 
@@ -154,7 +154,7 @@ public class BetaTesterAdapter extends BaseAdapter implements View.OnClickListen
             holder.tv_archive.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showDialog(position, "Do you want to archive this Beta Tester?", Constants.BETA_TESTER_ARCHIEVE_URL);
+                    showDialog(position, "Do you want to archive this beta test?", Constants.BETA_TESTER_ARCHIEVE_URL);
                 }
             });
 
@@ -162,7 +162,7 @@ public class BetaTesterAdapter extends BaseAdapter implements View.OnClickListen
             holder.tv_deactivate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showDialog(position, "Do you want to deactivate this Beta Tester?", Constants.BETA_TESTER_DEACTIVATE_URL);
+                    showDialog(position, "Do you want to deactivate this beta test?", Constants.BETA_TESTER_DEACTIVATE_URL);
                 }
             });
 
@@ -176,11 +176,18 @@ public class BetaTesterAdapter extends BaseAdapter implements View.OnClickListen
     }
 
     private void showDialog(final int position, String message, final String url) {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context, R.style.MyDialogTheme);
 
         alertDialogBuilder
                 .setMessage(message)
                 .setCancelable(false)
+                .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int arg1) {
+                        dialog.dismiss();
+                    }
+                })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int arg1) {

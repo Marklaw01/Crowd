@@ -1,6 +1,5 @@
 package com.staging.fragments;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -11,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -107,12 +105,8 @@ public class HomeFeedsFragment extends Fragment implements AdapterView.OnItemCli
         }
     }
 
-    /**
-     * Called when the fragment is visible to the user and actively running.
-     * This is generally
-     * tied to {@link Activity#onResume() Activity.onResume} of the containing
-     * Activity's lifecycle.
-     */
+
+
     @Override
     public void onResume() {
         super.onResume();
@@ -225,19 +219,7 @@ public class HomeFeedsFragment extends Fragment implements AdapterView.OnItemCli
         return rootView;
     }
 
-    /**
-     * Callback method to be invoked when an item in this AdapterView has
-     * been clicked.
-     * <p>
-     * Implementers can call getItemAtPosition(position) if they need
-     * to access the data associated with the selected item.
-     *
-     * @param parent   The AdapterView where the click happened.
-     * @param view     The view within the AdapterView that was clicked (this
-     *                 will be a view provided by the adapter)
-     * @param position The position of the view in the adapter.
-     * @param id       The row id of the item that was clicked.
-     */
+
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
@@ -604,11 +586,7 @@ public class HomeFeedsFragment extends Fragment implements AdapterView.OnItemCli
     }
 
 
-    /**
-     * Called when a view has been clicked.
-     *
-     * @param v The view that was clicked.
-     */
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -641,12 +619,7 @@ public class HomeFeedsFragment extends Fragment implements AdapterView.OnItemCli
     }
 
 
-    /**
-     * When network give response in this.
-     *
-     * @param result
-     * @param tag
-     */
+
     @Override
     public void onTaskComplete(String result, String tag) {
         if (result.equalsIgnoreCase(Constants.NOINTERNET)) {

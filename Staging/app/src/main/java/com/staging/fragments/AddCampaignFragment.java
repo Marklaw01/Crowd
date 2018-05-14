@@ -274,7 +274,7 @@ public class AddCampaignFragment extends Fragment implements onActivityResultLis
         try {
             boolean alreadyexist = false, already = false;
             for (int i = 0; i < pathofmedia.size(); i++) {
-                if ((pathofmedia.get(i).getPath().equals(path))/* && (pathofmedia.get(i).getPath().equals(fileName))*/) {
+                if ((pathofmedia.get(i).getPath().equals(path))/* && (groupNameList.get(i).getPath().equals(fileName))*/) {
                     alreadyexist = true;
                 }
             }
@@ -289,7 +289,7 @@ public class AddCampaignFragment extends Fragment implements onActivityResultLis
                     }
                 }
                 for (int i = 0; i < pathofmedia.size(); i++) {
-                    if ((pathofmedia.get(i).getTag() == tagno)/* && (pathofmedia.get(i).getPath().equals(fileName))*/) {
+                    if ((pathofmedia.get(i).getTag() == tagno)/* && (groupNameList.get(i).getPath().equals(fileName))*/) {
                         already = true;
                         pathofmedia.remove(i);
                         break;
@@ -301,7 +301,7 @@ public class AddCampaignFragment extends Fragment implements onActivityResultLis
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //selection = pathofmedia.size();
+        //selection = groupNameList.size();
     }
 
     long totalSize = 0;
@@ -1065,7 +1065,7 @@ public class AddCampaignFragment extends Fragment implements onActivityResultLis
 
     protected void alertDialogForPicture() {
         try {
-            AlertDialog.Builder builderSingle = new AlertDialog.Builder(getActivity()/*new ContextThemeWrapper(getActivity(), android.R.style.Theme_Holo_Light_Dialog)*/);
+            AlertDialog.Builder builderSingle =  new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
             final CharSequence[] opsChars = {"Upload Image", "Take Picture"};
             builderSingle.setCancelable(true);
             builderSingle.setItems(opsChars, new DialogInterface.OnClickListener() {

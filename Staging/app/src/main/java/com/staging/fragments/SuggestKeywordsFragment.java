@@ -160,11 +160,18 @@ public class SuggestKeywordsFragment extends Fragment implements AsyncTaskComple
                         if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
                             //
 
-                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity(),R.style.MyDialogTheme);
 
                             alertDialogBuilder
                                     .setMessage("Do you want to delete this keyword?")
                                     .setCancelable(false)
+                                    .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int arg1) {
+                                            dialog.dismiss();
+                                        }
+                                    })
                                     .setNegativeButton("No", new DialogInterface.OnClickListener() {
 
                                         @Override

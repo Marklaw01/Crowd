@@ -136,7 +136,7 @@ public class NotifictaionsListFragment extends Fragment implements AsyncTaskComp
                                 e.printStackTrace();
                             }
 
-                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                            AlertDialog.Builder builder =  new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
                             builder.setTitle("Do you want to work with this team?");
                             builder.setMessage(ExtraMessageForAddTeamMember)
                                     .setCancelable(false)
@@ -200,11 +200,17 @@ public class NotifictaionsListFragment extends Fragment implements AsyncTaskComp
                                 e.printStackTrace();
                             }
 
-                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                            AlertDialog.Builder builder =  new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
                             builder.setTitle("Connection Request");
                             builder.setMessage("Do you want to connect with this user?")
                                     .setCancelable(false)
+                                    .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
 
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int arg1) {
+                                            dialog.dismiss();
+                                        }
+                                    })
                                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 
                                         @Override

@@ -203,7 +203,6 @@ public class AddExperienceFragment extends Fragment implements View.OnClickListe
                         if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
                             jobExperienceId = jsonObject.optString("job_experience_id");
 
-
                             if (jsonObject.optJSONArray("user_experience_list").length() != 0) {
 
                                 for (int i = 0; i < jsonObject.optJSONArray("user_experience_list").length(); i++) {
@@ -273,6 +272,9 @@ public class AddExperienceFragment extends Fragment implements View.OnClickListe
                             }
 
 
+                        }else{
+
+                            Toast.makeText(getActivity(), jsonObject.optString("message"), Toast.LENGTH_LONG).show();
                         }
                         if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
 

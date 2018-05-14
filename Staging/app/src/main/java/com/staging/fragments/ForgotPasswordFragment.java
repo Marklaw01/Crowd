@@ -102,26 +102,26 @@ public class ForgotPasswordFragment extends Fragment implements View.OnClickList
 
 
 
-        if (COUNTER >= 3) {
-            if (((LoginActivity) getActivity()).networkConnectivity.isOnline()) {
-                ((LoginActivity) getActivity()).showProgressDialog();
-                Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FORGOT_PASSWORD_MAX_NUMBER_OF_LIMIT_TAG, Constants.FORGOT_PASSWORD_MAX_NUMBER_OF_LIMIT_URL + "?email_id=" + et_email.getText().toString().trim(), Constants.HTTP_GET,"Home Activity");
-                a.execute();
-            } else {
-                ((LoginActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
-            }
-
-        } else {
-            if (COUNTER >= securityQuestionsList.size()) {
-                if (((LoginActivity) getActivity()).networkConnectivity.isOnline()) {
-                    ((LoginActivity) getActivity()).showProgressDialog();
-                    Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FORGOT_PASSWORD_MAX_NUMBER_OF_LIMIT_TAG, Constants.FORGOT_PASSWORD_MAX_NUMBER_OF_LIMIT_URL + "?email_id=" + et_email.getText().toString().trim(), Constants.HTTP_GET,"Home Activity");
-                    a.execute();
-                } else {
-                    ((LoginActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
-                }
-
-            } else {
+//        if (COUNTER >= 3) {
+//            if (((LoginActivity) getActivity()).networkConnectivity.isOnline()) {
+//                ((LoginActivity) getActivity()).showProgressDialog();
+//                Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FORGOT_PASSWORD_MAX_NUMBER_OF_LIMIT_TAG, Constants.FORGOT_PASSWORD_MAX_NUMBER_OF_LIMIT_URL + "?email_id=" + et_email.getText().toString().trim(), Constants.HTTP_GET,"Home Activity");
+//                a.execute();
+//            } else {
+//                ((LoginActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
+//            }
+//
+//        } else {
+//            if (COUNTER >= securityQuestionsList.size()) {
+//                if (((LoginActivity) getActivity()).networkConnectivity.isOnline()) {
+//                    ((LoginActivity) getActivity()).showProgressDialog();
+//                    Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FORGOT_PASSWORD_MAX_NUMBER_OF_LIMIT_TAG, Constants.FORGOT_PASSWORD_MAX_NUMBER_OF_LIMIT_URL + "?email_id=" + et_email.getText().toString().trim(), Constants.HTTP_GET,"Home Activity");
+//                    a.execute();
+//                } else {
+//                    ((LoginActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
+//                }
+//
+//            } else {
 
                 if (et_answer.getText().toString().trim().equalsIgnoreCase(obj.getAnswer())) {
                     if (((LoginActivity) getActivity()).networkConnectivity.isOnline()) {
@@ -136,14 +136,14 @@ public class ForgotPasswordFragment extends Fragment implements View.OnClickList
                     Toast.makeText(getActivity(), "InCorrect Answer!", Toast.LENGTH_LONG).show();
                     et_answer.setText("");
 
-                    obj = securityQuestionsList.get(COUNTER);
-                    securityQuestion.setText(obj.getTitle());
-                    COUNTER++;
-                    System.out.println(COUNTER);
+//                    obj = securityQuestionsList.get(COUNTER);
+//                    securityQuestion.setText(obj.getTitle());
+//                    COUNTER++;
+//                    System.out.println(COUNTER);
 
                 }
-            }
-        }
+//            }
+//        }
     }
 
     private boolean validateEmail() {
@@ -236,7 +236,7 @@ public class ForgotPasswordFragment extends Fragment implements View.OnClickList
                         fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                         transaction.commit();
                     } else if (jsonObject.getString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
-                        Toast.makeText(getActivity(), "Try Again", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "This email is not registered.", Toast.LENGTH_LONG).show();
                         LoginFragment loginFragment = new LoginFragment();
                         FragmentManager fragmentManager = getFragmentManager();
                         FragmentTransaction transaction = fragmentManager.beginTransaction();

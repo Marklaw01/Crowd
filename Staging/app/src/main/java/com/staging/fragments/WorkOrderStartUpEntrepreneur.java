@@ -196,11 +196,18 @@ public class WorkOrderStartUpEntrepreneur extends Fragment implements AsyncTaskC
                         if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
                             //
 
-                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity(),R.style.MyDialogTheme);
 
                             alertDialogBuilder
                                     .setMessage("Do you want to accept this workorder unit?")
                                     .setCancelable(false)
+                                    .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int arg1) {
+                                            dialog.dismiss();
+                                        }
+                                    })
                                     .setNegativeButton("No", new DialogInterface.OnClickListener() {
 
                                         @Override
@@ -233,11 +240,18 @@ public class WorkOrderStartUpEntrepreneur extends Fragment implements AsyncTaskC
                         if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
                             //((HomeActivity) getActivity()).showProgressDialog();
 
-                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity(),R.style.MyDialogTheme);
 
                             alertDialogBuilder
                                     .setMessage("Do you want to reject this workorder unit?")
                                     .setCancelable(false)
+                                    .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int arg1) {
+                                            dialog.dismiss();
+                                        }
+                                    })
                                     .setNegativeButton("No", new DialogInterface.OnClickListener() {
 
                                         @Override

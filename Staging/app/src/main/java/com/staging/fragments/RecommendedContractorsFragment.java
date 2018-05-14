@@ -5,9 +5,11 @@ import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -55,11 +57,11 @@ public class RecommendedContractorsFragment extends Fragment implements AdapterV
             contractorsList = new ArrayList<ContractorsObject>();
             contractorsList.clear();
             adapter = null;
-
+            et_search.setText("");
             logged_in_user_role = getArguments().getString("logged_in_user_role");
             if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
                 ((HomeActivity) getActivity()).showProgressDialog();
-                Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.RECOMMENDED_CONTRACTORS_OF_STARTUP_TAG, Constants.RECOMMENDED_CONTRACTORS_OF_STARTUP_URL + "?startup_id=" + statup_id + "&user_id=" + ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID) + "&page_no=" + current_page, Constants.HTTP_GET,"Home Activity");
+                Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.RECOMMENDED_CONTRACTORS_OF_STARTUP_TAG, Constants.RECOMMENDED_CONTRACTORS_OF_STARTUP_URL + "?startup_id=" + statup_id + "&user_id=" + ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID) + "&page_no=" + current_page, Constants.HTTP_GET, "Home Activity");
                 a.execute();
             } else {
                 ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
@@ -105,7 +107,7 @@ public class RecommendedContractorsFragment extends Fragment implements AdapterV
 
                         current_page += 1;
                         if (TOTAL_ITEMS != adapter.getCount()) {
-                            Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.RECOMMENDED_CONTRACTORS_OF_STARTUP_TAG, Constants.RECOMMENDED_CONTRACTORS_OF_STARTUP_URL + "?startup_id=" + statup_id + "&user_id=" + ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID) + "&page_no=" + current_page, Constants.HTTP_GET,"Home Activity");
+                            Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.RECOMMENDED_CONTRACTORS_OF_STARTUP_TAG, Constants.RECOMMENDED_CONTRACTORS_OF_STARTUP_URL + "?startup_id=" + statup_id + "&user_id=" + ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID) + "&page_no=" + current_page, Constants.HTTP_GET, "Home Activity");
                             a.execute();
                         } else {
                             list_startups.onLoadMoreComplete();
@@ -124,23 +126,43 @@ public class RecommendedContractorsFragment extends Fragment implements AdapterV
 
             list_startups.setOnItemClickListener(this);
 
-            et_search.addTextChangedListener(new TextWatcher() {
+            et_search.setImeOptions(EditorInfo.IME_ACTION_DONE);
+            et_search.setOnEditorActionListener(new EditText.OnEditorActionListener() {
                 @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    if (adapter != null) {
-                        adapter.getFilter().filter(s);
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    if (actionId == EditorInfo.IME_ACTION_DONE) {
+                        current_page = 1;
+                        contractorsList = new ArrayList<ContractorsObject>();
+                        contractorsList.clear();
+                        adapter = null;
+                        if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
+                            ((HomeActivity) getActivity()).showProgressDialog();
+                            String searchedKey = ((HomeActivity) getActivity()).utilitiesClass.removeSpecialCharacters(et_search.getText().toString().trim());
+                            Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.SEARCH_CONTRACTORS_TAG, Constants.SEARCH_CONTRACTORS_URL + "?user_id=" + ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID) + "&search_text=" + searchedKey + "&page_no=" + current_page, Constants.HTTP_GET, "Home Activity");
+                            a.execute();
+                        } else {
+                            ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
+                        }
+                        return true;
                     }
-
+                    return false;
                 }
-
+            });
+            btn_search.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void afterTextChanged(Editable s) {
-
+                public void onClick(View v) {
+                    current_page = 1;
+                    contractorsList = new ArrayList<ContractorsObject>();
+                    contractorsList.clear();
+                    adapter = null;
+                    if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
+                        ((HomeActivity) getActivity()).showProgressDialog();
+                        String searchedKey = ((HomeActivity) getActivity()).utilitiesClass.removeSpecialCharacters(et_search.getText().toString().trim());
+                        Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.SEARCH_CONTRACTORS_TAG, Constants.SEARCH_CONTRACTORS_URL + "?user_id=" + ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID) + "&search_text=" + searchedKey + "&page_no=" + current_page, Constants.HTTP_GET, "Home Activity");
+                        a.execute();
+                    } else {
+                        ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
+                    }
                 }
             });
         } catch (Exception e) {
@@ -190,6 +212,73 @@ public class RecommendedContractorsFragment extends Fragment implements AdapterV
             } else if (result.equalsIgnoreCase(Constants.SERVEREXCEPTION)) {
                 ((HomeActivity) getActivity()).dismissProgressDialog();
                 Toast.makeText(getActivity(), getString(R.string.server_down), Toast.LENGTH_LONG).show();
+            } else if (tag.equalsIgnoreCase(Constants.SEARCH_CONTRACTORS_TAG)) {
+                ((HomeActivity) getActivity()).dismissProgressDialog();
+
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+
+                    if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
+                        TOTAL_ITEMS = Integer.parseInt(jsonObject.optString("TotalItems"));
+
+                        if (jsonObject.optJSONArray("Contractors").length() != 0) {
+                            for (int i = 0; i < jsonObject.optJSONArray("Contractors").length(); i++) {
+                                JSONObject contracotrs = jsonObject.optJSONArray("Contractors").getJSONObject(i);
+                                ContractorsObject obj = new ContractorsObject();
+                                obj.setIsPublicProfile(contracotrs.optString("is_profile_public"));
+                                obj.setId(contracotrs.optString("id"));
+                                obj.setImage(contracotrs.optString("image"));
+
+                                if (contracotrs.optString("rate").length() == 0) {
+                                    obj.setContractorRate((((HomeActivity) getActivity()).utilitiesClass.changeInUSCurrencyFormat("0")));
+                                } else {
+                                    obj.setContractorRate((((HomeActivity) getActivity()).utilitiesClass.changeInUSCurrencyFormat(contracotrs.optString("rate"))));
+                                }
+
+
+                                obj.setContractorName(contracotrs.optString("name"));
+
+
+                                StringBuilder stringBuilder = new StringBuilder();
+                                for (int j = 0; j < contracotrs.optJSONArray("keywords").length(); j++) {
+                                    if (stringBuilder.length() > 0) {
+                                        stringBuilder.append(", ");
+                                    }
+
+                                    stringBuilder.append(contracotrs.optJSONArray("keywords").getJSONObject(j).optString("name"));
+                                }
+
+                                obj.setContractorSkills(stringBuilder.toString());
+
+                                contractorsList.add(obj);
+                                //Log.e("XXX","NAME"+contracotrs.optString("name")+"++++++ISPUBLIC"+contracotrs.optString("is_profile_public"));
+
+                            }
+                        } else {
+                            Toast.makeText(getActivity(), "No Contractors found", Toast.LENGTH_LONG).show();
+                        }
+
+                    } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
+                        Toast.makeText(getActivity(), "No Contractors found", Toast.LENGTH_LONG).show();
+                    }
+
+
+                } catch (JSONException e) {
+                    //((HomeActivity) getActivity()).dismissProgressDialog();
+                    e.printStackTrace();
+                }
+
+                if (adapter == null) {
+                    adapter = new SearchContractrosAdapter(getActivity(), contractorsList, "search", "   ");
+                    list_startups.setAdapter(adapter);
+                }
+
+
+                list_startups.onLoadMoreComplete();
+                adapter.notifyDataSetChanged();
+
+                int index = list_startups.getLastVisiblePosition();
+                list_startups.smoothScrollToPosition(index);
             } else {
                 if (tag.equalsIgnoreCase(Constants.RECOMMENDED_CONTRACTORS_OF_STARTUP_TAG)) {
                     ((HomeActivity) getActivity()).dismissProgressDialog();
@@ -247,7 +336,7 @@ public class RecommendedContractorsFragment extends Fragment implements AdapterV
                     }
 
                     if (adapter == null) {
-                        adapter = new SearchContractrosAdapter(getActivity(), contractorsList,"search", "");
+                        adapter = new SearchContractrosAdapter(getActivity(), contractorsList, "search", "");
                         list_startups.setAdapter(adapter);
                     }
 

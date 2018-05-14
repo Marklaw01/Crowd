@@ -64,7 +64,7 @@ import com.quickblox.core.exception.QBResponseException;
 import com.quickblox.users.QBUsers;
 import com.quickblox.users.model.QBUser;
 import com.staging.R;
-import com.staging.activities.HomeActivity;
+//import com.staging.activities.HomeActivity;
 import com.staging.activities.LoginActivity;
 import com.staging.dropdownadapter.CountryAdapter;
 import com.staging.dropdownadapter.SpinnerAdapter;
@@ -131,7 +131,7 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
     private TextView privacyPolicy;
     private TextView facebookRequest;
     private TextView googleRequest;
-    private static final String TAG = HomeActivity.class.getSimpleName();
+    private static final String TAG = "SIGNUP";
     public static final String PACKAGE_MOBILE_SDK_SAMPLE_APP = "com.staging.fragments";
 
     private TextView linkedinRequest;
@@ -222,7 +222,7 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
         termsAndconditions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+                AlertDialog.Builder alert = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
                 alert.setTitle("Terms And Conditions");
 
 
@@ -264,15 +264,19 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
         });
 // GOOGLE SHARING TO BE IMPLEMENTED BELOW++++++++++++++++++++++++++
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
+        try {
+            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestEmail()
+                    .build();
 
-        mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
-                .enableAutoManage(getActivity(), this)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
 
+            mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
+                    .enableAutoManage(getActivity(), this)
+                    .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                    .build();
+
+
+        } catch (Exception e){}
 
         googleRequest.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -333,11 +337,7 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
                 }
 
 
-                /*} else {
 
-                    Toast.makeText(getActivity(), "Facebook App Not Installed, Kindly install the App from Google Playstore", Toast.LENGTH_LONG).show();
-
-                }*/
             }
         });
 
@@ -380,7 +380,7 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
         privacyPolicy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+                AlertDialog.Builder alert = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
                 alert.setTitle("Privacy Policy");
 
 
@@ -439,12 +439,7 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
                         }
                     }
                 }
-               /* if (((LoginActivity) getActivity()).networkConnectivity.isOnline()) {
-                    Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.STATE_TAG, Constants.STATE_URL + COUNTRY_ID, Constants.HTTP_GET);
-                    a.execute();
-                } else {
-                    ((LoginActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
-                }*/
+
             }
 
             @Override
@@ -490,9 +485,9 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
         };*/
 
 
-        UsPhoneNumberFormatter addLineNumberFormatter = new UsPhoneNumberFormatter(
-                new WeakReference<EditText>(et_phoneNumber));
-        et_phoneNumber.addTextChangedListener(addLineNumberFormatter);
+//        UsPhoneNumberFormatter addLineNumberFormatter = new UsPhoneNumberFormatter(
+//                new WeakReference<EditText>(et_phoneNumber));
+//        et_phoneNumber.addTextChangedListener(addLineNumberFormatter);
 
 
         btn_signup.setOnClickListener(new View.OnClickListener() {
@@ -606,24 +601,10 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
             }
         });
 
-        /*et_bestAvailability.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                new TimePickerDialog(getActivity(), time, myCalendar.get(Calendar.HOUR_OF_DAY), myCalendar.get(Calendar.MINUTE), false).show();
-            }
-        });*/
         return rootView;
     }
 
-    /*public boolean isFacebookAppInstalled() {
-        try {
-            thisActivity.getApplicationContext().getPackageManager().getApplicationInfo("com.facebook.katana", 0);
-            return true;
-        } catch (PackageManager.NameNotFoundException e) {
-            return false;
-        }
-    }*/
 
 
     private static Scope buildScope() {
@@ -721,6 +702,12 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
         et_bestAvailability.setText(DateTimeFormatClass.convertDateObjectINTOTimeAmPmFormat(myCalenderForTime.getTime()));
     }*/
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mGoogleApiClient.stopAutoManage(getActivity());
+        mGoogleApiClient.disconnect();
+    }
 
     @Override
     public void onResume() {
@@ -746,19 +733,9 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
         super.onStart();
 
         Log.e("XXX", "ONSTART");
-        OptionalPendingResult<GoogleSignInResult> optPenRes = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
-        if (optPenRes.isDone()) {
-            Log.d(TAG, "Yayy!");
-            GoogleSignInResult result = optPenRes.get();
-            // handleSignInResult(result);
-        } else {
-            optPenRes.setResultCallback(new ResultCallback<GoogleSignInResult>() {
-                @Override
-                public void onResult(GoogleSignInResult googleSignInResult) {
-                    //handleSignInResult(googleSignInResult);
-                }
-            });
-        }
+
+
+
     }
 
     public SignupFragment() {
@@ -785,9 +762,11 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
         } else if (!et_ConfPassword.getText().toString().trim().equals(et_password.getText().toString().trim())) {
             et_ConfPassword.setError("Password and Confirm Password must be same!", getResources().getDrawable(android.R.drawable.ic_dialog_alert));
             requestFocus(et_ConfPassword);
-        } else if (spinnersPreDefinedQuestions.size() == 0) {
-            ((LoginActivity) getActivity()).utilitiesClass.alertDialogSingleButton("Please select at-least one security question!");
-        } else {
+        }
+//        else if (spinnersPreDefinedQuestions.size() == 0) {
+//            ((LoginActivity) getActivity()).utilitiesClass.alertDialogSingleButton("Please select at-least one security question!");
+//        }
+        else {
 //            if (!et_DOB.getText().toString().trim().isEmpty() && !DateTimeFormatClass.compareDates(myCalendar.getTime())) {
 //                ((LoginActivity) getActivity()).utilitiesClass.alertDialogSingleButton("Date of Birth must be before than current date!");
 //            } else {
@@ -799,6 +778,10 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
                     signup.put("email", et_email.getText().toString().trim());
                     //signup.put("date_of_birth", et_DOB.getText().toString().trim());
                     signup.put("phoneno", et_phoneNumber.getText().toString().trim());
+
+
+
+
                    // signup.put("country", COUNTRY_ID);
                    // signup.put("state", STATE_ID);
                    // signup.put("best_availablity", et_bestAvailability.getText().toString().trim());
@@ -836,19 +819,7 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
                 } else {
                     ((LoginActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
                 }
-                /*final QBUser user = new QBUser();
-                user.setLogin(et_userName.getText().toString().trim());
-                user.setPassword(et_password.getText().toString().trim());
-                user.setFullName(et_firtName.getText().toString().trim() + " " + et_lastName.getText().toString().trim());
-                user.setEmail(et_email.getText().toString().trim());
 
-                if (((LoginActivity) getActivity()).networkConnectivity.isOnline()) {
-                    ((LoginActivity) getActivity()).showProgressDialog();
-                    signupOnQuickBlox(user);
-
-                } else {
-                    ((LoginActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
-                }*/
             }
 //        }
     }

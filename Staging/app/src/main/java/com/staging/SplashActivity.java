@@ -59,7 +59,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 if (prefManager.getBoolean(Constants.ISLOGGEDIN)) {
-                    startActivity(new Intent(SplashActivity.this, GettingStartedActivity.class));
+                    startActivity(new Intent(SplashActivity.this, HomeActivity.class));
                     finish();
                 } else {
                     startActivity(new Intent(SplashActivity.this, LoginActivity.class));

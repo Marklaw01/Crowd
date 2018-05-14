@@ -292,7 +292,7 @@ public class EditCampaignFragment extends Fragment implements View.OnClickListen
         try {
             boolean alreadyexist = false, already = false;
             for (int i = 0; i < pathofmedia.size(); i++) {
-                if ((pathofmedia.get(i).getPath().equals(path))/* && (pathofmedia.get(i).getPath().equals(fileName))*/) {
+                if ((pathofmedia.get(i).getPath().equals(path))/* && (groupNameList.get(i).getPath().equals(fileName))*/) {
                     alreadyexist = true;
                 }
             }
@@ -307,7 +307,7 @@ public class EditCampaignFragment extends Fragment implements View.OnClickListen
                     }
                 }
                 for (int i = 0; i < pathofmedia.size(); i++) {
-                    if ((pathofmedia.get(i).getTag() == tagno)/* && (pathofmedia.get(i).getPath().equals(fileName))*/) {
+                    if ((pathofmedia.get(i).getTag() == tagno)/* && (groupNameList.get(i).getPath().equals(fileName))*/) {
                         already = true;
                         pathofmedia.remove(i);
                         break;
@@ -316,7 +316,7 @@ public class EditCampaignFragment extends Fragment implements View.OnClickListen
 
                 pathofmedia.add(new Mediabeans(path, type, filesize, fileName, tagno));
             }
-            //selection = pathofmedia.size();
+            //selection = groupNameList.size();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -112,6 +112,7 @@ public class BetaTesterDetailFragment extends Fragment implements View.OnClickLi
             layoutFundPostedBy.setVisibility(View.GONE);
             apply.setVisibility(View.GONE);
         }
+
         list_audios = (TextView) rootView.findViewById(R.id.list_audios);
         list_docs = (TextView) rootView.findViewById(R.id.list_docs);
         list_video = (TextView) rootView.findViewById(R.id.list_video);

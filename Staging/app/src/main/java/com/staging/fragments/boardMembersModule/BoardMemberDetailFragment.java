@@ -257,6 +257,7 @@ public class BoardMemberDetailFragment extends Fragment implements View.OnClickL
         });
 
 
+
         detials();
         return rootView;
     }

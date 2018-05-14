@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:weightSum="5"
     android:background="@color/white"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/ventureText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/darkGreen"
-            android:text="Venture Capital"
-            android:layout_marginTop="5dp"
-            android:padding="5dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/darkGreen"
+            android:padding="5dp"
+            android:text="Venture Capital"
             android:textColor="@color/white"
             android:textStyle="bold" />
+
 
         <LinearLayout
             android:id="@+id/scrollLayout"
@@ -64,36 +66,39 @@
             android:id="@+id/templateText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:text="Roadmap Template"
-            android:layout_marginTop="5dp"
-            android:padding="5dp"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/colorPrimary"
+            android:padding="5dp"
+            android:text="Roadmap Template"
             android:textColor="@color/white"
             android:textStyle="bold" />
     </RelativeLayout>
+
     <HorizontalScrollView
         android:id="@+id/horizontalView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:scrollbars="none"
+        android:layout_height="0dp"
+        android:layout_weight="4.1">
 
 
         <LinearLayout
             android:id="@+id/abovelayoutRoadmap"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingRight="24dp"
-            android:paddingLeft="10dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:weightSum="10">
+            android:paddingLeft="10dp"
+            android:paddingRight="24dp"
+            android:weightSum="6">
 
 
             <LinearLayout
                 android:id="@+id/roadmapviewabove"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:layout_weight="5"
+                android:layout_weight="2.8"
                 android:orientation="horizontal">
 
             </LinearLayout>
@@ -103,8 +108,8 @@
                 android:id="@+id/roadmapviewbelow"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:paddingTop="8dp"
-                android:layout_weight="5"
+                android:layout_marginTop="10dp"
+                android:layout_weight="3.2"
                 android:orientation="horizontal"
                 android:paddingLeft="10dp">
 
@@ -114,4 +119,27 @@
         </LinearLayout>
 
     </HorizontalScrollView>
+
+    <RelativeLayout
+        android:id="@+id/licenceLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.4"
+        android:padding="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/colorPrimaryDark"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:visibility="visible">
+
+
+        <TextView
+            android:id="@+id/licenceLink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="License"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+    </RelativeLayout>
 </LinearLayout>

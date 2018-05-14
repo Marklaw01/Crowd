@@ -237,6 +237,7 @@ public class RequestEndorsersFragment extends Fragment implements onActivityResu
         descriptionLbl.setText("Endorsement Description");
         startDateTV.setText("Endorsement Start Date");
         endDateTV.setText("Endorsement End Date");
+        et_title.setHint("Endorsement Title");
         spinner_uploadFileType = (Spinner) rootView.findViewById(R.id.spinner_uploadFileType);
         pathofmedia = new ArrayList<Mediabeans>();
         // tv = (TextView) rootView.findViewById(R.id.tv);
@@ -294,6 +295,7 @@ public class RequestEndorsersFragment extends Fragment implements onActivityResu
         btn_browse.setOnClickListener(this);
 
         btn_plus.setOnClickListener(this);
+        btnCreate.setText("Submit");
         btnCreate.setOnClickListener(this);
         image_fundImage.setOnClickListener(this);
         tv_deleteFile.setOnClickListener(this);

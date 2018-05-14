@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.staging.R;
+import com.staging.fragments.NetworkingNotesFragment;
 
 
 /**
@@ -151,6 +152,8 @@ public class LoadMoreListView extends ListView implements OnScrollListener {
 
         mProgressBarLoadMore.setVisibility(View.GONE);
     }
+
+
 
     /**
      * Interface definition for a callback to be invoked when list reaches the

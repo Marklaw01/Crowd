@@ -287,6 +287,7 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
         viewplayVideoArrow = (ImageView) rootView.findViewById(R.id.viewplayVideoArrow);
 
         et_title = (EditText) rootView.findViewById(R.id.et_title);
+        et_title.setText("Board Membership Title");
         et_description = (EditText) rootView.findViewById(R.id.et_description);
         et_interestKeywords = (EditText) rootView.findViewById(R.id.et_interestKeywords);
         et_keywords = (EditText) rootView.findViewById(R.id.et_keywords);
@@ -426,6 +427,7 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
         et_interestKeywords.setOnClickListener(this);
 
         btn_plus.setOnClickListener(this);
+        btnCreate.setText("Submit");
         btnCreate.setOnClickListener(this);
         image_fundImage.setOnClickListener(this);
         tv_deleteFile.setOnClickListener(this);
@@ -692,7 +694,7 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
 
     protected void alertDialogForPicture() {
         try {
-            AlertDialog.Builder builderSingle = new AlertDialog.Builder(getActivity()/*new ContextThemeWrapper(getActivity(), android.R.style.Theme_Holo_Light_Dialog)*/);
+            AlertDialog.Builder builderSingle = new AlertDialog.Builder(getActivity(),R.style.MyDialogTheme);
             final CharSequence[] opsChars = {"Upload Image", "Take Picture"};
             builderSingle.setCancelable(true);
             builderSingle.setItems(opsChars, new DialogInterface.OnClickListener() {
@@ -1700,7 +1702,7 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
                                     Toast.makeText(getActivity(), jsonObject.optString("message"), Toast.LENGTH_LONG).show();
                                     getActivity().onBackPressed();
                                 } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
-
+                                    Toast.makeText(getActivity(), jsonObject.optString("message"), Toast.LENGTH_LONG).show();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();

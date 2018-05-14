@@ -141,6 +141,7 @@ public class StartupProfileFragment extends Fragment implements AdapterView.OnIt
             Bundle args = new Bundle();
             args.putString("id", currentStartupsList.get(position).getId());
             args.putString("startupname", currentStartupsList.get(position).getStartUpName());
+            args.putString("from","startupProfile");
             uploadStartupProfile.setArguments(args);
             FragmentTransaction ft = getFragmentManager().beginTransaction();
             ft.add(R.id.container, uploadStartupProfile);
@@ -192,7 +193,7 @@ public class StartupProfileFragment extends Fragment implements AdapterView.OnIt
                                     currentStartupsList.add(currentStartUpObject);
                                 }
                             }else{
-                                AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
+                                AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity(),R.style.MyDialogTheme);
                                 builder1.setMessage("No Startups Available Yet.");
                                 builder1.setCancelable(true);
 
@@ -209,7 +210,7 @@ public class StartupProfileFragment extends Fragment implements AdapterView.OnIt
                             }
 
                         } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
-                            AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
+                            AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity(),R.style.MyDialogTheme);
                             builder1.setMessage("No Startups Available Yet.");
                             builder1.setCancelable(true);
 

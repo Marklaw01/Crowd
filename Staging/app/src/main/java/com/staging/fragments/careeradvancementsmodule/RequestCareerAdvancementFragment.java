@@ -234,6 +234,7 @@ public class RequestCareerAdvancementFragment extends Fragment implements onActi
         endDateTV.setText("Career Help Availability End Date");
         titleTV.setText("Career Help Title");
         descriptionlbl.setText("Career Help Description");
+        et_title.setHint("Career Help Title");
 
         spinner_uploadFileType = (Spinner) rootView.findViewById(R.id.spinner_uploadFileType);
         pathofmedia = new ArrayList<Mediabeans>();
@@ -289,7 +290,7 @@ public class RequestCareerAdvancementFragment extends Fragment implements onActi
 
         btn_browse.setTag(0);
         btn_browse.setOnClickListener(this);
-        btnCreate.setText("Create");
+        btnCreate.setText("Submit");
         btn_plus.setOnClickListener(this);
         btnCreate.setOnClickListener(this);
         image_fundImage.setOnClickListener(this);
@@ -1337,6 +1338,7 @@ public class RequestCareerAdvancementFragment extends Fragment implements onActi
                                     Toast.makeText(getActivity(), "Your tool is created successfully.", Toast.LENGTH_LONG).show();
                                     getActivity().onBackPressed();
                                 } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
+
                                     if (jsonObject.has("errors")) {
                                        /* if (!jsonObject.optJSONObject("errors").optString("username").isEmpty()) {
                                             Toast.makeText(getActivity(), jsonObject.optJSONObject("errors").optString("description"), Toast.LENGTH_LONG).show();

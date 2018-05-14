@@ -64,7 +64,7 @@ public class GettingStartedActivity extends BaseActivity implements View.OnClick
 
 
                 final AlertDialog alertDialog = new AlertDialog.Builder(
-                        GettingStartedActivity.this).create();
+                        GettingStartedActivity.this, R.style.MyDialogTheme).create();
 
                 // Setting Dialog Title
                 alertDialog.setTitle("Description");
@@ -96,7 +96,7 @@ public class GettingStartedActivity extends BaseActivity implements View.OnClick
                 gettingstartedExpert.setImageResource(R.drawable.gettingstartedexpert);
 
                 final AlertDialog alertDialogExpert = new AlertDialog.Builder(
-                        GettingStartedActivity.this).create();
+                        GettingStartedActivity.this, R.style.MyDialogTheme).create();
 
                 // Setting Dialog Title
                 alertDialogExpert.setTitle("Description");
@@ -128,7 +128,7 @@ public class GettingStartedActivity extends BaseActivity implements View.OnClick
 
 
                 final AlertDialog alertDialogRecruit = new AlertDialog.Builder(
-                        GettingStartedActivity.this).create();
+                        GettingStartedActivity.this, R.style.MyDialogTheme).create();
 
                 // Setting Dialog Title
                 alertDialogRecruit.setTitle("Description");
@@ -159,7 +159,7 @@ public class GettingStartedActivity extends BaseActivity implements View.OnClick
                 gettingstartedExpert.setImageResource(R.drawable.gettingstartedblueexpert);
 
                 final AlertDialog alertDialogSponsor = new AlertDialog.Builder(
-                        GettingStartedActivity.this).create();
+                        GettingStartedActivity.this, R.style.MyDialogTheme).create();
 
                 // Setting Dialog Title
                 alertDialogSponsor.setTitle("Description");

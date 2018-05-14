@@ -62,7 +62,7 @@ public class ManageWorkOrdersFragment extends Fragment implements AdapterView.On
             } else {
                 ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
             }
-            ((HomeActivity) getActivity()).setActionBarTitle("Search Contractor");
+//            ((HomeActivity) getActivity()).setActionBarTitle("Search Contractor");
         } catch (Exception e) {
             e.printStackTrace();
         }

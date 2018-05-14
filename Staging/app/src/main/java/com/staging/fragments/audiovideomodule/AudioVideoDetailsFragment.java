@@ -118,7 +118,6 @@ public class AudioVideoDetailsFragment extends Fragment implements View.OnClickL
         titleTV.setText("Audio/Video Title");
         descriptionlbl.setText("Audio/Video Description");
 
-
         apply = (Button) rootView.findViewById(R.id.apply);
         if (calledFragment.equals(Constants.FIND_FUND_TAG)) {
             layoutFundPostedBy.setVisibility(View.VISIBLE);
@@ -127,6 +126,8 @@ public class AudioVideoDetailsFragment extends Fragment implements View.OnClickL
             layoutFundPostedBy.setVisibility(View.GONE);
             apply.setVisibility(View.GONE);
         }
+
+
         list_audios = (TextView) rootView.findViewById(R.id.list_audios);
         list_docs = (TextView) rootView.findViewById(R.id.list_docs);
         list_video = (TextView) rootView.findViewById(R.id.list_video);
@@ -144,6 +145,7 @@ public class AudioVideoDetailsFragment extends Fragment implements View.OnClickL
         et_start_date = (EditText) rootView.findViewById(R.id.et_start_date);
 
 
+        et_title.setHint("Audio/Video Title");
         expandable_playAudio = (LinearLayout) rootView.findViewById(R.id.expandable_playAudio);
         expandable_playVideo = (LinearLayout) rootView.findViewById(R.id.expandable_playVideo);
         expandable_viewDocument = (LinearLayout) rootView.findViewById(R.id.expandable_viewDocument);

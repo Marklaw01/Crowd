@@ -106,6 +106,33 @@
 
                 android:textSize="@dimen/mediumTextStyle" />
 
+
+
+            <TextView
+                android:id="@+id/tv_resendConfirmation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20sp"
+                android:gravity="center"
+                android:text="Resend Confirmation Link"
+                android:textColor="@color/colorPrimaryDark"
+
+                android:textSize="@dimen/mediumTextStyle" />
+
+
+
+            <TextView
+                android:id="@+id/tv_aboutCrowdBootstrap"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20sp"
+                android:gravity="center"
+                android:text="@string/aboutcrowdbootstrap"
+                android:textColor="@color/darkGreen"
+                android:textSize="@dimen/mediumTextStyle" />
+
         </LinearLayout>
 
     </ScrollView>

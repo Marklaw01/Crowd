@@ -119,6 +119,7 @@ public class CareerAdvancementDetailsFragment extends Fragment implements View.O
         descriptionlbl.setText("Career Help Description");
 
 
+
         apply = (Button) rootView.findViewById(R.id.apply);
         if (calledFragment.equals(Constants.FIND_FUND_TAG)) {
             layoutFundPostedBy.setVisibility(View.VISIBLE);
@@ -142,7 +143,7 @@ public class CareerAdvancementDetailsFragment extends Fragment implements View.O
         et_interestKeywords = (EditText) rootView.findViewById(R.id.et_interestKeywords);
         et_endDate = (EditText) rootView.findViewById(R.id.et_endDate);
         et_start_date = (EditText) rootView.findViewById(R.id.et_start_date);
-
+        et_title.setHint("Career Help Title");
 
         expandable_playAudio = (LinearLayout) rootView.findViewById(R.id.expandable_playAudio);
         expandable_playVideo = (LinearLayout) rootView.findViewById(R.id.expandable_playVideo);

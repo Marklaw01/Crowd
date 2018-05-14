@@ -702,6 +702,95 @@
 
             </LinearLayout>
 
+
+            <LinearLayout
+                android:id="@+id/meetupLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/forumLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/forumSelected"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10sp"
+                        android:paddingRight="10sp"
+                        android:singleLine="true"
+                        android:text="Forum Name"
+                        android:textColor="@color/textColor"
+                        android:textSize="@dimen/mediumTextStyle"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/et_forumName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:background="@drawable/emailtextbox"
+                        android:cursorVisible="false"
+                        android:ems="10"
+                        android:enabled="false"
+                        android:hint="Forum Name"
+                        android:inputType="none|textNoSuggestions"
+                        android:maxLines="1"
+                        android:paddingLeft="10sp"
+                        android:paddingRight="10sp"
+                        android:textColor="@color/textColor"
+
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/meetupAccess"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10sp"
+                    android:paddingRight="10sp"
+                    android:singleLine="true"
+                    android:text="Meetup Access"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/mediumTextStyle"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/et_meetupAccess"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/spinner_field"
+                    android:spinnerMode="dropdown"
+                    android:textSize="@dimen/mediumTextStyle" />
+
+
+                <TextView
+                    android:id="@+id/meetupNotification"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10sp"
+                    android:paddingRight="10sp"
+                    android:singleLine="true"
+                    android:text="Meetup Notification"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/mediumTextStyle"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/et_meetupNotification"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/spinner_field"
+                    android:spinnerMode="dropdown"
+                    android:textSize="@dimen/mediumTextStyle"/>
+            </LinearLayout>
+
+
             <!--
             +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
             -->

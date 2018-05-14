@@ -14,7 +14,7 @@
     <string name="all_roadmap_complete">All Roadmap deliverable documents are complete.</string>
     <string name="server_down">Server is not responding. please try after some time.</string>
     <string name="google_app_id">965286451869</string>
-    <string name="google_api_key">AIzaSyDQ18y3vc76UXoSLtQuv7NHurrsVVklByE</string>
+    <string name="google_api_key">AIzaSyAZosLCFEOvhk_EIsQSzsHW4SXGK3ljWXo</string>
 
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_home">HomeActivity</string>
@@ -37,6 +37,7 @@
     <string name="login">Login</string>
     <string name="signUp">Sign Up</string>
     <string name="forgotPassword">Forgot Password?</string>
+    <string name="aboutcrowdbootstrap">About CrowdBootstrap...</string>
     <string name="post">Post</string>
     <string name="termsandconditions">Terms And Conditions</string>
     <string name="privacypolicy">Privacy Policy</string>
@@ -91,6 +92,7 @@
     <string name="myProfile">My Profile</string>
     <string name="profile">Profile</string>
     <string name="connections">Connections</string>
+    <string name="myconnections">My Connections</string>
     <string name="suggest_keywords">Suggest Keywords</string>
     <string name="entrepreneur_video">Entrepreneur Video</string>
     <string name="currentStartup">Current Startup</string>
@@ -231,7 +233,7 @@
 
     <!--strings related to Team Contributor screen-->
     <string name="groupchat">Group Chat</string>
-    <string name="recommentcontractor">Recommended Contractors</string>
+    <string name="recommentcontractor">Add Team Members</string>
     <string name="cofounder">CoFounder</string>
     <string name="entrepreneur">Entrepreneur</string>
     <string name="temmember">Team Member</string>
@@ -397,4 +399,10 @@
     <string name="applied">Thank you. You have applied.</string>
     <string name="appliedresources">Thank you. You have registered your interest.</string>
     <string name="number_of_commitments">Number of Commitments</string>
+
+
+    <!--Google Maps Implementations-->
+
+    <string name="google_maps_key" templateMergeStrategy="preserve">AIzaSyAZosLCFEOvhk_EIsQSzsHW4SXGK3ljWXo</string>
+
 </resources>

@@ -234,6 +234,7 @@ public class RequestDemoDaysFragment extends Fragment implements onActivityResul
         endDateTV.setText("Demo Day End Date");
         titleTV.setText("Demo Day Title");
         descriptionlbl.setText("Demo Day Description");
+        et_title.setHint("Demo Day Title");
 
         spinner_uploadFileType = (Spinner) rootView.findViewById(R.id.spinner_uploadFileType);
         pathofmedia = new ArrayList<Mediabeans>();
@@ -289,7 +290,7 @@ public class RequestDemoDaysFragment extends Fragment implements onActivityResul
 
         btn_browse.setTag(0);
         btn_browse.setOnClickListener(this);
-        btnCreate.setText("Create");
+        btnCreate.setText("Submit");
         btn_plus.setOnClickListener(this);
         btnCreate.setOnClickListener(this);
         image_fundImage.setOnClickListener(this);
