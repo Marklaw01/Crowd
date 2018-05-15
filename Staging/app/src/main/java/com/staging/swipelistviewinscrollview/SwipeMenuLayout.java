@@ -3,6 +3,7 @@ package com.staging.swipelistviewinscrollview;
 /**
  * Created by neelmani.karn on 1/13/2016.
  */
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v4.widget.ScrollerCompat;
@@ -92,6 +93,7 @@ public class SwipeMenuLayout extends FrameLayout {
         mSwipeDirection = swipeDirection;
     }
 
+    @SuppressLint("ResourceType")
     private void init() {
         setLayoutParams(new AbsListView.LayoutParams(LayoutParams.MATCH_PARENT,
                 LayoutParams.WRAP_CONTENT));
