@@ -26,13 +26,13 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)viewWillAppear:(BOOL)animated{
-    if([UtilityClass getProfileMode] == PROFILE_MODE_RECOMMENDED || [UtilityClass getProfileMode] == PROFILE_MODE_SEARCH)  {
+-(void)viewWillAppear:(BOOL)animated {
+    if([UtilityClass getProfileMode] == PROFILE_MODE_RECOMMENDED || [UtilityClass getProfileMode] == PROFILE_MODE_SEARCH) {
         if([UtilityClass getAddContractorStatus] == YES) {
             addContractorBtn.alpha = 0.7 ;
             addContractorBtn.userInteractionEnabled = NO ;
         }
-        else{
+        else {
             addContractorBtn.alpha = 1 ;
             addContractorBtn.userInteractionEnabled = YES ;
         }
@@ -47,8 +47,10 @@
     [self resetArrayForDropdown] ;
     tblView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
-    if([UtilityClass getProfileMode] == PROFILE_MODE_RECOMMENDED || [UtilityClass getProfileMode] == PROFILE_MODE_SEARCH  ) addContractorBtn.hidden = NO ;
-    else addContractorBtn.hidden = YES ;
+    if([UtilityClass getProfileMode] == PROFILE_MODE_RECOMMENDED || [UtilityClass getProfileMode] == PROFILE_MODE_SEARCH  )
+        addContractorBtn.hidden = NO ;
+    else
+        addContractorBtn.hidden = YES ;
    
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -65,7 +67,6 @@
 }
 
 #pragma mark - IBAction Methods
-
 - (IBAction)AddContractor_ClickAction:(id)sender {
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -78,8 +79,10 @@
 {
     if ([[notification name] isEqualToString:kNotificationStartupProfile]){
         
-        if([UtilityClass getProfileMode] == PROFILE_MODE_RECOMMENDED || [UtilityClass getProfileMode] == PROFILE_MODE_SEARCH  ) addContractorBtn.hidden = NO ;
-        else addContractorBtn.hidden = YES ;
+        if([UtilityClass getProfileMode] == PROFILE_MODE_RECOMMENDED || [UtilityClass getProfileMode] == PROFILE_MODE_SEARCH  )
+            addContractorBtn.hidden = NO ;
+        else
+            addContractorBtn.hidden = YES ;
         
         //[self initializeProfessionalProfileArray] ;
         startupsArray = [NSMutableArray arrayWithArray:(NSArray*)[[UtilityClass getProfileStartupsDetails] mutableCopy]] ;

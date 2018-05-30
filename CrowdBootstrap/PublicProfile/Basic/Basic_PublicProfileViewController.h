@@ -7,13 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AddContributorViewController.h"
 
 #define kCellIdentifier_DynamicCell           @"DynamicTableViewCell"
 
 #define BASIC_PROF_BIO_CELL_INDEX             0
 
 @interface Basic_PublicProfileViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>{
-    
+    IBOutlet UIButton                         *addContractorBtn;
     NSMutableArray                            *basicProfileArray ;
 }
 @property (strong, nonatomic) IBOutlet UITableView *tblView;

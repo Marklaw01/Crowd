@@ -1569,12 +1569,16 @@
             
             if (selectedSegment == 1) {
                 cell.followBtn.hidden = true;
-                cell.constraintLikeBtnTrailing.constant = 0;
+                cell.likeBtn.hidden = true;
+                //                cell.constraintLikeBtnTrailing.constant = 0;
+                cell.constraintPostedByBtnTrailing.constant = -200;
+                
             } else {
                 cell.followBtn.hidden = false;
-                cell.constraintLikeBtnTrailing.constant = 80;
+                cell.likeBtn.hidden = false;
+                //                cell.constraintLikeBtnTrailing.constant = 80;
+                cell.constraintPostedByBtnTrailing.constant = 5;
             }
-            
             return cell;
         }
         else  if(indexPath.section == PURCHASE_ORDER_INDUSTRY_KEYWORDS_SECTION_INDEX || indexPath.section == PURCHASE_ORDER_TARGET_MARKET_KEYWORDS_SECTION_INDEX || indexPath.section == PURCHASE_ORDER_KEYWORDS_SECTION_INDEX) {

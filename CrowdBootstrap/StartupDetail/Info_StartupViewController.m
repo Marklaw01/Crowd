@@ -469,7 +469,7 @@
 }
 
 - (IBAction)Edit_ClickAction:(UIButton*)button {
-    if([UtilityClass getStartupInfoMode] == YES){
+    if([UtilityClass getStartupInfoMode] == YES) {
         
         NSLog(@"getStartupDetails: %@",[UtilityClass getStartupDetails]) ;
        

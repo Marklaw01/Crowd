@@ -105,9 +105,9 @@
     NSDictionary *attributes = [NSDictionary dictionaryWithObject:font
                                                            forKey:NSFontAttributeName];
     [self.segmentControlMyService setTitleTextAttributes:attributes
-                                                    forState:UIControlStateNormal];
+                                                forState:UIControlStateNormal];
     [self.segmentControlSearchService setTitleTextAttributes:attributes
-                                                        forState:UIControlStateNormal];
+                                                    forState:UIControlStateNormal];
 }
 
 -(void)resetUISettings {
@@ -629,26 +629,28 @@
 //}
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    NSMutableArray *array ;
-    if (serviceSearchController.active && ![serviceSearchController.searchBar.text isEqualToString:@""])
-        array = [searchResults mutableCopy] ;
-    else
-        array = [serviceArray mutableCopy] ;
-    
-    if(indexPath.row != array.count) {
+    if (tableView == tblView) {
         
-        [UtilityClass setServiceDetails:(NSMutableDictionary *)[array objectAtIndex:indexPath.row]] ;
+        NSMutableArray *array ;
+        if (serviceSearchController.active && ![serviceSearchController.searchBar.text isEqualToString:@""])
+            array = [searchResults mutableCopy] ;
+        else
+            array = [serviceArray mutableCopy] ;
         
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Services" bundle:nil];
-        UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:kEditServiceIdentifier] ;
-        
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        [dict setObject:[NSString stringWithFormat:@"%ld", (long)selectedSegment] forKey:@"segment"];
-        [dict setObject:[NSString stringWithFormat:@"%ld", (long)selectedSegmentControl] forKey:@"segmentControl"];
-        
-        [self.navigationController pushViewController:viewController animated:YES] ;
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSetServiceViewEditing object:nil userInfo:dict];
+        if(indexPath.row != array.count) {
+            
+            [UtilityClass setServiceDetails:(NSMutableDictionary *)[array objectAtIndex:indexPath.row]] ;
+            
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Services" bundle:nil];
+            UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:kEditServiceIdentifier] ;
+            
+            NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+            [dict setObject:[NSString stringWithFormat:@"%ld", (long)selectedSegment] forKey:@"segment"];
+            [dict setObject:[NSString stringWithFormat:@"%ld", (long)selectedSegmentControl] forKey:@"segmentControl"];
+            
+            [self.navigationController pushViewController:viewController animated:YES] ;
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSetServiceViewEditing object:nil userInfo:dict];
+        }
     }
 }
 
@@ -698,7 +700,7 @@
                     serviceArray = [NSMutableArray arrayWithArray:[responseDict valueForKey:kServiceAPI_ServiceList]] ;
                 }
                 totalItems = 0;
-
+                
                 [tblView reloadData] ;
             }
         } failure:^(NSError *error) {
@@ -754,7 +756,7 @@
                     serviceArray = [NSMutableArray arrayWithArray:[responseDict valueForKey:kServiceAPI_ServiceList]] ;
                 }
                 totalItems = 0;
-
+                
                 [tblView reloadData] ;
             }
         } failure:^(NSError *error) {
@@ -812,7 +814,7 @@
                     serviceArray = [NSMutableArray arrayWithArray:[responseDict valueForKey:kServiceAPI_ServiceList]] ;
                 }
                 totalItems = 0;
-
+                
                 [tblView reloadData] ;
             }
         } failure:^(NSError *error) {
@@ -870,7 +872,7 @@
                     serviceArray = [NSMutableArray arrayWithArray:[responseDict valueForKey:kServiceAPI_ServiceList]] ;
                 }
                 totalItems = 0;
-
+                
                 [tblView reloadData] ;
             }
         } failure:^(NSError *error) {

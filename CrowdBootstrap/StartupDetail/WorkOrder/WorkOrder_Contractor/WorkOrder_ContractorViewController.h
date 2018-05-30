@@ -72,6 +72,6 @@ enum {
 @property(nonatomic, strong) NSDate *minimumDate;
 @property(nonatomic, strong) NSArray *disabledDates;
 
-@property(nonatomic, strong) NSString *dictionaryIDs;
+@property(nonatomic,strong) NSDictionary *dictionaryIDs;
 
 @end

@@ -10,8 +10,8 @@
 #define ConstantsServer_h
 
 //#define APIPortToBeUsed                             @"http://crowdbootstrap.trantorinc.com"
-//#define APIPortToBeUsed                             @"http://crowdbootstrap.com/"
-#define APIPortToBeUsed                             @"http://stage.crowdbootstrap.com/"
+#define APIPortToBeUsed                             @"http://crowdbootstrap.com/"
+//#define APIPortToBeUsed                             @"http://stage.crowdbootstrap.com/"
 
 #define kSuccessCode                              200
 #define kErrorCode                                404
@@ -2126,6 +2126,8 @@
 #define kBusinessAPI_ConnectionId               @"connection_type_id"
 #define kBusinessAPI_ContractorId               @"id"
 #define kBusinessAPI_ConnectedToId              @"connected_to"
+#define kBusinessAPI_ConnectedToId              @"connected_to"
+#define kBusinessAPI_ConnectedTo                @"connected_to_id"
 #define kBusinessAPI_NoteId                     @"note_id"
 #define kBusinessAPI_NoteDesc                   @"notes_detail"
 #define kBusinessAPI_GroupData                  @"data"
@@ -2144,6 +2146,7 @@
 #define kBusinessAPI_UsrImage                   @"user_image"
 #define kBusinessAPI_LinkedIn_UserName          @"linkedin_username"
 #define kBusinessAPI_LinkedIn_UserImage         @"linkedin_image"
+#define kBusinessAPI_LinkedIn_UserImage_Name    @"linkedin_image_name"
 
 #pragma mark - Reset Password Mail Api Keys
 #define kResetPasswordMailAPI_Email              @"user_email"

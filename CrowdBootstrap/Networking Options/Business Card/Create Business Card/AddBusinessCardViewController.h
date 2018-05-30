@@ -21,6 +21,9 @@
     UIImage *chosenImage;
     NSData *imgData ;
     NSDictionary *cardDict;
+    
+    NSString *defaultUsername;
+    NSString *defaultUserImage;
 
 }
 @property(nonatomic) NSString *strBusinessCardScreenType;

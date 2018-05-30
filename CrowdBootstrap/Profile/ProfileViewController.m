@@ -621,14 +621,15 @@
 
 -(void)getBasicProfProfileData{
     
-    NSMutableDictionary *dictParam =[[NSMutableDictionary alloc] init];
+    NSMutableDictionary *dictParam = [[NSMutableDictionary alloc] init];
     [dictParam setObject:[NSString stringWithFormat:@"%d",[UtilityClass getLoggedInUserID]] forKey:kProfileAPI_UserID] ;
     [dictParam setObject:[NSString stringWithFormat:@"%d",[UtilityClass getLoggedInUserID]] forKey:kProfileAPI_LoggedIn_UserID] ;
+    NSLog(@"params: %@",dictParam) ;
     
     [ApiCrowdBootstrap getProfileWithType:(int)segmentControl.selectedSegmentIndex forUserType:(int)[UtilityClass GetUserType] withParameters:dictParam success:^(NSDictionary *responseDict) {
         
         [UtilityClass hideHud] ;
-        if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode)  {
+        if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode) {
             // Update Profile Info
             NSLog(@"responseDict: %@",responseDict) ;
             userNameTxtFld.text = [responseDict objectForKey:kProfileAPI_Name] ;
@@ -707,7 +708,7 @@
     [ApiCrowdBootstrap getProfielUserStartupsWithParameters:dictParam success:^(NSDictionary *responseDict) {
         
         [UtilityClass hideHud] ;
-        if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode)  {
+        if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode) {
             
             [UtilityClass setProfileStartupsDetails:[responseDict valueForKey:kProfileAPI_StartupInformation]] ;
             [UtilityClass setProfileImageChangedStatus:NO] ;

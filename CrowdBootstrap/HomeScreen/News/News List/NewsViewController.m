@@ -19,16 +19,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    [self pullToRefresh];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    newsArray = [[NSMutableArray alloc] init];
-    tblView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    isPullToRefresh = false;
-    
     [self resetUISettings];
+    [self pullToRefresh];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -58,6 +50,10 @@
 }
 
 -(void)resetUISettings {
+    newsArray = [[NSMutableArray alloc] init];
+    tblView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    isPullToRefresh = false;
+
     pageNo = 1;
     totalItems = 0 ;
     

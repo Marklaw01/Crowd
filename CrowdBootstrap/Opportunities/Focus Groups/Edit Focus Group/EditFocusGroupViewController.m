@@ -1587,12 +1587,16 @@
             
             if ((selectedSegmentControl == 100 && selectedSegment == 1) || (selectedSegmentControl == 200 && selectedSegment == 0) || (selectedSegmentControl == 200 && selectedSegment == 1) ||(selectedSegmentControl == 200 && selectedSegment == 2)) {
                 cell.followBtn.hidden = true;
-                cell.constraintLikeBtnTrailing.constant = 0;
+                cell.likeBtn.hidden = true;
+                //                cell.constraintLikeBtnTrailing.constant = 0;
+                cell.constraintPostedByBtnTrailing.constant = -200;
+                
             } else {
                 cell.followBtn.hidden = false;
-                cell.constraintLikeBtnTrailing.constant = 80;
+                cell.likeBtn.hidden = false;
+                //                cell.constraintLikeBtnTrailing.constant = 80;
+                cell.constraintPostedByBtnTrailing.constant = 5;
             }
-            
             return cell;
         }
         else if(indexPath.section == FOCUS_GROUP_INDUSTRY_KEYWORDS_SECTION_INDEX || indexPath.section == FOCUS_GROUP_TARGET_MARKET_KEYWORDS_SECTION_INDEX || indexPath.section == FOCUS_GROUP_KEYWORDS_SECTION_INDEX) {
@@ -1756,7 +1760,10 @@
     if(tableView == popupTblView) {
         PaymentsTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath] ;
         [self CheckUncheck_ClickAction:cell.checkboxBtn] ;
-    } else {
+    }
+    else if (tableView == tblViewUsers)
+        [tblViewUsers deselectRowAtIndexPath:indexPath animated:true];
+    else {
         if(indexPath.section >= FOCUS_GROUP_DOCUMENT_SECTION_INDEX && indexPath.section < sectionsArray.count) {
             NSString *filePath ;
             if(indexPath.section == FOCUS_GROUP_DOCUMENT_SECTION_INDEX) {

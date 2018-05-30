@@ -633,26 +633,27 @@
 //}
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    NSMutableArray *array ;
-    if (launchDealSearchController.active && ![launchDealSearchController.searchBar.text isEqualToString:@""])
-        array = [searchResults mutableCopy] ;
-    else
-        array = [launchDealsArray mutableCopy] ;
-    
-    if(indexPath.row != array.count) {
+    if (tableView == tblView) {
+        NSMutableArray *array ;
+        if (launchDealSearchController.active && ![launchDealSearchController.searchBar.text isEqualToString:@""])
+            array = [searchResults mutableCopy] ;
+        else
+            array = [launchDealsArray mutableCopy] ;
         
-        [UtilityClass setLaunchDealDetails:(NSMutableDictionary *)[array objectAtIndex:indexPath.row]] ;
-        
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"LaunchDeals" bundle:nil];
-        UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:kEditLaunchDealIdentifier] ;
-        
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        [dict setObject:[NSString stringWithFormat:@"%ld", (long)selectedSegment] forKey:@"segment"];
-        [dict setObject:[NSString stringWithFormat:@"%ld", (long)selectedSegmentControl] forKey:@"segmentControl"];
-        
-        [self.navigationController pushViewController:viewController animated:YES] ;
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSetLaunchDealViewEditing object:nil userInfo:dict];
+        if(indexPath.row != array.count) {
+            
+            [UtilityClass setLaunchDealDetails:(NSMutableDictionary *)[array objectAtIndex:indexPath.row]] ;
+            
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"LaunchDeals" bundle:nil];
+            UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:kEditLaunchDealIdentifier] ;
+            
+            NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+            [dict setObject:[NSString stringWithFormat:@"%ld", (long)selectedSegment] forKey:@"segment"];
+            [dict setObject:[NSString stringWithFormat:@"%ld", (long)selectedSegmentControl] forKey:@"segmentControl"];
+            
+            [self.navigationController pushViewController:viewController animated:YES] ;
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSetLaunchDealViewEditing object:nil userInfo:dict];
+        }
     }
 }
 

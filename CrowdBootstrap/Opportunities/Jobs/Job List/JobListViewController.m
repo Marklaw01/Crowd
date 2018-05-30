@@ -260,7 +260,6 @@
             
             [UtilityClass hideHud] ;
             if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode ) {
-                NSLog(@"Country Response : %@", responseDict);
                 countryArray = [NSMutableArray arrayWithArray:(NSArray*)[responseDict objectForKey:@"country"]] ;
                 [pickerView reloadAllComponents];
 //                for (int i = 0; i < countryArray.count; i++) {
@@ -296,7 +295,6 @@
             
             [UtilityClass hideHud] ;
             if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode ) {
-                NSLog(@"States Response : %@", responseDict);
                 statesArray = [NSMutableArray arrayWithArray:(NSArray*)[responseDict objectForKey:@"state"]] ;
                 [pickerView reloadAllComponents] ;
             }

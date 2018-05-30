@@ -182,9 +182,9 @@ NSString *const kAccountKey     = @"8RTz3Q7iLeGokw3MrzP5";
 }
 
 #pragma mark - Internet Connectivity
--(void)checkInternetConnectivity{
-    [[AFNetworkReachabilityManager sharedManager]startMonitoring];
-    
+-(void)checkInternetConnectivity {
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+
     //Checking the Internet connection...
     [[AFNetworkReachabilityManager sharedManager]setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status){
         if (status == AFNetworkReachabilityStatusNotReachable || status == AFNetworkReachabilityStatusUnknown) {
@@ -192,6 +192,7 @@ NSString *const kAccountKey     = @"8RTz3Q7iLeGokw3MrzP5";
             [alertNetNotFound show];
         }
     }];
+    
 }
 
 #pragma mark - Custom Methods

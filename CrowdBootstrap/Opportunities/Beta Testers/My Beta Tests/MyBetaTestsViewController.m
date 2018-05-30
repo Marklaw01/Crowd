@@ -626,26 +626,27 @@
 //}
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    NSMutableArray *array ;
-    if (betaTestSearchController.active && ![betaTestSearchController.searchBar.text isEqualToString:@""])
-    array = [searchResults mutableCopy] ;
-    else
-    array = [betaTestsArray mutableCopy] ;
-    
-    if(indexPath.row != array.count) {
+    if (tableView == tblView) {
+        NSMutableArray *array ;
+        if (betaTestSearchController.active && ![betaTestSearchController.searchBar.text isEqualToString:@""])
+            array = [searchResults mutableCopy] ;
+        else
+            array = [betaTestsArray mutableCopy] ;
         
-        [UtilityClass setBetaTestDetails:(NSMutableDictionary *)[array objectAtIndex:indexPath.row]] ;
-        
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"BetaTesting" bundle:nil];
-        UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:kEditBetaTestIdentifier] ;
-        
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        [dict setObject:[NSString stringWithFormat:@"%ld", (long)selectedSegment] forKey:@"segment"];
-        [dict setObject:[NSString stringWithFormat:@"%ld", (long)selectedSegmentControl] forKey:@"segmentControl"];
-        
-        [self.navigationController pushViewController:viewController animated:YES] ;
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSetBetaTestViewEditing object:nil userInfo:dict];
+        if(indexPath.row != array.count) {
+            
+            [UtilityClass setBetaTestDetails:(NSMutableDictionary *)[array objectAtIndex:indexPath.row]] ;
+            
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"BetaTesting" bundle:nil];
+            UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:kEditBetaTestIdentifier] ;
+            
+            NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+            [dict setObject:[NSString stringWithFormat:@"%ld", (long)selectedSegment] forKey:@"segment"];
+            [dict setObject:[NSString stringWithFormat:@"%ld", (long)selectedSegmentControl] forKey:@"segmentControl"];
+            
+            [self.navigationController pushViewController:viewController animated:YES] ;
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSetBetaTestViewEditing object:nil userInfo:dict];
+        }
     }
 }
 

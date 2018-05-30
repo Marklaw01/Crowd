@@ -15,7 +15,7 @@ enum {
 };
 
 #define DEFAULT_NO_CHATS_AVAILABLE       @"No Chats Available."
-#define DEFAULT_NO_CONTACTS_AVAILABLE    @"No Contacts Available."
+#define DEFAULT_NO_CONTACTS_AVAILABLE    @"No Connections Available."
 #define VALIDATION_GROUP_NAME_REQUIRED   @"Group Name Required."   
 #define VALIDATION__GROUP_CHAT           @"Select at least two members for group chat."
 

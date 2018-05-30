@@ -254,13 +254,16 @@
     //NSString *phone = [[basicProfileArray objectAtIndex:BASIC_PHONE_CELL_INDEX] valueForKey:@"value"] ;
     PhoneTableViewCell *cell = [tblView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:BASIC_PHONE_CELL_INDEX inSection:0]] ;
     NSString *phone = cell.textField.text ;
+    [dictParam setObject:phone forKey:kBasicEditProfileAPI_Phone] ;
+    /*
     NSLog(@"phone: %d",phone.length) ;
+    
     if(phone.length > 0 && ![phone isEqualToString:@""] && ![phone isEqualToString:@" "] && (phone.length < PHONE_MIN_LENGTH || phone.length > PHONE_MAX_LENGTH )){
         [self presentViewController:[UtilityClass displayAlertMessage:kAlert_SignUp_PhoneNotValid] animated:YES completion:nil] ;
         return nil ;
     }
     else [dictParam setObject:phone forKey:kBasicEditProfileAPI_Phone] ;
-    
+    */
     if([UtilityClass GetUserType] == ENTREPRENEUR)[dictParam setObject:[self getCellTextFieldValueForCellIndex:BASIC_CITY_CELL_INDEX+1] forKey:kBasicEditProfileAPI_Interests]
         ;
     else {
@@ -305,7 +308,11 @@
 
 - (IBAction)Calender_ClickAction:(id)sender {
     DobTableViewCell *cell = [tblView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:BASIC_DOB_CELL_INDEX inSection:0]] ;
-    [datePickerView setDate:[dateFormatter dateFromString:cell.textFld.text] animated:YES] ;
+    if (![cell.textFld.text isEqualToString:@""])
+        [datePickerView setDate:[dateFormatter dateFromString:cell.textFld.text] animated:YES] ;
+    else
+        [datePickerView setMaximumDate:[NSDate date]] ;
+    
     [cell.textFld becomeFirstResponder] ;
 }
 
@@ -321,15 +328,15 @@
         if(index == -1)[pickerView selectRow:0 inComponent:0 animated:YES] ;
         else [pickerView selectRow:index+1 inComponent:0 animated:YES] ;
     }
-    else{
+    else {
         
         NSString *countryID = [NSString stringWithFormat:@"%@",selectedCountryID] ;
         NSLog(@"countryID: %@",countryID) ;
-        if( [countryID isEqualToString:@""] || [countryID isEqualToString:@"0"]){
+        if( [countryID isEqualToString:@""] || [countryID isEqualToString:@"0"]) {
             [self presentViewController:[UtilityClass displayAlertMessage:kSelectCountryDefaultText] animated:YES completion:nil] ;
         }
-        else{
-            if([selectedCountryID intValue]){
+        else {
+            if([selectedCountryID intValue]) {
                 [self getCitisListWithCountryID:[selectedCountryID intValue]] ;
                 
                 selectedPickerViewType = PROFILE_CITY_SELECTED ;
@@ -379,7 +386,7 @@
             DobTableViewCell *cell = [tblView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:BASIC_COUNTRY_CELL_INDEX inSection:0]] ;
             [cell.textFld resignFirstResponder] ;
             
-            if([pickerView selectedRowInComponent:0] == 0){
+            if([pickerView selectedRowInComponent:0] == 0) {
                 cell.textFld.text = @"" ;
                 selectedCountryID = @"" ;
                 
@@ -516,7 +523,7 @@
         cell.textField.keyboardType = UIKeyboardTypeNumberPad ;
         cell.textField.inputAccessoryView = numberToolbar ;
         cell.textField.tag = indexPath.row ;
-        [cell.textField.formatter setDefaultOutputPattern:@"1 (###) ###-####"];
+//        [cell.textField.formatter setDefaultOutputPattern:@"1 (###) ###-####"];
         cell.textField.text = [NSString stringWithFormat:@"%@",[[basicProfileArray objectAtIndex:indexPath.row] valueForKey:@"value"]]  ;
         
        
@@ -598,9 +605,13 @@
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     _selectedItem = textField ;
      [pickerViewContainer setHidden:YES] ;
-    if(textField.tag == BASIC_DOB_CELL_INDEX) {
-         DobTableViewCell *cell = [tblView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:BASIC_DOB_CELL_INDEX inSection:0]] ;
-        [datePickerView setDate:[dateFormatter dateFromString:cell.textFld.text] animated:YES] ;
+    if (textField.tag == BASIC_DOB_CELL_INDEX) {
+        DobTableViewCell *cell = [tblView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:BASIC_DOB_CELL_INDEX inSection:0]] ;
+
+        if (![cell.textFld.text isEqualToString:@""])
+            [datePickerView setDate:[dateFormatter dateFromString:cell.textFld.text] animated:YES] ;
+        else
+            [datePickerView setMaximumDate:[NSDate date]] ;
     }
     if(textField.tag == BASIC_COUNTRY_CELL_INDEX) {
         selectedPickerViewType = PROFILE_COUNTRY_SELECTED ;
@@ -634,7 +645,8 @@
 }
 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-   if([textField tag] != BASIC_PHONE_CELL_INDEX) [[basicProfileArray objectAtIndex:textField.tag] setValue:[textField.text stringByReplacingCharactersInRange:range withString:string] forKey:@"value"] ;
+   if([textField tag] != BASIC_PHONE_CELL_INDEX)
+       [[basicProfileArray objectAtIndex:textField.tag] setValue:[textField.text stringByReplacingCharactersInRange:range withString:string] forKey:@"value"] ;
     
     // Phone Validation
     if([textField tag] == BASIC_PHONE_CELL_INDEX){

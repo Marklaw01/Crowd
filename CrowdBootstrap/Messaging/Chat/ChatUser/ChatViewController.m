@@ -971,7 +971,11 @@ QMChatCellDelegate
     
     NotificationsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_Contacts] ;
     cell.selectionStyle = UITableViewCellSelectionStyleNone ;
-    cell.titleLbl.text = qbUser.fullName ;
+    if (qbUser.fullName != nil)
+        cell.titleLbl.text = qbUser.fullName ;
+    else
+        cell.titleLbl.text = qbUser.login;
+    
     cell.imgView.layer.cornerRadius = 21.5;
     cell.imgView.clipsToBounds = YES;
     return cell ;

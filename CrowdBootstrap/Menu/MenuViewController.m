@@ -64,10 +64,10 @@
     
     menuArray = @[@"userIdentifier", @"startIdentifier", @"homeIdentifier", @"My Profile", @"Startups", @"Contractors", @"Organizations", @"Messaging", @"Resources", @"Events", @"Opportunities", @"paymentIdentifier", @"logoutIdentifier"];
     
-    profileArray = @[@"entrepreneurVideoIdentifier", @"profileIdentifier", @"connectionsIdentifier", @"suggestKeywordsIdentifier", @"settingsIdentifier"] ;
+    profileArray = @[@"entrepreneurVideoIdentifier", @"profileIdentifier", @"connectionsIdentifier", @"addConnectionIdentifier", @"suggestKeywordsIdentifier", @"settingsIdentifier"] ;
     
     startupArray = @[@"roadmapVideoIdentifier",@"addStartupIdentifier",@"startupApplicationIdentifier",@"startupProfileIdentifier",@"currentStartupsIdentifier",@"fundsIdentifier",@"campaignsIdentifier",@"searchCampaignsIdentifier",@"manageWorkOrdersIdentifier"] ;
-    contractorsArray = @[@"contractorVideoIdentifier",@"searchContributorIdentifier",@"viewProfileIdentifier",@"workOrdersIdentifier", kMenuIdentifier_SelfImprovement, kMenuIdentifier_CareerAdvancement] ;
+    contractorsArray = @[@"contractorVideoIdentifier",@"searchContributorIdentifier",@"viewProfileIdentifier",@"workOrdersIdentifier", @"addWorkUnitsIdentifier", kMenuIdentifier_SelfImprovement, kMenuIdentifier_CareerAdvancement] ;
     
     organizationsArray = @[@"organizationVideoIdentifier",@"searchOrganizationIdentifier"] ;
     
@@ -126,7 +126,7 @@
         mail.mailComposeDelegate = self;
         [mail setSubject:@"Crowd Bootstrap Invitation"];
         
-        NSString *strMailContent = [NSString stringWithFormat:@"\n[Name]:\n\nCrowd Bootstrap helps entrepreneurs accelerate their journey from a startup idea to initial revenues. It is a free App that enables you to benefit as an entrepreneur or help as an expert.\n\nPlease click the following link to sign-up and help an entrepreneur realize their dream.\n\nlink : http://crowdbootstrap.com/\n\nRegards,\n\nThe Crowd Bootstrap Team"];
+        NSString *strMailContent = [NSString stringWithFormat:@"\n[Enter name manually]:\n\nCrowd Bootstrap helps entrepreneurs accelerate their journey from a startup idea to initial revenues. It is a free App that enables you to benefit as an entrepreneur or help as an expert.\n\nPlease click the following link to sign-up and help an entrepreneur realize their dream.\n\nlink : http://crowdbootstrap.com/\n\nRegards,\n\nThe Crowd Bootstrap Team"];
         [mail setMessageBody:strMailContent isHTML:NO];
         
         [self presentViewController:mail animated:YES completion:NULL];
@@ -800,17 +800,23 @@
                 }
             }
             
-            // Assign WorkUnits / Search Contractor
-            else if([dvc isKindOfClass:[SearchContractorViewController class]]){
+            // Add Connection / Assign WorkUnits / Search Contractor
+            else if([dvc isKindOfClass:[SearchContractorViewController class]]) {
                 
                 if([sender isKindOfClass:[UITableViewCell class]]){
                     UITableViewCell *cell = (UITableViewCell *)sender ;
                     NSString *selectedCellIdentifier = cell.reuseIdentifier ;
                     
-                    if([selectedCellIdentifier isEqualToString:@"searchContributorIdentifier"]){
+                    if([selectedCellIdentifier isEqualToString:@"addConnectionIdentifier"]) {
                         [UtilityClass setContAssignWorkUnitsMode:NO] ;
                     }
-                    else if([selectedCellIdentifier isEqualToString:@"manageWorkOrdersIdentifier"]){
+                    if([selectedCellIdentifier isEqualToString:@"searchContributorIdentifier"]) {
+                        [UtilityClass setContAssignWorkUnitsMode:NO] ;
+                    }
+                    else if([selectedCellIdentifier isEqualToString:@"manageWorkOrdersIdentifier"]) {
+                        [UtilityClass setContAssignWorkUnitsMode:YES] ;
+                    }
+                    else if([selectedCellIdentifier isEqualToString:@"addWorkUnitsIdentifier"]) {
                         [UtilityClass setContAssignWorkUnitsMode:YES] ;
                     }
                 }

@@ -33,11 +33,11 @@
 - (void)viewWillAppear:(BOOL)animated {
     
     BOOL isComeFromAddEdit = [UtilityClass checkIsComingFrom_Software_AddEditScreen];
-//    if (selectedSegmentControl == 100) { // Find Software
-//        if (selectedSegment == SEARCH_SOFTWARE_SELECTED) {
-//            isComeFromAddEdit = NO;
-//        }
-//    }
+    //    if (selectedSegmentControl == 100) { // Find Software
+    //        if (selectedSegment == SEARCH_SOFTWARE_SELECTED) {
+    //            isComeFromAddEdit = NO;
+    //        }
+    //    }
     if (isComeFromAddEdit) {
         pageNo = 1;
         if (selectedSegmentControl == 100) { // Find Software
@@ -629,26 +629,28 @@
 //}
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    NSMutableArray *array ;
-    if (softwareSearchController.active && ![softwareSearchController.searchBar.text isEqualToString:@""])
-        array = [searchResults mutableCopy] ;
-    else
-        array = [softwaresArray mutableCopy] ;
-    
-    if(indexPath.row != array.count) {
+    if (tableView == tblView) {
         
-        [UtilityClass setSoftwareDetails:(NSMutableDictionary *)[array objectAtIndex:indexPath.row]] ;
+        NSMutableArray *array ;
+        if (softwareSearchController.active && ![softwareSearchController.searchBar.text isEqualToString:@""])
+            array = [searchResults mutableCopy] ;
+        else
+            array = [softwaresArray mutableCopy] ;
         
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Softwares" bundle:nil];
-        UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:kEditSoftwareIdentifier] ;
-        
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        [dict setObject:[NSString stringWithFormat:@"%ld", (long)selectedSegment] forKey:@"segment"];
-        [dict setObject:[NSString stringWithFormat:@"%ld", (long)selectedSegmentControl] forKey:@"segmentControl"];
-        
-        [self.navigationController pushViewController:viewController animated:YES] ;
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSetSoftwareViewEditing object:nil userInfo:dict];
+        if(indexPath.row != array.count) {
+            
+            [UtilityClass setSoftwareDetails:(NSMutableDictionary *)[array objectAtIndex:indexPath.row]] ;
+            
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Softwares" bundle:nil];
+            UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:kEditSoftwareIdentifier] ;
+            
+            NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+            [dict setObject:[NSString stringWithFormat:@"%ld", (long)selectedSegment] forKey:@"segment"];
+            [dict setObject:[NSString stringWithFormat:@"%ld", (long)selectedSegmentControl] forKey:@"segmentControl"];
+            
+            [self.navigationController pushViewController:viewController animated:YES] ;
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSetSoftwareViewEditing object:nil userInfo:dict];
+        }
     }
 }
 
@@ -698,7 +700,7 @@
                     softwaresArray = [NSMutableArray arrayWithArray:[responseDict valueForKey:kSoftwareAPI_SoftwareList]] ;
                 }
                 totalItems = 0;
-
+                
                 [tblView reloadData] ;
             }
         } failure:^(NSError *error) {
@@ -754,7 +756,7 @@
                     softwaresArray = [NSMutableArray arrayWithArray:[responseDict valueForKey:kSoftwareAPI_SoftwareList]] ;
                 }
                 totalItems = 0;
-
+                
                 [tblView reloadData] ;
             }
         } failure:^(NSError *error) {
@@ -812,7 +814,7 @@
                     softwaresArray = [NSMutableArray arrayWithArray:[responseDict valueForKey:kSoftwareAPI_SoftwareList]] ;
                 }
                 totalItems = 0;
-
+                
                 [tblView reloadData] ;
             }
         } failure:^(NSError *error) {
@@ -870,7 +872,7 @@
                     softwaresArray = [NSMutableArray arrayWithArray:[responseDict valueForKey:kSoftwareAPI_SoftwareList]] ;
                 }
                 totalItems = 0;
-
+                
                 [tblView reloadData] ;
             }
         } failure:^(NSError *error) {

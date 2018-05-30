@@ -25,9 +25,27 @@
 
 @implementation AddHardwareViewController
 
+#pragma mark - View Lifecycle Methods
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self resetUISettings] ;
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardDidShow:)
+                                                 name:UIKeyboardDidShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillBeHidden:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+}
+
+-(void)viewDidDisappear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:UIKeyboardDidShowNotification object:nil] ;
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:UIKeyboardWillHideNotification object:nil] ;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -36,8 +54,11 @@
 }
 
 #pragma mark - Custom Methods
+- (void)singleTap:(UITapGestureRecognizer *)gesture {
+    [self.view endEditing:YES];
+}
+
 -(void)resetUISettings {
-    
     hardwareData = [[UtilityClass getHardwareDetails] mutableCopy];
     NSLog(@"Hardware Data: %@",hardwareData) ;
     self.tblView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -448,7 +469,7 @@
 }
 
 #pragma mark - Image Picker Methods
--(void)displayImagePickerWithType:(BOOL)isCameraMode withMediaType:(BOOL)isImageSelected{
+-(void)displayImagePickerWithType:(BOOL)isCameraMode withMediaType:(BOOL)isImageSelected {
     [self dismissViewControllerAnimated:YES completion:nil] ;
     
     if (isCameraMode && ![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {

@@ -23,14 +23,23 @@
     [self addObserver];
     
     locationManager = [[CLLocationManager alloc] init];
-    [locationManager setDelegate:self];
+
+    mkMapView.delegate = self;
+    [mkMapView setShowsUserLocation:YES];
+    
     [locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
+    [locationManager setDelegate:self];
     [locationManager requestWhenInUseAuthorization];
     [locationManager startUpdatingLocation];
     
     latitude = locationManager.location.coordinate.latitude;
     longitude = locationManager.location.coordinate.longitude;
+    NSLog(@"Lat: %f, Long:%f", latitude, longitude);
     
+    MKCoordinateSpan span = MKCoordinateSpanMake(0.2, 0.2);
+    MKCoordinateRegion region = MKCoordinateRegionMake(locationManager.location.coordinate, span);
+    [mkMapView setRegion:region];
+
     searchBar.delegate = self;
     
     [self resetUISettings];
@@ -183,6 +192,13 @@
     }
 }
 
+//#pragma mark - Location Manager Delegate Methods
+//- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
+//        MKCoordinateSpan span = MKCoordinateSpanMake(0.02, 0.02);
+//        MKCoordinateRegion region = MKCoordinateRegionMake(locationManager.location.coordinate, span);
+//        [mkMapView setRegion:region];
+//}
+
 #pragma mark - IBAction Methods
 - (IBAction)Back_Click:(id)sender {
     [self.navigationController popViewControllerAnimated:YES] ;
@@ -226,6 +242,15 @@
             [self getUserListWithinMiles:@"" connectionId:selectedConnectionTypeID];
         }
     
+}
+
+- (IBAction)zoomToUserLocation:(id)sender {
+    MKCoordinateRegion mapRegion;
+    mapRegion.center = mkMapView.userLocation.coordinate;
+    mapRegion.span.latitudeDelta = 0.2;
+    mapRegion.span.longitudeDelta = 0.2;
+    
+    [mkMapView setRegion:mapRegion animated: YES];
 }
 
 //MARK: - UISearchbar delegate
@@ -440,7 +465,6 @@
                 if ([availabilityStatus isEqual:[NSNumber numberWithInt:1]]) {
                     [btnHide setBackgroundColor:[UIColor lightGrayColor]];
                     [btnShow setBackgroundColor:[UIColor colorWithRed:5.0/255.0 green:106.0/255.0 blue:31.0/255.0 alpha:1.0]];
-                    
                 } else {
                     [btnShow setBackgroundColor:[UIColor lightGrayColor]];
                     [btnHide setBackgroundColor:[UIColor colorWithRed:5.0/255.0 green:106.0/255.0 blue:31.0/255.0 alpha:1.0]];

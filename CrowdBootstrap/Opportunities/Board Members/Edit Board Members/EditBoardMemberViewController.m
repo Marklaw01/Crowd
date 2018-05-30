@@ -449,8 +449,8 @@
         
         [UtilityClass showHudWithTitle:kHUDMessage_PleaseWait] ;
         NSMutableDictionary *dictParam = [[NSMutableDictionary alloc] init];
-        [dictParam setObject:[NSString stringWithFormat:@"%d",[UtilityClass getLoggedInUserID]] forKey:kBoardMemberAPI_UserID] ;
-        [dictParam setObject:[[[UtilityClass getBoardMemberDetails] mutableCopy] valueForKey:kBoardMemberAPI_BoardMemberID] forKey:kBoardMemberAPI_BoardMemberID] ;
+        [dictParam setObject:[NSString stringWithFormat:@"%d",[UtilityClass getLoggedInUserID]] forKey:kBoardMemberAPI_BoardMember_FollowedBy] ;
+        [dictParam setObject:[[[UtilityClass getBoardMemberDetails] mutableCopy] valueForKey:kBoardMemberAPI_ID] forKey:kBoardMemberAPI_BoardMemberID] ;
         NSLog(@"dictParam: %@",dictParam) ;
         
         if (isFollowed == 0) {
@@ -1696,12 +1696,16 @@
             
             if ((selectedSegmentControl == 100 && selectedSegment == 1) || (selectedSegmentControl == 200 && selectedSegment == 0) || (selectedSegmentControl == 200 && selectedSegment == 1) ||(selectedSegmentControl == 200 && selectedSegment == 2)) {
                 cell.followBtn.hidden = true;
-                cell.constraintLikeBtnTrailing.constant = 0;
+                cell.likeBtn.hidden = true;
+                //                cell.constraintLikeBtnTrailing.constant = 0;
+                cell.constraintPostedByBtnTrailing.constant = -200;
+                
             } else {
                 cell.followBtn.hidden = false;
-                cell.constraintLikeBtnTrailing.constant = 80;
+                cell.likeBtn.hidden = false;
+                //                cell.constraintLikeBtnTrailing.constant = 80;
+                cell.constraintPostedByBtnTrailing.constant = 5;
             }
-            
             return cell;
         }
         else if(indexPath.section == BOARD_MEMBER_INDUSTRY_KEYWORDS_SECTION_INDEX || indexPath.section == BOARD_MEMBER_TARGET_MARKET_KEYWORDS_SECTION_INDEX || indexPath.section == BOARD_MEMBER_KEYWORDS_SECTION_INDEX) {

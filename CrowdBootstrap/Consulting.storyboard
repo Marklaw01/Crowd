@@ -1,22 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="HelveticaNeue.ttc">
-            <string>HelveticaNeue</string>
-            <string>HelveticaNeue-Bold</string>
-            <string>HelveticaNeue-Medium</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--My Consulting Projects View Controller-->
         <scene sceneID="wHD-FT-21G">
@@ -86,7 +79,7 @@
                                 <color key="separatorColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <inset key="separatorInset" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="consultingCell" rowHeight="175" id="CG4-Ve-cTk" customClass="FundsTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="consultingCell" rowHeight="175" id="CG4-Ve-cTk" customClass="FundsTableViewCell">
                                         <rect key="frame" x="0.0" y="28" width="375" height="175"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CG4-Ve-cTk" id="e0l-ll-4Nu">
@@ -109,7 +102,6 @@
                                                         <constraint firstAttribute="height" constant="50" id="FUR-pS-CpA"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
-                                                    <color key="textColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
@@ -479,7 +471,7 @@
                                         <color key="separatorColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <inset key="separatorInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="userProfileCell" id="ldu-ua-AO5" customClass="UserFundTableViewCell">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="userProfileCell" id="ldu-ua-AO5" customClass="UserFundTableViewCell">
                                                 <rect key="frame" x="0.0" y="28" width="325" height="60"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ldu-ua-AO5" id="qvA-4t-XBU">
@@ -507,6 +499,21 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4JX-Xb-u2Z">
+                                                            <rect key="frame" x="233" y="5" width="70" height="20"/>
+                                                            <color key="backgroundColor" red="0.019607843140000001" green="0.41568627450000001" blue="0.1215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="20" id="5mP-rE-dTf"/>
+                                                                <constraint firstAttribute="width" constant="70" id="Mcd-pQ-wcX"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
+                                                            <state key="normal" title="Award">
+                                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </state>
+                                                            <connections>
+                                                                <action selector="award_ClickAction:" destination="L5D-Kp-YnG" eventType="touchUpInside" id="pgg-xB-KYz"/>
+                                                            </connections>
+                                                        </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xDD-li-e6G">
                                                             <rect key="frame" x="233" y="30" width="70" height="20"/>
                                                             <color key="backgroundColor" red="0.015686274510000001" green="0.20784313730000001" blue="0.35686274509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -524,9 +531,12 @@
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
+                                                        <constraint firstItem="xDD-li-e6G" firstAttribute="top" secondItem="4JX-Xb-u2Z" secondAttribute="bottom" constant="5" id="2rN-Un-SgD"/>
                                                         <constraint firstAttribute="bottom" secondItem="xDD-li-e6G" secondAttribute="bottom" constant="9" id="3Hf-5W-hKS"/>
                                                         <constraint firstItem="f5k-y3-Osn" firstAttribute="trailing" secondItem="2Pt-WO-yYs" secondAttribute="trailing" id="49I-sj-iW3"/>
                                                         <constraint firstItem="2Pt-WO-yYs" firstAttribute="top" secondItem="f5k-y3-Osn" secondAttribute="bottom" constant="2" id="6aW-YP-Ufm"/>
+                                                        <constraint firstItem="4JX-Xb-u2Z" firstAttribute="leading" secondItem="f5k-y3-Osn" secondAttribute="trailing" constant="20" id="9tE-DB-VIA"/>
+                                                        <constraint firstItem="4JX-Xb-u2Z" firstAttribute="top" secondItem="qvA-4t-XBU" secondAttribute="top" constant="5" id="Dls-vI-vm0"/>
                                                         <constraint firstItem="5BK-B0-aQe" firstAttribute="top" secondItem="f5k-y3-Osn" secondAttribute="top" id="KCU-Wa-COi"/>
                                                         <constraint firstItem="f5k-y3-Osn" firstAttribute="leading" secondItem="5BK-B0-aQe" secondAttribute="trailing" constant="10" id="NwV-FU-O9i"/>
                                                         <constraint firstAttribute="trailingMargin" secondItem="xDD-li-e6G" secondAttribute="trailing" constant="7" id="OM7-cd-iPV"/>
@@ -1623,7 +1633,7 @@
                 </view>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LxH-La-ie8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-418" y="3055"/>
+            <point key="canvasLocation" x="-462" y="3054"/>
         </scene>
         <!--Edit Consulting Project View Controller-->
         <scene sceneID="gQX-jd-d17">
@@ -1752,6 +1762,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="constraintLikeBtnTrailing" destination="YNA-eQ-G5K" id="Awi-39-Rpv"/>
+                                            <outlet property="constraintPostedByBtnTrailing" destination="2TZ-Ol-MaP" id="MwL-2N-W44"/>
                                             <outlet property="followBtn" destination="HFx-Vi-bMb" id="bxl-71-4Kc"/>
                                             <outlet property="likeBtn" destination="lyv-fY-YDc" id="faK-U0-cF6"/>
                                             <outlet property="postedByBtn" destination="pqi-u8-sFv" id="BdB-K6-Ihe"/>
@@ -2532,7 +2543,7 @@
                                         <color key="separatorColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <inset key="separatorInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="userProfileCell" id="n55-JN-Rdm" customClass="UserFundTableViewCell">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="userProfileCell" id="n55-JN-Rdm" customClass="UserFundTableViewCell">
                                                 <rect key="frame" x="0.0" y="28" width="325" height="60"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="n55-JN-Rdm" id="WRN-wE-BpC">
@@ -3117,7 +3128,7 @@
                 </view>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wcW-Mj-Lwz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="244" y="3055"/>
+            <point key="canvasLocation" x="255" y="3109"/>
         </scene>
     </scenes>
     <resources>
@@ -3127,7 +3138,7 @@
         <image name="Campaign_follow" width="76" height="25"/>
         <image name="Chat_user" width="29" height="29"/>
         <image name="Login_loginBtn" width="132" height="30"/>
-        <image name="Plus_Icon" width="14" height="14"/>
+        <image name="Plus_Icon" width="22" height="22"/>
         <image name="ShoppingCart_uncheck" width="15" height="15"/>
         <image name="Signup_btn" width="297" height="25"/>
         <image name="dislike_blue" width="16" height="16"/>

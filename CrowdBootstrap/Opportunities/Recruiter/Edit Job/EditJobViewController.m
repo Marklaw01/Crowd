@@ -403,7 +403,6 @@
             
             [UtilityClass hideHud] ;
             if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode )  {
-                NSLog(@"Country Response : %@", responseDict);
                 countryArray = [NSMutableArray arrayWithArray:(NSArray*)[responseDict objectForKey:@"country"]] ;
                 [pickerVw reloadAllComponents];
             }
@@ -430,7 +429,6 @@
             
             [UtilityClass hideHud] ;
             if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode ) {
-                NSLog(@"States Response : %@", responseDict);
                 statesArray = [NSMutableArray arrayWithArray:(NSArray*)[responseDict objectForKey:@"state"]] ;
                 [pickerVw reloadAllComponents] ;
             }
@@ -451,7 +449,6 @@
             
             [UtilityClass hideHud] ;
             if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode ) {
-                NSLog(@"Job Type Response : %@", responseDict);
                 jobTypeArray = [NSMutableArray arrayWithArray:(NSArray*)[responseDict objectForKey:@"job_type_list"]] ;
                 [pickerVw reloadAllComponents];
             }
@@ -479,7 +476,6 @@
             [UtilityClass hideHud];
             NSLog(@"responseDict: %@",responseDict);
             if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode ) {
-                NSLog(@"Company Response : %@", responseDict);
                 companiesArray = [NSMutableArray arrayWithArray:(NSArray*)[responseDict objectForKey:@"company_list"]];
                 [pickerVw reloadAllComponents];
             }
@@ -619,6 +615,7 @@
             NSLog(@"responseDict %@", responseDict);
             if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode )  {
                 [UtilityClass showNotificationMessgae:kEditJob_SuccessMessage withResultType:@"0" withDuration:1] ;
+                [UtilityClass setComingFrom_Job_AddEditScreen:YES];
                 [self.navigationController popViewControllerAnimated:YES] ;
             }
             else if([[responseDict valueForKey:@"code"] intValue] == kErrorCode ) [self presentViewController:[UtilityClass displayAlertMessage:[responseDict valueForKey:@"message"]] animated:YES completion:nil];
@@ -630,7 +627,33 @@
         }] ;
     }
 }
-    
+
+-(void)activateJob {
+    if([UtilityClass checkInternetConnection]) {
+        [UtilityClass showHudWithTitle:kHUDMessage_PleaseWait] ;
+        
+        NSMutableDictionary *dictParam = [[NSMutableDictionary alloc] init];
+        [dictParam setObject:[NSString stringWithFormat:@"%@",[jobData valueForKey:kJobDetailAPI_JobID]] forKey:kJobDetailAPI_JobID] ;
+
+        NSLog(@"dictParam: %@",dictParam) ;
+        [ApiCrowdBootstrap activateJobWithParameters:dictParam success:^(NSDictionary *responseDict) {
+            [UtilityClass hideHud] ;
+            if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode) {
+                NSLog(@"Response: %@",responseDict) ;
+
+                [UtilityClass showNotificationMessgae:kActivateJob_SuccessMessage withResultType:@"0" withDuration:1] ;
+                [UtilityClass setComingFrom_Job_AddEditScreen:YES];
+                [self.navigationController popViewControllerAnimated:YES] ;
+            }
+            else if([[responseDict valueForKey:@"code"] intValue] == kErrorCode)
+                [self presentViewController:[UtilityClass displayAlertMessage:[responseDict valueForKey:@"message"]] animated:YES completion:nil];
+        } failure:^(NSError *error) {
+            [UtilityClass displayAlertMessage:error.description] ;
+            [UtilityClass hideHud] ;
+        }] ;
+    }
+}
+
 -(void)getJobDetails {
     if([UtilityClass checkInternetConnection]) {
         
@@ -712,37 +735,42 @@
 }
     
 - (IBAction)Submit_ClickAction:(id)sender {
-    
-    if(![self validatetextFieldsWithSectionIndex:JOB_CHOOSE_COMPANY_SECTION_INDEX]) return ;
-    else if(![self validatetextFieldsWithSectionIndex:JOB_COUNTRY_SECTION_INDEX]) return ;
-    else if(![self validatetextFieldsWithSectionIndex:JOB_STATE_SECTION_INDEX]) return ;
-    else if(![self validatetextFieldsWithSectionIndex:JOB_TITLE_SECTION_INDEX]) return ;
-    else if(![self validatetextFieldsWithSectionIndex:JOB_ROLE_SECTION_INDEX]) return ;
-    else if(![self validatetextFieldsWithSectionIndex:JOB_TYPE_SECTION_INDEX]) return ;
-    else if(![self validatetextFieldsWithSectionIndex:JOB_MIN_WORK_NPS_SECTION_INDEX]) return ;
-    else if(![self validatetextFieldsWithSectionIndex:JOB_LOCATION_SECTION_INDEX]) return ;
-    else if(![self validatetextFieldsWithSectionIndex:JOB_TRAVEL_SECTION_INDEX]) return ;
-    else if(![self validatetextFieldsWithSectionIndex:JOB_START_DATE_SECTION_INDEX]) return ;
-    else if(![self validatetextFieldsWithSectionIndex:JOB_END_DATE_SECTION_INDEX]) return ;
-    else if(![self validatetextFieldsWithSectionIndex:JOB_REQUIREMENT_SECTION_INDEX]) return ;
-    else if(![self validatetextFieldsWithSectionIndex:JOB_SUMMARY_SECTION_INDEX]) return ;
-    
-    else if(selectedIndustryKeywordsArray.count < 1) {
-        [self presentViewController:[UtilityClass displayAlertMessage:kAlert_IndustryKeywordRequired] animated:YES completion:nil] ;
-        return ;
+    if (selectedSegment == MYJOBS_SELECTED) {
+        if(![self validatetextFieldsWithSectionIndex:JOB_CHOOSE_COMPANY_SECTION_INDEX]) return ;
+        else if(![self validatetextFieldsWithSectionIndex:JOB_COUNTRY_SECTION_INDEX]) return ;
+        else if(![self validatetextFieldsWithSectionIndex:JOB_STATE_SECTION_INDEX]) return ;
+        else if(![self validatetextFieldsWithSectionIndex:JOB_TITLE_SECTION_INDEX]) return ;
+        else if(![self validatetextFieldsWithSectionIndex:JOB_ROLE_SECTION_INDEX]) return ;
+        else if(![self validatetextFieldsWithSectionIndex:JOB_TYPE_SECTION_INDEX]) return ;
+        else if(![self validatetextFieldsWithSectionIndex:JOB_MIN_WORK_NPS_SECTION_INDEX]) return ;
+        else if(![self validatetextFieldsWithSectionIndex:JOB_LOCATION_SECTION_INDEX]) return ;
+        else if(![self validatetextFieldsWithSectionIndex:JOB_TRAVEL_SECTION_INDEX]) return ;
+        else if(![self validatetextFieldsWithSectionIndex:JOB_START_DATE_SECTION_INDEX]) return ;
+        else if(![self validatetextFieldsWithSectionIndex:JOB_END_DATE_SECTION_INDEX]) return ;
+        else if(![self validatetextFieldsWithSectionIndex:JOB_REQUIREMENT_SECTION_INDEX]) return ;
+        else if(![self validatetextFieldsWithSectionIndex:JOB_SUMMARY_SECTION_INDEX]) return ;
+        
+        else if(selectedIndustryKeywordsArray.count < 1) {
+            [self presentViewController:[UtilityClass displayAlertMessage:kAlert_IndustryKeywordRequired] animated:YES completion:nil] ;
+            return ;
+        }
+        else if(selectedJobPostingKeywordsArray.count < 1) {
+            [self presentViewController:[UtilityClass displayAlertMessage:kAlert_JobPostingKeywordRequired] animated:YES completion:nil] ;
+            return ;
+        }
+        else if(selectedSkillsArray.count < 1) {
+            [self presentViewController:[UtilityClass displayAlertMessage:kAlert_SkillsKeywordRequired] animated:YES completion:nil] ;
+            return ;
+        }
+        else [self editJob] ;
+    } else {
+        // Activate Job
+        [self activateJob];
     }
-    else if(selectedJobPostingKeywordsArray.count < 1) {
-        [self presentViewController:[UtilityClass displayAlertMessage:kAlert_JobPostingKeywordRequired] animated:YES completion:nil] ;
-        return ;
-    }
-    else if(selectedSkillsArray.count < 1) {
-        [self presentViewController:[UtilityClass displayAlertMessage:kAlert_SkillsKeywordRequired] animated:YES completion:nil] ;
-        return ;
-    }
-    else [self editJob] ;
 }
     
 - (IBAction)Back_Click:(id)sender {
+    [UtilityClass setComingFrom_Job_AddEditScreen:YES];
     [self.navigationController popViewControllerAnimated:YES] ;
 }
     
@@ -1216,6 +1244,13 @@
             CommitTableViewCell *cell = (CommitTableViewCell*)[tableView dequeueReusableCellWithIdentifier:SUBMIT_CELL_IDENTIFIER] ;
             cell.selectionStyle = UITableViewCellSelectionStyleNone ;
             
+            if (selectedSegment == MYJOBS_SELECTED) {
+                [cell.commitBtn setTitle:SUBMIT_TEXT forState:UIControlStateNormal];
+            }
+            else if (selectedSegment == DEACTIVATED_JOB_SELECTED) {
+                [cell.commitBtn setTitle:ACTIVATE_TEXT forState:UIControlStateNormal];
+            }
+
             return cell ;
         }
         else if(indexPath.section == JOB_INDUSTRY_KEYWORDS_SECTION_INDEX || indexPath.section == JOB_POSTING_KEYWORDS_SECTION_INDEX || indexPath.section == JOB_SKILLS_SECTION_INDEX) {
@@ -1358,9 +1393,13 @@
     
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (tableView == popupTblView)
-    return 1;
-    else
-    return sectionsArray.count+1 ;
+        return 1;
+    else {
+        if (selectedSegment == MYJOBS_SELECTED || selectedSegment == DEACTIVATED_JOB_SELECTED)
+            return sectionsArray.count+1 ;
+        else
+            return sectionsArray.count;
+    }
 }
     
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

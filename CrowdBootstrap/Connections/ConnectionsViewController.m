@@ -454,6 +454,11 @@
     [self sendMessage] ;
 }
 
+- (IBAction)cancelMessageBtn_ClickAction:(id)sender {
+    [self.view endEditing:true];
+    vwPopup.hidden = true;
+}
+
 - (IBAction)navigateToNotification_Click:(id)sender {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:kNotificationViewIdentifier] ;

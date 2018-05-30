@@ -27,7 +27,6 @@
     // Do any additional setup after loading the view.
     [self resetUISettings] ;
     [self resetNavigationBarsettings];
-    [self getExperienceList];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -40,6 +39,8 @@
                                              selector:@selector(keyboardWillBeHidden:)
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
+    
+    [self getExperienceList];
 }
 
 -(void)viewDidDisappear:(BOOL)animated {
@@ -511,8 +512,11 @@
         [dictParam setObject:[[sectionsArray objectAtIndex:kCellIndex_JobTitle] valueForKey:@"value"] forKey:kApplyJob_Name] ;
         [dictParam setObject:[[sectionsArray objectAtIndex:kCellIndex_JobDesc] valueForKey:@"value"] forKey:kApplyJob_Summary] ;
         [dictParam setObject:[[sectionsArray objectAtIndex:kCellIndex_JobCoverLetter] valueForKey:@"value"] forKey:kApplyJob_CoverLetterText] ;
-        [dictParam setObject:jobExperienceId forKey:kApplyJob_JobExperienceID] ;
-        
+        if (jobExperienceId != nil)
+            [dictParam setObject:jobExperienceId forKey:kApplyJob_JobExperienceID] ;
+        else
+            [dictParam setObject:@"" forKey:kApplyJob_JobExperienceID] ;
+
 //        NSArray *arrDoc = [[NSArray alloc] init];
 //        [dictParam setObject:arrDoc forKey:kApplyJob_CoverLetterDoc];
 //

@@ -14,13 +14,21 @@
 
 @implementation ManageGroupsViewController
 
+#pragma mark - View Lifecycle Methods
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addObserver];
 
     groupArray = [[NSMutableArray alloc] init];
-    
+
+    UITapGestureRecognizer *singleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap:)];
+    singleTapGestureRecognizer.numberOfTapsRequired = 1;
+    singleTapGestureRecognizer.enabled = YES;
+    singleTapGestureRecognizer.cancelsTouchesInView = NO;
+    [tblViewGroups addGestureRecognizer:singleTapGestureRecognizer];
+
     [self getBusinessConnectionTypeList];
+    tblViewGroups.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -47,16 +55,60 @@
                                 lblNotificationCount:lblNotificationCount navItem:self.navigationItem];
 }
 
-#pragma mark - Cell Delegate Methods
-- (void)saveGroupName:(NSString *)text tag:(NSInteger)tag {
-    NSMutableDictionary *dictGroup = [[NSMutableDictionary alloc] init];
-    [dictGroup addEntriesFromDictionary:groupArray[tag]];
-    [dictGroup setValue:text forKey:kBusinessAPI_Name];
-
-    groupArray[tag] = dictGroup;
-    NSLog(@"Group Array: %@", groupArray);
+- (void)singleTap:(UITapGestureRecognizer *)gesture {
+    [self.view endEditing:YES];
 }
 
+#pragma mark - Cell Delegate Methods
+- (void)txtFldDidBeginEditing:(UITextField *)txtfld {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[txtfld tag] inSection:0];
+    NSLog(@"Row: %ld", (long)indexPath.row);
+    
+//    [tblViewGroups scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    CGPoint pointInTable = [txtfld.superview convertPoint:txtfld.frame.origin toView:tblViewGroups];
+    CGPoint contentOffset = tblViewGroups.contentOffset;
+    
+    contentOffset.y = (pointInTable.y - txtfld.inputAccessoryView.frame.size.height);
+    
+    NSLog(@"contentOffset is: %@", NSStringFromCGPoint(contentOffset));
+    [tblViewGroups setContentOffset:contentOffset animated:YES];
+}
+
+// Save Group Name
+- (void)txtFldDidEndEditing:(UITextField *)txtfld {
+    
+    NSMutableDictionary *dictGroup = [[NSMutableDictionary alloc] init];
+    [dictGroup addEntriesFromDictionary:groupArray[[txtfld tag]]];
+    [dictGroup setValue:txtfld.text forKey:kBusinessAPI_Name];
+    
+    groupArray[[txtfld tag]] = dictGroup;
+    NSLog(@"Group Array: %@", groupArray);
+    
+    [txtfld resignFirstResponder];
+    if ([txtfld.superview.superview isKindOfClass:[UITableViewCell class]])
+    {
+        CGPoint buttonPosition = [tblViewGroups convertPoint:CGPointZero
+                                                  toView: tblViewGroups];
+        NSIndexPath *indexPath = [tblViewGroups indexPathForRowAtPoint:buttonPosition];
+        
+        [tblViewGroups scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:TRUE];
+    }
+}
+
+- (void)txtVwDidBeginEditing:(UITextView *)txtVw {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[txtVw tag] inSection:0];
+    NSLog(@"Row: %ld", (long)indexPath.row);
+    
+    CGPoint pointInTable = [txtVw.superview convertPoint:txtVw.frame.origin toView:tblViewGroups];
+    CGPoint contentOffset = tblViewGroups.contentOffset;
+    
+    contentOffset.y = (pointInTable.y - txtVw.inputAccessoryView.frame.size.height);
+    
+    NSLog(@"contentOffset is: %@", NSStringFromCGPoint(contentOffset));
+    [tblViewGroups setContentOffset:contentOffset animated:YES];
+}
+
+// Save Group Description
 - (void)saveGroupDesc:(NSString *)text tag:(NSInteger)tag {
     NSMutableDictionary *dictGroup = [[NSMutableDictionary alloc] init];
     [dictGroup addEntriesFromDictionary:groupArray[tag]];
@@ -66,6 +118,7 @@
     NSLog(@"Group Array: %@", groupArray);
 }
 
+// Delete Group
 - (void)deleteGroup:(NSInteger)tag {
     NSMutableDictionary *dict = [groupArray objectAtIndex:tag];
     if (dict == nil) {
@@ -121,8 +174,8 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:groupArray.count-1 inSection:0];
     
     [tblViewGroups insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-//    [tblViewGroups reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     [tblViewGroups endUpdates];
+    [tblViewGroups scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
 - (IBAction)btnSaveClicked:(id)sender {

@@ -84,7 +84,7 @@
                                 <color key="separatorColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <inset key="separatorInset" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="communalAssetCell" rowHeight="145" id="TyR-J1-aGC" customClass="FundsTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="communalAssetCell" rowHeight="145" id="TyR-J1-aGC" customClass="FundsTableViewCell">
                                         <rect key="frame" x="0.0" y="28" width="375" height="145"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TyR-J1-aGC" id="ymR-0d-h9S">
@@ -107,7 +107,6 @@
                                                         <constraint firstAttribute="height" constant="50" id="KIz-fQ-dy5"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
-                                                    <color key="textColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
@@ -444,7 +443,7 @@
                                         <color key="separatorColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <inset key="separatorInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="userProfileCell" id="2uj-jV-8vI" customClass="UserFundTableViewCell">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="userProfileCell" id="2uj-jV-8vI" customClass="UserFundTableViewCell">
                                                 <rect key="frame" x="0.0" y="28" width="325" height="60"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2uj-jV-8vI" id="m0M-sH-BvA">
@@ -1459,14 +1458,14 @@
                                                 <exclude reference="bsP-AI-R5Z"/>
                                             </mask>
                                             <mask key="constraints">
-                                                <exclude reference="SAy-GS-fcz"/>
-                                                <exclude reference="fbL-37-QS8"/>
-                                                <exclude reference="i4O-gc-h8q"/>
                                                 <exclude reference="3cJ-aM-O8l"/>
                                                 <exclude reference="6DR-ZO-5V8"/>
                                                 <exclude reference="U64-6y-YxK"/>
                                                 <exclude reference="h2J-lh-6Xz"/>
                                                 <exclude reference="nwi-2E-O9U"/>
+                                                <exclude reference="SAy-GS-fcz"/>
+                                                <exclude reference="fbL-37-QS8"/>
+                                                <exclude reference="i4O-gc-h8q"/>
                                             </mask>
                                         </variation>
                                         <variation key="heightClass=regular-widthClass=compact">
@@ -1475,14 +1474,14 @@
                                                 <include reference="bsP-AI-R5Z"/>
                                             </mask>
                                             <mask key="constraints">
-                                                <include reference="SAy-GS-fcz"/>
-                                                <include reference="fbL-37-QS8"/>
-                                                <include reference="i4O-gc-h8q"/>
                                                 <include reference="3cJ-aM-O8l"/>
                                                 <include reference="6DR-ZO-5V8"/>
                                                 <include reference="U64-6y-YxK"/>
                                                 <include reference="h2J-lh-6Xz"/>
                                                 <include reference="nwi-2E-O9U"/>
+                                                <include reference="SAy-GS-fcz"/>
+                                                <include reference="fbL-37-QS8"/>
+                                                <include reference="i4O-gc-h8q"/>
                                             </mask>
                                         </variation>
                                     </tableViewCellContentView>
@@ -1692,6 +1691,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="constraintLikeBtnTrailing" destination="uw4-PG-fHs" id="R4s-fd-8eE"/>
+                                            <outlet property="constraintPostedByBtnTrailing" destination="1PM-LH-ZPA" id="jH5-sn-ECt"/>
                                             <outlet property="followBtn" destination="w9h-9I-HLk" id="vgc-En-9LK"/>
                                             <outlet property="likeBtn" destination="fJG-Di-VMH" id="mD3-6P-ea0"/>
                                             <outlet property="postedByBtn" destination="XpQ-PJ-VKM" id="XK4-hj-1vw"/>
@@ -2444,7 +2444,7 @@
                                         <color key="separatorColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <inset key="separatorInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="userProfileCell" id="C8e-g7-8OE" customClass="UserFundTableViewCell">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="userProfileCell" id="C8e-g7-8OE" customClass="UserFundTableViewCell">
                                                 <rect key="frame" x="0.0" y="28" width="325" height="60"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="C8e-g7-8OE" id="iVT-Np-AOx">
@@ -2803,14 +2803,14 @@
                                                 <exclude reference="AWn-uL-ygj"/>
                                             </mask>
                                             <mask key="constraints">
-                                                <exclude reference="OeS-jV-LLK"/>
-                                                <exclude reference="mc5-yL-hLL"/>
-                                                <exclude reference="uJU-8g-xvJ"/>
                                                 <exclude reference="2tk-v9-YK6"/>
                                                 <exclude reference="CV7-l1-mTm"/>
                                                 <exclude reference="IDe-rc-iUx"/>
                                                 <exclude reference="N5m-me-sdR"/>
                                                 <exclude reference="a3G-NY-9Oc"/>
+                                                <exclude reference="OeS-jV-LLK"/>
+                                                <exclude reference="mc5-yL-hLL"/>
+                                                <exclude reference="uJU-8g-xvJ"/>
                                             </mask>
                                         </variation>
                                         <variation key="heightClass=regular-widthClass=compact">
@@ -2819,14 +2819,14 @@
                                                 <include reference="AWn-uL-ygj"/>
                                             </mask>
                                             <mask key="constraints">
-                                                <include reference="OeS-jV-LLK"/>
-                                                <include reference="mc5-yL-hLL"/>
-                                                <include reference="uJU-8g-xvJ"/>
                                                 <include reference="2tk-v9-YK6"/>
                                                 <include reference="CV7-l1-mTm"/>
                                                 <include reference="IDe-rc-iUx"/>
                                                 <include reference="N5m-me-sdR"/>
                                                 <include reference="a3G-NY-9Oc"/>
+                                                <include reference="OeS-jV-LLK"/>
+                                                <include reference="mc5-yL-hLL"/>
+                                                <include reference="uJU-8g-xvJ"/>
                                             </mask>
                                         </variation>
                                     </tableViewCellContentView>
@@ -3026,7 +3026,7 @@
         <image name="Campaign_follow" width="76" height="25"/>
         <image name="Chat_user" width="29" height="29"/>
         <image name="Login_loginBtn" width="132" height="30"/>
-        <image name="Plus_Icon" width="14" height="14"/>
+        <image name="Plus_Icon" width="22" height="22"/>
         <image name="ShoppingCart_uncheck" width="15" height="15"/>
         <image name="Signup_btn" width="297" height="25"/>
         <image name="dislike_blue" width="16" height="16"/>

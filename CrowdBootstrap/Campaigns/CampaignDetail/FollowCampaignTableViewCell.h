@@ -21,5 +21,6 @@
 @property (strong, nonatomic) IBOutlet UIButton *postedByBtn;
 
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *constraintLikeBtnTrailing;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *constraintPostedByBtnTrailing;
 
 @end

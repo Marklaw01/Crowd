@@ -30,9 +30,11 @@
         [btnAddNote setTitle:@"Edit Note" forState:UIControlStateNormal];
         NSString *noteDesc = [_selectedNoteDict valueForKey:kBusinessAPI_NoteDesc];
         txtVwNotes.text = noteDesc;
+        btnViewNotes.hidden = true;
     } else {
         [btnAddNote setTitle:@"Add Note" forState:UIControlStateNormal];
         txtVwNotes.text = @"";
+        btnViewNotes.hidden = false;
     }
 }
 
@@ -42,26 +44,8 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-
     imgVwUser.layer.cornerRadius = imgVwUser.frame.size.width/2;
     imgVwUser.clipsToBounds = YES;
-
-    if ([_strBusinessCardScreenType isEqualToString:@"NotesDetail"]) {
-        lblUsername.text = [NSString stringWithFormat:@"%@",[_selectedNoteDict valueForKey:kBusinessAPI_Name]] ;
-        [imgVwUser sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",APIPortToBeUsed,[_selectedNoteDict valueForKey:kBusinessAPI_UserProfileImage]]] placeholderImage:[UIImage imageNamed:kImage_ProfilePicDefault]] ;
-    }
-    else if ([_strBusinessCardScreenType isEqualToString:@"CardDetail"]) {
-        lblUsername.text = [NSString stringWithFormat:@"%@",[_selectedCardDict valueForKey:kBusinessAPI_UserName]] ;
-        [imgVwUser sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",APIPortToBeUsed,[_selectedCardDict valueForKey:kBusinessAPI_UserImage]]] placeholderImage:[UIImage imageNamed:kImage_ProfilePicDefault]] ;
-    }
-    else if ([_strBusinessCardScreenType isEqualToString:@"PublicProfile"]) {
-        lblUsername.text = [NSString stringWithFormat:@"%@",[_selectedProfileDict valueForKey:kBusinessAPI_Name]] ;
-        [imgVwUser sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",APIPortToBeUsed,[_selectedProfileDict valueForKey:kBusinessAPI_UserProfileImage]]] placeholderImage:[UIImage imageNamed:kImage_ProfilePicDefault]] ;
-    }
-    else {
-        lblUsername.text = [NSString stringWithFormat:@"%@",[_selectedUserDict valueForKey:kBusinessAPI_Name]] ;
-        [imgVwUser sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",APIPortToBeUsed,[_selectedUserDict valueForKey:kBusinessAPI_UserImage]]] placeholderImage:[UIImage imageNamed:kImage_ProfilePicDefault]] ;
-    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -70,6 +54,11 @@
 }
 
 #pragma mark - Custom Methods
+- (void)singleTap:(UITapGestureRecognizer *)gesture {
+    if (![_selectedItem isKindOfClass:[UITextField class]])
+        [self.view endEditing:YES];
+}
+
 - (void) addObserver {
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(setNotificationIconOnNavigationBar:) name:kNotificationIconOnNavigationBar
@@ -86,7 +75,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(SendProfileInfoNotification:) name:kNotificationSendProfileInfo
                                                object:nil];
-
 }
 
 -(void)setNotificationIconOnNavigationBar:(NSNotification *) notification {
@@ -139,16 +127,24 @@
     
     txtConnectionType.inputView = pickerViewContainer ;
     
-    // Set Borders And Margins to Text Fields
+    // Set Borders And Margins to Text Views
     [UtilityClass setTextFieldBorder:txtConnectionType] ;
     [UtilityClass setTextViewBorder:txtVwUserBio] ;
     [UtilityClass setTextViewBorder:txtVwUserInterest] ;
     [UtilityClass setTextViewBorder:txtVwUserStatement] ;
+    [UtilityClass setTextViewBorder:txtVwNotes] ;
 
     [UtilityClass addMarginsOnTextField:txtConnectionType];
     [UtilityClass addMarginsOnTextView:txtVwUserBio];
     [UtilityClass addMarginsOnTextView:txtVwUserInterest];
     [UtilityClass addMarginsOnTextView:txtVwUserStatement];
+    [UtilityClass addMarginsOnTextView:txtVwNotes];
+
+    UITapGestureRecognizer *singleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap:)];
+    singleTapGestureRecognizer.numberOfTapsRequired = 1;
+    singleTapGestureRecognizer.enabled = YES;
+    singleTapGestureRecognizer.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:singleTapGestureRecognizer];
 }
 
 - (void)setConnectionField {    
@@ -181,10 +177,11 @@
     }
 }
 
--(void)showCardDetails:(NSDictionary *)dictCard {
-    txtVwUserBio.text = [dictCard valueForKey:kBusinessAPI_UserBio];
-    txtVwUserInterest.text = [dictCard valueForKey:kBusinessAPI_UserInterest];
-    txtVwUserStatement.text = [dictCard valueForKey:kBusinessAPI_UserStatement];
+-(void)showCardDetails {
+    
+    txtVwUserBio.text = [dictBusinessCard valueForKey:kBusinessAPI_UserBio];
+    txtVwUserInterest.text = [dictBusinessCard valueForKey:kBusinessAPI_UserInterest];
+    txtVwUserStatement.text = [dictBusinessCard valueForKey:kBusinessAPI_UserStatement];
 
     txtVwUserBio.userInteractionEnabled = false;
     txtVwUserInterest.userInteractionEnabled = false;
@@ -192,13 +189,50 @@
 
     // Image
     NSString *strImage = @"";
-    if([dictCard objectForKey:kBusinessAPI_CardImage]) {
-        strImage = [NSString stringWithFormat:@"%@%@",APIPortToBeUsed, [dictCard objectForKey:kBusinessAPI_CardImage]];
+    if([dictBusinessCard objectForKey:kBusinessAPI_CardImage]) {
+        strImage = [NSString stringWithFormat:@"%@%@",APIPortToBeUsed, [dictBusinessCard objectForKey:kBusinessAPI_CardImage]];
         NSURL *url = [NSURL URLWithString:[strImage stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         imgData = [NSData dataWithContentsOfURL:url];
     }
 
     [imgVwBusinessCard sd_setImageWithURL:[NSURL URLWithString:strImage] placeholderImage:[UIImage imageNamed:kPlaceholderImage_Logo]] ;
+    
+    // Set user Name
+    if(![[dictBusinessCard objectForKey:kBusinessAPI_LinkedIn_UserName] isEqualToString:@""]) {
+        lblUsername.text = [NSString stringWithFormat:@"%@",[dictBusinessCard objectForKey:kBusinessAPI_LinkedIn_UserName]] ;
+    } else {
+        if ([_strBusinessCardScreenType isEqualToString:@"NotesDetail"]) {
+            lblUsername.text = [NSString stringWithFormat:@"%@",[_selectedNoteDict valueForKey:kBusinessAPI_Name]] ;
+        }
+        else if ([_strBusinessCardScreenType isEqualToString:@"CardDetail"]) {
+            lblUsername.text = [NSString stringWithFormat:@"%@",[_selectedCardDict valueForKey:kBusinessAPI_UserName]] ;
+        }
+        else if ([_strBusinessCardScreenType isEqualToString:@"PublicProfile"]) {
+            lblUsername.text = [NSString stringWithFormat:@"%@",[_selectedProfileDict valueForKey:kBusinessAPI_Name]] ;
+        }
+        else { // "User Detail"
+            lblUsername.text = [NSString stringWithFormat:@"%@",[_selectedUserDict valueForKey:kBusinessAPI_Name]] ;
+        }
+    }
+    
+    // Set User Image
+    if(![[dictBusinessCard objectForKey:kBusinessAPI_LinkedIn_UserImage] isEqualToString:@""]) {
+        [imgVwUser sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",APIPortToBeUsed,[dictBusinessCard objectForKey:kBusinessAPI_LinkedIn_UserImage]]] placeholderImage:[UIImage imageNamed:kImage_ProfilePicDefault]] ;
+
+    } else {
+        if ([_strBusinessCardScreenType isEqualToString:@"NotesDetail"]) {
+            [imgVwUser sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",APIPortToBeUsed,[_selectedNoteDict valueForKey:kBusinessAPI_UserProfileImage]]] placeholderImage:[UIImage imageNamed:kImage_ProfilePicDefault]] ;
+        }
+        else if ([_strBusinessCardScreenType isEqualToString:@"CardDetail"]) {
+            [imgVwUser sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",APIPortToBeUsed,[_selectedCardDict valueForKey:kBusinessAPI_UserImage]]] placeholderImage:[UIImage imageNamed:kImage_ProfilePicDefault]] ;
+        }
+        else if ([_strBusinessCardScreenType isEqualToString:@"PublicProfile"]) {
+            [imgVwUser sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",APIPortToBeUsed,[_selectedProfileDict valueForKey:kBusinessAPI_UserProfileImage]]] placeholderImage:[UIImage imageNamed:kImage_ProfilePicDefault]] ;
+        }
+        else { // "User Detail"
+            [imgVwUser sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",APIPortToBeUsed,[_selectedUserDict valueForKey:kBusinessAPI_UserImage]]] placeholderImage:[UIImage imageNamed:kImage_ProfilePicDefault]] ;
+        }
+    }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -215,7 +249,9 @@
 
 #pragma mark - TextField Delegate Methods
 -(void)textFieldDidBeginEditing:(UITextField *)textField {
-    
+    _selectedItem = textField;
+    [self animateTextField:textField up: YES];
+
     int index = [UtilityClass getPickerViewSelectedIndexFromArray:connectionTypeArray forID:selectedConnectionTypeID] ;
     if(index == -1)
         [pickerView selectRow:0 inComponent:0 animated:YES] ;
@@ -227,11 +263,38 @@
 
 #pragma mark - TextView Delegate Methods
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-    if([text isEqualToString:@"\n"]) {
-        [textView resignFirstResponder];
-    }
+//    if([text isEqualToString:@"\n"]) {
+//        [textView resignFirstResponder];
+//    }
     
     return YES;
+}
+
+-(void)textViewDidBeginEditing:(UITextView *)textView {
+    _selectedItem = textView;
+    [self animateTextField:textView up: YES];
+}
+
+-(void)textViewDidEndEditing:(UITextView *)textView {
+    _selectedItem = textView ;
+    [self animateTextField:textView up: NO];
+}
+
+- (void)animateTextField:(UIView*)view up:(BOOL)up
+{
+    CGFloat yAxis = self.view.frame.origin.y;
+    if (yAxis == 0 || up == NO) {
+    const int movementDistance = 200; // tweak as needed
+    const float movementDuration = 0.3f; // tweak as needed
+    
+    int movement = (up ? -movementDistance : movementDistance);
+    
+    [UIView beginAnimations: @"anim" context: nil];
+    [UIView setAnimationBeginsFromCurrentState: YES];
+    [UIView setAnimationDuration: movementDuration];
+    self.view.frame = CGRectOffset(self.view.frame, 0, movement);
+    [UIView commitAnimations];
+    }
 }
 
 #pragma mark - Image Picker Methods
@@ -288,9 +351,14 @@
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    txtConnectionType.text = connectionTypeArray[row-1][@"name"];
-    selectedConnectionTypeID = connectionTypeArray[row-1][@"id"];
-    NSLog(@"Selected Connection Type - %@: %@",txtConnectionType.text, selectedConnectionTypeID);
+    if (row == 0) {
+        txtConnectionType.text = @"";
+        selectedConnectionTypeID = @"";
+    } else {
+        txtConnectionType.text = connectionTypeArray[row-1][@"name"];
+        selectedConnectionTypeID = [connectionTypeArray[row-1][@"id"] stringValue];
+        NSLog(@"Selected Connection Type - %@: %@",txtConnectionType.text, selectedConnectionTypeID);
+    }
 }
 
 #pragma mark - IBAction Methods
@@ -323,20 +391,29 @@
 }
 
 - (IBAction)addNote_ClickAction:(id)sender {
-    // Hit API to save note
-    if ([_strBusinessCardScreenType isEqualToString:@"NotesDetail"]) {
-        [self editNote];
-    } else {
-        [self addNote];
+    if (![txtVwNotes.text isEqualToString: @""]) {
+        // Hit API to save note
+        if ([_strBusinessCardScreenType isEqualToString:@"NotesDetail"]) {
+            [self editNote];
+        } else {
+            [self addNote];
+        }
+    }
+    else {
+        [self presentViewController:[UtilityClass displayAlertMessage:@"Please write down some notes."] animated:YES completion:nil];
     }
 }
 
 - (IBAction)connect_ClickAction:(id)sender {
-    [self addBusinessNetwork];
+    if ([selectedConnectionTypeID isEqualToString:@""])
+        [self presentViewController:[UtilityClass displayAlertMessage:@"Please select Connection Type"] animated:YES completion:nil];
+    else
+        [self addBusinessNetwork];
 }
 
 - (IBAction)PickerToolbarButtons_ClickAction:(id)sender {
     [txtConnectionType resignFirstResponder];
+    [self animateTextField:txtConnectionType up: NO];
 }
 
 - (IBAction)DropdownButton_ClickAction:(id)sender {
@@ -371,7 +448,8 @@
             
             NSLog(@"responseDict >>>>> %@", responseDict);
             if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode ) {
-                [self showCardDetails: responseDict];
+                dictBusinessCard = responseDict;
+                [self showCardDetails];
             }
             else if([[responseDict valueForKey:@"code"] intValue] == kErrorCode )
                 [self presentViewController:[UtilityClass displayAlertMessage:[responseDict valueForKey:@"message"]] animated:YES completion:nil];
@@ -425,6 +503,8 @@
         [dictParam setObject:txtVwNotes.text forKey:kBusinessAPI_Description] ;
         if ([_strBusinessCardScreenType isEqualToString:@"UserDetail"])
             [dictParam setObject:[_selectedUserDict valueForKey:kBusinessAPI_CardId] forKey:kBusinessAPI_BusinessCardId] ;
+        else if ([_strBusinessCardScreenType isEqualToString:@"PublicProfile"])
+            [dictParam setObject:[_selectedProfileDict valueForKey:kBusinessAPI_CardId] forKey:kBusinessAPI_BusinessCardId] ;
         else
             [dictParam setObject:[_selectedCardDict valueForKey:kBusinessAPI_CardId] forKey:kBusinessAPI_BusinessCardId] ;
 
@@ -488,13 +568,23 @@
         NSMutableDictionary *dictParam = [[NSMutableDictionary alloc] init];
         
         [dictParam setObject:[NSString stringWithFormat:@"%d",[UtilityClass getLoggedInUserID]] forKey:kBusinessAPI_UserID] ;
-        [dictParam setObject:selectedConnectionTypeID forKey:kBusinessAPI_ConnectionTypeId] ;
+        [dictParam setObject:selectedConnectionTypeID forKey:kBusinessAPI_ConnectionId] ;
+        
         if ([_strBusinessCardScreenType isEqualToString:@"UserDetail"]) {
             [dictParam setObject:[_selectedUserDict valueForKey:kBusinessAPI_CardId] forKey:kBusinessAPI_BusinessCardId] ;
-            [dictParam setObject:[_selectedUserDict valueForKey:kBusinessAPI_ContractorId] forKey:kBusinessAPI_ConnectedToId] ;
-        } else {
+            [dictParam setObject:[dictBusinessCard valueForKey:kBusinessAPI_UserID] forKey:kBusinessAPI_ConnectedToId] ;
+        }
+        else if ([_strBusinessCardScreenType isEqualToString:@"PublicProfile"]) {
+            [dictParam setObject:[_selectedProfileDict valueForKey:kBusinessAPI_CardId] forKey:kBusinessAPI_BusinessCardId] ;
+            [dictParam setObject:[dictBusinessCard valueForKey:kBusinessAPI_UserID] forKey:kBusinessAPI_ConnectedToId] ;
+        }
+        else if ([_strBusinessCardScreenType isEqualToString:@"NotesDetail"]) {
+            [dictParam setObject:[_selectedNoteDict valueForKey:kBusinessAPI_CardId] forKey:kBusinessAPI_BusinessCardId] ;
+            [dictParam setObject:[dictBusinessCard valueForKey:kBusinessAPI_UserID] forKey:kBusinessAPI_ConnectedToId] ;
+        }
+        else {
             [dictParam setObject:[_selectedCardDict valueForKey:kBusinessAPI_CardId] forKey:kBusinessAPI_BusinessCardId] ;
-            [dictParam setObject:[_selectedCardDict valueForKey:kBusinessAPI_UserID] forKey:kBusinessAPI_ConnectedToId] ;
+            [dictParam setObject:[dictBusinessCard valueForKey:kBusinessAPI_UserID] forKey:kBusinessAPI_ConnectedToId] ;
         }
         NSLog(@"dictParam: %@",dictParam) ;
         

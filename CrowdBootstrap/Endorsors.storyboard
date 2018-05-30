@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="HelveticaNeue.ttc">
-            <string>HelveticaNeue</string>
-            <string>HelveticaNeue-Medium</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--Edit Endorsor View Controller-->
         <scene sceneID="YZH-oq-ALF">
@@ -144,6 +138,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="constraintLikeBtnTrailing" destination="Q9Q-3f-MB2" id="j4j-fw-PWL"/>
+                                            <outlet property="constraintPostedByBtnTrailing" destination="qBq-8k-rsO" id="NiC-4p-ftM"/>
                                             <outlet property="followBtn" destination="I0M-qB-hYS" id="3jG-le-zbD"/>
                                             <outlet property="likeBtn" destination="0Em-Ow-2Jl" id="l5Y-w5-qnc"/>
                                             <outlet property="postedByBtn" destination="tbP-Hz-nLp" id="2Ky-T7-vWr"/>
@@ -896,7 +891,7 @@
                                         <color key="separatorColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <inset key="separatorInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="userProfileCell" id="nyE-g5-ush" customClass="UserFundTableViewCell">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="userProfileCell" id="nyE-g5-ush" customClass="UserFundTableViewCell">
                                                 <rect key="frame" x="0.0" y="28" width="325" height="60"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nyE-g5-ush" id="eh0-Iq-CtK">
@@ -1255,14 +1250,14 @@
                                                 <exclude reference="hJc-qw-TXV"/>
                                             </mask>
                                             <mask key="constraints">
-                                                <exclude reference="Mnj-LK-u4h"/>
-                                                <exclude reference="euK-1K-LoL"/>
-                                                <exclude reference="gu4-QX-OYI"/>
                                                 <exclude reference="MVt-We-hID"/>
                                                 <exclude reference="OoK-55-dOO"/>
                                                 <exclude reference="V5D-Xc-jWb"/>
                                                 <exclude reference="tBm-cx-XdK"/>
                                                 <exclude reference="xUk-sG-FFW"/>
+                                                <exclude reference="Mnj-LK-u4h"/>
+                                                <exclude reference="euK-1K-LoL"/>
+                                                <exclude reference="gu4-QX-OYI"/>
                                             </mask>
                                         </variation>
                                         <variation key="heightClass=regular-widthClass=compact">
@@ -1271,14 +1266,14 @@
                                                 <include reference="hJc-qw-TXV"/>
                                             </mask>
                                             <mask key="constraints">
-                                                <include reference="Mnj-LK-u4h"/>
-                                                <include reference="euK-1K-LoL"/>
-                                                <include reference="gu4-QX-OYI"/>
                                                 <include reference="MVt-We-hID"/>
                                                 <include reference="OoK-55-dOO"/>
                                                 <include reference="V5D-Xc-jWb"/>
                                                 <include reference="tBm-cx-XdK"/>
                                                 <include reference="xUk-sG-FFW"/>
+                                                <include reference="Mnj-LK-u4h"/>
+                                                <include reference="euK-1K-LoL"/>
+                                                <include reference="gu4-QX-OYI"/>
                                             </mask>
                                         </variation>
                                     </tableViewCellContentView>
@@ -1537,7 +1532,7 @@
                                 <color key="separatorColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <inset key="separatorInset" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="endorsorCell" rowHeight="145" id="sD1-DJ-Pko" customClass="FundsTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="endorsorCell" rowHeight="145" id="sD1-DJ-Pko" customClass="FundsTableViewCell">
                                         <rect key="frame" x="0.0" y="28" width="375" height="145"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sD1-DJ-Pko" id="IDv-LY-twF">
@@ -1560,7 +1555,6 @@
                                                         <constraint firstAttribute="height" constant="50" id="ub2-OK-xXp"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
-                                                    <color key="textColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
@@ -1897,7 +1891,7 @@
                                         <color key="separatorColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <inset key="separatorInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="userProfileCell" id="3Nt-FD-brK" customClass="UserFundTableViewCell">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="userProfileCell" id="3Nt-FD-brK" customClass="UserFundTableViewCell">
                                                 <rect key="frame" x="0.0" y="28" width="325" height="60"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3Nt-FD-brK" id="EMc-nF-mTg">
@@ -2912,14 +2906,14 @@
                                                 <exclude reference="xEd-De-ghe"/>
                                             </mask>
                                             <mask key="constraints">
-                                                <exclude reference="Jyd-yf-cpo"/>
-                                                <exclude reference="KZT-JC-J2v"/>
-                                                <exclude reference="VQR-mc-vbB"/>
                                                 <exclude reference="74W-Qt-VCa"/>
                                                 <exclude reference="EKM-lU-BVt"/>
                                                 <exclude reference="RpH-3q-Nb4"/>
                                                 <exclude reference="lcg-zE-a5B"/>
                                                 <exclude reference="rCK-Hw-TaO"/>
+                                                <exclude reference="Jyd-yf-cpo"/>
+                                                <exclude reference="KZT-JC-J2v"/>
+                                                <exclude reference="VQR-mc-vbB"/>
                                             </mask>
                                         </variation>
                                         <variation key="heightClass=regular-widthClass=compact">
@@ -2928,14 +2922,14 @@
                                                 <include reference="xEd-De-ghe"/>
                                             </mask>
                                             <mask key="constraints">
-                                                <include reference="Jyd-yf-cpo"/>
-                                                <include reference="KZT-JC-J2v"/>
-                                                <include reference="VQR-mc-vbB"/>
                                                 <include reference="74W-Qt-VCa"/>
                                                 <include reference="EKM-lU-BVt"/>
                                                 <include reference="RpH-3q-Nb4"/>
                                                 <include reference="lcg-zE-a5B"/>
                                                 <include reference="rCK-Hw-TaO"/>
+                                                <include reference="Jyd-yf-cpo"/>
+                                                <include reference="KZT-JC-J2v"/>
+                                                <include reference="VQR-mc-vbB"/>
                                             </mask>
                                         </variation>
                                     </tableViewCellContentView>
@@ -3026,7 +3020,7 @@
         <image name="Campaign_follow" width="76" height="25"/>
         <image name="Chat_user" width="29" height="29"/>
         <image name="Login_loginBtn" width="132" height="30"/>
-        <image name="Plus_Icon" width="14" height="14"/>
+        <image name="Plus_Icon" width="22" height="22"/>
         <image name="ShoppingCart_uncheck" width="15" height="15"/>
         <image name="Signup_btn" width="297" height="25"/>
         <image name="dislike_blue" width="16" height="16"/>

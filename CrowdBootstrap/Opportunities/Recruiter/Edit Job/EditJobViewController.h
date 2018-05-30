@@ -47,7 +47,8 @@ enum {
     JOB_POSTING_KEYWORDS_SELECTED = 14
 };
 
-#define kEditJob_SuccessMessage    @"Job has been updated Successfully."
+#define kEditJob_SuccessMessage             @"Job has been updated Successfully."
+#define kActivateJob_SuccessMessage         @"Job activated Successfully."
 
 
 @interface EditJobViewController : UIViewController<UITextFieldDelegate,UITableViewDataSource,UITableViewDelegate, UIPickerViewDataSource,UIPickerViewDelegate, TLTagsControlDelegate>

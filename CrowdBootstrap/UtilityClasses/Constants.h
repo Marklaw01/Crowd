@@ -430,14 +430,14 @@ enum {
 #define ACCREDITED_INVESTOR_HTML                  @"accredited_investor"
 #define VENTURE_CAPITAL_LINK                      @"http://crowdbootstrap.com/contractors/venture-capital-apps"
 #define LICENSE_LINK                              @"https://creativecommons.org/licenses/by-nc-sa/4.0/"
-#define ROADMAP_TEMPLATE_LINK                     @"http://crowdbootstrap.com/contractors/roadmap-template-apps"
+#define ROADMAP_TEMPLATE_LINK                     @"http://stage.crowdbootstrap.com/img/sampledoc/0.0_Lean_Startup_Roadmap_Template_v8.0.pdf"
 #define PRIVACY_POLICY_LINK                       @"http://crowdbootstrap.com/users/privacy-policy"
 #define TERMS_CONDITIONS_LINK                     @"http://crowdbootstrap.com/users/terms--and-conditions"
 
 
 #pragma mark - Youtube Videos
 #define ENT_VIDEO_LINK                            @"rzrUTei649c"
-#define CONT_VIDEO_LINK                           @"pUmkBCFqqM0"
+#define CONT_VIDEO_LINK                           @"TWH_aV6WinY"
 #define ROADMAP_VIDEO_LINK                        @"hvyULGzoqFM"
 #define ENT_VIDEO_LINK                            @"rzrUTei649c"
 #define GETTING_STARTED_VIDEO_LINK                @"Q9tYHQnb7xI"
@@ -471,7 +471,8 @@ enum {
 #define UNAPPLY_TEXT                              @"Thank you. You have applied."
 #define RES_APPLY_TEXT                            @"Click here to register your interest."
 #define RES_UNAPPLY_TEXT                          @"Thank you. You have registered your interest."
-
+#define SUBMIT_TEXT                               @"Submit"
+#define ACTIVATE_TEXT                             @"Activate"
 
 #define kPlaceholderImage_Contractor              @"Chat_user"
 #define WORK_ORDER_ACCEPT_ICON                    @"WorkOrder_Accept"

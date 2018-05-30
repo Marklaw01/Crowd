@@ -28,7 +28,7 @@
     totalItems = 0 ;
     pageNo = 1;
     [self getBusinessCardNotesList];
-
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -87,7 +87,7 @@
         UserFundTableViewCell *cell = (UserFundTableViewCell*)[tableView dequeueReusableCellWithIdentifier:kCellIdentifier_Note] ;
         cell.lblName.text = [NSString stringWithFormat:@"Note %ld",indexPath.row+1];
         cell.lblDesc.text = [NSString stringWithFormat:@"%@",[[notesArray objectAtIndex:indexPath.row] valueForKey:kBusinessAPI_NoteDesc]];
-
+        
         return cell;
     }
 }
@@ -98,7 +98,7 @@
     
     NSDictionary *notesDict = [[NSDictionary alloc] init];
     notesDict = [notesArray objectAtIndex:indexPath.row];
-
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSendNotesInfo object:@"NotesDetail" userInfo:notesDict];
     
     [self.navigationController pushViewController:viewController animated:true];
@@ -116,7 +116,7 @@
         
         if(pageNo == 1)
             [UtilityClass showHudWithTitle:kHUDMessage_PleaseWait] ;
-
+        
         NSMutableDictionary *dictParam = [[NSMutableDictionary alloc] init];
         [dictParam setObject:[NSString stringWithFormat:@"%d",[UtilityClass getLoggedInUserID]] forKey:kBusinessAPI_UserID] ;
         if ([_selectedCardId isEqualToString:@""] || _selectedCardId == nil) {
@@ -125,7 +125,7 @@
             [dictParam setObject:_selectedCardId forKey:kBusinessAPI_CardId] ;
         }
         [dictParam setObject:[NSString stringWithFormat:@"%d",pageNo] forKey:kBusinessAPI_PageNo] ;
-
+        
         NSLog(@"dictParam: %@",dictParam) ;
         
         [ApiCrowdBootstrap getBusinessCardNotesListWithParameters:dictParam success:^(NSDictionary *responseDict) {
@@ -134,24 +134,30 @@
             if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode) {
                 if([responseDict valueForKey:kBusinessAPI_CardList]) {
                     totalItems = [[responseDict valueForKey:kBusinessAPI_TotalItems] integerValue] ;
-                    
-                    if (notesArray.count >= totalItems) {
-                        [notesArray removeAllObjects];
-                        [notesArray addObjectsFromArray:(NSArray*)[responseDict valueForKey:kBusinessAPI_CardList]] ;
-                    } else {
-                        [notesArray addObjectsFromArray:(NSArray*)[responseDict valueForKey:kBusinessAPI_CardList]] ;
+                    if (totalItems == 0) {
+                        lblNoNotesAvailable.hidden = false;
+                        
+                        notesArray = [NSMutableArray arrayWithArray:[responseDict valueForKey:kBusinessAPI_CardList]] ;
+                        [tblView reloadData] ;
                     }
-                    
-//                    [notesArray removeAllObjects];
-//
-//                    [notesArray addObjectsFromArray:(NSArray*)[responseDict valueForKey:kBusinessAPI_CardList]] ;
-                    lblNoNotesAvailable.hidden = true;
-                    [tblView reloadData] ;
-                    pageNo++ ;
-
-                    NSArray *arr = [NSArray arrayWithArray:(NSArray*)[responseDict valueForKey:kBusinessAPI_CardList]] ;
-                    
-                    NSLog(@"totalItems: %ld count: %lu",(long)totalItems ,(unsigned long)arr.count) ;
+                    else {
+                        if (notesArray.count >= totalItems) {
+                            [notesArray removeAllObjects];
+                            [notesArray addObjectsFromArray:(NSArray*)[responseDict valueForKey:kBusinessAPI_CardList]] ;
+                        } else {
+                            [notesArray addObjectsFromArray:(NSArray*)[responseDict valueForKey:kBusinessAPI_CardList]] ;
+                        }
+                        
+                        //                    [notesArray removeAllObjects];
+                        //
+                        //                    [notesArray addObjectsFromArray:(NSArray*)[responseDict valueForKey:kBusinessAPI_CardList]] ;
+                        lblNoNotesAvailable.hidden = true;
+                        [tblView reloadData] ;
+                        pageNo++ ;
+                        
+                        NSArray *arr = [NSArray arrayWithArray:(NSArray*)[responseDict valueForKey:kBusinessAPI_CardList]] ;
+                        NSLog(@"totalItems: %ld count: %lu",(long)totalItems ,(unsigned long)arr.count) ;
+                    }
                 }
             }
             else if([[responseDict valueForKey:@"code"] intValue] == kErrorCode ) {
@@ -159,12 +165,12 @@
                 
                 notesArray = [NSMutableArray arrayWithArray:[responseDict valueForKey:kBusinessAPI_CardList]] ;
                 totalItems = 0;
-
+                
                 [tblView reloadData] ;
             }
         } failure:^(NSError *error) {
             totalItems = notesArray.count;
-
+            
             [tblView reloadData] ;
             [UtilityClass displayAlertMessage:error.description];
             [UtilityClass hideHud] ;

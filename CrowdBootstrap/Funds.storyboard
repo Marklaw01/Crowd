@@ -1,22 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="HelveticaNeue.ttc">
-            <string>HelveticaNeue</string>
-            <string>HelveticaNeue-Medium</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--My Funds View Controller-->
         <scene sceneID="pWa-t3-R3u">
@@ -85,7 +79,7 @@
                                 <color key="separatorColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <inset key="separatorInset" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="fundsCell" rowHeight="145" id="Dx0-UC-vdt" customClass="FundsTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="fundsCell" rowHeight="145" id="Dx0-UC-vdt" customClass="FundsTableViewCell">
                                         <rect key="frame" x="0.0" y="28" width="375" height="145"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Dx0-UC-vdt" id="FBR-Xl-h3B">
@@ -108,7 +102,6 @@
                                                         <constraint firstAttribute="height" constant="50" id="oak-GK-Xs7"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
-                                                    <color key="textColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
@@ -445,7 +438,7 @@
                                         <color key="separatorColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <inset key="separatorInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="userFundCell" id="Avh-TO-x8W" customClass="UserFundTableViewCell">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="userFundCell" id="Avh-TO-x8W" customClass="UserFundTableViewCell">
                                                 <rect key="frame" x="0.0" y="28" width="325" height="60"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Avh-TO-x8W" id="Y3N-kK-4Nr">
@@ -1445,14 +1438,14 @@
                                                 <exclude reference="xhW-Yx-jP9"/>
                                             </mask>
                                             <mask key="constraints">
-                                                <exclude reference="CdY-Sb-skp"/>
-                                                <exclude reference="PBE-bP-I2o"/>
-                                                <exclude reference="xLu-bc-ebW"/>
                                                 <exclude reference="Ip6-EX-EXW"/>
                                                 <exclude reference="JJF-Ge-ufU"/>
                                                 <exclude reference="Kg3-hZ-8bp"/>
                                                 <exclude reference="fHc-ye-AR5"/>
                                                 <exclude reference="xbK-Xf-hfL"/>
+                                                <exclude reference="CdY-Sb-skp"/>
+                                                <exclude reference="PBE-bP-I2o"/>
+                                                <exclude reference="xLu-bc-ebW"/>
                                             </mask>
                                         </variation>
                                         <variation key="heightClass=regular-widthClass=compact">
@@ -1461,14 +1454,14 @@
                                                 <include reference="xhW-Yx-jP9"/>
                                             </mask>
                                             <mask key="constraints">
-                                                <include reference="CdY-Sb-skp"/>
-                                                <include reference="PBE-bP-I2o"/>
-                                                <include reference="xLu-bc-ebW"/>
                                                 <include reference="Ip6-EX-EXW"/>
                                                 <include reference="JJF-Ge-ufU"/>
                                                 <include reference="Kg3-hZ-8bp"/>
                                                 <include reference="fHc-ye-AR5"/>
                                                 <include reference="xbK-Xf-hfL"/>
+                                                <include reference="CdY-Sb-skp"/>
+                                                <include reference="PBE-bP-I2o"/>
+                                                <include reference="xLu-bc-ebW"/>
                                             </mask>
                                         </variation>
                                     </tableViewCellContentView>
@@ -1666,6 +1659,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="constraintLikeBtnTrailing" destination="h8n-Wj-9y5" id="IjU-Jm-rjt"/>
+                                            <outlet property="constraintPostedByBtnTrailing" destination="1lr-PZ-vWW" id="NTf-x2-brE"/>
                                             <outlet property="followBtn" destination="S1y-Cf-xVh" id="60m-uL-CvW"/>
                                             <outlet property="likeBtn" destination="vzt-OY-mkI" id="xPM-Je-hcm"/>
                                             <outlet property="postedByBtn" destination="4Oq-Rx-wV4" id="BJ4-9a-NXb"/>
@@ -2574,14 +2568,14 @@
                                                 <exclude reference="cX7-gw-FZE"/>
                                             </mask>
                                             <mask key="constraints">
-                                                <exclude reference="Kiv-QG-OKH"/>
-                                                <exclude reference="MGf-PT-uR1"/>
-                                                <exclude reference="uoC-Zy-Nat"/>
                                                 <exclude reference="6QA-gY-9wr"/>
                                                 <exclude reference="DBC-aR-ZH0"/>
                                                 <exclude reference="TGa-Is-Fi2"/>
                                                 <exclude reference="jvu-yI-weC"/>
                                                 <exclude reference="mVV-g0-Vf2"/>
+                                                <exclude reference="Kiv-QG-OKH"/>
+                                                <exclude reference="MGf-PT-uR1"/>
+                                                <exclude reference="uoC-Zy-Nat"/>
                                             </mask>
                                         </variation>
                                         <variation key="heightClass=regular-widthClass=compact">
@@ -2590,14 +2584,14 @@
                                                 <include reference="cX7-gw-FZE"/>
                                             </mask>
                                             <mask key="constraints">
-                                                <include reference="Kiv-QG-OKH"/>
-                                                <include reference="MGf-PT-uR1"/>
-                                                <include reference="uoC-Zy-Nat"/>
                                                 <include reference="6QA-gY-9wr"/>
                                                 <include reference="DBC-aR-ZH0"/>
                                                 <include reference="TGa-Is-Fi2"/>
                                                 <include reference="jvu-yI-weC"/>
                                                 <include reference="mVV-g0-Vf2"/>
+                                                <include reference="Kiv-QG-OKH"/>
+                                                <include reference="MGf-PT-uR1"/>
+                                                <include reference="uoC-Zy-Nat"/>
                                             </mask>
                                         </variation>
                                     </tableViewCellContentView>
@@ -2797,7 +2791,7 @@
         <image name="Campaign_follow" width="76" height="25"/>
         <image name="Chat_user" width="29" height="29"/>
         <image name="Login_loginBtn" width="132" height="30"/>
-        <image name="Plus_Icon" width="14" height="14"/>
+        <image name="Plus_Icon" width="22" height="22"/>
         <image name="ShoppingCart_uncheck" width="15" height="15"/>
         <image name="Signup_btn" width="297" height="25"/>
         <image name="dislike_blue" width="16" height="16"/>

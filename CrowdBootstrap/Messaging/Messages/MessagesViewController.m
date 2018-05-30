@@ -68,7 +68,7 @@
 
 -(void)navigationBarSettings {
     self.navigationItem.hidesBackButton = YES ;
-    self.title = @"Messages" ;
+    self.title = @"Team Messages" ;
 }
 
 -(void)revealViewSettings{

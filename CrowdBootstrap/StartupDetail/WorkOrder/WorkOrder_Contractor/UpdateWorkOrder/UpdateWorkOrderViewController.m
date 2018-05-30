@@ -324,26 +324,26 @@
         [ApiCrowdBootstrap getSavedStartupWorkOrderContractorWithParameters:dictParam success:^(NSDictionary *responseDict) {
             [UtilityClass hideHud] ;
             NSLog(@"respos %@",responseDict) ;
-            if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode )  {
+            if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode ) {
                 
-                if([responseDict valueForKey:kStartupWorkOrderContAPI_AllocatedHours]){
+                if([responseDict valueForKey:kStartupWorkOrderContAPI_AllocatedHours]) {
                     allocatedHours = [[responseDict valueForKey:kStartupWorkOrderContAPI_AllocatedHours] intValue] ;
                 }
                 
-                if([responseDict valueForKey:kStartupWorkOrderContAPI_ApprovedHours]){
+                if([responseDict valueForKey:kStartupWorkOrderContAPI_ApprovedHours]) {
                     approvedHours = [[responseDict valueForKey:kStartupWorkOrderContAPI_ApprovedHours] intValue] ;
                 }
                 
-                if([responseDict valueForKey:kStartupWorkOrderContAPI_ConsumedHours]){
+                if([responseDict valueForKey:kStartupWorkOrderContAPI_ConsumedHours]) {
                     consumedHours = [[responseDict valueForKey:kStartupWorkOrderContAPI_ConsumedHours] intValue] ;
                 }
                 
-                if([responseDict valueForKey:kStartupWorkOrderContAPI_MainDeliverable]){
+                if([responseDict valueForKey:kStartupWorkOrderContAPI_MainDeliverable]) {
                     deliverablesArray = [NSMutableArray arrayWithArray:(NSArray*)[responseDict valueForKey:kStartupWorkOrderContAPI_MainDeliverable]] ;
                     [pickerView reloadAllComponents] ;
                 }
                 
-                if([responseDict valueForKey:kStartupWorkOrderContAPI_WeeklyUpdate]){
+                if([responseDict valueForKey:kStartupWorkOrderContAPI_WeeklyUpdate]) {
                     weeklyUpdateArray = [NSMutableArray arrayWithArray:(NSArray*)[responseDict valueForKey:kStartupWorkOrderContAPI_WeeklyUpdate]] ;
                 }
                 
@@ -387,7 +387,7 @@
         NSLog(@"pendingWorkUnits: %d approvedWorkUnits:%d",pendingWorkUnits,approvedWorkUnits) ;
         
         NSMutableDictionary *approvedDict = [[NSMutableDictionary alloc] init] ;
-        if(approvedWorkUnits != 0){
+        if(approvedWorkUnits != 0) {
             [approvedDict setObject:[NSString stringWithFormat:@"%d",[UtilityClass getLoggedInUserID]] forKey:kUpdateWorkOrderAPI_UserID] ;
             [approvedDict setObject:[NSString stringWithFormat:@"%@",[[UtilityClass getStartupDetails] valueForKey:kStartupOverviewAPI_StartupID]] forKey:kUpdateWorkOrderAPI_StartupID] ;
             [approvedDict setObject:[NSString stringWithFormat:@"%@",[[deliverablesArray objectAtIndex:selectedDeliverableIndex] valueForKey:kStartupWorkOrderContAPI_DeliverableID]] forKey:kUpdateWorkOrderAPI_RoadmapID] ;
@@ -398,7 +398,7 @@
         [dictParam setObject:approvedDict forKey:kUpdateWorkOrderAPI_Approved] ;
         
         NSMutableDictionary *pendingDict = [[NSMutableDictionary alloc] init] ;
-        if(pendingWorkUnits != 0){
+        if(pendingWorkUnits != 0) {
             [pendingDict setObject:[NSString stringWithFormat:@"%d",[UtilityClass getLoggedInUserID]] forKey:kUpdateWorkOrderAPI_UserID] ;
             [pendingDict setObject:[NSString stringWithFormat:@"%@",[[UtilityClass getStartupDetails] valueForKey:kStartupOverviewAPI_StartupID]] forKey:kUpdateWorkOrderAPI_StartupID] ;
             [pendingDict setObject:[NSString stringWithFormat:@"%@",[[deliverablesArray objectAtIndex:selectedDeliverableIndex] valueForKey:kStartupWorkOrderContAPI_DeliverableID]] forKey:kUpdateWorkOrderAPI_RoadmapID] ;
@@ -412,7 +412,7 @@
         [ApiCrowdBootstrap updateStartupWorkOrderWithParameters:dictParam success:^(NSDictionary *responseDict) {
             [UtilityClass hideHud] ;
             NSLog(@"respos %@",responseDict) ;
-            if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode )  {
+            if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode ) {
                 [UtilityClass showNotificationMessgae:[responseDict valueForKey:@"message"] withResultType:@"0" withDuration:1] ;
                 
                 // refresh fields

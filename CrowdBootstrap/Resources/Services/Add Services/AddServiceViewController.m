@@ -621,13 +621,15 @@
 }
 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+//    NSString *strText = [textField.text stringByReplacingOccurrencesOfString:@"'" withString:@"\'"];
     [[sectionsArray objectAtIndex:textField.tag] setValue:[textField.text stringByReplacingCharactersInRange:range withString:string] forKey:@"value"] ;
     return YES ;
 }
 
 #pragma mark - TextView Delegate Methods
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-    
+//    NSString *strText = [textView.text stringByReplacingOccurrencesOfString:@"'" withString:@"\\'"];
+
     [[sectionsArray objectAtIndex:textView.tag] setValue:[textView.text stringByReplacingCharactersInRange:range withString:text] forKey:@"value"] ;
     
     if([text isEqualToString:@"\n"]){

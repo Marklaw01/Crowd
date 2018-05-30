@@ -30,6 +30,10 @@
 +(BOOL)hideHud ;
 
 #pragma mark - Check if come from Add/Edit Screen
+#pragma mark Recruiter/Jobs
++(BOOL)checkIsComingFrom_Job_AddEditScreen;
++(void)setComingFrom_Job_AddEditScreen:(BOOL)isFromAddEditScreen;
+    
 #pragma mark Funds
 +(BOOL)checkIsComingFrom_Funds_AddEditScreen;
 +(void)setComingFrom_Funds_AddEditScreen:(BOOL)isFromAddEditScreen;

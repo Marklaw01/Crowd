@@ -36,9 +36,15 @@
     return true;
 }
 
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    if ([self.delegate respondsToSelector:@selector(txtFldDidBeginEditing:)]) {
+        [self.delegate txtFldDidBeginEditing:textField];
+    }
+}
+
 - (void)textFieldDidEndEditing:(UITextField *)textField {
-    if ([self.delegate respondsToSelector:@selector(saveGroupName:tag:)]) {
-        [self.delegate saveGroupName:textField.text tag:[textField tag]];
+    if ([self.delegate respondsToSelector:@selector(txtFldDidEndEditing:)]) {
+        [self.delegate txtFldDidEndEditing:textField];
     }
 }
 
@@ -52,11 +58,17 @@
 
 -(BOOL)textViewShouldBeginEditing:(UITextView *)textView {
     
-    if([textView.text isEqualToString:@"Group Description"] && textView.textColor == [UIColor lightGrayColor]){
+    if([textView.text isEqualToString:@"Group Description"] && textView.textColor == [UIColor lightGrayColor]) {
         textView.text = @"" ;
         textView.textColor = [UtilityClass textColor] ;
     }
     return YES ;
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    if ([self.delegate respondsToSelector:@selector(txtVwDidBeginEditing:)]) {
+        [self.delegate txtVwDidBeginEditing:textView];
+    }
 }
 
 -(void)textViewDidEndEditing:(UITextView *)textView {

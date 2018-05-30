@@ -359,7 +359,6 @@
             
             [UtilityClass hideHud] ;
             if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode )  {
-                NSLog(@"Country Response : %@", responseDict);
                 countryArray = [NSMutableArray arrayWithArray:(NSArray*)[responseDict objectForKey:@"country"]] ;
                 [pickerView reloadAllComponents];
             }
@@ -386,7 +385,6 @@
             
             [UtilityClass hideHud] ;
             if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode ) {
-                NSLog(@"States Response : %@", responseDict);
                 statesArray = [NSMutableArray arrayWithArray:(NSArray*)[responseDict objectForKey:@"state"]] ;
                 [pickerView reloadAllComponents] ;
             }
@@ -563,6 +561,7 @@
             NSLog(@"responseDict %@", responseDict);
             if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode )  {
                 [UtilityClass showNotificationMessgae:kAddJob_SuccessMessage withResultType:@"0" withDuration:1] ;
+                [UtilityClass setComingFrom_Job_AddEditScreen:YES];
                 [self.navigationController popViewControllerAnimated:YES] ;
             }
             else if([[responseDict valueForKey:@"code"] intValue] == kErrorCode ) [self presentViewController:[UtilityClass displayAlertMessage:[responseDict valueForKey:@"message"]] animated:YES completion:nil];
@@ -608,6 +607,7 @@
 }
 
 - (IBAction)Back_Click:(id)sender {
+    [UtilityClass setComingFrom_Job_AddEditScreen:NO];
     [self.navigationController popViewControllerAnimated:YES] ;
 }
 
@@ -846,8 +846,12 @@
         }
         else {
             selectedPickerViewType = JOB_CHOOSE_COMPANY_SELECTED ;
-            index = [UtilityClass getPickerViewSelectedIndexFromArray:companiesArray forID:selectedCompanyID]
-            ;
+//            index = [UtilityClass getPickerViewSelectedIndexFromArray:companiesArray forID:selectedCompanyID];
+            for (int i=0 ; i<companiesArray.count ; i++) {
+                if([[[companiesArray objectAtIndex:i] objectForKey:@"company_id"] intValue] == [selectedCompanyID intValue]){
+                    index = i ;
+                }
+            }
             if(index == -1)[pickerView selectRow:0 inComponent:0 animated:YES] ;
             else [pickerView selectRow:index+1 inComponent:0 animated:YES] ;
         }

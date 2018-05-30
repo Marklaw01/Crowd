@@ -32,6 +32,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    isCloseConsulting = false;
     
     BOOL isComeFromAddEdit = [UtilityClass checkIsComingFrom_Consulting_AddEditScreen];
     //    if (selectedSegmentControl == 100) { // Find Consulting
@@ -157,6 +158,8 @@
     [tblView setUserInteractionEnabled:true];
     [_segmentControlMyConsultingProjects setUserInteractionEnabled:true];
     [_segmentControlSearchConsultingProjects setUserInteractionEnabled:true];
+    
+    isCloseConsulting = false;
 }
 
 -(void)configureSearchController {
@@ -344,7 +347,7 @@
     searchBarUsers.hidden = false;
     lblPeople.hidden = true;
     imgVwPeople.hidden = true;
-    
+    isCloseConsulting = true;
     [self getConsultingCommitmentList:searchedString consultingID:consultingProjectID];
 }
 
@@ -475,6 +478,15 @@
     [self.navigationController pushViewController:viewController animated:YES] ;
 }
 
+- (IBAction)award_ClickAction:(id)sender {
+    if (![searchBarUsers.text isEqualToString:@""])
+        selectedContractorID = [[searchResultsForUsers objectAtIndex:[sender tag]] valueForKey:kConsultingAPI_User_ID];
+    else
+        selectedContractorID = [[usersArray objectAtIndex:[sender tag]] valueForKey:kConsultingAPI_User_ID];
+    
+    [self closeConsulting:consultingProjectID];
+}
+
 - (IBAction)ok_ClickAction:(id)sender {
     if ([btnOk.titleLabel.text isEqualToString:@"Close Without Awarding"])
         [self closeConsulting:consultingProjectID];
@@ -536,6 +548,9 @@
             cell.imgView.clipsToBounds = YES;
             
             cell.btnViewProfile.tag = indexPath.row;
+            
+            if (isCloseConsulting == false)
+                cell.accessoryType = UITableViewCellAccessoryNone;
             
             return cell;
         }
@@ -837,17 +852,19 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSetConsultingViewEditing object:nil userInfo:dict];
         }
     } else {
-        if(lastSelectedIndexPath) {
-            UserFundTableViewCell *lastCell = [tableView cellForRowAtIndexPath:lastSelectedIndexPath];
-            lastCell.accessoryType = UITableViewCellAccessoryNone;
+        if (isCloseConsulting == true) {
+            if(lastSelectedIndexPath) {
+                UserFundTableViewCell *lastCell = [tableView cellForRowAtIndexPath:lastSelectedIndexPath];
+                lastCell.accessoryType = UITableViewCellAccessoryNone;
+            }
+            
+            UserFundTableViewCell *currentCell = [tableView cellForRowAtIndexPath:indexPath] ;
+            currentCell.accessoryType = UITableViewCellAccessoryCheckmark;
+            
+            lastSelectedIndexPath = indexPath;
+            
+            selectedContractorID = [[usersArray objectAtIndex:indexPath.row] valueForKey:kConsultingAPI_User_ID];
         }
-        
-        UserFundTableViewCell *currentCell = [tableView cellForRowAtIndexPath:indexPath] ;
-        currentCell.accessoryType = UITableViewCellAccessoryCheckmark;
-        
-        lastSelectedIndexPath = indexPath;
-        
-        selectedContractorID = [[usersArray objectAtIndex:indexPath.row] valueForKey:kConsultingAPI_User_ID];
     }
 }
 
@@ -858,7 +875,7 @@
         if(pageNo == 1)
             [UtilityClass showHudWithTitle:kHUDMessage_PleaseWait] ;
         
-        NSMutableDictionary *dictParam =[[NSMutableDictionary alloc] init];
+        NSMutableDictionary *dictParam = [[NSMutableDictionary alloc] init];
         [dictParam setObject:[NSString stringWithFormat:@"%d",[UtilityClass getLoggedInUserID]] forKey:kConsultingAPI_UserID] ;
         [dictParam setObject:[NSString stringWithFormat:@"%d",pageNo] forKey:kConsultingAPI_PageNo] ;
         [dictParam setObject:searchText forKey:kConsultingAPI_SearchText] ;
@@ -874,7 +891,7 @@
                     [searchResults removeAllObjects];
                     [consultingProjectsArray removeAllObjects];
                     
-                    if(consultingProjectSearchController.active && ![consultingProjectSearchController.searchBar.text isEqualToString:@""]){
+                    if(consultingProjectSearchController.active && ![consultingProjectSearchController.searchBar.text isEqualToString:@""]) {
                         searchResults = [NSMutableArray arrayWithArray:[responseDict valueForKey:kConsultingAPI_ConsultingList]] ;
                     }
                     else {
@@ -1197,7 +1214,8 @@
 -(void)closeConsulting:(NSString *)consultingProjectId {
     if([UtilityClass checkInternetConnection]) {
         [UtilityClass showHudWithTitle:kHUDMessage_PleaseWait] ;
-        
+        isCloseConsulting = false;
+
         NSMutableDictionary *dictParam = [[NSMutableDictionary alloc] init];
         [dictParam setObject:[NSString stringWithFormat:@"%d",[UtilityClass getLoggedInUserID]] forKey:kConsultingAPI_UserID] ;
         [dictParam setObject:consultingProjectId forKey:kConsultingAPI_ConsultingID] ;
@@ -1398,7 +1416,8 @@
 
                     [tblView setUserInteractionEnabled:false];
                     pageNo++ ;
-                    
+                    lblNoUserAvailable.hidden = true;
+
                     NSArray *arr = [NSArray arrayWithArray:(NSArray*)[responseDict valueForKey:kConsultingAPI_UserList]] ;
                     NSLog(@"totalItems: %ld count: %lu",(long)totalItems ,(unsigned long)arr.count) ;
                 }
@@ -1410,6 +1429,7 @@
             
         } failure:^(NSError *error) {
             totalItems = usersArray.count;
+            lblNoUserAvailable.hidden = false;
             [tblViewPopUp reloadData] ;
             [UtilityClass displayAlertMessage:error.description];
             [UtilityClass hideHud] ;
@@ -1445,7 +1465,8 @@
                     [tblView setUserInteractionEnabled:false];
                     
                     pageNo++ ;
-                    
+                    lblNoUserAvailable.hidden = true;
+
                     NSArray *arr = [NSArray arrayWithArray:(NSArray*)[responseDict valueForKey:kConsultingAPI_UserList]] ;
                     NSLog(@"totalItems: %ld count: %lu",(long)totalItems ,(unsigned long)arr.count) ;
                 }
@@ -1457,6 +1478,7 @@
             
         } failure:^(NSError *error) {
             totalItems = usersArray.count;
+            lblNoUserAvailable.hidden = false;
             [tblViewPopUp reloadData] ;
             [UtilityClass displayAlertMessage:error.description];
             [UtilityClass hideHud] ;

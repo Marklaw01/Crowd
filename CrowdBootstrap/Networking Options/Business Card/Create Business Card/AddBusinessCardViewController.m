@@ -40,6 +40,10 @@
 
 }
 
+- (void)singleTap:(UITapGestureRecognizer *)gesture {
+    [self.view endEditing:YES];
+}
+
 -(void)setNotificationIconOnNavigationBar:(NSNotification *) notification {
     
     UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
@@ -61,6 +65,17 @@
     imgVwUser.layer.cornerRadius = imgVwUser.frame.size.width/2;
     imgVwUser.clipsToBounds = YES;
     
+    UITapGestureRecognizer *singleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap:)];
+    singleTapGestureRecognizer.numberOfTapsRequired = 1;
+    singleTapGestureRecognizer.enabled = YES;
+    singleTapGestureRecognizer.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:singleTapGestureRecognizer];
+    
+    // Logined user Details
+    NSMutableDictionary *dict = [[UtilityClass getLoggedInUserDetails] mutableCopy] ;
+    defaultUsername = [NSString stringWithFormat:@"%@ %@",[dict valueForKey:kLogInAPI_FirstName],[dict valueForKey:kLogInAPI_LastName]] ;
+    defaultUserImage = [NSString stringWithFormat:@"%@%@",APIPortToBeUsed,[dict valueForKey:kLogInAPI_UserImage]] ;
+
     if ([_strBusinessCardScreenType isEqual: @"Edit"]) {
         // hit Api to view the selected card details
         [self viewBusinessCardDetails];
@@ -69,18 +84,29 @@
     else {
         if (![_strBusinessCardScreenType isEqualToString:@"LinkedInDetail"]) {
             
-            NSMutableDictionary *dict = [[UtilityClass getLoggedInUserDetails] mutableCopy] ;
-            
-            lblUsername.text = [NSString stringWithFormat:@"%@ %@",[dict valueForKey:kLogInAPI_FirstName],[dict valueForKey:kLogInAPI_LastName]] ;
-            [imgVwUser sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",APIPortToBeUsed,[dict valueForKey:kLogInAPI_UserImage]]] placeholderImage:[UIImage imageNamed:kImage_ProfilePicDefault]] ;
+            lblUsername.text = defaultUsername ;
+            [imgVwUser sd_setImageWithURL:[NSURL URLWithString:defaultUserImage] placeholderImage:[UIImage imageNamed:kImage_ProfilePicDefault]] ;
             
             self.navigationItem.title = @"Business Card";
         }
         else {
-            lblUsername.text = [NSString stringWithFormat:@"%@",[_userLinkedInfo valueForKey: @"formattedName"]] ;
+            // Set User Name
+            if (![[_userLinkedInfo valueForKey: @"formattedName"] isEqualToString:@""])
+                lblUsername.text = [NSString stringWithFormat:@"%@",[_userLinkedInfo valueForKey: @"formattedName"]] ;
+            else
+                lblUsername.text = defaultUsername ;
+            
+            // Set User Image
+            if (![[_userLinkedInfo valueForKey:@"pictureUrl"] isEqualToString:@""])
+                [imgVwUser sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",[_userLinkedInfo valueForKey:@"pictureUrl"]]] placeholderImage:[UIImage imageNamed:kImage_ProfilePicDefault]] ;
+            else
+                [imgVwUser sd_setImageWithURL:[NSURL URLWithString:defaultUsername] placeholderImage:[UIImage imageNamed:kImage_ProfilePicDefault]] ;
+            
+            // Set User Bio
             txtVwUserBio.text = [[_userLinkedInfo valueForKey:@"siteStandardProfileRequest"] valueForKey:@"url"];
+            
+            // Set User Interest
             txtVwUserInterest.text = [_userLinkedInfo valueForKey:@"headline"];
-            [imgVwUser sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",[_userLinkedInfo valueForKey:@"pictureUrl"]]] placeholderImage:[UIImage imageNamed:kImage_ProfilePicDefault]] ;
             
             self.navigationItem.title = @"Connect Social Media";
         }
@@ -99,20 +125,20 @@
     txtVwUserBio.text = [dictCard valueForKey:kBusinessAPI_UserBio];
     txtVwUserInterest.text = [dictCard valueForKey:kBusinessAPI_UserInterest];
     txtVwUserStatement.text = [dictCard valueForKey:kBusinessAPI_UserStatement];
-
-    // Get user data, incase user is not the LinkedIn user
-    NSMutableDictionary *dict = [[UtilityClass getLoggedInUserDetails] mutableCopy] ;
     
-    if([dictCard objectForKey:kBusinessAPI_LinkedIn_UserName]) {
+    // Username
+    if(![[dictCard objectForKey:kBusinessAPI_LinkedIn_UserName] isEqualToString:@""]) {
         lblUsername.text = [dictCard objectForKey:kBusinessAPI_LinkedIn_UserName];
     } else {
-        lblUsername.text = [NSString stringWithFormat:@"%@ %@",[dict valueForKey:kLogInAPI_FirstName],[dict valueForKey:kLogInAPI_LastName]] ;
+        lblUsername.text = defaultUsername ;
     }
     
-    if([dictCard objectForKey:kBusinessAPI_LinkedIn_UserImage]) {
-        [imgVwUser sd_setImageWithURL:[dictCard objectForKey:kBusinessAPI_LinkedIn_UserImage] placeholderImage:[UIImage imageNamed:kPlaceholderImage_Contractor]] ;
+    // UserImage
+    if(![[dictCard objectForKey:kBusinessAPI_LinkedIn_UserImage] isEqualToString:@""]) {
+        NSString *strImage = [NSString stringWithFormat:@"%@%@",APIPortToBeUsed, [dictCard objectForKey:kBusinessAPI_LinkedIn_UserImage]];
+        [imgVwUser sd_setImageWithURL:[NSURL URLWithString:strImage] placeholderImage:[UIImage imageNamed:kPlaceholderImage_Contractor]] ;
     } else {
-        [imgVwUser sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",APIPortToBeUsed,[dict valueForKey:kLogInAPI_UserImage]]] placeholderImage:[UIImage imageNamed:kImage_ProfilePicDefault]] ;
+        [imgVwUser sd_setImageWithURL:[NSURL URLWithString:defaultUserImage] placeholderImage:[UIImage imageNamed:kImage_ProfilePicDefault]] ;
     }
     
     // Image
@@ -169,7 +195,7 @@
     if([info[UIImagePickerControllerMediaType] isEqualToString:(NSString*)kUTTypeImage]) {
         chosenImage = info[UIImagePickerControllerEditedImage];
         imgVwBusinessCard.image = chosenImage;
-        imgData = UIImageJPEGRepresentation(info[UIImagePickerControllerEditedImage], 1);
+        imgData = UIImageJPEGRepresentation(chosenImage, 1);
     }
 }
 
@@ -224,8 +250,22 @@
         [dictParam setValue:txtVwUserStatement.text forKey:kBusinessAPI_Statement];
 
         if ([_strBusinessCardScreenType isEqualToString:@"LinkedInDetail"]) {
-            [dictParam setValue:[_userLinkedInfo valueForKey: @"formattedName"] forKey:kBusinessAPI_LinkedIn_UserName];
-            [dictParam setValue:[_userLinkedInfo valueForKey:@"pictureUrl"] forKey:kBusinessAPI_LinkedIn_UserImage];
+            
+            // Set Username
+            if (![[_userLinkedInfo valueForKey: @"formattedName"] isEqualToString:@""]) {
+                [dictParam setValue:[_userLinkedInfo valueForKey: @"formattedName"] forKey:kBusinessAPI_LinkedIn_UserName];
+            }
+            else
+                [dictParam setValue:defaultUsername forKey:kBusinessAPI_LinkedIn_UserName];
+
+            // Set Userimage
+            if (![[_userLinkedInfo valueForKey:@"pictureUrl"] isEqualToString:@""]) {
+                NSString *strImage = [self encodeStringTo64:[_userLinkedInfo valueForKey:@"pictureUrl"]];
+                [dictParam setValue:strImage forKey:kBusinessAPI_LinkedIn_UserImage];
+            }
+            else
+                [dictParam setValue:defaultUserImage forKey:kBusinessAPI_LinkedIn_UserImage];
+            
         } else {
             [dictParam setValue:@"" forKey:kBusinessAPI_LinkedIn_UserName];
             [dictParam setValue:@"" forKey:kBusinessAPI_LinkedIn_UserImage];
@@ -244,8 +284,15 @@
             
             NSLog(@"responseDict >>>>> %@", responseDict);
             if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode ) {
-                [self presentViewController:[UtilityClass displayAlertMessage:[responseDict valueForKey:@"message"]] animated:YES completion:nil];
-                [self.navigationController popViewControllerAnimated:YES] ;
+
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:[responseDict valueForKey:@"message"] preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    [alertController dismissViewControllerAnimated:YES completion:nil];
+                    [self.navigationController popViewControllerAnimated:YES] ;
+
+                }];
+                [alertController addAction:ok];
+                [self presentViewController:alertController animated:YES completion:nil];
             }
             else if([[responseDict valueForKey:@"code"] intValue] == kErrorCode )
                 [self presentViewController:[UtilityClass displayAlertMessage:[responseDict valueForKey:@"message"]] animated:YES completion:nil];
@@ -304,13 +351,14 @@
         if ([cardDict valueForKey: kBusinessAPI_LinkedIn_UserName]) {
             [dictParam setValue:[cardDict valueForKey: kBusinessAPI_LinkedIn_UserName] forKey:kBusinessAPI_LinkedIn_UserName];
         } else {
-            [dictParam setValue:@"" forKey:kBusinessAPI_LinkedIn_UserName];
+            [dictParam setValue:defaultUsername forKey:kBusinessAPI_LinkedIn_UserName];
         }
 
-        if ([cardDict valueForKey:kBusinessAPI_LinkedIn_UserImage]) {
-            [dictParam setValue:[cardDict valueForKey:kBusinessAPI_LinkedIn_UserImage] forKey:kBusinessAPI_LinkedIn_UserImage];
+        if ([cardDict valueForKey:kBusinessAPI_LinkedIn_UserImage_Name]) {
+            NSString *strImage = [cardDict valueForKey:kBusinessAPI_LinkedIn_UserImage_Name];
+            [dictParam setValue:strImage forKey:kBusinessAPI_LinkedIn_UserImage];
         } else {
-            [dictParam setValue:@"" forKey:kBusinessAPI_LinkedIn_UserImage];
+            [dictParam setValue:defaultUserImage forKey:kBusinessAPI_LinkedIn_UserImage];
         }
         
         if(imgData)
@@ -340,4 +388,15 @@
         }] ;
     }
 }
+
+- (NSString*)encodeStringTo64:(NSString*)fromString
+{
+    //for encode
+    NSURL *imageUrl =[NSURL URLWithString:fromString];
+    NSData *nsdata = [NSData dataWithContentsOfURL:imageUrl];
+    NSString *base64Encoded = [nsdata base64EncodedStringWithOptions:0];
+    
+    return base64Encoded;
+}
+
 @end

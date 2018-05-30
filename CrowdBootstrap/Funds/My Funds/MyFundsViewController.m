@@ -648,26 +648,27 @@
 //}
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    NSMutableArray *array ;
-    if (fundSearchController.active && ![fundSearchController.searchBar.text isEqualToString:@""])
-        array = [searchResults mutableCopy] ;
-    else
-        array = [fundsArray mutableCopy] ;
-    
-    if(indexPath.row != array.count) {
+    if (tableView == tblView) {
+        NSMutableArray *array ;
+        if (fundSearchController.active && ![fundSearchController.searchBar.text isEqualToString:@""])
+            array = [searchResults mutableCopy] ;
+        else
+            array = [fundsArray mutableCopy] ;
         
-        [UtilityClass setFundsDetails:(NSMutableDictionary *)[array objectAtIndex:indexPath.row]] ;
-        
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Funds" bundle:nil];
-        UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:kEditFundIdentifier] ;
-
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        [dict setObject:[NSString stringWithFormat:@"%ld", (long)selectedSegment] forKey:@"segment"];
-        [dict setObject:[NSString stringWithFormat:@"%ld", (long)selectedSegmentControl] forKey:@"segmentControl"];
-
-        [self.navigationController pushViewController:viewController animated:YES] ;
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSetFundViewEditing object:nil userInfo:dict];
+        if(indexPath.row != array.count) {
+            
+            [UtilityClass setFundsDetails:(NSMutableDictionary *)[array objectAtIndex:indexPath.row]] ;
+            
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Funds" bundle:nil];
+            UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:kEditFundIdentifier] ;
+            
+            NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+            [dict setObject:[NSString stringWithFormat:@"%ld", (long)selectedSegment] forKey:@"segment"];
+            [dict setObject:[NSString stringWithFormat:@"%ld", (long)selectedSegmentControl] forKey:@"segmentControl"];
+            
+            [self.navigationController pushViewController:viewController animated:YES] ;
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSetFundViewEditing object:nil userInfo:dict];
+        }
     }
 }
 
@@ -693,7 +694,7 @@
                     [searchResults removeAllObjects];
                     [fundsArray removeAllObjects];
 
-                    if(fundSearchController.active && ![fundSearchController.searchBar.text isEqualToString:@""]){
+                    if(fundSearchController.active && ![fundSearchController.searchBar.text isEqualToString:@""]) {
                         searchResults = [NSMutableArray arrayWithArray:[responseDict valueForKey:kFundAPI_FundList]] ;
                     }
                     else {
@@ -733,7 +734,7 @@
         if(pageNo == 1)
             [UtilityClass showHudWithTitle:kHUDMessage_PleaseWait] ;
         
-        NSMutableDictionary *dictParam =[[NSMutableDictionary alloc] init];
+        NSMutableDictionary *dictParam = [[NSMutableDictionary alloc] init];
         [dictParam setObject:[NSString stringWithFormat:@"%d",[UtilityClass getLoggedInUserID]] forKey:kFundAPI_UserID] ;
         [dictParam setObject:[NSString stringWithFormat:@"%d",pageNo] forKey:kFundAPI_PageNo] ;
         [dictParam setObject:searchText forKey:kFundAPI_SearchText] ;

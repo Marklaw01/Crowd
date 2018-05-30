@@ -85,6 +85,10 @@
     else
         [self resetUIAccordingToStartupType:NO] ;
     
+    // Get Workorder data for Current/Completed Startups
+    if([UtilityClass getStartupWorkOrderType] == YES && !([UtilityClass getStartupType] == MY_STARTUPS_SELECTED))
+        [self getWorkOrdersDataWithDate:[formatter stringFromDate:[NSDate date]]] ;
+
     // reset scrolling
     UITapGestureRecognizer *singleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap:)];
     singleTapGestureRecognizer.numberOfTapsRequired = 1;
@@ -119,7 +123,8 @@
         for (NSDictionary *obj in deliverablesArrayForDate) {
             NSString *name = [obj valueForKey:kStartupWorkOrderContAPI_DeliverableName] ;
             if([name isEqualToString:deliverableName]){
-                if(![[NSString stringWithFormat:@"%@",[obj valueForKey:kStartupWorkOrderContAPI_WorkUnits]] isEqualToString:@""] && ![[NSString stringWithFormat:@"%@",[obj valueForKey:kStartupWorkOrderContAPI_WorkUnits]] isEqualToString:@" "] ) hoursLogged = hoursLogged + [[obj valueForKey:kStartupWorkOrderContAPI_WorkUnits] intValue] ;
+                if(![[NSString stringWithFormat:@"%@",[obj valueForKey:kStartupWorkOrderContAPI_WorkUnits]] isEqualToString:@""] && ![[NSString stringWithFormat:@"%@",[obj valueForKey:kStartupWorkOrderContAPI_WorkUnits]] isEqualToString:@" "] )
+                    hoursLogged = hoursLogged + [[obj valueForKey:kStartupWorkOrderContAPI_WorkUnits] intValue] ;
             }
         }
     }
@@ -198,7 +203,7 @@
                         else [ary addObject:@"-"] ;
                     }
                     // Allocated Hours
-                    else if(i == datesArray.count -1){
+                    else if(i == datesArray.count -1) {
                         if(j == 0) [ary addObject:[NSString stringWithFormat:@"%d",approvedHours]] ;
                         else [ary addObject:@"-"] ;
                     }
@@ -332,7 +337,7 @@
     if([UtilityClass checkInternetConnection]) {
         
         [UtilityClass showHudWithTitle:kHUDMessage_PleaseWait] ;
-        NSMutableDictionary *dictParam =[[NSMutableDictionary alloc] init];
+        NSMutableDictionary *dictParam = [[NSMutableDictionary alloc] init];
         [dictParam setObject:[NSString stringWithFormat:@"%d",[UtilityClass getLoggedInUserID]] forKey:kStartupWorkOrderContAPI_UserID] ;
         [dictParam setObject:[NSString stringWithFormat:@"%@",[[UtilityClass getStartupDetails] valueForKey:kStartupOverviewAPI_StartupID]] forKey:kStartupWorkOrderContAPI_StartupID] ;
         [dictParam setObject:dateStr forKey:kStartupWorkOrderContAPI_Date] ;
@@ -481,7 +486,7 @@
     if([UtilityClass checkInternetConnection]) {
         
         [UtilityClass showHudWithTitle:kHUDMessage_PleaseWait] ;
-        NSMutableDictionary *dictParam =[[NSMutableDictionary alloc] init];
+        NSMutableDictionary *dictParam = [[NSMutableDictionary alloc] init];
         // Given To(Enterpreneur ID)
         [dictParam setObject:[responseDictionary valueForKey:kStartupWorkOrderContAPI_EnterpreneurID] forKey:kAddCommentAPI_GivenTo] ;
         // Given By(Contractor ID)

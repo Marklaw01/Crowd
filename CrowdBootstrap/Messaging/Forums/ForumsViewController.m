@@ -35,6 +35,8 @@
     searchedString = @"" ;
     if(forumsArray) [forumsArray removeAllObjects] ;
     else forumsArray = [[NSMutableArray alloc] init] ;
+    if(searchResults) [searchResults removeAllObjects] ;
+    else searchResults = [[NSMutableArray alloc] init] ;
     [self updateUIAccordingToSelectedSegment] ;
 }
 
@@ -183,16 +185,17 @@
     if([UtilityClass checkInternetConnection]){
         
         //if(pageNo == 1)[UtilityClass showHudWithTitle:kHUDMessage_PleaseWait] ;
-        NSMutableDictionary *dictParam =[[NSMutableDictionary alloc] init];
+        NSMutableDictionary *dictParam = [[NSMutableDictionary alloc] init];
         [dictParam setObject:[NSString stringWithFormat:@"%d",[UtilityClass getLoggedInUserID]] forKey:kForumSearchAPI_UserID] ;
         [dictParam setObject:searchText forKey:kForumSearchAPI_SearchText] ;
         [dictParam setObject:[NSString stringWithFormat:@"%d",pageNo] forKey:kForumsAPI_PageNo] ;
         [tblView setHidden:NO] ;
         NSLog(@"dictParam: %@",dictParam) ;
+        
         [ApiCrowdBootstrap getSearchForumsListWithParameters:dictParam success:^(NSDictionary *responseDict) {
             [UtilityClass hideHud] ;
              NSLog(@"responseDict: %@",responseDict) ;
-            if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode )  {
+            if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode ) {
                 if([responseDict valueForKey:kMyForumAPI_Forums]){
                     totalItems = [[responseDict valueForKey:kMyForumAPI_TotalItems] intValue] ;
                     if(searchController.active && ![searchController.searchBar.text isEqualToString:@""]){
@@ -212,9 +215,9 @@
             }
             else if([[responseDict valueForKey:@"code"] intValue] == kErrorCode ){
                 if(searchController.active && ![searchController.searchBar.text isEqualToString:@""]){
-                    /*searchResults = [NSMutableArray arrayWithArray:[responseDict valueForKey:kMyForumAPI_Forums]] ;
-                    if(searchResults.count <1)[tblView setHidden:YES] ;
-                    else [tblView setHidden:NO] ;*/
+                    searchResults = [NSMutableArray arrayWithArray:[responseDict valueForKey:kMyForumAPI_Forums]] ;
+//                    if(searchResults.count <1)[tblView setHidden:YES] ;
+//                    else [tblView setHidden:NO] ;
                 }
                 else{
                     forumsArray = [NSMutableArray arrayWithArray:[responseDict valueForKey:kMyForumAPI_Forums]] ;
@@ -300,6 +303,7 @@
     pageNo = 1 ;
     totalItems = 0 ;
     [forumsArray removeAllObjects] ;
+    [searchResults removeAllObjects];
     [self searchForumsWithSearchText:searchedString] ;
 }
 
@@ -307,9 +311,10 @@
     searchedString = @"" ;
     pageNo = 1 ;
     totalItems = 0 ;
+    [forumsArray removeAllObjects] ;
+    [searchResults removeAllObjects];
     [searchController setActive:NO] ;
     [self searchForumsWithSearchText:searchedString] ;
-    
 }
 
 - (void)filterContentForSearchText:(NSString*)searchText
@@ -369,10 +374,13 @@
         NotificationsTableViewCell *cell = (NotificationsTableViewCell*)[tableView dequeueReusableCellWithIdentifier:FORUM_SEARCH_FORUMS_CELL_IDENTIFIER] ;
         cell.selectionStyle = UITableViewCellSelectionStyleNone ;
         
+        if (searchResults.count > 0) {
+
         cell.titleLbl.text = [NSString stringWithFormat:@"%@",[[searchResults objectAtIndex:indexPath.row] valueForKey:kMyForumAPI_ForumTitle]] ;
         cell.descriptionLbl.text = [NSString stringWithFormat:@"%@",[[searchResults objectAtIndex:indexPath.row] valueForKey:kMyForumAPI_ForumDesc]] ;
         cell.timeLbl.text = [UtilityClass formatDateFromString:[NSString stringWithFormat:@"%@",[[searchResults objectAtIndex:indexPath.row] valueForKey:kMyForumAPI_ForumCreatedTime]]]  ;
         
+        }
         return cell ;
     }
     else{
@@ -392,18 +400,23 @@
                 
                 SearchStartupTableViewCell *cell = (SearchStartupTableViewCell*)[tableView dequeueReusableCellWithIdentifier:FORUM_STARTUP_CELL_IDENTIFIER] ;
                 cell.selectionStyle = UITableViewCellSelectionStyleNone ;
-                cell.startupNameLbl.text = [NSString stringWithFormat:@"%@",[[forumsArray objectAtIndex:indexPath.row] valueForKey:kForumStartupsAPI_StartupName]] ;
-                cell.descriptionLbl.text = [NSString stringWithFormat:@"%@",[[forumsArray objectAtIndex:indexPath.row] valueForKey:kForumStartupsAPI_Description]] ;
+                
+                if (forumsArray.count > 0) {
+                    cell.startupNameLbl.text = [NSString stringWithFormat:@"%@",[[forumsArray objectAtIndex:indexPath.row] valueForKey:kForumStartupsAPI_StartupName]] ;
+                    cell.descriptionLbl.text = [NSString stringWithFormat:@"%@",[[forumsArray objectAtIndex:indexPath.row] valueForKey:kForumStartupsAPI_Description]] ;
+                }
                 return cell ;
             }
             else{
                 MessagesTableViewCell *cell = (MessagesTableViewCell*)[tableView dequeueReusableCellWithIdentifier:FORUM_FORUMS_CELL_IDENTIFIER] ;
                 cell.selectionStyle = UITableViewCellSelectionStyleNone ;
                 
-                cell.messageLbl.text = [NSString stringWithFormat:@"%@",[[forumsArray objectAtIndex:indexPath.row] valueForKey:kMyForumAPI_ForumTitle]] ;
-                cell.descriptionLbl.text = [NSString stringWithFormat:@"%@",[[forumsArray objectAtIndex:indexPath.row] valueForKey:kMyForumAPI_ForumDesc]] ;
-                cell.timeLbl.text = [UtilityClass formatDateFromString:[NSString stringWithFormat:@"%@",[[forumsArray objectAtIndex:indexPath.row] valueForKey:kMyForumAPI_ForumCreatedTime]]]  ;
-                
+                if (forumsArray.count > 0) {
+
+                    cell.messageLbl.text = [NSString stringWithFormat:@"%@",[[forumsArray objectAtIndex:indexPath.row] valueForKey:kMyForumAPI_ForumTitle]] ;
+                    cell.descriptionLbl.text = [NSString stringWithFormat:@"%@",[[forumsArray objectAtIndex:indexPath.row] valueForKey:kMyForumAPI_ForumDesc]] ;
+                    cell.timeLbl.text = [UtilityClass formatDateFromString:[NSString stringWithFormat:@"%@",[[forumsArray objectAtIndex:indexPath.row] valueForKey:kMyForumAPI_ForumCreatedTime]]]  ;
+                }
                 if(segmentedControl.selectedSegmentIndex == MY_FORUMS_SELECTED){
                     NSMutableArray *rightUtilityButtons = [NSMutableArray new] ;
                     [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor colorWithRed:76.0/255.0f green:76.0/255.0f blue:76.0/255.0f alpha:1] icon:[UIImage imageNamed:FORUM_CLOSE_IMAGE]] ;

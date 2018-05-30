@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CrowdBootstrap/ForgotPassword/ForgotPasswordViewController.m"
-            timestampString = "539163013.205138"
+            filePath = "CrowdBootstrap/Opportunities/Recruiter/RecruiterViewController.m"
+            timestampString = "548596770.846115"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "152"
-            endingLineNumber = "152"
-            landmarkName = "-validateResendConfirmationEmail"
+            startingLineNumber = "889"
+            endingLineNumber = "889"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CrowdBootstrap/Messaging/Chat/ContactsViewController.m"
-            timestampString = "537781725.0878921"
+            filePath = "CrowdBootstrap/Networking Options/Map View/MapViewController.m"
+            timestampString = "548676008.66772"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "178"
-            endingLineNumber = "178"
-            landmarkName = "-quickBloxSettings"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
+            landmarkName = "-viewDidLoad"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -41,13 +41,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CrowdBootstrap/Opportunities/Beta Testers/Edit Beta Test/EditBetaTestViewController.m"
-            timestampString = "537780624.211978"
+            filePath = "CrowdBootstrap/SignUpViewController.m"
+            timestampString = "548918230.996654"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "446"
-            endingLineNumber = "446"
-            landmarkName = "-CloseData_ClickAction:"
+            startingLineNumber = "405"
+            endingLineNumber = "405"
+            landmarkName = "-registerUser"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

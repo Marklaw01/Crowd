@@ -183,6 +183,9 @@
             if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode )  {
                 NSLog(@"responseDict: %@",responseDict) ;
             }
+            else if([[responseDict valueForKey:@"code"] intValue] == kErrorCode ) {
+                [self presentViewController:[UtilityClass displayAlertMessage:[responseDict valueForKey:@"message"]] animated:YES completion:nil];
+            }
         } failure:^(NSError *error) {
             [UtilityClass displayAlertMessage:error.description] ;
             [UtilityClass hideHud] ;
@@ -204,6 +207,9 @@
             [UtilityClass hideHud] ;
             if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode )  {
                 NSLog(@"responseDict: %@",responseDict) ;
+            }
+            else if([[responseDict valueForKey:@"code"] intValue] == kErrorCode ) {
+                [self presentViewController:[UtilityClass displayAlertMessage:[responseDict valueForKey:@"message"]] animated:YES completion:nil];
             }
         } failure:^(NSError *error) {
             [UtilityClass displayAlertMessage:error.description] ;

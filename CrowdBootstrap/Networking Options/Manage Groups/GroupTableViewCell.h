@@ -12,9 +12,10 @@
 
 @required
 - (void)deleteGroup:(NSInteger)tag;
-- (void)saveGroupName:(NSString *)text tag: (NSInteger)tag;
 - (void)saveGroupDesc:(NSString *)text tag: (NSInteger)tag;
-
+- (void)txtFldDidBeginEditing:(UITextField *)txtfld;
+- (void)txtFldDidEndEditing:(UITextField *)txtfld;
+- (void)txtVwDidBeginEditing:(UITextView *)txtVw;
 @end
 
 @interface GroupTableViewCell : UITableViewCell<UITextFieldDelegate, UITextViewDelegate>

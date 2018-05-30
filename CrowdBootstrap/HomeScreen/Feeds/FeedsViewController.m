@@ -22,17 +22,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self resetUISettings];
 
     [self pullToRefresh];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    feedsArray = [[NSMutableArray alloc] init];
-    attachmentsArray = [[NSMutableArray alloc] init];
-    tblView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    isPullToRefresh = false;
-
-    [self resetUISettings];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -62,6 +54,11 @@
 }
 
 -(void)resetUISettings {
+    feedsArray = [[NSMutableArray alloc] init];
+    attachmentsArray = [[NSMutableArray alloc] init];
+    tblView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    isPullToRefresh = false;
+
     pageNo = 1;
     totalItems = 0 ;
     

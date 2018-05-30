@@ -60,6 +60,8 @@
     
     NSInteger                                selectedSegment;
     NSInteger                                selectedSegmentControl;
+    
+    BOOL                                     isCloseConsulting;
 }
 
 @property(nonatomic, strong)IBOutlet UISegmentedControl *segmentControlMyConsultingProjects;

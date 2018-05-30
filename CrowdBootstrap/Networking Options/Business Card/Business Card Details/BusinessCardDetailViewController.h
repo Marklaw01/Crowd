@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BusinessCardDetailViewController : UIViewController<UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface BusinessCardDetailViewController : UIViewController<UITextFieldDelegate, UITextViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 {
     // IBOutlets
     __weak IBOutlet UIImageView *imgVwUser;
@@ -29,13 +29,18 @@
     __weak IBOutlet UIView *pickerViewContainer;
     __weak IBOutlet UIPickerView *pickerView;
     
+    // Constraints
+//    __weak IBOutlet NSLayoutConstraint *constraintContentHeight;
+    
     // Variables
     NSMutableArray *connectionTypeArray ;
     NSString *selectedConnectionTypeID ;
     UIImage *chosenImage;
     NSData *imgData ;
     NSDictionary *dictBusinessCard;
-
+    
+//    CGPoint lastOffset;
+//    CGFloat kbHeight;
 }
 @property(nonatomic) NSString *selectedCardId;
 @property(nonatomic) NSString *strBusinessCardScreenType;
@@ -43,5 +48,7 @@
 @property(nonatomic) NSDictionary *selectedNoteDict;
 @property(nonatomic) NSDictionary *selectedCardDict;
 @property(nonatomic) NSDictionary *selectedProfileDict;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property UIView *selectedItem;
 
 @end

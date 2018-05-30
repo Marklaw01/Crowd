@@ -37,7 +37,9 @@ enum {
     IBOutlet UIView                          *pickerViewContainer;
     
     IBOutlet UILabel                           *lblNoJobsFound;
-
+    
+    __weak IBOutlet UIButton *btnPostJob;
+    
     NSMutableArray                           *basicArray ;
     NSMutableArray                           *countryArray ;
     NSMutableArray                           *statesArray ;

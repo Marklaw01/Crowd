@@ -641,7 +641,7 @@
 -(BOOL)textViewShouldBeginEditing:(UITextView *)textView{
     _selectedItem = nil ;
     
-    if([textView.text isEqualToString:@"Productivity Description"] && textView.textColor == [UIColor lightGrayColor]){
+    if([textView.text isEqualToString:@"Productivity Tool Description"] && textView.textColor == [UIColor lightGrayColor]){
         textView.text = @"" ;
         textView.textColor = [UtilityClass textColor] ;
     }
@@ -660,7 +660,7 @@
     _selectedItem = nil ;
     
     if([textView.text isEqualToString:@""]){
-        textView.text = @"Productivity Description" ;
+        textView.text = @"Productivity Tool Description" ;
         textView.textColor = [UIColor lightGrayColor] ;
     }
     

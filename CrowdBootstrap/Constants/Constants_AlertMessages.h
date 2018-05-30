@@ -83,7 +83,7 @@
 
 #define kAlert_ResetPasswordMail                  @"An email has been sent with link to change password at your Email Address."
 
-#define kAlert_ResendConfirmationMail             @"An email has been sent with link at your Email Address."
+#define kAlert_ResendConfirmationMail             @"We have sent an email that contains the confirmation link to your email address."
 
 #define kAlert_CommitError                        @"Target amount of campaign is ZERO, So you cannot commit on this."
 

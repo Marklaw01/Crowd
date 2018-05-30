@@ -10791,6 +10791,7 @@
 }
 
 +(void)editMeetUpWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure progress:(ProgressBlock)progress {
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     [manager setRequestSerializer:[AFHTTPRequestSerializer serializer]];
@@ -10832,6 +10833,18 @@
         [formData appendPartWithFormData:[[NSString stringWithFormat:@"%@",[dictParameters objectForKey:kAddMeetUpAPI_Target_Market_Keywords]] dataUsingEncoding:NSUTF8StringEncoding]
                                     name:kAddMeetUpAPI_Target_Market_Keywords];
         
+        // Append MeetUp Forum
+        [formData appendPartWithFormData:[[NSString stringWithFormat:@"%@",[dictParameters objectForKey:kAddMeetUpAPI_ForumId]] dataUsingEncoding:NSUTF8StringEncoding]
+                                    name:kAddMeetUpAPI_ForumId];
+        
+        // Append MeetUp Access
+        [formData appendPartWithFormData:[[NSString stringWithFormat:@"%@",[dictParameters objectForKey:kAddMeetUpAPI_AccessLevel]] dataUsingEncoding:NSUTF8StringEncoding]
+                                    name:kAddMeetUpAPI_AccessLevel];
+        
+        // Append MeetUp Notification
+        [formData appendPartWithFormData:[[NSString stringWithFormat:@"%@",[dictParameters objectForKey:kAddMeetUpAPI_Notification]] dataUsingEncoding:NSUTF8StringEncoding]
+                                    name:kAddMeetUpAPI_Notification];
+
         // Append MeetUp Document
         [formData appendPartWithFormData:[[NSString stringWithFormat:@"%@",[dictParameters objectForKey:kMeetUpAPI_Document]] dataUsingEncoding:NSUTF8StringEncoding]
                                     name:kMeetUpAPI_Document];

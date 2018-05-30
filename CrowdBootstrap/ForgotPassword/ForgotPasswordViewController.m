@@ -171,6 +171,21 @@
         }
         else{
             
+            [self displayPopupMessage:kAlert_AnswerIncorrect];
+            [self startTimer] ;
+            
+            if(securityQuestionsArray.count == kMaximumAnswerCount-1){
+                if(selectedSecurityQuesIndex == 0)selectedSecurityQuesIndex ++ ;
+                else selectedSecurityQuesIndex -- ;
+            }
+            else if(securityQuestionsArray.count > kMaximumAnswerCount-1){
+                selectedSecurityQuesIndex ++ ;
+            }
+            answerCount ++ ;
+            questionLbl.text = [[securityQuestionsArray objectAtIndex:selectedSecurityQuesIndex] valueForKey:@"question"];
+            answerTxtFld.text = @"" ;
+            
+            /*
             if(answerCount == kMaximumAnswerCount){
                 
                 [self sendMaxLimitForResetPassword] ;
@@ -192,6 +207,7 @@
                 answerTxtFld.text = @"" ;
             }
             
+        */
         }
         
     }

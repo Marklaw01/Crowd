@@ -28,14 +28,24 @@
     [self revealViewSettings] ;
     [self initializeBasicArray];
     
+    [UtilityClass setComingFrom_Job_AddEditScreen:NO];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    // Hit Service to get Countries List
-    [self getCountriesList] ;
-    
-    // Hit Service to get My Jobs List
-    [self getMyJobList];
+
+    BOOL isComeFromAddEdit = [UtilityClass checkIsComingFrom_Job_AddEditScreen];
+
+    if (isComeFromAddEdit) {
+        pageNo = 1;
+        if (selectedSegment == MYJOBS_SELECTED) {
+            [self getMyJobListWithSearchText:searchedString];
+        }
+        else if (selectedSegment == ARCHIVED_JOB_SELECTED) {
+            [self getArchivedJobWithSearchText:searchedString];
+        } else {
+            [self getDeActivatedJobWithSearchText:searchedString];
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -145,6 +155,12 @@
     
     [segmentControl setSelectedSegmentIndex:MYJOBS_SELECTED] ;
     [self configureSearchController];
+    
+    // Hit Service to get Countries List
+    [self getCountriesList] ;
+    
+    // Hit Service to get My Jobs List
+    [self getMyJobList];
 }
 
 -(void)initializeBasicArray {
@@ -271,7 +287,6 @@
             
             [UtilityClass hideHud] ;
             if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode )  {
-                NSLog(@"Country Response : %@", responseDict);
                 countryArray = [NSMutableArray arrayWithArray:(NSArray*)[responseDict objectForKey:@"country"]] ;
                 [pickerView reloadAllComponents];
             }
@@ -297,7 +312,6 @@
             
             [UtilityClass hideHud] ;
             if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode ) {
-                NSLog(@"States Response : %@", responseDict);
                 statesArray = [NSMutableArray arrayWithArray:(NSArray*)[responseDict objectForKey:@"state"]] ;
                 [pickerView reloadAllComponents] ;
             }
@@ -361,7 +375,7 @@
         //        if(pageNo == 1)
         //            [UtilityClass showHudWithTitle:kHUDMessage_PleaseWait] ;
         
-        NSMutableDictionary *dictParam =[[NSMutableDictionary alloc] init];
+        NSMutableDictionary *dictParam = [[NSMutableDictionary alloc] init];
         [dictParam setObject:[NSString stringWithFormat:@"%d",[UtilityClass getLoggedInUserID]] forKey:kSearchJobAPI_UserID] ;
         [dictParam setObject:searchText forKey:kSearchJobAPI_SearchText] ;
         [dictParam setObject:[NSString stringWithFormat:@"%d",pageNo] forKey:kSearchJobAPI_PageNo] ;
@@ -375,6 +389,9 @@
             if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode ) {
                 if([responseDict valueForKey:kSearchJobAPI_JobList]) {
                     totalItems = [[responseDict valueForKey:kSearchJobAPI_TotalItems] integerValue] ;
+                    [searchResults removeAllObjects];
+                    [jobArray removeAllObjects];
+
                     if(jobSearchController.active && ![jobSearchController.searchBar.text isEqualToString:@""]){
                         searchResults = [NSMutableArray arrayWithArray:[responseDict valueForKey:kSearchJobAPI_JobList]] ;
                     }
@@ -391,15 +408,20 @@
                 lblNoJobsFound.hidden = false;
                 
                 if(jobSearchController.active && ![jobSearchController.searchBar.text isEqualToString:@""]) {
-                    
+                    searchResults = [NSMutableArray arrayWithArray:[responseDict valueForKey:kSearchJobAPI_JobList]] ;
                 }
                 else {
                     jobArray = [NSMutableArray arrayWithArray:[responseDict valueForKey:kSearchJobAPI_JobList]] ;
                 }
+                
+                totalItems = 0;
                 [tblView reloadData] ;
             }
             
         } failure:^(NSError *error) {
+            totalItems = jobArray.count;
+            [tblView reloadData] ;
+
             [UtilityClass displayAlertMessage:error.description] ;
             [UtilityClass hideHud] ;
         }] ;
@@ -443,16 +465,19 @@
                 lblNoJobsFound.hidden = false;
                 
                 if(jobSearchController.active && ![jobSearchController.searchBar.text isEqualToString:@""]){
-                    
+                    searchResults = [NSMutableArray arrayWithArray:[responseDict valueForKey:kSearchJobAPI_JobList]] ;
                 }
                 else{
                     jobArray = [NSMutableArray arrayWithArray:[responseDict valueForKey:kSearchJobAPI_JobList]] ;
                 }
+                totalItems = 0;
                 [tblView reloadData] ;
                 
             }
             
         } failure:^(NSError *error) {
+            totalItems = jobArray.count;
+            [tblView reloadData];
             [UtilityClass displayAlertMessage:error.description] ;
             [UtilityClass hideHud] ;
         }] ;
@@ -496,16 +521,20 @@
                 lblNoJobsFound.hidden = false;
                 
                 if(jobSearchController.active && ![jobSearchController.searchBar.text isEqualToString:@""]) {
-                    
+                    searchResults = [NSMutableArray arrayWithArray:[responseDict valueForKey:kSearchJobAPI_JobList]] ;
                 }
                 else{
                     jobArray = [NSMutableArray arrayWithArray:[responseDict valueForKey:kSearchJobAPI_JobList]] ;
                 }
+                
+                totalItems = 0;
                 [tblView reloadData] ;
                 
             }
             
         } failure:^(NSError *error) {
+            totalItems = jobArray.count;
+            [tblView reloadData];
             [UtilityClass displayAlertMessage:error.description] ;
             [UtilityClass hideHud] ;
         }] ;
@@ -525,6 +554,8 @@
             if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode )  {
                 
                 [UtilityClass showNotificationMessgae:kArchiveMessageAPI_Status withResultType:@"0" withDuration:1] ;
+                pageNo = 1;
+                [self getMyJobListWithSearchText:searchedString];
             }
             else if([[responseDict valueForKey:@"code"] intValue] == kErrorCode )
                 [self presentViewController:[UtilityClass displayAlertMessage:[responseDict valueForKey:@"message"]] animated:YES completion:nil];
@@ -548,6 +579,8 @@
             if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode) {
                 
                 [UtilityClass showNotificationMessgae:kDeactivateJob_SuccessMessage withResultType:@"0" withDuration:1] ;
+                pageNo = 1;
+                [self getMyJobListWithSearchText:searchedString];
             }
             else if([[responseDict valueForKey:@"code"] intValue] == kErrorCode)
                 [self presentViewController:[UtilityClass displayAlertMessage:[responseDict valueForKey:@"message"]] animated:YES completion:nil];
@@ -571,6 +604,8 @@
             if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode) {
                 
                 [UtilityClass showNotificationMessgae:kDeleteJob_SuccessMessage withResultType:@"0" withDuration:1] ;
+                pageNo = 1;
+                [self getMyJobListWithSearchText:searchedString];
             }
             else if([[responseDict valueForKey:@"code"] intValue] == kErrorCode)
                 [self presentViewController:[UtilityClass displayAlertMessage:[responseDict valueForKey:@"message"]] animated:YES completion:nil];
@@ -643,12 +678,15 @@
     switch (selectedSegment) {
         case MYJOBS_SELECTED:
             [self getMyJobListWithSearchText:searchedString] ;
+            btnPostJob.hidden = NO;
             break;
         case ARCHIVED_JOB_SELECTED:
             [self getArchivedJobWithSearchText:searchedString] ;
+            btnPostJob.hidden = YES;
             break;
         case DEACTIVATED_JOB_SELECTED:
             [self getDeActivatedJobWithSearchText:searchedString] ;
+            btnPostJob.hidden = YES;
             break;
         default:
             break;
@@ -840,15 +878,23 @@
         cell.nameLbl.text = [NSString stringWithFormat:@"%@",[[searchResults objectAtIndex:indexPath.row] valueForKey:kSearchJobAPI_Job_Title]] ;
         cell.rateLbl.text = [NSString stringWithFormat:@"%@",[[searchResults objectAtIndex:indexPath.row] valueForKey:kSearchJobAPI_StarDate]]  ;
         cell.skillLbl.text = [NSString stringWithFormat:@"%@, %@, %@",[[searchResults objectAtIndex:indexPath.row] valueForKey:kSearchJobAPI_Company_Name], [[searchResults objectAtIndex:indexPath.row] valueForKey:kSearchJobAPI_State], [[searchResults objectAtIndex:indexPath.row] valueForKey:kSearchJobAPI_Country]]  ;
-        cell.followerBtn.titleLabel.text = [NSString stringWithFormat:@"%@ Follower",[[searchResults objectAtIndex:indexPath.row] valueForKey:kSearchJobAPI_Followers]] ;
+        [cell.followerBtn setTitle:[NSString stringWithFormat:@"%@ Follower",[[searchResults objectAtIndex:indexPath.row] valueForKey:kSearchJobAPI_Followers]] forState:UIControlStateNormal];
+
         [cell.imgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",APIPortToBeUsed,[[searchResults objectAtIndex:indexPath.row] valueForKey:kSearchJobAPI_Company_Image]]] placeholderImage:[UIImage imageNamed:kPlaceholderImage_Contractor]] ;
         
         cell.imgView.layer.cornerRadius = 15;
         cell.imgView.clipsToBounds = YES;
         
         cell.followerBtn.hidden = NO;
-        cell.stackView.hidden = NO;
-        
+        if (selectedSegment == MYJOBS_SELECTED) {
+            cell.stackView.hidden = NO;
+            cell.constraintFollowerBtnBottom.constant = 29;
+        }
+        else {
+            cell.stackView.hidden = YES;
+            cell.constraintFollowerBtnBottom.constant = 10;
+        }
+
         cell.archiveBtn.tag = indexPath.row;
         cell.deactivateBtn.tag = indexPath.row;
         cell.deleteBtn.tag = indexPath.row;
@@ -867,16 +913,21 @@
             cell.nameLbl.text = [NSString stringWithFormat:@"%@",[[jobArray objectAtIndex:indexPath.row] valueForKey:kSearchJobAPI_Job_Title]] ;
             cell.rateLbl.text = [NSString stringWithFormat:@"%@",[[jobArray objectAtIndex:indexPath.row] valueForKey:kSearchJobAPI_StarDate]]  ;
             cell.skillLbl.text = [NSString stringWithFormat:@"%@, %@, %@",[[jobArray objectAtIndex:indexPath.row] valueForKey:kSearchJobAPI_Company_Name], [[jobArray objectAtIndex:indexPath.row] valueForKey:kSearchJobAPI_State], [[jobArray objectAtIndex:indexPath.row] valueForKey:kSearchJobAPI_Country]]  ;
-            cell.followerBtn.titleLabel.text = [NSString stringWithFormat:@"%@ Follower",[[jobArray objectAtIndex:indexPath.row] valueForKey:kSearchJobAPI_Followers]] ;
-            
+            [cell.followerBtn setTitle:[NSString stringWithFormat:@"%@ Follower",[[jobArray objectAtIndex:indexPath.row] valueForKey:kSearchJobAPI_Followers]] forState:UIControlStateNormal];
             [cell.imgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",APIPortToBeUsed,[[jobArray objectAtIndex:indexPath.row] valueForKey:kSearchJobAPI_Company_Image]]] placeholderImage:[UIImage imageNamed:kPlaceholderImage_Contractor]] ;
             
             cell.imgView.layer.cornerRadius = 15;
             cell.imgView.clipsToBounds = YES;
             
             cell.followerBtn.hidden = NO;
-            cell.stackView.hidden = NO;
-            
+            if (selectedSegment == MYJOBS_SELECTED) {
+                cell.stackView.hidden = NO;
+                cell.constraintFollowerBtnBottom.constant = 29;
+            }
+            else {
+                cell.stackView.hidden = YES;
+                cell.constraintFollowerBtnBottom.constant = 10;
+            }
             cell.archiveBtn.tag = indexPath.row;
             cell.deactivateBtn.tag = indexPath.row;
             cell.deleteBtn.tag = indexPath.row;
@@ -891,7 +942,7 @@
         if (selectedSegment == MYJOBS_SELECTED)
             return 140;
         else
-            return 100 ;
+            return 110 ;
     }
     else {
         if(indexPath.row == jobArray.count)
@@ -900,7 +951,7 @@
             if (selectedSegment == MYJOBS_SELECTED)
                 return 140;
             else
-                return 100;
+                return 110;
         }
     }
 }
@@ -914,16 +965,16 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+        
     NSMutableArray *array ;
     if (jobSearchController.active && ![jobSearchController.searchBar.text isEqualToString:@""])
-    array = [searchResults mutableCopy] ;
+        array = [searchResults mutableCopy] ;
     else
-    array = [jobArray mutableCopy] ;
+        array = [jobArray mutableCopy] ;
     
     if(indexPath.row != array.count) {
         
-        [UtilityClass setJobDetails:(NSMutableDictionary *)[jobArray objectAtIndex:indexPath.row]] ;
+        [UtilityClass setJobDetails:(NSMutableDictionary *)[array objectAtIndex:indexPath.row]] ;
         
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:kEditJobIdentifier] ;

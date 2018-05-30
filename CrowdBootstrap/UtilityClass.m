@@ -309,6 +309,18 @@
 }
 
 #pragma mark - Check if come from Add/Edit Screen
+#pragma mark Recruiter/Jobs
++(BOOL)checkIsComingFrom_Job_AddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    return [prefs boolForKey:kComeFrom_Job_AddEdit] ;
+}
+
++(void)setComingFrom_Job_AddEditScreen:(BOOL)isFromAddEditScreen {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;
+    [prefs setBool:isFromAddEditScreen forKey:kComeFrom_Job_AddEdit ];
+    [[NSUserDefaults standardUserDefaults] synchronize] ;
+}
+
 #pragma mark Funds
 +(BOOL)checkIsComingFrom_Funds_AddEditScreen {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults] ;

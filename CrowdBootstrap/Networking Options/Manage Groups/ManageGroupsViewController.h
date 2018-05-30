@@ -20,4 +20,6 @@
     NSMutableArray *groupArray ;
 
 }
+@property UIView    *selectedItem;
+
 @end

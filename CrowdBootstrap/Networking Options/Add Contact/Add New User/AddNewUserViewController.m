@@ -125,7 +125,10 @@
 }
 
 - (IBAction)ReadCardImage_ClickAction:(id)sender {
-    [self performImageRecognition:chosenImage];
+    if (chosenImage == nil) {
+        [self presentViewController:[UtilityClass displayAlertMessage:@"Please select a Business Card image first."] animated:YES completion:nil];
+    } else
+        [self performImageRecognition:chosenImage];
 }
 
 - (IBAction)save_ClickAction:(id)sender {
@@ -295,7 +298,8 @@
 
             if (isStrNumberValid) {
                 NSString *phone = normalize(word);
-                [phoneNo appendString:phone];
+                if (phone.length > 8)
+                    [phoneNo appendString:phone];
             }
         }
     }
@@ -363,9 +367,14 @@ NSString *normalize(NSString *number) {
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    txtFieldConnectionType.text = connectionTypeArray[row-1][@"name"];
-    selectedConnectionTypeID = connectionTypeArray[row-1][@"id"];
-    NSLog(@"Selected Connection Type - %@: %@",txtFieldConnectionType.text, selectedConnectionTypeID);
+    if (row == 0) {
+        txtFieldConnectionType.text = @"";
+        selectedConnectionTypeID = @"";
+    } else {
+        txtFieldConnectionType.text = connectionTypeArray[row-1][@"name"];
+        selectedConnectionTypeID = [connectionTypeArray[row-1][@"id"] stringValue];
+        NSLog(@"Selected Connection Type - %@: %@",txtFieldConnectionType.text, selectedConnectionTypeID);
+    }
 }
 
 #pragma mark - keyoboard actions
@@ -409,7 +418,11 @@ NSString *normalize(NSString *number) {
         [dictParam setObject:txtFieldName.text forKey:kBusinessAPI_Name] ;
         [dictParam setObject:txtFieldPhone.text forKey:kBusinessAPI_Phone] ;
         [dictParam setObject:txtFieldEmail.text forKey:kBusinessAPI_Email] ;
-        [dictParam setObject:selectedConnectionTypeID forKey:kBusinessAPI_ConnectionId] ;
+        if (selectedConnectionTypeID != nil)
+            [dictParam setObject:selectedConnectionTypeID forKey:kBusinessAPI_ConnectionId] ;
+        else
+            [dictParam setObject:@"" forKey:kBusinessAPI_ConnectionId] ;
+
         [dictParam setObject:txtViewNote.text forKey:kBusinessAPI_Note] ;
 
         [dictParam setValue:@"0" forKey:kBusinessAPI_Status];

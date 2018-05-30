@@ -24,6 +24,7 @@
 #define kConnectionsIdentifier                    @"connectionsView"
 #define kPublicProfileIdentifier                  @"PublicProfileView"
 #define kStartupDetailIdentifier                  @"StartupDetailView"
+#define kWorkOrderContractorIdentifier            @"WorkOrderContractorView"
 #define kRevealIdentifier                         @"RevealView"
 #define kRootNavControllerIdentifier              @"rootNavController"
 #define kChooseUserTypeIdentifier                 @"ChooseUserTypeView"

@@ -402,14 +402,22 @@ static NSString * const kClientId = @"502919930015-7na0abn25duqcvgqn81e1ptuuo8s9
             }
             else {
                 [UtilityClass hideHud] ;
-                // [self presentViewController:[UtilityClass displayAlertMessage:[responseDict valueForKey:@"message"]] animated:YES completion:nil];
                 if([responseDict objectForKey:@"errors"]){
-                    NSDictionary *errorsData = (NSDictionary*)[responseDict objectForKey:@"errors"] ;
                     NSString *errorStr = @"" ;
-                    for (NSString *value in [errorsData allValues]) {
-                        errorStr = [NSString stringWithFormat:@"%@\n%@",errorStr,value] ;
+
+                    if ([[responseDict objectForKey:@"errors"] isKindOfClass:[NSString class]]) {
+                        errorStr = [responseDict objectForKey:@"errors"] ;
+                    } else {
+                        for (NSString *value in [[responseDict objectForKey:@"errors"] allValues]) {
+                            errorStr = [NSString stringWithFormat:@"%@\n%@",errorStr,value] ;
+                        }
                     }
-                    if(![errorStr isEqualToString:@""])[self presentViewController:[UtilityClass displayAlertMessage:errorStr] animated:YES completion:nil];
+                    
+                    if(![errorStr isEqualToString:@""])
+                        [self presentViewController:[UtilityClass displayAlertMessage:errorStr] animated:YES completion:nil];
+                }
+                if([responseDict objectForKey:@"message"]){
+                    [self presentViewController:[UtilityClass displayAlertMessage:[responseDict valueForKey:@"message"]] animated:YES completion:nil];
                 }
             }
             
@@ -576,7 +584,7 @@ static NSString * const kClientId = @"502919930015-7na0abn25duqcvgqn81e1ptuuo8s9
     else if (![self validatePassword])                                         return ;
     else if (![self validatetextFieldsWithSectionIndex:kConfirmPasswordIndex]) return ;
     else if (![self validatePasswordMatching])                                 return ;
-    else if (![self validateSecurityQuestion])                                 return ;
+//    else if (![self validateSecurityQuestion])                                 return ;
     else if (isTermsSelected == 0) {
         [self presentViewController:[UtilityClass displayAlertMessage:kAlert_Agreement] animated:YES completion:nil] ;
         return ;

@@ -11,6 +11,7 @@
 #import "SearchStartupTableViewCell.h"
 #import "Info_StartupViewController.h"
 #import "StartupDetailViewController.h"
+#import "WorkOrder_ContractorViewController.h"
 
 @interface CurrentStartupsViewController ()
 
@@ -62,15 +63,15 @@
     searchedString = @"" ;
     pageNo = 1 ;
     totalItems = 0 ;
-//    if(self.mode)
-//        [segmentControl setSelectedSegmentIndex:MY_STARTUPS_SELECTED] ;
-//    else
-//        [segmentControl setSelectedSegmentIndex:CURRENT_SELECTED] ;
+    //    if(self.mode)
+    //        [segmentControl setSelectedSegmentIndex:MY_STARTUPS_SELECTED] ;
+    //    else
+    //        [segmentControl setSelectedSegmentIndex:CURRENT_SELECTED] ;
     
-    [segmentControl setSelectedSegmentIndex:MY_STARTUPS_SELECTED] ;
-
+    [segmentControl setSelectedSegmentIndex: CURRENT_SELECTED] ;
+    
     [self segmentControlValueChanged:nil]  ;
-   // [self configureSearchController] ;
+    // [self configureSearchController] ;
     // [self getStartupsList] ;
 }
 
@@ -106,7 +107,7 @@
 }
 
 -(void)setSegmentControlSettings {
-  
+    
     UIFont *font = [UIFont boldSystemFontOfSize:12.0f];
     NSDictionary *attributes = [NSDictionary dictionaryWithObject:font
                                 
@@ -139,7 +140,7 @@
                     for (NSDictionary *dict in (NSArray*)[responseDict valueForKey:kStartupsAPI_Startups]) {
                         [startupsArray addObject:dict] ;
                     }
-
+                    
                     [tblView reloadData] ;
                     if(segmentControl.selectedSegmentIndex == SEARCH_SELECTED)tblView.hidden = NO ;
                     else{
@@ -147,7 +148,7 @@
                             [tblView setHidden:YES] ;
                         else [tblView setHidden:NO] ;
                     }
-                   
+                    
                     pageNo ++ ;
                 }
             }
@@ -187,7 +188,7 @@
                      pageNo ++ ;*/
                     
                     totalItems = [[responseDict valueForKey:kStartupsAPI_TotalItems] intValue] ;
-                    if(searchController.active && ![searchController.searchBar.text isEqualToString:@""]) {
+                    if(searchController.active && ![searchController.searchBar.text isEqualToString:@""]){
                         searchResults = [NSMutableArray arrayWithArray:[responseDict valueForKey:kStartupsAPI_Startups]] ;
                         //if(searchResults.count <1)[tblView setHidden:YES] ;
                         // else [tblView setHidden:NO] ;
@@ -251,7 +252,7 @@
                     else [tblView setHidden:NO] ;
                     
                     /*[tblView deleteRowsAtIndexPaths:@[cellIndexPath ]
-                                   withRowAnimation:UITableViewRowAnimationAutomatic];*/
+                     withRowAnimation:UITableViewRowAnimationAutomatic];*/
                 }
             }
             //else if([[responseDict valueForKey:@"code"] intValue] == kErrorCode ) [self presentViewController:[UtilityClass displayAlertMessage:[responseDict valueForKey:@"message"]] animated:YES completion:nil];
@@ -289,24 +290,24 @@
 }
 
 /*- (void)filterContentForSearchText:(NSString*)searchText
-{
-    if (searchText == nil) {
-        
-        // If empty the search results are the same as the original data
-        searchResults = [startupsArray  mutableCopy];
-    } else {
-        
-        [searchResults removeAllObjects] ;
-        for (NSDictionary *dict in startupsArray) {
-            
-            NSString *name = [NSString stringWithFormat:@"%@",[dict valueForKey:kStartupsAPI_StartupName]] ;
-            if([[name lowercaseString] containsString:[searchText lowercaseString]]){
-                [searchResults addObject:dict] ;
-            }
-        }
-    }
-    [tblView reloadData] ;
-}*/
+ {
+ if (searchText == nil) {
+ 
+ // If empty the search results are the same as the original data
+ searchResults = [startupsArray  mutableCopy];
+ } else {
+ 
+ [searchResults removeAllObjects] ;
+ for (NSDictionary *dict in startupsArray) {
+ 
+ NSString *name = [NSString stringWithFormat:@"%@",[dict valueForKey:kStartupsAPI_StartupName]] ;
+ if([[name lowercaseString] containsString:[searchText lowercaseString]]){
+ [searchResults addObject:dict] ;
+ }
+ }
+ }
+ [tblView reloadData] ;
+ }*/
 
 #pragma mark - IBAction Methods
 - (IBAction)segmentControlValueChanged:(id)sender {
@@ -321,11 +322,11 @@
     
     if(segmentControl.selectedSegmentIndex == SEARCH_SELECTED) {
         [self configureSearchController] ;
-         [self getStartupsListWithSearchText:@""] ;
+        [self getStartupsListWithSearchText:@""] ;
     }
     else {
         tblView.tableHeaderView = [[UIView alloc] init]  ;
-         [self getStartupsList] ;
+        [self getStartupsList] ;
     }
 }
 
@@ -338,9 +339,9 @@
 
 - (IBAction)DeleteStartup_ClickAction:(id)sender {
     
-     NSIndexPath *cellIndexPath = [NSIndexPath indexPathForRow:[sender tag] inSection:0];
+    NSIndexPath *cellIndexPath = [NSIndexPath indexPathForRow:[sender tag] inSection:0];
     
-     [self deleteStartupWithStartupId:[NSString stringWithFormat:@"%@",[[startupsArray objectAtIndex:[sender tag]] valueForKey:kStartupsAPI_StartupID]] withCellIndexPath:cellIndexPath] ;
+    [self deleteStartupWithStartupId:[NSString stringWithFormat:@"%@",[[startupsArray objectAtIndex:[sender tag]] valueForKey:kStartupsAPI_StartupID]] withCellIndexPath:cellIndexPath] ;
 }
 
 #pragma mark - Search Bar Delegate Methods
@@ -374,9 +375,13 @@
     if(segmentControl.selectedSegmentIndex == SEARCH_SELECTED && searchController.active && ![searchController.searchBar.text isEqualToString:@""]) {
         SearchStartupTableViewCell *cell = (SearchStartupTableViewCell*)[tableView dequeueReusableCellWithIdentifier:kCellIdentifier_StartupsList] ;
         cell.selectionStyle = UITableViewCellSelectionStyleNone ;
-        cell.startupNameLbl.text = [NSString stringWithFormat:@"%@",[[searchResults objectAtIndex:indexPath.row] valueForKey:kStartupsAPI_StartupName]] ;
-        cell.entrepreneurNameLbl.text = [NSString stringWithFormat:@"%@",[[searchResults objectAtIndex:indexPath.row] valueForKey:kStartupsAPI_EntrepreneurName]] ;
-        cell.descriptionLbl.text = [NSString stringWithFormat:@"%@",[[searchResults objectAtIndex:indexPath.row] valueForKey:kStartupsAPI_StartupDesc]] ;
+        
+        if (searchResults.count > 0) {
+            cell.startupNameLbl.text = [NSString stringWithFormat:@"%@",[[searchResults objectAtIndex:indexPath.row] valueForKey:kStartupsAPI_StartupName]] ;
+            cell.entrepreneurNameLbl.text = [NSString stringWithFormat:@"%@",[[searchResults objectAtIndex:indexPath.row] valueForKey:kStartupsAPI_EntrepreneurName]] ;
+            cell.descriptionLbl.text = [NSString stringWithFormat:@"%@",[[searchResults objectAtIndex:indexPath.row] valueForKey:kStartupsAPI_StartupDesc]] ;
+        }
+        
         if(segmentControl.selectedSegmentIndex == MY_STARTUPS_SELECTED) {
             cell.deleteButton.hidden = NO ;
             cell.arrowButton.hidden = YES ;
@@ -400,9 +405,13 @@
         else {
             SearchStartupTableViewCell *cell = (SearchStartupTableViewCell*)[tableView dequeueReusableCellWithIdentifier:kCellIdentifier_StartupsList] ;
             cell.selectionStyle = UITableViewCellSelectionStyleNone ;
-            cell.startupNameLbl.text = [NSString stringWithFormat:@"%@",[[startupsArray objectAtIndex:indexPath.row] valueForKey:kStartupsAPI_StartupName]] ;
-            cell.entrepreneurNameLbl.text = [NSString stringWithFormat:@"%@",[[startupsArray objectAtIndex:indexPath.row] valueForKey:kStartupsAPI_EntrepreneurName]] ;
-            cell.descriptionLbl.text = [NSString stringWithFormat:@"%@",[[startupsArray objectAtIndex:indexPath.row] valueForKey:kStartupsAPI_StartupDesc]] ;
+            
+            if (startupsArray.count > 0) {
+                cell.startupNameLbl.text = [NSString stringWithFormat:@"%@",[[startupsArray objectAtIndex:indexPath.row] valueForKey:kStartupsAPI_StartupName]] ;
+                cell.entrepreneurNameLbl.text = [NSString stringWithFormat:@"%@",[[startupsArray objectAtIndex:indexPath.row] valueForKey:kStartupsAPI_EntrepreneurName]] ;
+                cell.descriptionLbl.text = [NSString stringWithFormat:@"%@",[[startupsArray objectAtIndex:indexPath.row] valueForKey:kStartupsAPI_StartupDesc]] ;
+            }
+
             if(segmentControl.selectedSegmentIndex == MY_STARTUPS_SELECTED) {
                 cell.deleteButton.hidden = NO ;
                 cell.arrowButton.hidden = YES ;
@@ -445,18 +454,14 @@
         [UtilityClass setStartupDetails:(NSMutableDictionary*)[array objectAtIndex:indexPath.row]] ;
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         if([UtilityClass getStartupWorkOrderType] == YES) {
-             [UtilityClass setStartupInfoMode:NO] ;
-            UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"WorkOrderView"] ;
-            [self.navigationController pushViewController:viewController animated:YES] ;
-        }
-        else {
+            
             if(segmentControl.selectedSegmentIndex == SEARCH_SELECTED) {
                 [UtilityClass setStartupInfoMode:YES] ;
                 Info_StartupViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:kStartupOverviewViewIdentifier] ;
                 [viewController getStartupInfoForSearch] ;
                 [self.navigationController pushViewController:viewController animated:YES] ;
             }
-            else {
+            else if(segmentControl.selectedSegmentIndex == MY_STARTUPS_SELECTED) {
                 [UtilityClass setStartupInfoMode:NO] ;
                 StartupDetailViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:kStartupDetailIdentifier] ;
                 // Save IDs in a dictionary
@@ -481,18 +486,75 @@
                 
                 [self.navigationController pushViewController:viewController animated:YES] ;
             }
+            else { // Current/Completed Startup
+                [UtilityClass setStartupInfoMode:NO] ;
+//                UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"WorkOrderView"] ;
+                //TODO: workorder data is not displayed
+                WorkOrder_ContractorViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:kWorkOrderContractorIdentifier] ;
+                // Save IDs in a dictionary
+                NSMutableDictionary *dictParam = [[NSMutableDictionary alloc] init];
+                NSString *isContractor = [[startupsArray objectAtIndex:indexPath.row] valueForKey:kStartupsAPI_isContractor];
+                if ([isContractor isEqualToString: @"true"]) {
+                    NSString *startupTeamID = [[startupsArray objectAtIndex:indexPath.row] valueForKey:kStartupsAPI_Startup_TeamID];
+                    [dictParam setObject:startupTeamID forKey:kStartupWorkOrderContAPI_Startup_TeamID];
+                    
+                    NSString *enterpreneurID = [[startupsArray objectAtIndex:indexPath.row] valueForKey:kStartupsAPI_EntrepreneurID];
+                    [dictParam setObject:enterpreneurID forKey:kStartupWorkOrderContAPI_EnterpreneurID];
+                    
+                    NSString *contractorID = [NSString stringWithFormat:@"%d", [UtilityClass getLoggedInUserID]];
+                    [dictParam setObject:contractorID forKey:kStartupWorkOrderContAPI_ContractorID];
+                    
+                    NSString *isEnterpreneur = [[startupsArray objectAtIndex:indexPath.row] valueForKey:kStartupsAPI_isEntrepreneur];
+                    [dictParam setObject:isEnterpreneur forKey:kStartupWorkOrderContAPI_IsEnterpreneur];
+                    NSLog(@"dictparam: %@", dictParam);
+                    
+                    viewController.dictionaryIDs = dictParam;
+                }
+                [self.navigationController pushViewController:viewController animated:YES] ;
+            }
+        } else {
+            if(segmentControl.selectedSegmentIndex == SEARCH_SELECTED) {
+                [UtilityClass setStartupInfoMode:YES] ;
+                Info_StartupViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:kStartupOverviewViewIdentifier] ;
+                [viewController getStartupInfoForSearch] ;
+                [self.navigationController pushViewController:viewController animated:YES] ;
+            } else {
+                [UtilityClass setStartupInfoMode:NO] ;
+                StartupDetailViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:kStartupDetailIdentifier] ;
+                // Save IDs in a dictionary
+                NSMutableDictionary *dictParam = [[NSMutableDictionary alloc] init];
+                NSString *isContractor = [[startupsArray objectAtIndex:indexPath.row] valueForKey:kStartupsAPI_isContractor];
+                if ([isContractor isEqualToString: @"true"]) {
+                    NSString *startupTeamID = [[startupsArray objectAtIndex:indexPath.row] valueForKey:kStartupsAPI_Startup_TeamID];
+                    [dictParam setObject:startupTeamID forKey:kStartupWorkOrderContAPI_Startup_TeamID];
+                    
+                    NSString *enterpreneurID = [[startupsArray objectAtIndex:indexPath.row] valueForKey:kStartupsAPI_EntrepreneurID];
+                    [dictParam setObject:enterpreneurID forKey:kStartupWorkOrderContAPI_EnterpreneurID];
+                    
+                    NSString *contractorID = [NSString stringWithFormat:@"%d", [UtilityClass getLoggedInUserID]];
+                    [dictParam setObject:contractorID forKey:kStartupWorkOrderContAPI_ContractorID];
+                    
+                    NSString *isEnterpreneur = [[startupsArray objectAtIndex:indexPath.row] valueForKey:kStartupsAPI_isEntrepreneur];
+                    [dictParam setObject:isEnterpreneur forKey:kStartupWorkOrderContAPI_IsEnterpreneur];
+                    NSLog(@"dictparam: %@", dictParam);
+                    
+                    viewController.dictionaryIDs = dictParam;
+                }
+                [self.navigationController pushViewController:viewController animated:YES] ;
+            }
         }
     }
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end
+

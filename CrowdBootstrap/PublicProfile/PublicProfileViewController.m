@@ -239,17 +239,14 @@
     //TODO: Redirect to Business Card Details Screen
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NetworkingOptions" bundle:nil];
     UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:kBusinessCardDetailIdentifier] ;
-    
-//    NSDictionary *userDict = [[NSDictionary alloc] init];
-//    [userDict setValue:[NSString stringWithFormat:@"%d", connectionTypeID] forKey:kBusinessAPI_ConnectionId];
-//    [userDict setValue:[NSString stringWithFormat:@"%d", businessCardID] forKey:kBusinessAPI_CardId];
-//
-//    NSLog(@"%@",userDict);
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSendProfileInfo object:@"PublicProfile" userInfo:profileDict];
-    
-    [self.navigationController pushViewController:viewController animated:true];
-
+        
+    NSString *strCardId = [NSString stringWithFormat:@"%@",[profileDict valueForKey:kBusinessAPI_CardId]];
+    if ([strCardId isEqualToString:@""]) {
+        [self presentViewController:[UtilityClass displayAlertMessage:@"No Business Card Found!!"] animated:YES completion:nil];
+    } else {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSendProfileInfo object:@"PublicProfile" userInfo:profileDict];
+        [self.navigationController pushViewController:viewController animated:true];
+    }
 }
 
 - (IBAction)connectButton_ClickAction:(UIButton*)button {
@@ -263,23 +260,28 @@
     } else if ([btnText isEqualToString:RESPOND_TEXT]) {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Do you want to accept the connection request?" preferredStyle:UIAlertControllerStyleAlert];
         
-        UIAlertAction* yes = [UIAlertAction actionWithTitle:@"YES" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        UIAlertAction* yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
             
             // Accept the Connection
             [self acceptConnection];
         }];
-        UIAlertAction* no = [UIAlertAction actionWithTitle:@"NO" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        UIAlertAction* no = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
             
             // Reject Connection
             [self disconnectUser];
         }];
         
+        UIAlertAction* cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
+        
         [alertController addAction:yes];
         [alertController addAction:no];
-        
+        [alertController addAction:cancel];
+
         [self presentViewController:alertController animated:YES completion:nil] ;
     } else {
-        
+        [self disconnectUser];
     }
     /*
     NSString *status  = ([button.titleLabel.text isEqualToString:CONNECT_TEXT]?@"1":@"0") ;
@@ -493,6 +495,8 @@
                     [followButton setTitle:FOLLOW_TEXT forState:UIControlStateNormal] ;
                     [followButton setBackgroundImage:[UIImage imageNamed:FOLLOW_BUTTON_ICON] forState:UIControlStateNormal] ;
                 }
+                [self presentViewController:[UtilityClass displayAlertMessage:[responseDict valueForKey:@"message"]] animated:YES completion:nil];
+
             }
             //else if([[responseDict valueForKey:@"code"] intValue] == kErrorCode ) [self presentViewController:[UtilityClass displayAlertMessage:[responseDict valueForKey:@"message"]] animated:YES completion:nil];
             
@@ -518,6 +522,8 @@
             if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode )  {
                 NSLog(@"responseDict: %@",responseDict) ;
                 [connectButton setTitle:REQUEST_SENT_TEXT forState:UIControlStateNormal] ;
+                connectionID = [[responseDict objectForKey:kProfileAPI_connectionID] intValue] ;
+                [self presentViewController:[UtilityClass displayAlertMessage:[responseDict valueForKey:@"message"]] animated:YES completion:nil];
             }
         } failure:^(NSError *error) {
             [UtilityClass displayAlertMessage:error.description] ;
@@ -540,6 +546,7 @@
             if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode )  {
                 NSLog(@"responseDict: %@",responseDict) ;
                [connectButton setTitle:CONNECT_TEXT forState:UIControlStateNormal] ;
+                [self presentViewController:[UtilityClass displayAlertMessage:[responseDict valueForKey:@"message"]] animated:YES completion:nil];
             }
         } failure:^(NSError *error) {
             [UtilityClass displayAlertMessage:error.description] ;
@@ -563,6 +570,7 @@
             if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode )  {
                 NSLog(@"responseDict: %@",responseDict) ;
                 [connectButton setTitle:DISCONNECT_TEXT forState:UIControlStateNormal] ;
+                [self presentViewController:[UtilityClass displayAlertMessage:[responseDict valueForKey:@"message"]] animated:YES completion:nil];
             }
         } failure:^(NSError *error) {
             [UtilityClass displayAlertMessage:error.description] ;

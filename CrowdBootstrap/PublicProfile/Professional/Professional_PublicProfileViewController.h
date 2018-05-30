@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AddContributorViewController.h"
 
 #define PROFESSIONAL_PROF_KEYWORDS_CELL_IDENTIFIER    @"KeywordsCell"
 #define kCellIdentifier_DynamicCell                   @"DynamicTableViewCell"
@@ -26,7 +27,8 @@
 
 @interface Professional_PublicProfileViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 {
-    
+    IBOutlet UIButton    *addContractorBtn;
+
     NSMutableArray       *profProfileArray ;
     
     NSMutableArray       *selectedKeywordsArray ;

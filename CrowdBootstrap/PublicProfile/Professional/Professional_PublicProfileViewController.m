@@ -30,6 +30,21 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    if([UtilityClass getProfileMode] == PROFILE_MODE_RECOMMENDED || [UtilityClass getProfileMode] == PROFILE_MODE_SEARCH) {
+        if([UtilityClass getAddContractorStatus] == YES) {
+            addContractorBtn.alpha = 0.7 ;
+            addContractorBtn.userInteractionEnabled = NO ;
+        }
+        else {
+            addContractorBtn.alpha = 1 ;
+            addContractorBtn.userInteractionEnabled = YES ;
+        }
+        [UtilityClass setAdddContractorStatus:NO] ;
+    }
+    
+}
+
 -(void)viewDidDisappear:(BOOL)animated{
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationProfessionalProfile object:nil];
 }
@@ -39,12 +54,19 @@
     
     if([UtilityClass getProfileMode] == PROFILE_MODE_TEAM ){
         NSString *role = [[[UtilityClass getContractorDetails] mutableCopy] valueForKey:kStartupTeamAPI_MemberRole] ;
-        if(role){
-            if([role isEqualToString:TEAM_TYPE_ENTREPRENEUR])[UtilityClass setUserType:ENTREPRENEUR] ;
-            else [UtilityClass setUserType:CONTRACTOR] ;
+        if(role) {
+            if([role isEqualToString:TEAM_TYPE_ENTREPRENEUR])
+                [UtilityClass setUserType:ENTREPRENEUR] ;
+            else
+                [UtilityClass setUserType:CONTRACTOR] ;
         }
     }
     else [UtilityClass setUserType:CONTRACTOR] ;
+    
+    if([UtilityClass getProfileMode] == PROFILE_MODE_RECOMMENDED || [UtilityClass getProfileMode] == PROFILE_MODE_SEARCH  )
+        addContractorBtn.hidden = NO ;
+    else
+        addContractorBtn.hidden = YES ;
     
     _tblView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
@@ -93,11 +115,24 @@
     return tagsArray ;
 }
 
+#pragma mark - IBAction Methods
+- (IBAction)AddContractor_ClickAction:(id)sender {
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    AddContributorViewController *viewController = (AddContributorViewController*)[storyboard instantiateViewControllerWithIdentifier:kAddContractorIdentifier] ;
+    [self.navigationController pushViewController:viewController animated:YES] ;
+}
+
 #pragma mark - Notifcation Methods
 - (void)updateProfessionalProfileNotification:(NSNotification *) notification
 {
     if ([[notification name] isEqualToString:kNotificationProfessionalProfile]){
         
+        if([UtilityClass getProfileMode] == PROFILE_MODE_RECOMMENDED || [UtilityClass getProfileMode] == PROFILE_MODE_SEARCH  )
+            addContractorBtn.hidden = NO ;
+        else
+            addContractorBtn.hidden = YES ;
+
         [self initializeProfessionalProfileArray] ;
         NSDictionary *dict = [[UtilityClass getUserProfileDetails] mutableCopy] ;
         for ( int i=0; i<profProfileArray.count ; i++ ) {

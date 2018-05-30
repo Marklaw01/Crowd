@@ -28,11 +28,11 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)singleTap:(UITapGestureRecognizer *)gesture{
+- (void)singleTap:(UITapGestureRecognizer *)gesture {
     [self.view endEditing:YES];
 }
 
-- (void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated {
     
     // set Notifications
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -47,7 +47,7 @@
     
 }
 
--(void)viewWillDisappear:(BOOL)animated{
+-(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:YES];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
@@ -55,7 +55,7 @@
 
 
 #pragma mark - Custom Methods
--(void)resetUISettings{
+-(void)resetUISettings {
     
     self.title = @"Add Contractor" ;
     
@@ -66,7 +66,7 @@
     [UtilityClass setTextFieldBorder:workUnitsAllocatedTxtFld] ;
     [UtilityClass setTextFieldBorder:workUnitsApprovedTxtFld] ;
     [UtilityClass setTextFieldBorder:targetCompletionDateTxtFld] ;
-
+    
     [UtilityClass addMarginsOnTextField:selectStartupTxtFld] ;
     [UtilityClass addMarginsOnTextField:contractorNameTxtFld] ;
     [UtilityClass addMarginsOnTextField:roleTxtFld] ;
@@ -74,7 +74,7 @@
     [UtilityClass addMarginsOnTextField:workUnitsAllocatedTxtFld] ;
     [UtilityClass addMarginsOnTextField:workUnitsApprovedTxtFld] ;
     [UtilityClass addMarginsOnTextField:targetCompletionDateTxtFld] ;
-
+    
     selectStartupTxtFld.inputView = pickerViewContainer ;
     roleTxtFld.inputView = pickerViewContainer ;
     targetCompletionDateTxtFld.inputView = datePickerViewContainer;
@@ -102,17 +102,17 @@
     // Date Formatter
     dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"MMM dd, yyyy"];
-    [datePickerView setMaximumDate:[NSDate date]] ;
+    [datePickerView setMinimumDate:[NSDate date]] ;
     [datePickerView setDatePickerMode: UIDatePickerModeDate] ;
     [datePickerView addTarget:self action:@selector(datePickerChanged:) forControlEvents:UIControlEventValueChanged];
     prevTargetDate       = @"" ;
-
+    
     [workUnitsAllocatedTxtFld addTarget:self
-                  action:@selector(formatNumberIfNeeded:)
-        forControlEvents:UIControlEventEditingChanged];
-    [workUnitsApprovedTxtFld addTarget:self
                                  action:@selector(formatNumberIfNeeded:)
                        forControlEvents:UIControlEventEditingChanged];
+    [workUnitsApprovedTxtFld addTarget:self
+                                action:@selector(formatNumberIfNeeded:)
+                      forControlEvents:UIControlEventEditingChanged];
     
     
     [self initializeDeliverableTagsView] ;
@@ -122,14 +122,14 @@
     NSLog(@"rate %@",[UtilityClass getContractorDetails] ) ;
     hourlyRateTxtFld.amount = [formatter numberFromString:[NSString stringWithFormat:@"%@",[[UtilityClass getContractorDetails] valueForKey:kRecommendedContAPI_Rate]]];
     
-  
+    
     UITapGestureRecognizer *singleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap:)];
     singleTapGestureRecognizer.numberOfTapsRequired = 1;
     singleTapGestureRecognizer.enabled = YES;
     singleTapGestureRecognizer.cancelsTouchesInView = NO;
     [_scrollView addGestureRecognizer:singleTapGestureRecognizer];
     
-    if([UtilityClass getProfileMode] == PROFILE_MODE_SEARCH){
+    if([UtilityClass getProfileMode] == PROFILE_MODE_SEARCH) {
         [self updateStartupViewAccordingToProfileType:NO] ;
         [self getStartups] ;
     }
@@ -153,13 +153,13 @@
     hourlyRateTxtFld.rightViewMode = UITextFieldViewModeAlways;
 }
 
--(void)updateStartupViewAccordingToProfileType:(BOOL)setHidden{
+-(void)updateStartupViewAccordingToProfileType:(BOOL)setHidden {
     selectStartupTxtFld.hidden = setHidden ;
     startupNameLbl.hidden = setHidden ;
     arrowButton.hidden = setHidden ;
 }
 
--(void)initializeDeliverableTagsView{
+-(void)initializeDeliverableTagsView {
     
     [UtilityClass setButtonBorder:tagsButton] ;
     
@@ -185,7 +185,7 @@
     
     [tagsScrollView reloadTagSubviews];
     
-    UITapGestureRecognizer  *txtViewTapped   = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(txtViewTapped_Gesture:)];
+    UITapGestureRecognizer  *txtViewTapped = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(txtViewTapped_Gesture:)];
     [tagsScrollView addGestureRecognizer:txtViewTapped];
 }
 
@@ -242,16 +242,16 @@
             
             [UtilityClass hideHud] ;
             NSLog(@"responseDict %@", responseDict);
-            if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode )  {
+            if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode ) {
                 [UtilityClass showNotificationMessgae:[responseDict valueForKey:@"message"] withResultType:@"0" withDuration:1] ;
                 //[self presentViewController:[UtilityClass displayAlertMessage:[responseDict valueForKey:@"message"]] animated:YES completion:nil] ;
                 [UtilityClass setAdddContractorStatus:YES] ;
                 [self.navigationController popViewControllerAnimated:YES] ;
             }
             //else [self presentViewController:[UtilityClass displayAlertMessage:[responseDict valueForKey:@"message"]] animated:YES completion:nil];
-            else if([[responseDict valueForKey:@"code"] intValue] == kErrorCode ){
-                 [UtilityClass showNotificationMessgae:[responseDict valueForKey:@"message"] withResultType:@"0" withDuration:1] ;
-                 [self.navigationController popViewControllerAnimated:YES] ;
+            else if([[responseDict valueForKey:@"code"] intValue] == kErrorCode ) {
+                [UtilityClass showNotificationMessgae:[responseDict valueForKey:@"message"] withResultType:@"0" withDuration:1] ;
+                [self.navigationController popViewControllerAnimated:YES] ;
             }
             
         } failure:^(NSError *error) {
@@ -261,16 +261,16 @@
     }
 }
 
--(void)getDeliverables{
-    if([UtilityClass checkInternetConnection]){
+-(void)getDeliverables {
+    if([UtilityClass checkInternetConnection]) {
         
         [UtilityClass showHudWithTitle:kHUDMessage_PleaseWait] ;
         [ApiCrowdBootstrap getDeliverables:^(NSDictionary *responseDict) {
             
             [UtilityClass hideHud] ;
             NSLog(@"responseDict %@", responseDict);
-            if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode )  {
-                if([responseDict objectForKey:kDeliverablesAPI_Deliverables]){
+            if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode ) {
+                if([responseDict objectForKey:kDeliverablesAPI_Deliverables]) {
                     
                     for (NSDictionary *dict in (NSArray*)[[responseDict objectForKey:kDeliverablesAPI_Deliverables] mutableCopy]) {
                         NSMutableDictionary *obj = [[NSMutableDictionary alloc] initWithDictionary:[dict mutableCopy]] ;
@@ -288,8 +288,8 @@
     }
 }
 
--(void)getMemberRoles{
-    if([UtilityClass checkInternetConnection]){
+-(void)getMemberRoles {
+    if([UtilityClass checkInternetConnection]) {
         
         [UtilityClass showHudWithTitle:kHUDMessage_PleaseWait] ;
         [ApiCrowdBootstrap getMemberRoles:^(NSDictionary *responseDict) {
@@ -298,24 +298,24 @@
             NSLog(@"responseDict %@", responseDict);
             if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode )  {
                 
-                if([responseDict objectForKey:kAddContractorAPI_Roles]){
-                    for (NSDictionary *dict in (NSArray*)[responseDict objectForKey:kAddContractorAPI_Roles]){
+                if([responseDict objectForKey:kAddContractorAPI_Roles]) {
+                    for (NSDictionary *dict in (NSArray*)[responseDict objectForKey:kAddContractorAPI_Roles]) {
                         NSString *roleID = [NSString stringWithFormat:@"%@",[dict valueForKey:@"id"]] ;
-                        if(![roleID isEqualToString:@"1"]){
+                        if(![roleID isEqualToString:@"1"]) {
                             if([UtilityClass getProfileMode] != PROFILE_MODE_RECOMMENDED) [roleArray addObject:dict] ;
                             else{
-                               NSString *role = [NSString stringWithFormat:@"%@",[dict valueForKey:@"name"]] ;
+                                NSString *role = [NSString stringWithFormat:@"%@",[dict valueForKey:@"name"]] ;
                                 NSLog(@"role: %@",role) ;
-                                if([[UtilityClass getTeamMemberRole] isEqualToString:TEAM_TYPE_ENTREPRENEUR]){
-                                     [roleArray addObject:dict] ;
+                                if([[UtilityClass getTeamMemberRole] isEqualToString:TEAM_TYPE_ENTREPRENEUR]) {
+                                    [roleArray addObject:dict] ;
                                 }
-                                else if([[UtilityClass getTeamMemberRole] isEqualToString:TEAM_TYPE_COFOUNDER]){
-                                    if([role isEqualToString:TEAM_TYPE_CONTRACTOR] || [role isEqualToString:TEAM_TYPE_TEAM_MEMEBER]){
-                                         [roleArray addObject:dict] ;
+                                else if([[UtilityClass getTeamMemberRole] isEqualToString:TEAM_TYPE_COFOUNDER]) {
+                                    if([role isEqualToString:TEAM_TYPE_CONTRACTOR] || [role isEqualToString:TEAM_TYPE_TEAM_MEMEBER]) {
+                                        [roleArray addObject:dict] ;
                                     }
                                 }
-                                else if([[UtilityClass getTeamMemberRole] isEqualToString:TEAM_TYPE_TEAM_MEMEBER]){
-                                    if([role isEqualToString:TEAM_TYPE_CONTRACTOR]){
+                                else if([[UtilityClass getTeamMemberRole] isEqualToString:TEAM_TYPE_TEAM_MEMEBER]) {
+                                    if([role isEqualToString:TEAM_TYPE_CONTRACTOR]) {
                                         [roleArray addObject:dict] ;
                                     }
                                 }
@@ -335,11 +335,11 @@
     }
 }
 
--(void)getStartups{
-    if([UtilityClass checkInternetConnection]){
+-(void)getStartups {
+    if([UtilityClass checkInternetConnection]) {
         
         [UtilityClass showHudWithTitle:kHUDMessage_PleaseWait] ;
-        NSMutableDictionary *dictParam =[[NSMutableDictionary alloc] init];
+        NSMutableDictionary *dictParam = [[NSMutableDictionary alloc] init];
         [dictParam setObject:[NSString stringWithFormat:@"%d",[UtilityClass getLoggedInUserID]] forKey:kProfileUserStartupApi_UserID] ;
         [dictParam setObject:ENTREPRENEUR_TEXT forKey:kProfileUserStartupApi_UserType] ;
         
@@ -347,8 +347,8 @@
             
             [UtilityClass hideHud] ;
             NSLog(@"responseDict %@", responseDict);
-            if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode )  {
-                if([responseDict objectForKey:kProfileUserStartupApi_StartupData]){
+            if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode ) {
+                if([responseDict objectForKey:kProfileUserStartupApi_StartupData]) {
                     startupsArray = [NSMutableArray arrayWithArray:(NSArray*)[[responseDict objectForKey:kProfileUserStartupApi_StartupData] mutableCopy]] ;
                     
                     [pickerView reloadAllComponents] ;
@@ -365,7 +365,7 @@
 }
 
 #pragma mark - Tap gesture
-- (void)txtViewTapped_Gesture:(UITapGestureRecognizer *)gestureRecognizer{
+- (void)txtViewTapped_Gesture:(UITapGestureRecognizer *)gestureRecognizer {
     [self openTagsPopup] ;
 }
 
@@ -374,13 +374,13 @@
     NSLog(@"Tag \"%@\" was tapped", tagsControl.tags[index]);
 }
 
--(void)tagsControl:(UIView *)tag withTagControlIndex:(NSInteger)tagControlIndex removedFromIndex:(NSInteger)index{
+-(void)tagsControl:(UIView *)tag withTagControlIndex:(NSInteger)tagControlIndex removedFromIndex:(NSInteger)index {
     NSLog(@"index: %ld control: %ld", (long)index,(long)tagControlIndex);
     [tag removeFromSuperview];
     NSString *selectedName = [NSString stringWithFormat:@"%@",[selectedDeliverablesArray objectAtIndex:index]] ;
     for (int i=0; i<deliverablesArray.count; i++) {
         NSString *deliverableName = [NSString stringWithFormat:@"%@",[[deliverablesArray objectAtIndex:i] valueForKey:@"name"]] ;
-        if([deliverableName isEqualToString:selectedName]){
+        if([deliverableName isEqualToString:selectedName]) {
             [[deliverablesArray objectAtIndex:i] setValue:@"0" forKey:@"isSelected"] ;
             break ;
         }
@@ -401,37 +401,40 @@
 }
 
 - (IBAction)CalendarDate_ClickAction:(id)sender {
-    [datePickerView setDate:[dateFormatter dateFromString:targetCompletionDateTxtFld.text] animated:YES] ;
+    if (![targetCompletionDateTxtFld.text isEqualToString:@""])
+        [datePickerView setDate:[dateFormatter dateFromString:targetCompletionDateTxtFld.text] animated:YES] ;
+    else
+        [datePickerView setMinimumDate:[NSDate date]] ;
     [targetCompletionDateTxtFld becomeFirstResponder] ;
 }
 
 - (IBAction)Assign_ClickAction:(id)sender {
     
-    if([UtilityClass getProfileMode] == PROFILE_MODE_SEARCH && selectedStarupIndex == -1){
+    if([UtilityClass getProfileMode] == PROFILE_MODE_SEARCH && selectedStarupIndex == -1) {
         [self presentViewController:[UtilityClass displayAlertMessage:kValidation_Contractor_Startup] animated:YES completion:nil] ;
         return ;
     }
-    else if(selectedRoleIndex == -1){
+    else if(selectedRoleIndex == -1) {
         [self presentViewController:[UtilityClass displayAlertMessage:kValidation_Contractor_Role] animated:YES completion:nil] ;
         return ;
     }
-    else if(selectedDeliverablesArray.count == 0){
+    else if(selectedDeliverablesArray.count == 0) {
         [self presentViewController:[UtilityClass displayAlertMessage:kValidation_Contractor_Deliverable] animated:YES completion:nil] ;
         return ;
     }
-    else if(hourlyRateTxtFld.amount == 0){
+    else if(hourlyRateTxtFld.amount == 0) {
         [self presentViewController:[UtilityClass displayAlertMessage:kValidation_Contractor_Hours] animated:YES completion:nil] ;
         return ;
     }
-    else if(workUnitsAllocatedTxtFld.text.length < 1){
+    else if(workUnitsAllocatedTxtFld.text.length < 1) {
         [self presentViewController:[UtilityClass displayAlertMessage:kValidation_Contractor_Allocated] animated:YES completion:nil] ;
         return ;
     }
-    else if(workUnitsApprovedTxtFld.text.length < 1){
+    else if(workUnitsApprovedTxtFld.text.length < 1) {
         [self presentViewController:[UtilityClass displayAlertMessage:kValidation_Contractor_Approved] animated:YES completion:nil] ;
         return ;
     }
-    else if(targetCompletionDateTxtFld.text.length < 1){
+    else if(targetCompletionDateTxtFld.text.length < 1) {
         [self presentViewController:[UtilityClass displayAlertMessage:kValidation_Target_Completion_Date] animated:YES completion:nil] ;
         return ;
     }
@@ -440,7 +443,7 @@
         
         int workUnitsAllocated = [[workUnitsAllocatedTxtFld.text stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
         int workUnitsApproved = [[workUnitsApprovedTxtFld.text stringByReplacingOccurrencesOfString:@"," withString:@""] intValue] ;
-        if( workUnitsApproved > workUnitsAllocated){
+        if( workUnitsApproved > workUnitsAllocated) {
             [self presentViewController:[UtilityClass displayAlertMessage:kValidation_Contractor_AllocatedMax] animated:YES completion:nil] ;
             return ;
         }
@@ -475,7 +478,7 @@
 }
 
 - (IBAction)Ok_ClickAction:(id)sender {
-//    [popupView dismissPresentingPopup] ;
+    //    [popupView dismissPresentingPopup] ;
     [popupView removeFromSuperview];
     [selectedDeliverablesArray removeAllObjects] ;
     for (NSMutableDictionary *obj in deliverablesArray) {
@@ -495,35 +498,35 @@
     [selectStartupTxtFld resignFirstResponder] ;
     [roleTxtFld resignFirstResponder] ;
     
-    if([sender tag] == DONE_CLICKED){
-        if(selecedPickerViewType == STARTUP_SELECTED){
+    if([sender tag] == DONE_CLICKED) {
+        if(selecedPickerViewType == STARTUP_SELECTED) {
             
-            if([pickerView selectedRowInComponent:0] == 0){
+            if([pickerView selectedRowInComponent:0] == 0) {
                 selectStartupTxtFld.text = @""  ;
                 selectedStarupIndex = -1  ;
             }
-            else{
+            else {
                 selectStartupTxtFld.text = [[startupsArray objectAtIndex:[pickerView selectedRowInComponent:0]-1] valueForKey:@"name"]  ;
                 selectedStarupIndex = (int)[pickerView selectedRowInComponent:0]-1 ;
             }
         }
         else{
-            if([pickerView selectedRowInComponent:0] == 0){
+            if([pickerView selectedRowInComponent:0] == 0) {
                 roleTxtFld.text = @""  ;
                 selectedRoleIndex = -1  ;
             }
-            else{
+            else {
                 roleTxtFld.text = [[roleArray objectAtIndex:[pickerView selectedRowInComponent:0]-1] valueForKey:@"name"]  ;
                 selectedRoleIndex = (int)[pickerView selectedRowInComponent:0]-1 ;
             }
         }
     }
     else{
-        if(selecedPickerViewType == STARTUP_SELECTED){
+        if(selecedPickerViewType == STARTUP_SELECTED) {
             if(selectedStarupIndex != -1) selectStartupTxtFld.text = [[startupsArray objectAtIndex:selectedStarupIndex] valueForKey:@"name"]  ;
             else selectStartupTxtFld.text = @"" ;
         }
-        else{
+        else {
             if(selectedRoleIndex != -1) roleTxtFld.text = [[roleArray objectAtIndex:selectedRoleIndex] valueForKey:@"name"]  ;
             else roleTxtFld.text = @"" ;
         }
@@ -532,7 +535,7 @@
 
 - (IBAction)DatePickerToolbarButtons_ClickAction:(id)sender {
     [targetCompletionDateTxtFld resignFirstResponder] ;
-    if([sender tag] == DONE_CLICKED){
+    if([sender tag] == DONE_CLICKED) {
         targetCompletionDateTxtFld.text = [dateFormatter stringFromDate:datePickerView.date];
     }
     else {
@@ -546,29 +549,29 @@
 }
 
 #pragma mark - Picker View Delegate Methods
--(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
+-(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     return 1 ;
 }
 
--(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
+-(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
     if(selecedPickerViewType == STARTUP_SELECTED) return startupsArray.count+1 ;
     else return roleArray.count+1 ;
     
 }
 
--(NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
-    if(selecedPickerViewType == STARTUP_SELECTED){
+-(NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    if(selecedPickerViewType == STARTUP_SELECTED) {
         if(row == 0) return @"Select Startup" ;
         else return [[startupsArray objectAtIndex:row-1] valueForKey:@"name"] ;
     }
-    else{
+    else {
         if(row == 0) return @"Select Role" ;
         else return [[roleArray objectAtIndex:row-1] valueForKey:@"name"] ;
     }
 }
 
--(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
-    if(selecedPickerViewType == STARTUP_SELECTED){
+-(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    if(selecedPickerViewType == STARTUP_SELECTED) {
         if(row == 0) selectStartupTxtFld.text = @"" ;
         else selectStartupTxtFld.text = [[startupsArray objectAtIndex:row-1] valueForKey:@"name"] ;
     }
@@ -586,20 +589,20 @@
 }
 
 #pragma mark - TableView Delegate Methods
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return deliverablesArray.count ;
 }
 
--(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+-(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     PaymentsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"keywordsCell"] ;
     cell.selectionStyle = UITableViewCellSelectionStyleNone ;
     cell.companyNameLbl.text = [[deliverablesArray objectAtIndex:indexPath.row] valueForKey:@"name"] ;
     cell.checkboxBtn.tag = indexPath.row ;
-    if([[NSString stringWithFormat:@"%@",[[deliverablesArray objectAtIndex:indexPath.row] valueForKey:@"isSelected"]] isEqualToString:@"0" ]){ // Check
+    if([[NSString stringWithFormat:@"%@",[[deliverablesArray objectAtIndex:indexPath.row] valueForKey:@"isSelected"]] isEqualToString:@"0" ]) { // Check
         [cell.checkboxBtn setBackgroundImage:[UIImage imageNamed:UNCHECK_IMAGE] forState:UIControlStateNormal] ;
         cell.checkboxBtn.accessibilityLabel = UNCHECK_IMAGE ;
     }
-    else{ // Uncheck
+    else { // Uncheck
         
         [cell.checkboxBtn setBackgroundImage:[UIImage imageNamed:CHECK_IMAGE] forState:UIControlStateNormal] ;
         cell.checkboxBtn.accessibilityLabel = CHECK_IMAGE ;
@@ -607,20 +610,20 @@
     return cell ;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 50 ;
 }
 
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1 ;
 }
 
--(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+-(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     return @"Roadmap Deliverables" ;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(tableView == popupTblView){
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if(tableView == popupTblView) {
         PaymentsTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath] ;
         [self CheckUncheck_ClickAction:cell.checkboxBtn] ;
     }
@@ -633,19 +636,19 @@
     [headerIndexText.textLabel setTextColor:[UtilityClass blueColor]];
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 30 ;
 }
 
 #pragma mark - TextField Delegate Methods
--(void)textFieldDidBeginEditing:(UITextField *)textField{
+-(void)textFieldDidBeginEditing:(UITextField *)textField {
     if([textField isEqual: targetCompletionDateTxtFld])
         prevTargetDate = targetCompletionDateTxtFld.text ;
-
+    
     _selectedItem = textField;
 }
 
--(BOOL)textFieldShouldReturn:(UITextField *)textField{
+-(BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder] ;
     
     if([textField isEqual:hourlyRateTxtFld]) [workUnitsAllocatedTxtFld becomeFirstResponder];
@@ -655,7 +658,7 @@
     return YES ;
 }
 
--(BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     if([textField isEqual:selectStartupTxtFld])selecedPickerViewType = STARTUP_SELECTED ;
     else if([textField isEqual:roleTxtFld]) selecedPickerViewType = ROLE_SELECTED ;
     else if([textField isEqual:targetCompletionDateTxtFld]) selectedDatePickerType = TARGET_DATE_SELECTED ;
@@ -667,13 +670,13 @@
     return YES ;
 }
 
--(void)textFieldDidEndEditing:(UITextField *)textField{
+-(void)textFieldDidEndEditing:(UITextField *)textField {
     _selectedItem = nil ;
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    if(textField == workUnitsAllocatedTxtFld || textField == workUnitsApprovedTxtFld){
+    if(textField == workUnitsAllocatedTxtFld || textField == workUnitsApprovedTxtFld) {
         NSRange illegalCharacterEntered = [string rangeOfCharacterFromSet:[NSCharacterSet letterCharacterSet]];
         if ( illegalCharacterEntered.location != NSNotFound ) {
             return NO;
@@ -708,13 +711,13 @@
     [self moveToOriginalFrame] ;
 }
 
--(void)moveToOriginalFrame{
+-(void)moveToOriginalFrame {
     UIEdgeInsets contentInsets = UIEdgeInsetsZero;
     self.scrollView.contentInset = contentInsets;
     self.scrollView.scrollIndicatorInsets = contentInsets;
 }
 
-- (void)formatNumberIfNeeded:(UITextField *)textField{
+- (void)formatNumberIfNeeded:(UITextField *)textField {
     // you'll need to strip the commas for the formatter to work properly
     NSString * currentTextWithoutCommas = [textField.text stringByReplacingOccurrencesOfString:@"," withString:@""];
     
@@ -728,13 +731,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

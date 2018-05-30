@@ -144,6 +144,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="constraintLikeBtnTrailing" destination="AgX-fX-ptV" id="kwe-aT-RdV"/>
+                                            <outlet property="constraintPostedByBtnTrailing" destination="aH5-iz-SYV" id="ygT-fQ-swA"/>
                                             <outlet property="followBtn" destination="vYx-Kg-fEL" id="YbW-9G-NeJ"/>
                                             <outlet property="likeBtn" destination="ULY-iS-VvS" id="Hew-pZ-szy"/>
                                             <outlet property="postedByBtn" destination="ilf-L0-YFK" id="kg8-pM-8Ih"/>
@@ -896,7 +897,7 @@
                                         <color key="separatorColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <inset key="separatorInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="userProfileCell" id="ZGG-5b-q9N" customClass="UserFundTableViewCell">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="userProfileCell" id="ZGG-5b-q9N" customClass="UserFundTableViewCell">
                                                 <rect key="frame" x="0.0" y="28" width="325" height="60"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZGG-5b-q9N" id="6m1-Az-dUb">
@@ -956,6 +957,7 @@
                                                         <constraint firstItem="dmA-8W-i2P" firstAttribute="leading" secondItem="FZz-iZ-45A" secondAttribute="trailing" constant="10" id="un3-ll-gCz"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <connections>
                                                     <outlet property="btnViewProfile" destination="hAS-1w-cak" id="tR7-Xb-bSK"/>
                                                     <outlet property="imgView" destination="FZz-iZ-45A" id="UJx-eh-Mpd"/>
@@ -1255,14 +1257,14 @@
                                                 <exclude reference="LjX-mm-Gqt"/>
                                             </mask>
                                             <mask key="constraints">
-                                                <exclude reference="CTb-qd-HX0"/>
-                                                <exclude reference="E3I-3Q-7gJ"/>
-                                                <exclude reference="e3R-8k-w7p"/>
                                                 <exclude reference="4NU-6f-qDd"/>
                                                 <exclude reference="6Rq-MR-p1C"/>
                                                 <exclude reference="U18-UO-fpn"/>
                                                 <exclude reference="fgv-DR-tlw"/>
                                                 <exclude reference="nsm-Y0-gzz"/>
+                                                <exclude reference="CTb-qd-HX0"/>
+                                                <exclude reference="E3I-3Q-7gJ"/>
+                                                <exclude reference="e3R-8k-w7p"/>
                                             </mask>
                                         </variation>
                                         <variation key="heightClass=regular-widthClass=compact">
@@ -1271,14 +1273,14 @@
                                                 <include reference="LjX-mm-Gqt"/>
                                             </mask>
                                             <mask key="constraints">
-                                                <include reference="CTb-qd-HX0"/>
-                                                <include reference="E3I-3Q-7gJ"/>
-                                                <include reference="e3R-8k-w7p"/>
                                                 <include reference="4NU-6f-qDd"/>
                                                 <include reference="6Rq-MR-p1C"/>
                                                 <include reference="U18-UO-fpn"/>
                                                 <include reference="fgv-DR-tlw"/>
                                                 <include reference="nsm-Y0-gzz"/>
+                                                <include reference="CTb-qd-HX0"/>
+                                                <include reference="E3I-3Q-7gJ"/>
+                                                <include reference="e3R-8k-w7p"/>
                                             </mask>
                                         </variation>
                                     </tableViewCellContentView>
@@ -1537,7 +1539,7 @@
                                 <color key="separatorColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <inset key="separatorInset" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="focusGroupCell" rowHeight="145" id="pmw-MB-s0g" customClass="FundsTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="focusGroupCell" rowHeight="145" id="pmw-MB-s0g" customClass="FundsTableViewCell">
                                         <rect key="frame" x="0.0" y="28" width="375" height="145"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pmw-MB-s0g" id="PzB-BZ-En7">
@@ -1560,7 +1562,6 @@
                                                         <constraint firstAttribute="height" constant="50" id="S1k-Aq-ML7"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
-                                                    <color key="textColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
@@ -1897,7 +1898,7 @@
                                         <color key="separatorColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <inset key="separatorInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="userProfileCell" id="rWb-oT-rA2" customClass="UserFundTableViewCell">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="userProfileCell" id="rWb-oT-rA2" customClass="UserFundTableViewCell">
                                                 <rect key="frame" x="0.0" y="28" width="325" height="60"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rWb-oT-rA2" id="i5T-MC-Ega">
@@ -2912,14 +2913,14 @@
                                                 <exclude reference="7fY-Bn-ePQ"/>
                                             </mask>
                                             <mask key="constraints">
-                                                <exclude reference="AGY-30-Su0"/>
-                                                <exclude reference="CHO-Gb-xKI"/>
-                                                <exclude reference="Uex-7s-4gf"/>
                                                 <exclude reference="19i-Mj-gQb"/>
                                                 <exclude reference="Mh3-cB-MG7"/>
                                                 <exclude reference="QtO-5c-9LC"/>
                                                 <exclude reference="fG0-RK-jO0"/>
                                                 <exclude reference="thm-oG-oQF"/>
+                                                <exclude reference="AGY-30-Su0"/>
+                                                <exclude reference="CHO-Gb-xKI"/>
+                                                <exclude reference="Uex-7s-4gf"/>
                                             </mask>
                                         </variation>
                                         <variation key="heightClass=regular-widthClass=compact">
@@ -2928,14 +2929,14 @@
                                                 <include reference="7fY-Bn-ePQ"/>
                                             </mask>
                                             <mask key="constraints">
-                                                <include reference="AGY-30-Su0"/>
-                                                <include reference="CHO-Gb-xKI"/>
-                                                <include reference="Uex-7s-4gf"/>
                                                 <include reference="19i-Mj-gQb"/>
                                                 <include reference="Mh3-cB-MG7"/>
                                                 <include reference="QtO-5c-9LC"/>
                                                 <include reference="fG0-RK-jO0"/>
                                                 <include reference="thm-oG-oQF"/>
+                                                <include reference="AGY-30-Su0"/>
+                                                <include reference="CHO-Gb-xKI"/>
+                                                <include reference="Uex-7s-4gf"/>
                                             </mask>
                                         </variation>
                                     </tableViewCellContentView>
@@ -3026,7 +3027,7 @@
         <image name="Campaign_follow" width="76" height="25"/>
         <image name="Chat_user" width="29" height="29"/>
         <image name="Login_loginBtn" width="132" height="30"/>
-        <image name="Plus_Icon" width="14" height="14"/>
+        <image name="Plus_Icon" width="22" height="22"/>
         <image name="ShoppingCart_uncheck" width="15" height="15"/>
         <image name="Signup_btn" width="297" height="25"/>
         <image name="dislike_blue" width="16" height="16"/>

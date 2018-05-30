@@ -24,4 +24,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *deactivateBtn;
 @property (weak, nonatomic) IBOutlet UIButton *deleteBtn;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintFollowerBtnBottom;
+
 @end

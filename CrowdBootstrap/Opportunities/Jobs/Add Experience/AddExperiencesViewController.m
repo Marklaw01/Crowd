@@ -415,7 +415,6 @@
     }
 }
 
-
 -(void)addExperience: (NSMutableArray *)arrExpDetails {
     if([UtilityClass checkInternetConnection]) {
         
@@ -423,7 +422,11 @@
         NSMutableDictionary *dictParam = [[NSMutableDictionary alloc] init];
         
         [dictParam setObject:[NSString stringWithFormat:@"%d",[UtilityClass getLoggedInUserID]] forKey:kUserExperienceAPI_UserID] ;
-        [dictParam setObject:jobExperienceID forKey:kUserExperienceAPI_ExperienceID] ;
+        if (jobExperienceID != nil)
+            [dictParam setObject:jobExperienceID forKey:kUserExperienceAPI_ExperienceID] ;
+        else
+            [dictParam setObject:@"" forKey:kApplyJob_JobExperienceID] ;
+
         [dictParam setObject:arrExpDetails forKey:kAddExperienceAPI_ExperienceDetails] ;
 
         NSLog(@"Params : %@", dictParam);
@@ -576,7 +579,7 @@
                     
                     if ((indexPath.row == kCellIndex_JobDuties)  || (indexPath.row == kCellIndex_Acheivments)) {
                         if ([[quesDict valueForKey:@"answer"] isKindOfClass:[NSString class]]) {
-                            textFld.text = @"";
+                            textFld.text = [quesDict valueForKey:@"answer"];
                         } else { }
                     }
                     else if (indexPath.row == kCellIndex_StartDate) {

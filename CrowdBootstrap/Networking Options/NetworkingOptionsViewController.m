@@ -67,13 +67,19 @@
 */
 - (void)createSessionToLinkedIn {
     NSArray *permissions = [NSArray arrayWithObjects:LISDK_BASIC_PROFILE_PERMISSION, nil];
+    
+    
     [LISDKSessionManager createSessionWithAuth:permissions state:nil showGoToAppStoreDialog:YES successBlock:^(NSString *returnState)
      {
         NSLog(@"%s","success called!");
         LISDKSession *session = [[LISDKSessionManager sharedInstance] session];
-        NSLog(@"Session : %@", session.description);
-        // Get LinkedIn Info
-        [self fetchLinkedInData];
+        NSLog(@"Session : %@", session);
+         
+         // get access token
+         NSMutableString *text = [[NSMutableString alloc] initWithString:[session.accessToken description]];
+        // Fetch LinkedIn Info
+         [self fetchLinkedInData: text];
+         
      } errorBlock:^(NSError *error)
      {
 //         [[LISDKAPIHelper sharedInstance] cancelCalls];
@@ -83,11 +89,11 @@
      }];
 }
 
-- (void)fetchLinkedInData {
-//    [[LISDKAPIHelper sharedInstance] getRequest:@"https://api.linkedin.com/v1/people/~"
-//                                        success:^(LISDKAPIResponse *response)
+- (void)fetchLinkedInData: (NSMutableString*)accessToken {
+
      [[LISDKAPIHelper sharedInstance] getRequest:@"https://api.linkedin.com/v1/people/~:(id,email-address,first-name,last-name,formatted-name,picture-url,siteStandardProfileRequest,headline)?format=json"
                                          success:^(LISDKAPIResponse *response)
+      //picture-urls::(original)
     {
         NSData* data = [response.data dataUsingEncoding:NSUTF8StringEncoding];
         NSDictionary *dictResponse = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];

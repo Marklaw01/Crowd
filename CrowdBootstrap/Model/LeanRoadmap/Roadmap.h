@@ -16,6 +16,7 @@
 @property(nonatomic, strong) NSArray *color;
 @property(nonatomic, strong) NSString *sampleLink;
 @property(nonatomic, strong) NSString *templateLink;
+@property(nonatomic, strong) NSString *roadmaptemplateLink;
 @property(nonatomic, strong) NSString *direction;
 @property(assign) int index;
 

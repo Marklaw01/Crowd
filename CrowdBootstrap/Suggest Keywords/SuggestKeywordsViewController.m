@@ -201,7 +201,7 @@
             [UtilityClass hideHud] ;
             NSLog(@"responseDict: %@",responseDict) ;
             if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode )  {
-                [UtilityClass displayAlertMessage:[responseDict valueForKey:@"message"]] ;
+                [UtilityClass showNotificationMessgae:[responseDict valueForKey:@"message"] withResultType:@"1" withDuration:1] ;
                 // Refresh the list
                 [self getSuggestKeywordsList];
             }

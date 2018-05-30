@@ -1554,7 +1554,7 @@
                     [cell.commitBtn setBackgroundColor:[UIColor colorWithRed:5.0/255.0 green:106.0/255.0 blue:31.0/255.0 alpha:1.0f]];
                 }
             } else {
-                [cell.commitBtn setTitle:@"Submit" forState:UIControlStateNormal];
+                [cell.commitBtn setTitle:SUBMIT_TEXT forState:UIControlStateNormal];
                 [cell.commitBtn setBackgroundColor:[UIColor colorWithRed:33.0/255.0 green:81.0/255.0 blue:135.0/255.0 alpha:1.0f]];
             }
             return cell ;
@@ -1588,12 +1588,16 @@
             
             if ((selectedSegmentControl == 100 && selectedSegment == 1) || (selectedSegmentControl == 200 && selectedSegment == 0) || (selectedSegmentControl == 200 && selectedSegment == 1) ||(selectedSegmentControl == 200 && selectedSegment == 2)) {
                 cell.followBtn.hidden = true;
-                cell.constraintLikeBtnTrailing.constant = 0;
+                cell.likeBtn.hidden = true;
+                //                cell.constraintLikeBtnTrailing.constant = 0;
+                cell.constraintPostedByBtnTrailing.constant = -200;
+                
             } else {
                 cell.followBtn.hidden = false;
-                cell.constraintLikeBtnTrailing.constant = 80;
+                cell.likeBtn.hidden = false;
+                //                cell.constraintLikeBtnTrailing.constant = 80;
+                cell.constraintPostedByBtnTrailing.constant = 5;
             }
-            
             return cell;
         }
         else if(indexPath.section == ENDORSOR_INDUSTRY_KEYWORDS_SECTION_INDEX || indexPath.section == ENDORSOR_TARGET_MARKET_KEYWORDS_SECTION_INDEX || indexPath.section == ENDORSOR_KEYWORDS_SECTION_INDEX) {

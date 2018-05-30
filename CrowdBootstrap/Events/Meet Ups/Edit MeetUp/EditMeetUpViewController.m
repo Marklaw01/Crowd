@@ -142,10 +142,10 @@
     dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"MMM dd, yyyy"];
     
+    [self getMeetUpForums];
     [self getMeetUpKeywordsList];
     [self getMeetUpIndustryKeywordsList];
     [self getTargetMarketKeywordsList];
-    [self getMeetUpForums];
 
     [self getMeetUpDetails] ;
 
@@ -1256,9 +1256,9 @@
                 isLiked = [[responseDict valueForKey:kMeetUpAPI_IsLiked] intValue];
                 isFollowed = [[responseDict valueForKey:kMeetUpAPI_IsFollowed] intValue];
                 
-                selectedForumID = [[responseDict valueForKey:kAddMeetUpAPI_ForumId] stringValue];
-                selectedAccessLevel = [[responseDict valueForKey:kAddMeetUpAPI_AccessLevel] stringValue];
-                selectedNotification = [[responseDict valueForKey:kAddMeetUpAPI_Notification] stringValue];
+                selectedForumID = [responseDict valueForKey:kAddMeetUpAPI_ForumId];
+                selectedAccessLevel = [responseDict valueForKey:kAddMeetUpAPI_AccessLevel];
+                selectedNotification = [responseDict valueForKey:kAddMeetUpAPI_Notification];
 
                 if (![selectedForumID isEqualToString:@""]) {
                     int index = [UtilityClass getPickerViewSelectedIndexFromArray:forumsArray forID:selectedForumID] ;
@@ -1275,7 +1275,7 @@
                     [[sectionsArray objectAtIndex:MEETUP_ACCESS_SECTION_INDEX] setValue:@"" forKey:@"value"];
                 }
                 
-                if (![selectedNotification isEqualToString:@""] || ![selectedNotification isEqualToString:@"0"]) {
+                if (![selectedNotification isEqualToString:@""]) {
                     [[sectionsArray objectAtIndex:MEETUP_NOTIFICATION_SECTION_INDEX] setValue:[notificationArray objectAtIndex:[selectedNotification intValue]-1] forKey:@"value"];
                 }
                 else {
@@ -1738,12 +1738,16 @@
             
             if ((selectedSegmentControl == 100 && selectedSegment == 1) || (selectedSegmentControl == 200 && selectedSegment == 0) || (selectedSegmentControl == 200 && selectedSegment == 1) ||(selectedSegmentControl == 200 && selectedSegment == 2)) {
                 cell.followBtn.hidden = true;
-                cell.constraintLikeBtnTrailing.constant = 0;
+                cell.likeBtn.hidden = true;
+                //                cell.constraintLikeBtnTrailing.constant = 0;
+                cell.constraintPostedByBtnTrailing.constant = -200;
+                
             } else {
                 cell.followBtn.hidden = false;
-                cell.constraintLikeBtnTrailing.constant = 80;
+                cell.likeBtn.hidden = false;
+                //                cell.constraintLikeBtnTrailing.constant = 80;
+                cell.constraintPostedByBtnTrailing.constant = 5;
             }
-            
             return cell;
         }
         else if(indexPath.section == MEETUP_INDUSTRY_KEYWORDS_SECTION_INDEX || indexPath.section == MEETUP_TARGET_MARKET_KEYWORDS_SECTION_INDEX || indexPath.section == MEETUP_KEYWORDS_SECTION_INDEX) {

@@ -1075,6 +1075,7 @@
 		10143CD31D6C724B00B369CB /* YTVideoView */ = {
 			isa = PBXGroup;
 			children = (
+				1072BB581D6D6E7400B84071 /* SearchCampaign */,
 				10143CD41D6C728300B369CB /* YTVideoViewViewController.h */,
 				10143CD51D6C728300B369CB /* YTVideoViewViewController.m */,
 			);
@@ -1584,6 +1585,7 @@
 		1069425D1C46889300B80C56 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				82009EC81DE4162400604E36 /* Companies */,
 				104021551C687520006D1237 /* SearchStartup */,
 			);
 			name = Search;
@@ -1651,7 +1653,6 @@
 				1070FEDC1C50E36B007C100A /* AppDelegate */,
 				9B87013A1C8769A60051A1B5 /* ThirdParty */,
 				10DCC50D1C3D1BED0018031F /* UtilityClasses */,
-				1072BB581D6D6E7400B84071 /* SearchCampaign */,
 				10143CD71D6C78A000B369CB /* StartupAppView */,
 				10143CD31D6C724B00B369CB /* YTVideoView */,
 				1026415C1E30BF7D00ABC1C9 /* Funds */,
@@ -1667,7 +1668,6 @@
 				103081A91C4E401C00E6DA46 /* RateView */,
 				103081A51C4E3FFD00E6DA46 /* AddContributor */,
 				1069427D1C46910C00B80C56 /* Payments */,
-				82009EC81DE4162400604E36 /* Companies */,
 				106942791C4690F300B80C56 /* Campaigns */,
 				106942711C4690C200B80C56 /* Settings */,
 				1069425D1C46889300B80C56 /* Search */,
@@ -1681,6 +1681,7 @@
 				103526F51C4509EA00673FE6 /* Menu */,
 				10020CC71C3F98D1006B9F51 /* Profile */,
 				10DCC5091C3D194C0018031F /* HomeScreen */,
+				A7C1ECE51FB1B201005F2147 /* Networking Options */,
 				10DCC5051C3D18DB0018031F /* ForgotPassword */,
 				10DCC5011C3D18750018031F /* SignUp */,
 				10F500881C3CF55F00AF8C40 /* Login */,
@@ -2108,7 +2109,6 @@
 				10B801C71E8BB4DB0006C6A7 /* Messages */,
 				10B801CC1E8BB4DB0006C6A7 /* Notes */,
 				10B801D21E8BB4DB0006C6A7 /* Notifications */,
-				A7C1ECE51FB1B201005F2147 /* Networking Options */,
 			);
 			path = Messaging;
 			sourceTree = "<group>";
@@ -3549,6 +3549,9 @@
 							com.apple.BackgroundModes = {
 								enabled = 0;
 							};
+							com.apple.Keychain = {
+								enabled = 1;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};
@@ -4064,7 +4067,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "";
@@ -4104,7 +4107,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -4121,6 +4124,7 @@
 				CODE_SIGN_ENTITLEMENTS = CrowdBootstrap/CrowdBootstrap.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L8QB59U372;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
@@ -4155,7 +4159,7 @@
 				);
 				INCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES = "*.xcassets";
 				INFOPLIST_FILE = CrowdBootstrap/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -4164,7 +4168,7 @@
 					"-lxml2",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.trantorinc.crowdbootstrap;
+				PRODUCT_BUNDLE_IDENTIFIER = com.trantor.CrowdBootstrap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -4185,6 +4189,7 @@
 				CODE_SIGN_ENTITLEMENTS = CrowdBootstrap/CrowdBootstrap.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L8QB59U372;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
@@ -4219,7 +4224,7 @@
 				);
 				INCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES = "*.xcassets";
 				INFOPLIST_FILE = CrowdBootstrap/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
@@ -4228,7 +4233,7 @@
 					"-lxml2",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.trantorinc.crowdbootstrap;
+				PRODUCT_BUNDLE_IDENTIFIER = com.trantor.CrowdBootstrap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

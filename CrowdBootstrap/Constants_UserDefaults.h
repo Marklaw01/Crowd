@@ -14,6 +14,7 @@
 #define kUD_DeviceToken                           @"DEVICE_TOKEN"
 #define kUserType                                 @"UserType"
 #define LOGGED_IN                                 @"isLoggedIn"
+#define kComeFrom_Job_AddEdit                     @"comeFrom_Job_AddEdit"
 #define kComeFrom_Funds_AddEdit                   @"comeFrom_Funds_AddEdit"
 #define kComeFrom_BetaTester_AddEdit              @"comeFrom_BetaTester_AddEdit"
 #define kComeFrom_BoardMember_AddEdit             @"comeFrom_BoardMember_AddEdit"
