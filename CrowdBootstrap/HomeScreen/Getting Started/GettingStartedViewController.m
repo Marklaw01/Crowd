@@ -21,7 +21,9 @@
 
 
 @interface GettingStartedViewController ()
-
+{
+    int userId;
+}
 @end
 
 @implementation GettingStartedViewController
@@ -31,7 +33,7 @@
     // Do any additional setup after loading the view.
     [self revealViewSettings];
     NSMutableDictionary *dic = [[UtilityClass getLoggedInUserDetails] mutableCopy];
-    int userId = [[dic valueForKey:@"user_id"] intValue];
+    userId = [[dic valueForKey:@"user_id"] intValue];
     if (userId > 0) {
         [self saveDeviceToken];
         [segmentedControl setSelectedSegmentIndex:UISegmentedControlNoSegment];
@@ -97,6 +99,30 @@
     [self.navigationController pushViewController:viewController animated:YES] ;
 }
 
+- (IBAction)btnGettingStarted_ClickAction:(id)sender {
+    if (userId > 0) {
+        
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        YTVideoViewViewController *rootViewController = [storyboard instantiateViewControllerWithIdentifier:kVideoViewIdentifier];
+        
+        [rootViewController refreshUIContentWithTitle:GETTING_STARTED_VIDEO_TITLE withContent:GETTING_STARTED_VIDEO_LINK] ;
+        
+        UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
+        [navController setViewControllers: @[rootViewController] animated: NO];
+        [rootViewController.view setUserInteractionEnabled:YES];
+        
+        [self.revealViewController setFrontViewController:navController];
+        [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
+    }
+    else {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        YTVideoViewViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:kVideoViewIdentifier] ;
+        
+        [viewController refreshUIContentWithTitle:GETTING_STARTED_VIDEO_TITLE withContent:GETTING_STARTED_VIDEO_LINK] ;
+        [self.navigationController pushViewController:viewController animated:YES] ;
+    }
+}
+
 - (IBAction)closePopUp_ClickAction:(id)sender {
     vwPopUp.hidden = true;
 }
@@ -107,24 +133,8 @@
 }
 
 - (void) prepareForSegue: (UIStoryboardSegue *) segue sender: (id) sender {
-    if ([segue isKindOfClass: [SWRevealViewControllerSegue class]]) {
-
-        SWRevealViewControllerSegue *swSegue = (SWRevealViewControllerSegue*) segue;
-        swSegue.performBlock = ^(SWRevealViewControllerSegue* rvc_segue, UIViewController* svc, UIViewController* dvc) {
-            
-            UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
-            [navController setViewControllers: @[dvc] animated: NO];
-            [dvc.view setUserInteractionEnabled:YES];
-
-            if([dvc isKindOfClass:[YTVideoViewViewController class]]) {
-                YTVideoViewViewController *viewController = (YTVideoViewViewController*)dvc;
-                [viewController refreshUIContentWithTitle:@"Getting Started Video" withContent:GETTING_STARTED_VIDEO_LINK] ;
-            }
-            
-            [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
-        };
-    }
-    else if ([[segue identifier] isEqualToString:@"HomeVC"]) {
+ 
+    if ([[segue identifier] isEqualToString:@"HomeVC"]) {
         HomeViewController *destViewcontroller = [segue destinationViewController];
         destViewcontroller.isComingFromStart = YES;
         destViewcontroller.selectedIndex = (int)index;

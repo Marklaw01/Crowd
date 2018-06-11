@@ -19,7 +19,7 @@ target "CrowdBootstrap" do
     pod 'IOSLinkedInAPI'
     pod 'TesseractOCRiOS'
     pod 'JPSThumbnailAnnotation'
-    pod "youtube-ios-player-helper", "~> 0.1.4"`
+    pod "youtube-ios-player-helper", "~> 0.1.4"
 end
 
 post_install do |installer|

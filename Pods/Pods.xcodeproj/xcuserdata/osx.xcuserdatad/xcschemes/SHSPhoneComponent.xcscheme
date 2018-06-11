@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -13,11 +13,11 @@
             buildForProfiling = "YES"
             buildForArchiving = "YES">
             <BuildableReference
-               BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '0F19433632BBE111C7A4B41DA024BEA2'
-               BlueprintName = 'SHSPhoneComponent'
-               ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libSHSPhoneComponent.a'>
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D5F3ED596A916808DD02F303CD8C9507"
+               BlueprintName = "SHSPhoneComponent"
+               ReferencedContainer = "container:Pods.xcodeproj"
+               BuildableName = "libSHSPhoneComponent.a">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

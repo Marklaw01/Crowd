@@ -57,7 +57,7 @@
      }*/
     
     sectionsArray = [[NSMutableArray alloc] init] ;
-    titleArray = @[@"above",@"cofounders",@"below",@"belowA",@"belowB",@"belowC",@"belowD"] ;
+    titleArray = @[@"above", @"cofounders", @"below", @"belowA", @"belowB", @"belowC", @"belowD"] ;
     
     tblView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
@@ -124,17 +124,31 @@
     if([UtilityClass checkInternetConnection]) {
         
         [UtilityClass showHudWithTitle:kHUDMessage_PleaseWait] ;
-        NSMutableDictionary *dictParam =[[NSMutableDictionary alloc] init];
+        NSMutableDictionary *dictParam = [[NSMutableDictionary alloc] init];
         [dictParam setObject:[NSString stringWithFormat:@"%@",[[UtilityClass getStartupDetails] valueForKey:kStartupOverviewAPI_StartupID]] forKey:kStartupTeamAPI_StartupID] ;
         [dictParam setObject:[NSString stringWithFormat:@"%d",[UtilityClass getLoggedInUserID]] forKey:@"user_id"] ;
         
-        // NSLog(@"dictParam %@", dictParam);
+         NSLog(@"dictParam %@", dictParam);
         [ApiCrowdBootstrap getStartupApplicationQuesWithParameters:dictParam success:^(NSDictionary *responseDict) {
             
             [UtilityClass hideHud] ;
             
             NSLog(@"responseDict: %@",responseDict) ;
             if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode ) {
+                
+                // Check application is already submitted or not
+                _isApplicationSubmitted = [[responseDict valueForKey:@"is_submited"] integerValue];
+                
+                if (_isApplicationSubmitted == 0) {
+                    lblSubmittedError.hidden = YES;
+                    constraintTblVwTopToMainView.priority = UILayoutPriorityDefaultHigh;
+                    constraintTblVwTopToLblSubmitted.priority = UILayoutPriorityDefaultLow;
+                }
+                else if (_isApplicationSubmitted == 1) {
+                    lblSubmittedError.hidden = NO;
+                    constraintTblVwTopToMainView.priority = UILayoutPriorityDefaultLow;
+                    constraintTblVwTopToLblSubmitted.priority = UILayoutPriorityDefaultHigh;
+                }
                 
                 NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:[responseDict valueForKey:@"questions"]] ;
                 NSMutableArray *cofoudnerData = [[NSMutableArray alloc] init] ;
@@ -149,8 +163,13 @@
                         }
                     }
                     else {
+                        NSArray *keys = [[dict objectForKey:title] allKeys];
+                        keys = [keys sortedArrayUsingComparator:^(id a, id b) {
+                            return [a compare:b options:NSNumericSearch];
+                        }];
                         
-                        for (NSString *key in [[dict objectForKey:title] allKeys]) {
+                        NSLog(@"%@",keys);
+                        for (NSString *key in keys) {
                             NSMutableDictionary *childDict = [[NSMutableDictionary alloc] init] ;
                             [childDict setValue:key forKey:@"question"] ;
                             [childDict setValue:[[dict objectForKey:title] valueForKey:key] forKey:@"answer"] ;

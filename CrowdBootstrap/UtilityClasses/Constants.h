@@ -437,7 +437,7 @@ enum {
 
 #pragma mark - Youtube Videos
 #define ENT_VIDEO_LINK                            @"rzrUTei649c"
-#define CONT_VIDEO_LINK                           @"TWH_aV6WinY"
+#define CONT_VIDEO_LINK                           @"pUmkBCFqqM0" //@"TWH_aV6WinY"
 #define ROADMAP_VIDEO_LINK                        @"hvyULGzoqFM"
 #define ENT_VIDEO_LINK                            @"rzrUTei649c"
 #define GETTING_STARTED_VIDEO_LINK                @"Q9tYHQnb7xI"
@@ -516,5 +516,6 @@ enum {
 #define NETWORKING_OPTIONS_TITLE                  @"Networking Options"
 #define START_TITLE                               @"Start"
 
+#define GETTING_STARTED_VIDEO_TITLE               @"Getting Started Video"
 
 #endif /* Constants_h */

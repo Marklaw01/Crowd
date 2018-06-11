@@ -15,29 +15,16 @@
 #import <linkedin-sdk/LISDK.h>
 
 // Live Quickblox Details
-//const NSUInteger kApplicationID = 41172;
-//NSString *const kAuthKey        = @"atp85LpFMSSk-My";
-//NSString *const kAuthSecret     = @"xu5sSy6uPsf9BA5";
-//NSString *const kAccountKey     = @"aNstpqyjBhYp2zTd4HFR";
-
-
-// Staging Quickblox Details
-//const NSUInteger kApplicationID = 32716;
-//NSString *const kAuthKey        = @"GFZx5kekuYNsP7Z";
-//NSString *const kAuthSecret     = @"mUJHuFX3m-uXu2x";
-//NSString *const kAccountKey     = @"8RTz3Q7iLeGokw3MrzP5";
-
-// Gagan Account Quickblox Details
-//const NSUInteger kApplicationID = 67594;
-//NSString *const kAuthKey        = @"aVE4hNYCmNYgOy3";
-//NSString *const kAuthSecret     = @"PuLUxjKY7hfPqL7";
-//NSString *const kAccountKey     = @"8RTz3Q7iLeGokw3MrzP5";
+const NSUInteger kApplicationID = 41172;
+NSString *const kAuthKey        = @"atp85LpFMSSk-My";
+NSString *const kAuthSecret     = @"xu5sSy6uPsf9BA5";
+NSString *const kAccountKey     = @"aNstpqyjBhYp2zTd4HFR";
 
 // Staging new Quickblox Details
-const NSUInteger kApplicationID = 60018;
-NSString *const kAuthKey        = @"nCM6zy5xEU4nT43";
-NSString *const kAuthSecret     = @"bx6WyhWzRKDtspS";
-NSString *const kAccountKey     = @"8RTz3Q7iLeGokw3MrzP5";
+//const NSUInteger kApplicationID = 60018;
+//NSString *const kAuthKey        = @"nCM6zy5xEU4nT43";
+//NSString *const kAuthSecret     = @"bx6WyhWzRKDtspS";
+//NSString *const kAccountKey     = @"8RTz3Q7iLeGokw3MrzP5";
 
 @interface AppDelegate ()
 

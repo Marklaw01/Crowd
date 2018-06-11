@@ -1042,9 +1042,27 @@
         BOOL collapsed  = [[arrayForBool objectAtIndex:indexPath.section] boolValue];
         for (int i = 0; i < [sectionsArray count]; i++) {
             if (indexPath.section == i) {
-                [arrayForBool replaceObjectAtIndex:i withObject:[NSNumber numberWithBool:!collapsed]];
+                if (indexPath.section == BOARD_MEMBER_DOCUMENT_SECTION_INDEX) {
+                    if (![docuementFile isEqualToString:@""]) {
+                        [arrayForBool replaceObjectAtIndex:i withObject:[NSNumber numberWithBool:!collapsed]];
+                    }
+                }
+                else if (indexPath.section == BOARD_MEMBER_AUDIO_SECTION_INDEX) {
+                    if (![audioFile isEqualToString:@""]) {
+                        [arrayForBool replaceObjectAtIndex:i withObject:[NSNumber numberWithBool:!collapsed]];
+                    }
+                }
+                else if (indexPath.section == BOARD_MEMBER_VIDEO_SECTION_INDEX) {
+                    if (![videoFile isEqualToString:@""]) {
+                        [arrayForBool replaceObjectAtIndex:i withObject:[NSNumber numberWithBool:!collapsed]];
+                    }
+                }
+                else {
+                    [arrayForBool replaceObjectAtIndex:i withObject:[NSNumber numberWithBool:!collapsed]];
+                }
             }
         }
+        
         [self.tblView reloadSections:[NSIndexSet indexSetWithIndex:gestureRecognizer.view.tag] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
 }
@@ -1822,12 +1840,25 @@
             CampaignDocumentTableViewCell *cell = (CampaignDocumentTableViewCell*)[tableView dequeueReusableCellWithIdentifier:PLAY_AUDIO_CELL_IDENTIFIER] ;
             cell.selectionStyle = UITableViewCellSelectionStyleNone ;
             
-            if(indexPath.section == BOARD_MEMBER_DOCUMENT_SECTION_INDEX)
-                cell.lbl.text = [NSString stringWithFormat:@"Docuement %ld",indexPath.row+1] ;
-            else if(indexPath.section == BOARD_MEMBER_AUDIO_SECTION_INDEX)
-                cell.lbl.text = [NSString stringWithFormat:@"Audio %ld",indexPath.row+1] ;
-            else
-                cell.lbl.text = [NSString stringWithFormat:@"Video %ld",indexPath.row+1] ;
+//            if(indexPath.section == BOARD_MEMBER_DOCUMENT_SECTION_INDEX)
+//                cell.lbl.text = [NSString stringWithFormat:@"Document %ld",indexPath.row+1] ;
+//            else if(indexPath.section == BOARD_MEMBER_AUDIO_SECTION_INDEX)
+//                cell.lbl.text = [NSString stringWithFormat:@"Audio %ld",indexPath.row+1] ;
+//            else
+//                cell.lbl.text = [NSString stringWithFormat:@"Video %ld",indexPath.row+1] ;
+            
+            if(indexPath.section == BOARD_MEMBER_DOCUMENT_SECTION_INDEX) {
+                if (![docuementFile isEqualToString:@""])
+                    cell.lbl.text = [NSString stringWithFormat:@"Document %ld",indexPath.row+1] ;
+            }
+            else if(indexPath.section == BOARD_MEMBER_AUDIO_SECTION_INDEX) {
+                if (![audioFile isEqualToString:@""])
+                    cell.lbl.text = [NSString stringWithFormat:@"Audio %ld",indexPath.row+1] ;
+            }
+            else {
+                if (![videoFile isEqualToString:@""])
+                    cell.lbl.text = [NSString stringWithFormat:@"Video %ld",indexPath.row+1] ;
+            }
             
             return cell ;
         }

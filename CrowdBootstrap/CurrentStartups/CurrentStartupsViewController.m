@@ -135,6 +135,8 @@
             [UtilityClass hideHud] ;
             if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode )  {
                 NSLog(@"responseDict: %@",responseDict) ;
+//                [startupsArray removeAllObjects] ;
+
                 if([responseDict valueForKey:kStartupsAPI_Startups]) {
                     totalItems = [[responseDict valueForKey:kStartupsAPI_TotalItems] intValue] ;
                     for (NSDictionary *dict in (NSArray*)[responseDict valueForKey:kStartupsAPI_Startups]) {
@@ -177,6 +179,9 @@
             [UtilityClass hideHud] ;
             if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode )  {
                 NSLog(@"responseDict: %@",responseDict) ;
+//                [startupsArray removeAllObjects] ;
+//                [searchResults removeAllObjects] ;
+
                 if([responseDict valueForKey:kStartupsAPI_Startups]){
                     /* totalItems = [[responseDict valueForKey:kStartupsAPI_TotalItems] intValue] ;
                      for (NSDictionary *dict in (NSArray*)[responseDict valueForKey:kStartupsAPI_Startups]) {
@@ -274,7 +279,8 @@
     [startupsArray removeAllObjects] ;
     [searchResults removeAllObjects] ;
     [tblView reloadData] ;
-    [self getStartupsListWithSearchText:searchedString] ;
+    if(segmentControl.selectedSegmentIndex == SEARCH_SELECTED)
+        [self getStartupsListWithSearchText:searchedString] ;
     
     /* NSString *searchString = searchController.searchBar.text ;
      [self filterContentForSearchText:searchString];*/

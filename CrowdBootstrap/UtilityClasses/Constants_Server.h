@@ -42,6 +42,7 @@
 #define kLogInAPI_DeviceType                      @"device_type"
 #define kLogInAPI_FirstName                       @"first_name"
 #define kLogInAPI_LastName                        @"last_name"
+#define kLogInAPI_FullName                        @"full_name"
 #define kLogInAPI_UserImage                       @"user_image"
 #define kLogInAPI_Quickblox_Password              @"quickblox_password"
 

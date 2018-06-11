@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -13,11 +13,11 @@
             buildForProfiling = "YES"
             buildForArchiving = "YES">
             <BuildableReference
-               BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '61258CF850E9D9064CEE4ACD7141AD62'
-               BlueprintName = 'QMServices'
-               ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libQMServices.a'>
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "FD6F998F7D294BA38BCBCC1A9E164813"
+               BlueprintName = "QMServices"
+               ReferencedContainer = "container:Pods.xcodeproj"
+               BuildableName = "libQMServices.a">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

@@ -915,9 +915,12 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone ;
             cell.btn.tag = indexPath.section;
             cell.btn.accessibilityValue = [NSString stringWithFormat:@"%ld",(long)indexPath.row] ;
-            if(indexPath.section == EDIT_CAMPAIGN_DOCUMENTS_SECTION_INDEX) cell.lbl.text = [NSString stringWithFormat:@"Document %d",indexPath.row+1] ;
-            else if(indexPath.section == EDIT_CAMPAIGN_AUIDIOS_SECTION_INDEX) cell.lbl.text = [NSString stringWithFormat:@"Audio %d",indexPath.row+1] ;
-            else cell.lbl.text = cell.lbl.text = [NSString stringWithFormat:@"Video %d",indexPath.row+1] ;
+            if(indexPath.section == EDIT_CAMPAIGN_DOCUMENTS_SECTION_INDEX)
+                cell.lbl.text = [NSString stringWithFormat:@"Document %ld",indexPath.row+1] ;
+            else if(indexPath.section == EDIT_CAMPAIGN_AUIDIOS_SECTION_INDEX)
+                cell.lbl.text = [NSString stringWithFormat:@"Audio %ld",indexPath.row+1] ;
+            else
+                cell.lbl.text = cell.lbl.text = [NSString stringWithFormat:@"Video %ld",indexPath.row+1] ;
             /*if(indexPath.section == EDIT_CAMPAIGN_DOCUMENTS_SECTION_INDEX) cell.lbl.text = [NSString stringWithFormat:@"%@/%@",APIPortToBeUsed,[[docuementsArray objectAtIndex:indexPath.row] valueForKey:@"file"]] ;
             else if(indexPath.section == EDIT_CAMPAIGN_AUIDIOS_SECTION_INDEX) cell.lbl.text = [NSString stringWithFormat:@"%@/%@",APIPortToBeUsed,[[audiosArray objectAtIndex:indexPath.row] valueForKey:@"file"]] ;
             else cell.lbl.text = [NSString stringWithFormat:@"%@/%@",APIPortToBeUsed,[[videosArray objectAtIndex:indexPath.row] valueForKey:@"file"]] ;*/
@@ -1093,7 +1096,25 @@
         BOOL collapsed  = [[arrayForBool objectAtIndex:indexPath.section] boolValue];
         for (int i=0; i<[sectionsArray count]; i++) {
             if (indexPath.section==i) {
-                [arrayForBool replaceObjectAtIndex:i withObject:[NSNumber numberWithBool:!collapsed]];
+                if (indexPath.section == EDIT_CAMPAIGN_DOCUMENTS_SECTION_INDEX) {
+                    if (![[[docuementsArray objectAtIndex:indexPath.row] valueForKey:@"file"] isEqualToString:@""]) {
+                        [arrayForBool replaceObjectAtIndex:i withObject:[NSNumber numberWithBool:!collapsed]];
+                    }
+                }
+                else if (indexPath.section == EDIT_CAMPAIGN_AUIDIOS_SECTION_INDEX) {
+                    if (![[[audiosArray objectAtIndex:indexPath.row] valueForKey:@"file"] isEqualToString:@""]) {
+                        [arrayForBool replaceObjectAtIndex:i withObject:[NSNumber numberWithBool:!collapsed]];
+                    }
+                }
+                else if (indexPath.section == EDIT_CAMPAIGN_VIDEOS_SECTION_INDEX) {
+                    if (![[[videosArray objectAtIndex:indexPath.row] valueForKey:@"file"] isEqualToString:@""]) {
+                        [arrayForBool replaceObjectAtIndex:i withObject:[NSNumber numberWithBool:!collapsed]];
+                    }
+                }
+                else {
+                    [arrayForBool replaceObjectAtIndex:i withObject:[NSNumber numberWithBool:!collapsed]];
+                }
+                
             }
         }
         [self.tblView reloadSections:[NSIndexSet indexSetWithIndex:gestureRecognizer.view.tag] withRowAnimation:UITableViewRowAnimationAutomatic];

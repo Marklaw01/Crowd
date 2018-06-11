@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -13,11 +13,11 @@
             buildForProfiling = "YES"
             buildForArchiving = "YES">
             <BuildableReference
-               BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '9D92DBF31184E98D353B998453A0710B'
-               BlueprintName = 'JPSThumbnailAnnotation'
-               ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libJPSThumbnailAnnotation.a'>
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "626D1003765B40AD152B0DC43D09C3FB"
+               BlueprintName = "JPSThumbnailAnnotation"
+               ReferencedContainer = "container:Pods.xcodeproj"
+               BuildableName = "libJPSThumbnailAnnotation.a">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

@@ -83,7 +83,7 @@
 }
 
 - (void)backButtonAction:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES] ;
+    [self.navigationController popToRootViewControllerAnimated:YES] ;
 }
 
 -(void)setNotificationIconOnNavigationBar:(NSNotification *) notification {

@@ -18,6 +18,7 @@
 #define kForgotPasswordIdentifier                 @"ForgotPasswordView"
 #define kHomeIdentifer                            @"HomeView"
 #define kGettingStartedIdentifer                  @"GettingStartedView"
+#define kVideoViewIdentifier                      @"YTVideoVC"
 #define kMenuIdentifier                           @"MenuView"
 #define kCurrentStartupsIdentifier                @"CurrentStartupsView"
 #define kProfileIdentifier                        @"ProfileView"

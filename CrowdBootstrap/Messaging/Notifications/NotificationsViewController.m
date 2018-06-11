@@ -367,7 +367,7 @@
         UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:kMessagesIdentifier] ;
         [self.navigationController pushViewController:viewController animated:YES] ;
     }
-    
+    /*
     // Follow / Unfollow Camapaign
     else if([tag isEqualToString:TAG_UNFOLLOW_CAMPAIGN] || [tag isEqualToString:TAG_FOLLOW_CAMPAIGN]) {
         
@@ -381,7 +381,7 @@
         UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:kEditCampaignViewIdentifier] ;
         [self.navigationController pushViewController:viewController animated:YES] ;
     }
-    
+    */
     // Rate User
     else if([tag isEqualToString:TAG_RATE_PROFILE]) {
         

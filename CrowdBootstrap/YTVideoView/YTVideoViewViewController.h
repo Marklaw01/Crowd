@@ -13,6 +13,9 @@
     IBOutlet UIBarButtonItem       *menuBarBtn;
     IBOutlet UIWebView             *webView ;
     IBOutlet YTPlayerView          *playerVw;
+    
+    int userId;
+
 }
 
 -(void)refreshUIContentWithTitle:(NSString*)viewTitle withContent:(NSString*)content ;

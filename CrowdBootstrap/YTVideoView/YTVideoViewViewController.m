@@ -19,10 +19,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self setNeedsStatusBarAppearanceUpdate];
+    NSMutableDictionary *dic = [[UtilityClass getLoggedInUserDetails] mutableCopy];
     
-    [self addObserver];
+    userId = [[dic valueForKey:@"user_id"] intValue];
+    NSLog(@"User ID : %d", userId);
+
     [self navigationBarSettings] ;
-    [self revealViewSettings] ;
+    
+    if (userId > 0) {
+        [self addObserver];
+        [self revealViewSettings] ;
+        self.navigationItem.hidesBackButton = YES ;
+    }
     //[self playVideoWithId:@"http://www.youtube.com/watch?v=fDXWW5vX-64"] ;
 }
 
@@ -38,26 +47,31 @@
                                                object:nil];
 }
 
--(void)setNotificationIconOnNavigationBar:(NSNotification *) notification {
-    
-    UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setImage:[UIImage imageNamed:@"notifications"] forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(navigateToNotification_Click:)forControlEvents:UIControlEventTouchUpInside];
-    
-    UILabel *lblNotificationCount = [[UILabel alloc]init];
-    
-    [UtilityClass setNotificationIconOnNavigationBar:button
-                                lblNotificationCount:lblNotificationCount navItem:self.navigationItem];
+-(void)navigationBarSettings {
+    if (userId == 0) {
+        //        [self.navigationController.navigationBar setHidden:NO];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back_Icon"] style:UIBarButtonItemStylePlain target:self action:@selector(backButtonAction:)];
+        self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
+        self.navigationItem.rightBarButtonItem = nil;
+    }
+    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName]];
 }
 
--(void)navigationBarSettings {
-    self.navigationItem.hidesBackButton = YES ;
-   // self.title = @"" ;
-    
-    /* NSURL *url = [NSURL URLWithString:@"http://www.youtube.com/watch?v=fDXWW5vX-64"];
-     NSURLRequest *request = [NSURLRequest requestWithURL:url];
-     [webView loadRequest:request];*/
-    
+- (void)backButtonAction:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES] ;
+}
+
+-(void)setNotificationIconOnNavigationBar:(NSNotification *) notification {
+    if (userId > 0) {
+        UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
+        [button setImage:[UIImage imageNamed:@"notifications"] forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(navigateToNotification_Click:)forControlEvents:UIControlEventTouchUpInside];
+        
+        UILabel *lblNotificationCount = [[UILabel alloc]init];
+        
+        [UtilityClass setNotificationIconOnNavigationBar:button
+                                    lblNotificationCount:lblNotificationCount navItem:self.navigationItem];
+    }
 }
 
 -(void)revealViewSettings{

@@ -866,6 +866,13 @@
                 [profileDict setObject:fullName forKey:kProfileAPI_Name] ;
                 [UtilityClass setUserProfileDetails:profileDict] ;
                 
+                // Save first/last name in logged in user details also
+                NSMutableDictionary *dict = [[UtilityClass getLoggedInUserDetails] mutableCopy] ;
+                [dict setObject:[dictParam objectForKey:kBasicEditProfileAPI_FirstName] forKey:kLogInAPI_FirstName];
+                [dict setObject:[dictParam objectForKey:kBasicEditProfileAPI_LastName] forKey:kLogInAPI_LastName];
+                [UtilityClass setLoggedInUserDetails:dict] ;
+
+                
                 [[NSNotificationCenter defaultCenter]
                  postNotificationName:kNotificationProfileCompletionUpdate
                  object:self];

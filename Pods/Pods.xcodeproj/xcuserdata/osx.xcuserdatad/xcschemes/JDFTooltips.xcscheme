@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -13,11 +13,11 @@
             buildForProfiling = "YES"
             buildForArchiving = "YES">
             <BuildableReference
-               BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'DAB59B59EB8E98F78AB9B26D53F3BAC1'
-               BlueprintName = 'JDFTooltips'
-               ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libJDFTooltips.a'>
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "19CE956871521A152366CA4A66894DDA"
+               BlueprintName = "JDFTooltips"
+               ReferencedContainer = "container:Pods.xcodeproj"
+               BuildableName = "libJDFTooltips.a">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

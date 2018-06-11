@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -13,11 +13,11 @@
             buildForProfiling = "YES"
             buildForArchiving = "YES">
             <BuildableReference
-               BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '467988445C9AA9076521E3DED94FF872'
-               BlueprintName = 'TesseractOCRiOS'
-               ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libTesseractOCRiOS.a'>
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "B0F4013F249F9B248A94A015B3463002"
+               BlueprintName = "TesseractOCRiOS"
+               ReferencedContainer = "container:Pods.xcodeproj"
+               BuildableName = "libTesseractOCRiOS.a">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

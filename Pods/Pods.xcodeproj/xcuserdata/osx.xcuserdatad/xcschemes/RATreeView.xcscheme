@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -13,11 +13,11 @@
             buildForProfiling = "YES"
             buildForArchiving = "YES">
             <BuildableReference
-               BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '648CA9D67477007432D0BD036BD5505A'
-               BlueprintName = 'RATreeView'
-               ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libRATreeView.a'>
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "B054BAFE3722D51E09BC7299E3A11C54"
+               BlueprintName = "RATreeView"
+               ReferencedContainer = "container:Pods.xcodeproj"
+               BuildableName = "libRATreeView.a">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

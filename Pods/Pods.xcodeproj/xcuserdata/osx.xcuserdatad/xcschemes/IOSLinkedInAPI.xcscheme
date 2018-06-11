@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -13,11 +13,11 @@
             buildForProfiling = "YES"
             buildForArchiving = "YES">
             <BuildableReference
-               BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'F93CBA8F1611790F08B5A4E8F107CBD8'
-               BlueprintName = 'IOSLinkedInAPI'
-               ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libIOSLinkedInAPI.a'>
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "38FEF1DFBE57CBF37DB72F0836391E76"
+               BlueprintName = "IOSLinkedInAPI"
+               ReferencedContainer = "container:Pods.xcodeproj"
+               BuildableName = "libIOSLinkedInAPI.a">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

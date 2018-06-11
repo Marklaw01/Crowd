@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -13,11 +13,11 @@
             buildForProfiling = "YES"
             buildForArchiving = "YES">
             <BuildableReference
-               BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'ADDB6B55FF8620B805A99C918A40273F'
-               BlueprintName = 'TWMessageBarManager'
-               ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libTWMessageBarManager.a'>
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "FF8C7E54488268A181C125254D9ADF6C"
+               BlueprintName = "TWMessageBarManager"
+               ReferencedContainer = "container:Pods.xcodeproj"
+               BuildableName = "libTWMessageBarManager.a">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

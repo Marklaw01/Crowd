@@ -22,8 +22,13 @@
 
 #define  kStartupQuestions_plist    @"StartupQuestions"
 
-@interface SubmitApplicationViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>{
+@interface SubmitApplicationViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate> {
+    
     IBOutlet UITableView          *tblView ;
+    IBOutlet UILabel              *lblSubmittedError;
+    IBOutlet NSLayoutConstraint   *constraintTblVwTopToLblSubmitted;
+    IBOutlet NSLayoutConstraint   *constraintTblVwTopToMainView;
+
     NSArray                       *keysArray ;
     NSArray                       *titleArray ;
     NSMutableArray                *sectionsArray ;
@@ -33,5 +38,5 @@
     
 }
 @property UIView *selectedItem;
-
+@property NSInteger isApplicationSubmitted;
 @end

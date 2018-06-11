@@ -3559,7 +3559,8 @@
 					};
 					10F5006A1C3CF06D00AF8C40 = {
 						CreatedOnToolsVersion = 7.1;
-						DevelopmentTeam = L8QB59U372;
+						DevelopmentTeam = 37X8492ZBC;
+						ProvisioningStyle = Automatic;
 						TestTargetID = 10F500511C3CF06D00AF8C40;
 					};
 					10F500751C3CF06D00AF8C40 = {
@@ -3674,11 +3675,11 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-CrowdBootstrap/Pods-CrowdBootstrap-resources.sh",
 				"${PODS_ROOT}/FBSDKCoreKit/FacebookSDKStrings.bundle",
 				"${PODS_ROOT}/QMChatViewController/QMChatViewController/Icons/Media.xcassets",
-				$PODS_CONFIGURATION_BUILD_DIR/QMChatViewController/QMChatViewController.bundle,
-				$PODS_CONFIGURATION_BUILD_DIR/QMServices/QMChatCacheModel.bundle,
-				$PODS_CONFIGURATION_BUILD_DIR/QMServices/QMContactListCacheModel.bundle,
-				$PODS_CONFIGURATION_BUILD_DIR/QMServices/QMUsersCacheModel.bundle,
-				$PODS_CONFIGURATION_BUILD_DIR/QMServices/QMOpenGraphCacheModel.bundle,
+				"${PODS_CONFIGURATION_BUILD_DIR}/QMChatViewController/QMChatViewController.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/QMServices/QMChatCacheModel.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/QMServices/QMContactListCacheModel.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/QMServices/QMUsersCacheModel.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/QMServices/QMOpenGraphCacheModel.bundle",
 				"${PODS_ROOT}/TWMessageBarManager/Classes/Icons/icon-error.png",
 				"${PODS_ROOT}/TWMessageBarManager/Classes/Icons/icon-error@2x.png",
 				"${PODS_ROOT}/TWMessageBarManager/Classes/Icons/icon-info.png",
@@ -3690,7 +3691,21 @@
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FacebookSDKStrings.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Assets.car",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/QMChatViewController.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/QMChatCacheModel.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/QMContactListCacheModel.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/QMUsersCacheModel.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/QMOpenGraphCacheModel.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/icon-error.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/icon-error@2x.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/icon-info.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/icon-info@2x.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/icon-success.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/icon-success@2x.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlus.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Assets.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -4067,7 +4082,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "";
@@ -4107,7 +4122,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -4135,7 +4150,7 @@
 					"$(PROJECT_DIR)",
 					"$(SRCROOT)/**",
 				);
-				GCC_NO_COMMON_BLOCKS = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/CrowdBootstrap-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -4163,10 +4178,10 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
-					"$(inherited)",
 					"-lstdc++",
 					"-lxml2",
 					"-all_load",
+					"$(inherited)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.trantor.CrowdBootstrap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4200,7 +4215,7 @@
 					"$(PROJECT_DIR)",
 					"$(SRCROOT)/**",
 				);
-				GCC_NO_COMMON_BLOCKS = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/CrowdBootstrap-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -4228,10 +4243,10 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
-					"$(inherited)",
 					"-lstdc++",
 					"-lxml2",
 					"-all_load",
+					"$(inherited)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.trantor.CrowdBootstrap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4248,13 +4263,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Privity Ventures, Inc. (L8QB59U372)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Privity Ventures, Inc. (L8QB59U372)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 37X8492ZBC;
 				INFOPLIST_FILE = CrowdBootstrapTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = trantor.CrowdBootstrapTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1638ab15-99c9-4e27-b967-f6260615611b";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CrowdBootstrap.app/CrowdBootstrap";
 			};
 			name = Debug;
@@ -4263,13 +4281,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Privity Ventures, Inc. (L8QB59U372)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Privity Ventures, Inc. (L8QB59U372)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 37X8492ZBC;
 				INFOPLIST_FILE = CrowdBootstrapTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = trantor.CrowdBootstrapTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1638ab15-99c9-4e27-b967-f6260615611b";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CrowdBootstrap.app/CrowdBootstrap";
 			};
 			name = Release;

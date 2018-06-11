@@ -329,7 +329,25 @@
         BOOL collapsed  = [[arrayForBool objectAtIndex:indexPath.section] boolValue];
         for (int i=0; i<[sectionsArray count]; i++) {
             if (indexPath.section==i) {
-                [arrayForBool replaceObjectAtIndex:i withObject:[NSNumber numberWithBool:!collapsed]];
+                if (indexPath.section == CAMPAIGN_DOCUMENTS_SECTION_INDEX) {
+                    if (![[[docuementsArray objectAtIndex:indexPath.row] valueForKey:@"file"] isEqualToString:@""]) {
+                        [arrayForBool replaceObjectAtIndex:i withObject:[NSNumber numberWithBool:!collapsed]];
+                    }
+                }
+                else if (indexPath.section == CAMPAIGN_AUIDIOS_SECTION_INDEX) {
+                    if (![[[audiosArray objectAtIndex:indexPath.row] valueForKey:@"file"] isEqualToString:@""]) {
+                        [arrayForBool replaceObjectAtIndex:i withObject:[NSNumber numberWithBool:!collapsed]];
+                    }
+                }
+                else if (indexPath.section == CAMPAIGN_VIDEOS_SECTION_INDEX) {
+                    if (![[[videosArray objectAtIndex:indexPath.row] valueForKey:@"file"] isEqualToString:@""]) {
+                        [arrayForBool replaceObjectAtIndex:i withObject:[NSNumber numberWithBool:!collapsed]];
+                    }
+                }
+                else {
+                    [arrayForBool replaceObjectAtIndex:i withObject:[NSNumber numberWithBool:!collapsed]];
+                }
+                
             }
         }
         [self.tblView reloadSections:[NSIndexSet indexSetWithIndex:gestureRecognizer.view.tag] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -459,7 +477,7 @@
         CampaignDocumentTableViewCell *cell = (CampaignDocumentTableViewCell*)[tableView dequeueReusableCellWithIdentifier:PLAY_AUDIO_CELL_IDENTIFIER] ;
         cell.selectionStyle = UITableViewCellSelectionStyleNone ;
         if(indexPath.section == CAMPAIGN_DOCUMENTS_SECTION_INDEX)
-            cell.lbl.text = [NSString stringWithFormat:@"Docuement %ld",indexPath.row+1] ;
+            cell.lbl.text = [NSString stringWithFormat:@"Document %ld",indexPath.row+1] ;
         else if(indexPath.section == CAMPAIGN_AUIDIOS_SECTION_INDEX)
             cell.lbl.text = [NSString stringWithFormat:@"Audio %ld",indexPath.row+1] ;
         else

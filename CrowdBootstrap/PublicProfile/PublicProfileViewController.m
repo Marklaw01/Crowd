@@ -201,13 +201,13 @@
     if(quickBloxID){
         [UtilityClass setSelectedChatUserName:userNameTxtFld.text] ;
         QBUUser *user = [QBUUser user];
-        user.ID = quickBloxID  ;
+        user.ID = quickBloxID ;
         user.login = userNameTxtFld.text ;
         NSLog(@"qbUser: %@",user) ;
         
         [ServicesManager.instance.chatService createPrivateChatDialogWithOpponent:user completion:^(QBResponse *response, QBChatDialog *createdDialog) {
             if (!response.success && createdDialog == nil) {
-                NSLog(@"errror >> ") ;
+                NSLog(@"errror >> %@", response.error) ;
             }
             else {
                 NSLog(@"Success >> ") ;
@@ -236,7 +236,7 @@
 
 - (IBAction)BusinessCardButton_ClickAction:(UIButton*)button {
     
-    //TODO: Redirect to Business Card Details Screen
+    // Redirect to Business Card Details Screen
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NetworkingOptions" bundle:nil];
     UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:kBusinessCardDetailIdentifier] ;
         
