@@ -101,23 +101,23 @@
 
 - (IBAction)btnGettingStarted_ClickAction:(id)sender {
     if (userId > 0) {
-        
+
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         YTVideoViewViewController *rootViewController = [storyboard instantiateViewControllerWithIdentifier:kVideoViewIdentifier];
-        
-        [rootViewController refreshUIContentWithTitle:GETTING_STARTED_VIDEO_TITLE withContent:GETTING_STARTED_VIDEO_LINK] ;
-        
+
         UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
         [navController setViewControllers: @[rootViewController] animated: NO];
         [rootViewController.view setUserInteractionEnabled:YES];
-        
+        [rootViewController refreshUIContentWithTitle:GETTING_STARTED_VIDEO_TITLE withContent:GETTING_STARTED_VIDEO_LINK] ;
+
         [self.revealViewController setFrontViewController:navController];
         [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
     }
     else {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         YTVideoViewViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:kVideoViewIdentifier] ;
-        
+        [viewController.view setUserInteractionEnabled:YES];
+
         [viewController refreshUIContentWithTitle:GETTING_STARTED_VIDEO_TITLE withContent:GETTING_STARTED_VIDEO_LINK] ;
         [self.navigationController pushViewController:viewController animated:YES] ;
     }
