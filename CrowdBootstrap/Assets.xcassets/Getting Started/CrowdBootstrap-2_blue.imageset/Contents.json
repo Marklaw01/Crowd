@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "CrowdBootstrap-2_blue.png",
+      "filename" : "2_blue.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "crowdBootstrap-2_blue@2x.png",
+      "filename" : "2_blue@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "crowdbootstrap-2_blue@3x.png",
+      "filename" : "2_blue@3x.png",
       "scale" : "3x"
     }
   ],
