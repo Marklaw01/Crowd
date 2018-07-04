@@ -2125,6 +2125,7 @@
 #define kBusinessAPI_ConnectionStatus           @"is_network"
 #define kBusinessAPI_ConnectionTypeId           @"business_connection_type_id"
 #define kBusinessAPI_ConnectionId               @"connection_type_id"
+#define kBusinessAPI_ConnType                   @"connection_type"
 #define kBusinessAPI_ContractorId               @"id"
 #define kBusinessAPI_ConnectedToId              @"connected_to"
 #define kBusinessAPI_ConnectedToId              @"connected_to"

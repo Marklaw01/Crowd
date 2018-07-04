@@ -686,14 +686,14 @@
                     selectedSkillsArray = [self resetTagsArrayWithData:[dict objectForKey:kJobDetailAPI_Skills]] ;
                     
                     if([dict objectForKey:kJobDetailAPI_Document])
-                    docuementFile = [dict objectForKey:kJobDetailAPI_Document] ;
+                        docuementFile = [[dict objectForKey:kJobDetailAPI_Document] stringByReplacingOccurrencesOfString:@" " withString:@"%20"] ;
                     
                     if([dict objectForKey:kJobDetailAPI_Audio])
-                    audioFile = [dict objectForKey:kJobDetailAPI_Audio] ;
-                    
+                        audioFile = [[dict objectForKey:kJobDetailAPI_Audio] stringByReplacingOccurrencesOfString:@" " withString:@"%20"] ;
+
                     if([dict objectForKey:kJobDetailAPI_Video])
-                    videoFile = [dict objectForKey:kJobDetailAPI_Video] ;
-                    
+                        videoFile = [[dict objectForKey:kJobDetailAPI_Video] stringByReplacingOccurrencesOfString:@" " withString:@"%20"] ;
+
                     // Refresh Dict
                     [jobData setValue:[NSString stringWithFormat:@"%@",[dict valueForKey:kJobDetailAPI_Country]] forKey:kJobDetailAPI_Country] ;
                     [jobData setValue:[NSString stringWithFormat:@"%@",[dict valueForKey:kJobDetailAPI_CountryID]] forKey:kJobDetailAPI_CountryID] ;

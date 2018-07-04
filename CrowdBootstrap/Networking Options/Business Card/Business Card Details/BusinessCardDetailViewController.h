@@ -24,7 +24,8 @@
     __weak IBOutlet UIButton *btnViewNotes;
     __weak IBOutlet UIButton *btnAddNote;
     __weak IBOutlet UITextField *txtConnectionType;
-    
+    __weak IBOutlet UIButton *btnSave;
+
     // Picker View
     __weak IBOutlet UIView *pickerViewContainer;
     __weak IBOutlet UIPickerView *pickerView;

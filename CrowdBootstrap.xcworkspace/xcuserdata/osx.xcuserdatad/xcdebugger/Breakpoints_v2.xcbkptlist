@@ -26,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CrowdBootstrap/Networking Options/Map View/MapViewController.m"
-            timestampString = "548676008.66772"
+            timestampString = "551877245.764608"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "39"
@@ -42,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CrowdBootstrap/SignUpViewController.m"
-            timestampString = "548918230.996654"
+            timestampString = "551864354.890944"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "405"
@@ -63,7 +63,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1767"
             endingLineNumber = "1767"
-            landmarkName = "-tableView:didSelectRowAtIndexPath:"
+            landmarkName = "-numberOfSectionsInTableView:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -96,38 +96,6 @@
             startingLineNumber = "1137"
             endingLineNumber = "1137"
             landmarkName = "-getInformationDetails"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CrowdBootstrap/Campaigns/EditCampaign/EditCampaignViewController.m"
-            timestampString = "549874193.448617"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1095"
-            endingLineNumber = "1095"
-            landmarkName = "-sectionHeaderTapped:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CrowdBootstrap/Campaigns/EditCampaign/EditCampaignViewController.m"
-            timestampString = "549874270.567337"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1098"
-            endingLineNumber = "1098"
-            landmarkName = "-sectionHeaderTapped:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -170,23 +138,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CrowdBootstrap/Profile/ProfileViewController.m"
-            timestampString = "549886935.919873"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "433"
-            endingLineNumber = "433"
-            landmarkName = "-updateProfileCompletion"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CrowdBootstrap/Profile/ProfileViewController.m"
-            timestampString = "549887912.471697"
+            timestampString = "551797667.889781"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "427"
@@ -201,29 +153,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CrowdBootstrap/StartupApproval/SubmitApplication/SubmitApplicationViewController.m"
-            timestampString = "550151462.5080349"
+            filePath = "CrowdBootstrap/Campaigns/EditCampaign/EditCampaignViewController.m"
+            timestampString = "551970366.364002"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "249"
-            endingLineNumber = "249"
-            landmarkName = "-SubmitApplicationWithTYpe:"
+            startingLineNumber = "1101"
+            endingLineNumber = "1101"
+            landmarkName = "-sectionHeaderTapped:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Pods/youtube-ios-player-helper/Classes/YTPlayerView.m"
-            timestampString = "550564550.8941801"
+            filePath = "CrowdBootstrap/Opportunities/Jobs/Job Details/JobDetailViewController.m"
+            timestampString = "552391826.208002"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "83"
-            endingLineNumber = "83"
-            landmarkName = "-loadWithVideoId:playerVars:"
+            startingLineNumber = "553"
+            endingLineNumber = "553"
+            landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

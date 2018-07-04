@@ -13,9 +13,12 @@
     // --- IBOutlets ---
     IBOutlet UIView                     *vwSearchConnection ;
     IBOutlet UIView                     *vwAddNewUser ;
-    __weak IBOutlet UISegmentedControl *segmentControl;
+    IBOutlet UIView                     *vwNewUsers ;
+
 
     // --- Variables ---
     NSInteger                                selectedSegment;
 }
+@property(nonatomic) IBOutlet UISegmentedControl *segmentControl;
+
 @end

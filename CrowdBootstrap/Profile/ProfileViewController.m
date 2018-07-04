@@ -429,15 +429,15 @@
     }
 }
 
--(void)updateProfileCompletion{
+-(void)updateProfileCompletion {
     userNameTxtFld.text = [[UtilityClass getUserProfileDetails] objectForKey:kProfileAPI_Name] ;
     progressLbl.text = [NSString stringWithFormat:@"%@%@",[[UtilityClass getUserProfileDetails] objectForKey:kProfileAPI_Complete],@"% completed"];
     float progress = (float)[[[UtilityClass getUserProfileDetails] objectForKey:kProfileAPI_Complete] intValue]/100 ;
     [progressView setProgress:progress] ;
 }
 
--(void)disablePriceTextFieldNotification:(NSNotification*)notification{
-    if ([[notification name] isEqualToString:kNotificationProfileDisablePriceTextField]){
+-(void)disablePriceTextFieldNotification:(NSNotification*)notification {
+    if ([[notification name] isEqualToString:kNotificationProfileDisablePriceTextField]) {
         [hoursTxtFld resignFirstResponder] ;
     }
 }

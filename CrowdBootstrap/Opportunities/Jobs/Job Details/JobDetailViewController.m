@@ -133,14 +133,14 @@
                         selectedSkilsArray = [self resetTagsArrayWithData:[dict objectForKey:kJobDetailAPI_Skills]] ;
                     
                     if([dict objectForKey:kJobDetailAPI_Document])
-                        docuementFile = [dict objectForKey:kJobDetailAPI_Document] ;
+                        docuementFile = [[dict objectForKey:kJobDetailAPI_Document] stringByReplacingOccurrencesOfString:@" " withString:@"%20"] ;
                     
                     if([dict objectForKey:kJobDetailAPI_Audio])
-                        audioFile = [dict objectForKey:kJobDetailAPI_Audio] ;
-                    
+                        audioFile = [[dict objectForKey:kJobDetailAPI_Audio] stringByReplacingOccurrencesOfString:@" " withString:@"%20"] ;
+
                     if([dict objectForKey:kJobDetailAPI_Video])
-                        videoFile = [dict objectForKey:kJobDetailAPI_Video] ;
-                    
+                        videoFile = [[dict objectForKey:kJobDetailAPI_Video] stringByReplacingOccurrencesOfString:@" " withString:@"%20"] ;
+
                     if([dict objectForKey:kJobDetailAPI_IsFollowed])
                         isFollowed = [[dict objectForKey:kJobDetailAPI_IsFollowed] intValue] ;
                     

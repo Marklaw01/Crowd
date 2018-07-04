@@ -7,6 +7,7 @@
 //
 
 #import "AddContactViewController.h"
+#import "NewUsersViewController.h"
 
 @interface AddContactViewController ()
 
@@ -17,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addObserver];
-    [segmentControl setSelectedSegmentIndex:SEARCH_USER_SELECTED];
+    [self.segmentControl setSelectedSegmentIndex:SEARCH_USER_SELECTED];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -30,6 +31,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(setNotificationIconOnNavigationBar:)name:kNotificationIconOnNavigationBar
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateSegmentOnAddingNewUser:)name:kNotificationUpdateSegmentOnNewUSer
+                                               object:nil];
+
 }
 
 -(void)setNotificationIconOnNavigationBar:(NSNotification *) notification {
@@ -44,9 +49,14 @@
                                 lblNotificationCount:lblNotificationCount navItem:self.navigationItem];
 }
 
+-(void)updateSegmentOnAddingNewUser:(NSNotification *) notification {
+    [self.segmentControl setSelectedSegmentIndex:VIEW_NEW_USERS_SELECTED];
+    [self.segmentControl sendActionsForControlEvents:UIControlEventValueChanged];
+}
+
 #pragma mark - IBAction Methods
 - (IBAction)Back_Click:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES] ;
+    [self.navigationController popToRootViewControllerAnimated:YES] ;
 }
 
 - (IBAction)navigateToNotification_Click:(id)sender {
@@ -57,7 +67,7 @@
 
 - (IBAction)segmentControlValueChanged:(id)sender {
     
-    selectedSegment = segmentControl.selectedSegmentIndex;
+    selectedSegment = self.segmentControl.selectedSegmentIndex;
     
     switch (selectedSegment) {
         case 0: // Search
@@ -65,6 +75,7 @@
             [UIView animateWithDuration:0.5 animations:^{
                 self->vwSearchConnection.alpha = 1;
                 self->vwAddNewUser.alpha = 0;
+                self->vwNewUsers.alpha = 0;
             }];
         }
             break;
@@ -73,6 +84,16 @@
             [UIView animateWithDuration:0.5 animations:^{
                 self->vwSearchConnection.alpha = 0;
                 self->vwAddNewUser.alpha = 1;
+                self->vwNewUsers.alpha = 0;
+            }];
+        }
+            break;
+        case 2: // View New Users
+        {
+            [UIView animateWithDuration:0.5 animations:^{
+                self->vwSearchConnection.alpha = 0;
+                self->vwAddNewUser.alpha = 0;
+                self->vwNewUsers.alpha = 1;
             }];
         }
             break;

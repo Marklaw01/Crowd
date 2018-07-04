@@ -1338,7 +1338,7 @@
     operationManager.requestSerializer = [AFJSONRequestSerializer serializer];
     operationManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"] ;
     
-    [operationManager POST:CROWDBOOTSTRAP_STARTUP_QUESTIONS parameters:dictParameters success:^(AFHTTPRequestOperation *operation, id responseObject){
+    [operationManager POST:CROWDBOOTSTRAP_STARTUP_QUESTIONS_IOS parameters:dictParameters success:^(AFHTTPRequestOperation *operation, id responseObject){
         success(responseObject);
         
     }failure:^(AFHTTPRequestOperation *operation, NSError *error){
@@ -1493,8 +1493,9 @@
     AFHTTPRequestOperationManager *operationManager = [AFHTTPRequestOperationManager manager];
     
     operationManager.requestSerializer = [AFJSONRequestSerializer serializer];
+
     operationManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"] ;
-    [operationManager GET:CROWDBOOTSTRAP_STARTUP_APP_QUESTIONS parameters:dictParameters success:^(AFHTTPRequestOperation * operation, id  responseObject) {
+    [operationManager GET:CROWDBOOTSTRAP_STARTUP_APP_QUESTIONS_IOS parameters:dictParameters success:^(AFHTTPRequestOperation * operation, id  responseObject) {
         success(responseObject);
         
     } failure:^(AFHTTPRequestOperation * operation, NSError * error) {
@@ -14552,6 +14553,19 @@
     }] ;
 }
 
++(void)deleteBusinessNetworkWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure {
+    AFHTTPRequestOperationManager *operationManager = [AFHTTPRequestOperationManager manager];
+    
+    operationManager.requestSerializer = [AFJSONRequestSerializer serializer];
+    operationManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"] ;
+    [operationManager POST:CROWDBOOTSTRAP_DELETE_BUSINESS_NETWORK parameters:dictParameters success:^(AFHTTPRequestOperation * operation, id  responseObject) {
+        success(responseObject);
+        
+    } failure:^(AFHTTPRequestOperation * operation, NSError * error) {
+        failure(error) ;
+    }] ;
+}
+
 +(void)addBusinessUserGroupWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure {
     AFHTTPRequestOperationManager *operationManager = [AFHTTPRequestOperationManager manager];
     
@@ -14625,6 +14639,32 @@
         NSLog(@"Upload Progress: %f", percentDone);
         progress(percentDone) ;
     }];
+}
+
++(void)getNewBusinessUsersWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure {
+    AFHTTPRequestOperationManager *operationManager = [AFHTTPRequestOperationManager manager];
+    
+    operationManager.requestSerializer = [AFJSONRequestSerializer serializer];
+    operationManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"] ;
+    [operationManager GET:CROWDBOOTSTRAP_NEW_BUSINESS_USERS parameters:dictParameters success:^(AFHTTPRequestOperation * operation, id  responseObject) {
+        success(responseObject);
+        
+    } failure:^(AFHTTPRequestOperation * operation, NSError * error) {
+        failure(error) ;
+    }] ;
+}
+
++(void)deleteBusinessContactWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure {
+    AFHTTPRequestOperationManager *operationManager = [AFHTTPRequestOperationManager manager];
+    
+    operationManager.requestSerializer = [AFJSONRequestSerializer serializer];
+    operationManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"] ;
+    [operationManager GET:CROWDBOOTSTRAP_DELETE_BUSINESS_CONTACT parameters:dictParameters success:^(AFHTTPRequestOperation * operation, id  responseObject) {
+        success(responseObject);
+        
+    } failure:^(AFHTTPRequestOperation * operation, NSError * error) {
+        failure(error) ;
+    }] ;
 }
 
 #pragma mark - AFNetworking Methods -

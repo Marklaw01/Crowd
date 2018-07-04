@@ -48,11 +48,18 @@
 
 #pragma mark - IBAction Method
 - (IBAction)Back_Click:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES] ;
+    
 }
 
 - (IBAction)Upload_ClickAction:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES] ;
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Upload not permitted" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [alertController dismissViewControllerAnimated:YES completion:nil];
+        
+        [self.navigationController popViewControllerAnimated:YES] ;
+    }];
+    [alertController addAction:ok];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 - (IBAction)profileUploadedLink_ClickAction:(id)sender {

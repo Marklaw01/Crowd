@@ -54,7 +54,7 @@ typedef void (^ProgressBlock)(double progress);
 #define CROWDBOOTSTRAP_REGISTER_ROLE_LIST                               [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/registerRoleList"]
 #define CROWDBOOTSTRAP_SETTINGS_LIST                    [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/settingList"]
 
-#define CROWDBOOTSTRAP_KEYWORDS                    [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/keywords"]
+#define CROWDBOOTSTRAP_KEYWORDS                    [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/campaignTargetKeywords"]
 #define CROWDBOOTSTRAP_CAMPAIGNS_LIST              [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/campaignsList"]
 #define CROWDBOOTSTRAP_TIMEPERIOD_LIST             [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/timePeriods"]
 #define CROWDBOOTSTRAP_COMMIT_CAMPAIGN             [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/commitCampaign"]
@@ -469,10 +469,11 @@ typedef void (^ProgressBlock)(double progress);
 #define CROWDBOOTSTRAP_DELETE_CAMPAIGN             [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/deleteCampaign"]
 #define CROWDBOOTSTRAP_STARTUP_ROADMAP_DOCS        [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/startupRoadmapsStaus"]
 #define CROWDBOOTSTRAP_STARTUP_QUESTIONS           [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/startupQuestions"]
+#define CROWDBOOTSTRAP_STARTUP_QUESTIONS_IOS       [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/startupQuestionsIos"]
 #define CROWDBOOTSTRAP_MESSAGES_LIST               [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/messagesList"]
 #define CROWDBOOTSTRAP_SEARCH_COMPANY              [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/searchCompany"]
 #define CROWDBOOTSTRAP_VIEW_COMPANY                [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/viewCompany"]
-#define CROWDBOOTSTRAP_COMPANY_KEYWORD_LIST                 [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/companyKeywordList"]
+#define CROWDBOOTSTRAP_COMPANY_KEYWORD_LIST        [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/companyKeywordList"]
 #define CROWDBOOTSTRAP_ARCHIVED_MESSAGES_LIST      [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/messagesArchiveList"]
 #define CROWDBOOTSTRAP_ARCHIVE_DELETE_MESSAGE      [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/messageArchivedDelete"]
 #define CROWDBOOTSTRAP_ARCHIVE_DELETE_MESSAGE      [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/messageArchivedDelete"]
@@ -495,15 +496,15 @@ typedef void (^ProgressBlock)(double progress);
 #define CROWDBOOTSTRAP_MyCONNECTIONS_LIST          [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/myConnections"]
 #define CROWDBOOTSTRAP_SEARCH_CONNECTION           [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/searchConnections"]
 #define CROWDBOOTSTRAP_MyMESSAGES_LIST             [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/myMessages"]
-#define CROWDBOOTSTRAP_SUGGEST_KEYWORD_LIST          [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/suggestKeywordLists"]
-#define CROWDBOOTSTRAP_ADD_SUGGEST_KEYWORDS          [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/addSuggestKeywords"]
-#define CROWDBOOTSTRAP_DELETE_SUGGEST_KEYWORDS         [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/deleteSuggestKeywords"]
-#define CROWDBOOTSTRAP_KEYWORD_TYPE_LIST          [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/keywordTypeList"]
+#define CROWDBOOTSTRAP_SUGGEST_KEYWORD_LIST        [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/suggestKeywordLists"]
+#define CROWDBOOTSTRAP_ADD_SUGGEST_KEYWORDS        [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/addSuggestKeywords"]
+#define CROWDBOOTSTRAP_DELETE_SUGGEST_KEYWORDS     [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/deleteSuggestKeywords"]
+#define CROWDBOOTSTRAP_KEYWORD_TYPE_LIST           [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/keywordTypeList"]
 #define CROWDBOOTSTRAP_FORUM_REPORT_ABUSE          [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/reportAbuse"]
 #define CROWDBOOTSTRAP_REPORT_ABUSE_USERS          [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/commentedUsers"]
 #define CROWDBOOTSTRAP_CONTACTS_LIST               [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/quickBloxId"]
 #define CROWDBOOTSTRAP_NOTIFICATIONS_COUNT         [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/notificationsCount"]
-#define CROWDBOOTSTRAP_NOTIFICATIONS_UPDATE_COUNT          [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/updateNotificationsCount"]
+#define CROWDBOOTSTRAP_NOTIFICATIONS_UPDATE_COUNT  [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/updateNotificationsCount"]
 #define CROWDBOOTSTRAP_NOTIFICATIONS_LIST          [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/UserNotifications"]
 #define CROWDBOOTSTRAP_REJECT_COMMITED_USER        [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/deleteCommitedUser"]
 #define CROWDBOOTSTRAP_RESET_PASSWORD_MAIL         [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/sendMailForResetPassword"]
@@ -512,6 +513,7 @@ typedef void (^ProgressBlock)(double progress);
 #define CROWDBOOTSTRAP_STARTUPLIST_NOTES           [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/startupListForUser"]
 #define CROWDBOOTSTRAP_STARTUP_KEYWORDS            [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/startupKeywords"]
 #define CROWDBOOTSTRAP_STARTUP_APP_QUESTIONS       [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/submitApplicationQuestions"]
+#define CROWDBOOTSTRAP_STARTUP_APP_QUESTIONS_IOS   [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/submitApplicationQuestionsIos"]
 
 #define CROWDBOOTSTRAP_CAMPAIGN_KEYWORDS           [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/campaignKeywords"]
 
@@ -519,33 +521,33 @@ typedef void (^ProgressBlock)(double progress);
 #define CROWDBOOTSTRAP_SEARCH_CAMPAIGN             [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/searchCampaigns"]
 #define CROWDBOOTSTRAP_WORKORDER_CONT_SAVED        [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/startupSavedWorkorders"]
 #define CROWDBOOTSTRAP_WORKORDER_CONT_SUBMIT       [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/saveSubmitWorkorder"]
-#define CROWDBOOTSTRAP_LEAN_STARTUP_ROADMAP       [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/dynamicRoadmaps"]
+#define CROWDBOOTSTRAP_LEAN_STARTUP_ROADMAP        [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/dynamicRoadmaps"]
 
 
 // Group
-#define CROWDBOOTSTRAP_FIND_GROUP                    [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/findGroup"]
-#define CROWDBOOTSTRAP_MYGROUP_LIST                    [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/myGroup"]
-#define CROWDBOOTSTRAP_ARCHIVE_GROUP_LIST                    [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/archiveGroupList"]
-#define CROWDBOOTSTRAP_DEACTIVATED_GROUP_LIST                    [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/deactivateGroupList"]
-#define CROWDBOOTSTRAP_ARCHIVE_GROUP                              [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/archiveGroup"]
-#define CROWDBOOTSTRAP_DELETE_GROUP                               [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/deleteGroup"]
-#define CROWDBOOTSTRAP_DEACTIVATE_GROUP                           [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/deactivateGroup"]
-#define CROWDBOOTSTRAP_ACTIVATE_GROUP                             [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/activateGroup"]
-#define CROWDBOOTSTRAP_GROUP_KEYWORDS                   [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/groupKeywordsList"]
-#define CROWDBOOTSTRAP_GROUP_INDUSTRY_KEYWORDS                   [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/groupInterestKeywordLists"]
-#define CROWDBOOTSTRAP_GROUP_TARGET_KEYWORDS                    [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/groupTargetMarketsList"]
-#define CROWDBOOTSTRAP_GROUP_DETAILS                                  [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/groupDetails"]
-#define CROWDBOOTSTRAP_ADD_GROUP                                  [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/addGroup"]
-#define CROWDBOOTSTRAP_EDIT_GROUP                                  [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/editGroup"]
-#define CROWDBOOTSTRAP_FOLLOW_GROUP                                [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/followGroup"]
-#define CROWDBOOTSTRAP_UNFOLLOW_GROUP                                [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/unfollowGroup"]
-#define CROWDBOOTSTRAP_LIKE_GROUP                                [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/likeGroup"]
-#define CROWDBOOTSTRAP_UNLIKE_GROUP                                [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/disLikeGroup"]
-#define CROWDBOOTSTRAP_LIKE_GROUP_LIST                               [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/groupLikeList"]
-#define CROWDBOOTSTRAP_DISLIKE_GROUP_LIST                               [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/groupDislikeList"]
-#define CROWDBOOTSTRAP_COMMIT_GROUP                                  [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/groupCommitment"]
-#define CROWDBOOTSTRAP_UNCOMMIT_GROUP                               [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/groupUncommitment"]
-#define CROWDBOOTSTRAP_GROUP_COMMITMENT_LIST                               [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/groupCommitmentList"]
+#define CROWDBOOTSTRAP_FIND_GROUP                  [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/findGroup"]
+#define CROWDBOOTSTRAP_MYGROUP_LIST                [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/myGroup"]
+#define CROWDBOOTSTRAP_ARCHIVE_GROUP_LIST          [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/archiveGroupList"]
+#define CROWDBOOTSTRAP_DEACTIVATED_GROUP_LIST      [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/deactivateGroupList"]
+#define CROWDBOOTSTRAP_ARCHIVE_GROUP               [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/archiveGroup"]
+#define CROWDBOOTSTRAP_DELETE_GROUP                [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/deleteGroup"]
+#define CROWDBOOTSTRAP_DEACTIVATE_GROUP            [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/deactivateGroup"]
+#define CROWDBOOTSTRAP_ACTIVATE_GROUP              [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/activateGroup"]
+#define CROWDBOOTSTRAP_GROUP_KEYWORDS              [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/groupKeywordsList"]
+#define CROWDBOOTSTRAP_GROUP_INDUSTRY_KEYWORDS     [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/groupInterestKeywordLists"]
+#define CROWDBOOTSTRAP_GROUP_TARGET_KEYWORDS       [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/groupTargetMarketsList"]
+#define CROWDBOOTSTRAP_GROUP_DETAILS               [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/groupDetails"]
+#define CROWDBOOTSTRAP_ADD_GROUP                   [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/addGroup"]
+#define CROWDBOOTSTRAP_EDIT_GROUP                  [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/editGroup"]
+#define CROWDBOOTSTRAP_FOLLOW_GROUP                [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/followGroup"]
+#define CROWDBOOTSTRAP_UNFOLLOW_GROUP              [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/unfollowGroup"]
+#define CROWDBOOTSTRAP_LIKE_GROUP                  [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/likeGroup"]
+#define CROWDBOOTSTRAP_UNLIKE_GROUP                [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/disLikeGroup"]
+#define CROWDBOOTSTRAP_LIKE_GROUP_LIST             [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/groupLikeList"]
+#define CROWDBOOTSTRAP_DISLIKE_GROUP_LIST          [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/groupDislikeList"]
+#define CROWDBOOTSTRAP_COMMIT_GROUP                [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/groupCommitment"]
+#define CROWDBOOTSTRAP_UNCOMMIT_GROUP              [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/groupUncommitment"]
+#define CROWDBOOTSTRAP_GROUP_COMMITMENT_LIST       [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/groupCommitmentList"]
 
 // Webinar
 #define CROWDBOOTSTRAP_FIND_WEBINAR                    [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/findWebinar"]
@@ -758,6 +760,7 @@ typedef void (^ProgressBlock)(double progress);
 #define CROWDBOOTSTRAP_BUSINESS_CARD_NOTES_LIST                    [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/businessCardNotesList"]
 #define CROWDBOOTSTRAP_ADD_BUSINESS_CARD_NOTE                [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/addBusinessCardNotes"]
 #define CROWDBOOTSTRAP_ADD_BUSINESS_NETWORK                [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/addBusinessNetwork"]
+#define CROWDBOOTSTRAP_DELETE_BUSINESS_NETWORK                [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/diconnectBusinessNetwork"]
 #define CROWDBOOTSTRAP_EDIT_BUSINESS_CARD_NOTE                [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/editBusinessCardNotes"]
 #define CROWDBOOTSTRAP_ADD_BUSINESS_GROUP                [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/addbusinessUserConnectionType"]
 #define CROWDBOOTSTRAP_EDIT_BUSINESS_GROUP                [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/editbusinessUserConnectionType"]
@@ -766,6 +769,8 @@ typedef void (^ProgressBlock)(double progress);
 #define CROWDBOOTSTRAP_USER_VISIBILITY                              [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/userVisibilityStatus"]
 #define CROWDBOOTSTRAP_USERLIST_WITHINMILES                              [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/usersListWithinMiles"]
 #define CROWDBOOTSTRAP_USERLIST_WITHSAMELATLONG                              [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/userListWithSameLatLong"]
+#define CROWDBOOTSTRAP_NEW_BUSINESS_USERS                    [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/getBusinessTempContacts"]
+#define CROWDBOOTSTRAP_DELETE_BUSINESS_CONTACT                [CROWDBOOTSTRAP_BASE_URL stringByAppendingString:@"/Api/deleteBusinessContact"]
 
 
 @interface ApiCrowdBootstrap : NSObject
@@ -1606,7 +1611,9 @@ typedef void (^ProgressBlock)(double progress);
 +(void)addBusinessCardNoteWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure;
 +(void)editBusinessCardNoteWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure;
 +(void)addBusinessNetworkWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure;
++(void)deleteBusinessNetworkWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure;
 +(void)addBusinessUserGroupWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure;
 +(void)addBusinessContactWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure progress:(ProgressBlock)progress;
-
++(void)getNewBusinessUsersWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure;
++(void)deleteBusinessContactWithParameters:(NSDictionary *)dictParameters success:(SuccessBlock)success failure:(FailureBlock)failure;
 @end

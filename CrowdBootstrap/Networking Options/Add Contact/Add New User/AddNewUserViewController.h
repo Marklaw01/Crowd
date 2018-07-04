@@ -32,6 +32,7 @@
 }
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property(nonatomic) NSDictionary *selectedUserDict;
 @property UIView *selectedItem;
 
 @end

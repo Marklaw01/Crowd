@@ -136,21 +136,20 @@
     // UserImage
     if(![[dictCard objectForKey:kBusinessAPI_LinkedIn_UserImage] isEqualToString:@""]) {
         NSString *strImage = [NSString stringWithFormat:@"%@%@",APIPortToBeUsed, [dictCard objectForKey:kBusinessAPI_LinkedIn_UserImage]];
-        [imgVwUser sd_setImageWithURL:[NSURL URLWithString:strImage] placeholderImage:[UIImage imageNamed:kPlaceholderImage_Contractor]] ;
+        [imgVwUser sd_setImageWithURL:[NSURL URLWithString:strImage] placeholderImage:[UIImage imageNamed:kImage_ProfilePicDefault]] ;
     } else {
         [imgVwUser sd_setImageWithURL:[NSURL URLWithString:defaultUserImage] placeholderImage:[UIImage imageNamed:kImage_ProfilePicDefault]] ;
     }
     
-    // Image
+    // Buisness Card Image
     NSString *strImage = @"";
     if([dictCard objectForKey:kBusinessAPI_CardImage]) {
         strImage = [NSString stringWithFormat:@"%@%@",APIPortToBeUsed, [dictCard objectForKey:kBusinessAPI_CardImage]];
-        //        NSURL *url = [NSURL URLWithString:[strImage stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]]];
         NSURL *url = [NSURL URLWithString:[strImage stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         imgData = [NSData dataWithContentsOfURL:url];
     }
     
-    [imgVwBusinessCard sd_setImageWithURL:[NSURL URLWithString:strImage] placeholderImage:[UIImage imageNamed:kPlaceholderImage_Logo]] ;
+    [imgVwBusinessCard sd_setImageWithURL:[NSURL URLWithString:strImage] placeholderImage:[UIImage imageNamed:kImage_ForumPicDefault]] ;
 }
 
 #pragma mark - TextView Delegate Methods

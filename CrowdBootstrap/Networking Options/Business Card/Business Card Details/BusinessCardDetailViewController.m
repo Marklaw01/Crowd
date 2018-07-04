@@ -162,9 +162,9 @@
     }
     
     if (![selectedConnectionTypeID isEqualToString:@""]) {
-        btnConnect.hidden = true;
-        txtConnectionType.userInteractionEnabled = false;
-        
+        [btnConnect setTitle:@"Disconnect" forState:UIControlStateNormal];
+        btnSave.hidden = false;
+
         int index = [UtilityClass getPickerViewSelectedIndexFromArray:connectionTypeArray forID:selectedConnectionTypeID] ;
         [pickerView selectRow:index+1 inComponent:0 animated:YES] ;
         [pickerView reloadAllComponents];
@@ -172,8 +172,8 @@
         txtConnectionType.text = [[connectionTypeArray objectAtIndex:index] valueForKey:@"name"];
         
     } else {
-        btnConnect.hidden = false;
-        txtConnectionType.userInteractionEnabled = true;
+        [btnConnect setTitle:@"Connect" forState:UIControlStateNormal];
+        btnSave.hidden = true;
     }
 }
 
@@ -195,7 +195,7 @@
         imgData = [NSData dataWithContentsOfURL:url];
     }
 
-    [imgVwBusinessCard sd_setImageWithURL:[NSURL URLWithString:strImage] placeholderImage:[UIImage imageNamed:kPlaceholderImage_Logo]] ;
+    [imgVwBusinessCard sd_setImageWithURL:[NSURL URLWithString:strImage] placeholderImage:[UIImage imageNamed:kImage_ForumPicDefault]] ;
     
     // Set user Name
     if(![[dictBusinessCard objectForKey:kBusinessAPI_LinkedIn_UserName] isEqualToString:@""]) {
@@ -405,10 +405,14 @@
 }
 
 - (IBAction)connect_ClickAction:(id)sender {
-    if ([selectedConnectionTypeID isEqualToString:@""])
-        [self presentViewController:[UtilityClass displayAlertMessage:@"Please select Connection Type"] animated:YES completion:nil];
+    if ([btnConnect.titleLabel.text isEqualToString:@"Connect"]) {
+        if ([selectedConnectionTypeID isEqualToString:@""])
+            [self presentViewController:[UtilityClass displayAlertMessage:@"Please select Connection Type"] animated:YES completion:nil];
+        else
+            [self addBusinessNetwork];
+    }
     else
-        [self addBusinessNetwork];
+        [self deleteBusinessNetwork];
 }
 
 - (IBAction)PickerToolbarButtons_ClickAction:(id)sender {
@@ -418,6 +422,13 @@
 
 - (IBAction)DropdownButton_ClickAction:(id)sender {
     [txtConnectionType becomeFirstResponder] ;
+}
+
+- (IBAction)saveConnectionType_ClickAction:(id)sender {
+    if ([selectedConnectionTypeID isEqualToString:@""])
+        [self presentViewController:[UtilityClass displayAlertMessage:@"Please select Connection Type"] animated:YES completion:nil];
+    else
+        [self addBusinessNetwork];
 }
 
 #pragma mark - Api Methods
@@ -595,6 +606,8 @@
             NSLog(@"responseDict >>>>> %@", responseDict);
             if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode ) {
                 [self presentViewController:[UtilityClass displayAlertMessage:[responseDict valueForKey:@"message"]] animated:YES completion:nil];
+                [btnConnect setTitle:@"Disconnect" forState:UIControlStateNormal];
+                btnSave.hidden = false;
             }
             else if([[responseDict valueForKey:@"code"] intValue] == kErrorCode )
                 [self presentViewController:[UtilityClass displayAlertMessage:[responseDict valueForKey:@"message"]] animated:YES completion:nil];
@@ -606,4 +619,50 @@
     }
 }
 
+- (void)deleteBusinessNetwork {
+    if([UtilityClass checkInternetConnection]) {
+        
+        [UtilityClass showHudWithTitle:kHUDMessage_PleaseWait] ;
+        NSMutableDictionary *dictParam = [[NSMutableDictionary alloc] init];
+        
+        [dictParam setObject:[NSString stringWithFormat:@"%d",[UtilityClass getLoggedInUserID]] forKey:kBusinessAPI_UserID] ;
+        
+        if ([_strBusinessCardScreenType isEqualToString:@"UserDetail"]) {
+            [dictParam setObject:[_selectedUserDict valueForKey:kBusinessAPI_CardId] forKey:kBusinessAPI_BusinessCardId] ;
+            [dictParam setObject:[dictBusinessCard valueForKey:kBusinessAPI_UserID] forKey:kBusinessAPI_ConnectedToId] ;
+        }
+        else if ([_strBusinessCardScreenType isEqualToString:@"PublicProfile"]) {
+            [dictParam setObject:[_selectedProfileDict valueForKey:kBusinessAPI_CardId] forKey:kBusinessAPI_BusinessCardId] ;
+            [dictParam setObject:[dictBusinessCard valueForKey:kBusinessAPI_UserID] forKey:kBusinessAPI_ConnectedToId] ;
+        }
+        else if ([_strBusinessCardScreenType isEqualToString:@"NotesDetail"]) {
+            [dictParam setObject:[_selectedNoteDict valueForKey:kBusinessAPI_CardId] forKey:kBusinessAPI_BusinessCardId] ;
+            [dictParam setObject:[dictBusinessCard valueForKey:kBusinessAPI_UserID] forKey:kBusinessAPI_ConnectedToId] ;
+        }
+        else {
+            [dictParam setObject:[_selectedCardDict valueForKey:kBusinessAPI_CardId] forKey:kBusinessAPI_BusinessCardId] ;
+            [dictParam setObject:[dictBusinessCard valueForKey:kBusinessAPI_UserID] forKey:kBusinessAPI_ConnectedToId] ;
+        }
+        NSLog(@"dictParam: %@",dictParam) ;
+        
+        [ApiCrowdBootstrap deleteBusinessNetworkWithParameters:dictParam success:^(NSDictionary *responseDict) {
+            
+            [UtilityClass hideHud] ;
+            
+            NSLog(@"responseDict >>>>> %@", responseDict);
+            if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode ) {
+                [self presentViewController:[UtilityClass displayAlertMessage:[responseDict valueForKey:@"message"]] animated:YES completion:nil];
+                [btnConnect setTitle:@"Connect" forState:UIControlStateNormal];
+                btnSave.hidden = true;
+                txtConnectionType.text = @"";
+            }
+            else if([[responseDict valueForKey:@"code"] intValue] == kErrorCode )
+                [self presentViewController:[UtilityClass displayAlertMessage:[responseDict valueForKey:@"message"]] animated:YES completion:nil];
+            
+        } failure:^(NSError *error) {
+            [UtilityClass displayAlertMessage:error.description] ;
+            [UtilityClass hideHud] ;
+        }] ;
+    }
+}
 @end

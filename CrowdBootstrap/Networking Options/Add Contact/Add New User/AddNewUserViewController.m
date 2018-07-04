@@ -32,6 +32,9 @@
                                              selector:@selector(keyboardWillBeHidden:)
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(SendUserInfoNotification:) name:kNotificationSendUserInfo
+                                               object:nil];
     
 }
 
@@ -39,12 +42,14 @@
     [super viewWillDisappear:YES];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationSendUserInfo object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 #pragma mark - Custom Methods
 - (void)resetUISettings {
@@ -69,6 +74,13 @@
     [self getBusinessConnectionTypeList];
 }
 
+-(void)SendUserInfoNotification:(NSNotification *)notification {
+    if ([[notification name] isEqualToString:kNotificationSendUserInfo]) {
+        NSDictionary *dict = notification.userInfo;
+        _selectedUserDict = dict;
+    }
+}
+
 - (UIImage *)resizedImageFromImage:(UIImage *)image {
     
     CGFloat largestSide = image.size.width > image.size.height ? image.size.width : image.size.height;
@@ -90,6 +102,36 @@
     [txtFieldPhone resignFirstResponder];
     [txtFieldEmail resignFirstResponder];
     [txtFieldConnectionType resignFirstResponder];
+}
+
+- (void)resetScreen {
+    txtFieldName.text = @"";
+    txtFieldEmail.text = @"";
+    txtFieldPhone.text = @"";
+    txtFieldConnectionType.text = @"";
+    txtViewNote.text = @"";
+    imgVwBusinessCard.image = [UIImage imageNamed:kCampainDetail_DefaultImage];
+}
+
+#pragma mark - Validation Methods
+-(BOOL)validateFieldsWithText:(NSString*)text withMessage:(NSString*)message{
+    BOOL isValid = YES ;
+    if(text.length <1 || [text isEqualToString:@" "] || [text isEqualToString:@"\n"]){
+        [self presentViewController:[UtilityClass displayAlertMessage:[NSString stringWithFormat:@"%@%@",message,kAlert_SignUp_BlankField]] animated:YES completion:nil];
+        return NO ;
+    }
+    return isValid ;
+}
+
+-(BOOL)validateEmail {
+    
+    NSString *value = txtFieldEmail.text ;
+    if([UtilityClass NSStringIsValidEmail:value])return YES ;
+    else {
+        
+        [self presentViewController:[UtilityClass displayAlertMessage:kAlert_Valid_Email] animated:YES completion:nil];
+        return NO ;
+    }
 }
 
 #pragma mark - Disable Editing Method
@@ -132,8 +174,20 @@
 }
 
 - (IBAction)save_ClickAction:(id)sender {
-    // Hit APi to Add Business Contact
+
+    
+    if(![self validateFieldsWithText:txtFieldName.text withMessage:@"Name"])
+        return;
+    else if(![self validateFieldsWithText:txtFieldPhone.text withMessage:@"Phone Number"])
+        return ;
+    else if(![self validateFieldsWithText:txtFieldEmail.text withMessage:@"Email"])
+        return ;
+    else if(![self validateEmail])
+        return ;
+    else if(![self validateFieldsWithText:selectedConnectionTypeID withMessage:@"Connection Type"])
+        return ;
     [self addBusinessContact];
+ 
 }
 
 #pragma mark - TextField Delegate Methods
@@ -439,8 +493,19 @@ NSString *normalize(NSString *number) {
             [UtilityClass hideHud] ;
             
             NSLog(@"responseDict >>>>> %@", responseDict);
-            if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode ) {
-                [self presentViewController:[UtilityClass displayAlertMessage:[responseDict valueForKey:@"message"]] animated:YES completion:nil];
+            if([[responseDict valueForKey:@"code"] intValue] == kSuccessCode )
+            {
+                
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:[responseDict valueForKey:@"message"] preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    [alertController dismissViewControllerAnimated:YES completion:nil];
+                    // Redirect to New Users Screen
+                    [NSNotificationCenter.defaultCenter postNotificationName:kNotificationUpdateSegmentOnNewUSer object:nil];
+                    [self resetScreen];
+
+                }];
+                [alertController addAction:ok];
+                [self presentViewController:alertController animated:YES completion:nil];
             }
             else if([[responseDict valueForKey:@"code"] intValue] == kErrorCode )
                 [self presentViewController:[UtilityClass displayAlertMessage:[responseDict valueForKey:@"message"]] animated:YES completion:nil];

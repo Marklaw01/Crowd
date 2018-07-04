@@ -127,14 +127,14 @@
                         selectedCompanyKeywordsArray = [self resetTagsArrayWithData:[dict objectForKey:kCompanyDetailAPI_CompanyKeywords]] ;
                     
                     if([dict objectForKey:kCompanyDetailAPI_AudiosList])
-                        audioFile = [dict objectForKey:kCompanyDetailAPI_AudiosList] ;
-                    
+                        audioFile = [[dict objectForKey:kCompanyDetailAPI_AudiosList] stringByReplacingOccurrencesOfString:@" " withString:@"%20"] ;
+
                     if([dict objectForKey:kCompanyDetailAPI_VideosList])
-                        videoFile = [dict objectForKey:kCompanyDetailAPI_VideosList] ;
-                    
+                        videoFile = [[dict objectForKey:kCompanyDetailAPI_VideosList] stringByReplacingOccurrencesOfString:@" " withString:@"%20"] ;
+
                     if([dict objectForKey:kCompanyDetailAPI_DocumentsList])
-                        docuementFile = [dict objectForKey:kCompanyDetailAPI_DocumentsList] ;
-                    
+                        docuementFile = [[dict objectForKey:kCompanyDetailAPI_DocumentsList] stringByReplacingOccurrencesOfString:@" " withString:@"%20"] ;
+
                     // Refresh Dict
                     [companyData setValue:[NSString stringWithFormat:@"%@",[dict valueForKey:kCompanyDetailAPI_CompanyName]] forKey:kCompanyDetailAPI_CompanyName] ;
                     [companyData setValue:[NSString stringWithFormat:@"%@",[dict valueForKey:kCompanyDetailAPI_Summary]] forKey:kCompanyDetailAPI_Summary] ;

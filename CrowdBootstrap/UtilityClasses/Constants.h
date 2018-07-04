@@ -343,7 +343,8 @@ enum {
 // Search User/ Add New User
 enum {
     SEARCH_USER_SELECTED,
-    ADD_NEW_USER_SELECTED
+    ADD_NEW_USER_SELECTED,
+    VIEW_NEW_USERS_SELECTED
 };
 
 #define kQuickblox_ApplicationID                  41172;

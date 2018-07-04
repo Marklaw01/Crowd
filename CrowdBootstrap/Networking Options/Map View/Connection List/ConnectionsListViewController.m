@@ -95,7 +95,7 @@
     cell.lblName.text = [NSString stringWithFormat:@"%@",[[usersArray objectAtIndex:indexPath.row] valueForKey:kBusinessAPI_UserName]] ;
     cell.lblDesc.text = [NSString stringWithFormat:@"%@",[[usersArray objectAtIndex:indexPath.row] valueForKey:kBusinessAPI_UserStatement]];
     
-    [cell.imgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",APIPortToBeUsed,[[usersArray objectAtIndex:indexPath.row] valueForKey:kBusinessAPI_UserImage]]] placeholderImage:[UIImage imageNamed:kPlaceholderImage_Contractor]] ;
+    [cell.imgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",APIPortToBeUsed,[[usersArray objectAtIndex:indexPath.row] valueForKey:kBusinessAPI_UserImage]]] placeholderImage:[UIImage imageNamed:kImage_ProfilePicDefault]] ;
     
     NSString *strConnectionId = [NSString stringWithFormat:@"%@", [[usersArray objectAtIndex:indexPath.row] valueForKey:kBusinessAPI_ConnectionId]];
     if ([strConnectionId isEqualToString:@""]) {

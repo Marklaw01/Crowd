@@ -64,6 +64,7 @@
 #define kNotificationSendConnections              @"kNotificationSendConnections"
 #define kNotificationSendLinkedInInfo             @"kNotificationSendLinkedInInfo"
 #define kNotificationSendProfileInfo              @"kNotificationSendProfileInfo"
+#define kNotificationUpdateSegmentOnNewUSer       @"SetNotificationUpdateSegmentOnNewUSer"
 
 #pragma mark - Push Notifications
 #define kNotificationPush_AddTeamMember           @"AddTeamMemberPushNotification"

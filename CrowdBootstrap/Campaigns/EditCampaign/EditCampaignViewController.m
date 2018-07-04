@@ -621,6 +621,8 @@
         NSMutableDictionary *dictParam =[[NSMutableDictionary alloc] init];
         [dictParam setObject:[NSString stringWithFormat:@"%d",[UtilityClass getLoggedInUserID]] forKey:kCampaignDetailAPI_UserID] ;
         [dictParam setObject:[NSString stringWithFormat:@"%@",[campaignData valueForKey:kCampaignsAPI_CampaignID]] forKey:kCampaignDetailAPI_CampaignID] ;
+        NSLog(@"params: %@",dictParam) ;
+
         [ApiCrowdBootstrap getCampaignDetailwithParameters:dictParam success:^(NSDictionary *responseDict) {
             [UtilityClass hideHud] ;
             NSLog(@"respos %@",responseDict) ;
@@ -1097,18 +1099,24 @@
         for (int i=0; i<[sectionsArray count]; i++) {
             if (indexPath.section==i) {
                 if (indexPath.section == EDIT_CAMPAIGN_DOCUMENTS_SECTION_INDEX) {
-                    if (![[[docuementsArray objectAtIndex:indexPath.row] valueForKey:@"file"] isEqualToString:@""]) {
-                        [arrayForBool replaceObjectAtIndex:i withObject:[NSNumber numberWithBool:!collapsed]];
+                    if (docuementsArray.count > 0) {
+                        if (![[[docuementsArray objectAtIndex:indexPath.row] valueForKey:@"file"] isEqualToString:@""]) {
+                            [arrayForBool replaceObjectAtIndex:i withObject:[NSNumber numberWithBool:!collapsed]];
+                        }
                     }
                 }
                 else if (indexPath.section == EDIT_CAMPAIGN_AUIDIOS_SECTION_INDEX) {
-                    if (![[[audiosArray objectAtIndex:indexPath.row] valueForKey:@"file"] isEqualToString:@""]) {
-                        [arrayForBool replaceObjectAtIndex:i withObject:[NSNumber numberWithBool:!collapsed]];
+                    if (audiosArray.count > 0) {
+                        if (![[[audiosArray objectAtIndex:indexPath.row] valueForKey:@"file"] isEqualToString:@""]) {
+                            [arrayForBool replaceObjectAtIndex:i withObject:[NSNumber numberWithBool:!collapsed]];
+                        }
                     }
                 }
                 else if (indexPath.section == EDIT_CAMPAIGN_VIDEOS_SECTION_INDEX) {
-                    if (![[[videosArray objectAtIndex:indexPath.row] valueForKey:@"file"] isEqualToString:@""]) {
-                        [arrayForBool replaceObjectAtIndex:i withObject:[NSNumber numberWithBool:!collapsed]];
+                    if (videosArray.count > 0) {
+                        if (![[[videosArray objectAtIndex:indexPath.row] valueForKey:@"file"] isEqualToString:@""]) {
+                            [arrayForBool replaceObjectAtIndex:i withObject:[NSNumber numberWithBool:!collapsed]];
+                        }
                     }
                 }
                 else {

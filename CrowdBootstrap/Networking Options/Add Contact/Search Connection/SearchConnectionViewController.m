@@ -19,7 +19,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self resetUISettings] ;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -28,7 +27,7 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated {
-    pageNo = 1;
+    [self resetUISettings] ;
 }
 
 #pragma mark - Custom Methods
@@ -128,7 +127,7 @@
         cell.lblName.text = [NSString stringWithFormat:@"%@",[[searchResults objectAtIndex:indexPath.row] valueForKey:kBusinessAPI_Name]] ;
         cell.lblDesc.text = [NSString stringWithFormat:@"%@",[[searchResults objectAtIndex:indexPath.row] valueForKey:kBusinessAPI_Bio]];
         
-        [cell.imgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",APIPortToBeUsed,[[searchResults objectAtIndex:indexPath.row] valueForKey:kBusinessAPI_UserImage]]] placeholderImage:[UIImage imageNamed:kPlaceholderImage_Contractor]] ;
+        [cell.imgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",APIPortToBeUsed,[[searchResults objectAtIndex:indexPath.row] valueForKey:kBusinessAPI_UserImage]]] placeholderImage:[UIImage imageNamed:kImage_ProfilePicDefault]] ;
         
         NSString *strConnectStatus = [[searchResults objectAtIndex:indexPath.row] valueForKey:kBusinessAPI_ConnectionStatus];
         if ([strConnectStatus isEqualToString:@""]) {
@@ -154,7 +153,7 @@
             cell.lblName.text = [NSString stringWithFormat:@"%@",[[usersArray objectAtIndex:indexPath.row] valueForKey:kBusinessAPI_Name]] ;
             cell.lblDesc.text = [NSString stringWithFormat:@"%@",[[usersArray objectAtIndex:indexPath.row] valueForKey:kBusinessAPI_Bio]];
             
-            [cell.imgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",APIPortToBeUsed,[[usersArray objectAtIndex:indexPath.row] valueForKey:kBusinessAPI_UserImage]]] placeholderImage:[UIImage imageNamed:kPlaceholderImage_Contractor]] ;
+            [cell.imgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",APIPortToBeUsed,[[usersArray objectAtIndex:indexPath.row] valueForKey:kBusinessAPI_UserImage]]] placeholderImage:[UIImage imageNamed:kImage_ProfilePicDefault]] ;
             
             NSString *strConnectStatus = [NSString stringWithFormat:@"%@", [[usersArray objectAtIndex:indexPath.row] valueForKey:kBusinessAPI_ConnectionStatus]];
             if ([strConnectStatus isEqualToString:@""]) {

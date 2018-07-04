@@ -163,41 +163,37 @@
                         }
                     }
                     else {
-                        NSArray *keys = [[dict objectForKey:title] allKeys];
-                        keys = [keys sortedArrayUsingComparator:^(id a, id b) {
-                            return [a compare:b options:NSNumericSearch];
-                        }];
-                        
-                        NSLog(@"%@",keys);
-                        for (NSString *key in keys) {
-                            NSMutableDictionary *childDict = [[NSMutableDictionary alloc] init] ;
-                            [childDict setValue:key forKey:@"question"] ;
-                            [childDict setValue:[[dict objectForKey:title] valueForKey:key] forKey:@"answer"] ;
-                            [arry addObject:childDict] ;
+                        if([[dict objectForKey:title] isKindOfClass:[NSArray class]]) {
+                            NSArray *data = [NSMutableArray arrayWithArray:[dict objectForKey:title]] ;
+                            for (NSMutableDictionary *dict in data) {
+                                NSMutableDictionary *childDict = [[NSMutableDictionary alloc] init] ;
+                                [childDict setValue:[dict objectForKey:@"key"] forKey:@"question"] ;
+                                [childDict setValue:[dict objectForKey:@"value"] forKey:@"answer"] ;
+                                [arry addObject:childDict] ;
+                            }
                         }
                     }
                     [parentDict setObject:arry forKey:@"questions"] ;
                     [sectionsArray addObject:parentDict] ;
-                    
-                    /* */
+                  
                 }
                 
-                //NSLog(@"questionsArray: %@",sectionsArray) ;
                 // Cofounder Data
-                for (NSMutableDictionary *dict in cofoudnerData) {
+                for (NSArray *arr in cofoudnerData) {
                     NSMutableDictionary *parentDict = [[NSMutableDictionary alloc] init] ;
                     NSMutableDictionary *parenCofounderDict = [[NSMutableDictionary alloc] init] ;
                     NSMutableArray *arry = [[NSMutableArray alloc] init] ;
                     NSMutableArray *coFoudnersArry = [[NSMutableArray alloc] init] ;
-                    for (NSString *key in [dict allKeys]) {
+                    
+                    for (NSMutableDictionary *dict in arr) {
                         NSMutableDictionary *childDict = [[NSMutableDictionary alloc] init] ;
-                        [childDict setValue:key forKey:@"question"] ;
-                        [childDict setValue:[dict valueForKey:key] forKey:@"answer"] ;
+                        [childDict setValue:[dict objectForKey:@"key"] forKey:@"question"] ;
+                        [childDict setValue:[dict objectForKey:@"value"] forKey:@"answer"] ;
                         [arry addObject:childDict] ;
                         
                         // cofounder dict
                         NSMutableDictionary *coDict = [[NSMutableDictionary alloc] init] ;
-                        [coDict setValue:key forKey:@"question"] ;
+                        [coDict setValue:[dict objectForKey:@"key"] forKey:@"question"] ;
                         [coDict setValue:@"" forKey:@"answer"] ;
                         [coFoudnersArry addObject:childDict] ;
                     }
@@ -210,17 +206,12 @@
                 }
                 
                 for (int i=0; i<[sectionsArray count]; i++) {
-                    /*if(i == 1){
-                     cofounderDict = [NSMutableDictionary dictionaryWithDictionary:[sectionsArray objectAtIndex:i]] ;
-                     cofoundersArray = [NSMutableArray arrayWithObject:cofounderDict] ;
-                     }*/
                     [arrayForBool addObject:[NSNumber numberWithBool:NO]];
                 }
                 
                 [tblView reloadData] ;
                 
             }
-            //else [self presentViewController:[UtilityClass displayAlertMessage:[responseDict valueForKey:@"message"]] animated:YES completion:nil];
             
         } failure:^(NSError *error) {
             [UtilityClass displayAlertMessage:error.description] ;
@@ -234,7 +225,7 @@
     if([UtilityClass checkInternetConnection]) {
         
         [UtilityClass showHudWithTitle:kHUDMessage_PleaseWait] ;
-        NSMutableDictionary *dictParam =[[NSMutableDictionary alloc] init];
+        NSMutableDictionary *dictParam = [[NSMutableDictionary alloc] init];
         [dictParam setObject:[NSString stringWithFormat:@"%@",[[UtilityClass getStartupDetails] valueForKey:kStartupOverviewAPI_StartupID]] forKey:kStartupTeamAPI_StartupID] ;
         [dictParam setObject:[NSString stringWithFormat:@"%d",isSubmitted] forKey:@"is_submited"] ;
         [dictParam setObject:[self getQuestionsDict] forKey:@"questions"] ;
@@ -260,28 +251,40 @@
 
 -(NSMutableDictionary*)getQuestionsDict {
     NSMutableDictionary *mainDict = [[NSMutableDictionary alloc] init] ;
+    
     for (NSMutableDictionary *dict in sectionsArray) {
-        NSMutableDictionary *parentDict = [[NSMutableDictionary alloc] init] ;
+
         NSString *title = [NSString stringWithFormat:@"%@",[dict valueForKey:@"section"]] ;
+        
         if(![title isEqualToString:@"cofounders"]){
             NSArray *questionsArray = [NSArray arrayWithArray:[dict objectForKey:@"questions"]] ;
+            NSMutableArray *parentArr = [[NSMutableArray alloc] init] ;
+
             for (NSDictionary *childDict in questionsArray) {
-                [parentDict setValue:[childDict valueForKey:@"answer"] forKey:[childDict valueForKey:@"question"]] ;
+                NSMutableDictionary *parentDict = [[NSMutableDictionary alloc] init] ;
+                [parentDict setValue:[childDict valueForKey:@"answer"] forKey:@"value"] ;
+                [parentDict setValue:[childDict valueForKey:@"question"] forKey:@"key"] ;
+                [parentArr addObject:parentDict];
             }
-            [mainDict setObject:parentDict forKey:title] ;
+            
+            [mainDict setObject:parentArr forKey:title] ;
         }
     }
     
-    NSMutableArray *array = [[NSMutableArray alloc] init] ;
+    NSMutableArray *parentArr = [[NSMutableArray alloc] init] ;
     for (NSDictionary *dict in cofoundersArray) {
-        NSMutableDictionary *parentDict = [[NSMutableDictionary alloc] init] ;
         NSArray *questionsArray = [NSArray arrayWithArray:[dict objectForKey:@"questions"]] ;
+        NSMutableArray *childArr = [[NSMutableArray alloc] init] ;
+
         for (NSDictionary *childDict in questionsArray) {
-            [parentDict setValue:[childDict valueForKey:@"answer"] forKey:[childDict valueForKey:@"question"]] ;
+            NSMutableDictionary *parentDict = [[NSMutableDictionary alloc] init] ;
+            [parentDict setValue:[childDict valueForKey:@"answer"] forKey:@"value"] ;
+            [parentDict setValue:[childDict valueForKey:@"question"] forKey:@"key"] ;
+            [childArr addObject:parentDict];
         }
-        [array addObject:parentDict] ;
+        [parentArr addObject:childArr] ;
     }
-    [mainDict setObject:array forKey:@"cofounders"] ;
+    [mainDict setObject:parentArr forKey:@"cofounders"] ;
     
     return mainDict ;
 }
@@ -293,7 +296,7 @@
     if (indexPath.row == 0) {
         BOOL collapsed  = [[arrayForBool objectAtIndex:indexPath.section] boolValue];
         for (int i = 0; i < [sectionsArray count]; i++) {
-            if (indexPath.section==i) {
+            if (indexPath.section == i) {
                 [arrayForBool replaceObjectAtIndex:i withObject:[NSNumber numberWithBool:!collapsed]];
             }
         }

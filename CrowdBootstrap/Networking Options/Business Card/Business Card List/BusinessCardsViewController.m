@@ -136,7 +136,7 @@
 
     cell.lblName.text = [NSString stringWithFormat:@"Business Card %ld",indexPath.row+1];
     cell.lblDesc.text = [NSString stringWithFormat:@"%@",[[cardsArray objectAtIndex:indexPath.row] valueForKey:kBusinessAPI_UserBio]];
-    [cell.imgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",APIPortToBeUsed,[[cardsArray objectAtIndex:indexPath.row] valueForKey:kBusinessAPI_CardImage]]] placeholderImage:[UIImage imageNamed:kPlaceholderImage_Contractor]] ;
+    [cell.imgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",APIPortToBeUsed,[[cardsArray objectAtIndex:indexPath.row] valueForKey:kBusinessAPI_CardImage]]] placeholderImage:[UIImage imageNamed:kImage_ProfilePicDefault]] ;
 
     int status = [[[cardsArray objectAtIndex:indexPath.row] valueForKey:kBusinessAPI_Status] intValue];
     if (status == 1) {

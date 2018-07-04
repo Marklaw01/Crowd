@@ -241,6 +241,8 @@
 		10F500701C3CF06D00AF8C40 /* CrowdBootstrapTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 10F5006F1C3CF06D00AF8C40 /* CrowdBootstrapTests.m */; };
 		10F5007B1C3CF06E00AF8C40 /* CrowdBootstrapUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 10F5007A1C3CF06E00AF8C40 /* CrowdBootstrapUITests.m */; };
 		10F5008B1C3CF57B00AF8C40 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10F5008A1C3CF57B00AF8C40 /* LoginViewController.m */; };
+		10F69C5F20E36D57008F7C85 /* NewUsersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10F69C5E20E36D57008F7C85 /* NewUsersViewController.m */; };
+		10F69C6220E3BC45008F7C85 /* NewUserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10F69C6120E3BC45008F7C85 /* NewUserTableViewCell.m */; };
 		10F850F31C636E8000AB0203 /* SettingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10F850F21C636E8000AB0203 /* SettingsTableViewCell.m */; };
 		10FC1B9C1C6A09F600D2646C /* UploadDocTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10FC1B9B1C6A09F600D2646C /* UploadDocTableViewCell.m */; };
 		10FE12AD1E95000B0027B3B3 /* LaunchDeals.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10FE12AC1E95000B0027B3B3 /* LaunchDeals.storyboard */; };
@@ -769,6 +771,10 @@
 		10F5007C1C3CF06E00AF8C40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		10F500891C3CF57B00AF8C40 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = Login/LoginViewController.h; sourceTree = "<group>"; };
 		10F5008A1C3CF57B00AF8C40 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = Login/LoginViewController.m; sourceTree = "<group>"; };
+		10F69C5D20E36D57008F7C85 /* NewUsersViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewUsersViewController.h; sourceTree = "<group>"; };
+		10F69C5E20E36D57008F7C85 /* NewUsersViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewUsersViewController.m; sourceTree = "<group>"; };
+		10F69C6020E3BC45008F7C85 /* NewUserTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewUserTableViewCell.h; sourceTree = "<group>"; };
+		10F69C6120E3BC45008F7C85 /* NewUserTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewUserTableViewCell.m; sourceTree = "<group>"; };
 		10F850F11C636E8000AB0203 /* SettingsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsTableViewCell.h; path = Settings/SettingsTableViewCell.h; sourceTree = "<group>"; };
 		10F850F21C636E8000AB0203 /* SettingsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsTableViewCell.m; path = Settings/SettingsTableViewCell.m; sourceTree = "<group>"; };
 		10FC1B9A1C6A09F600D2646C /* UploadDocTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UploadDocTableViewCell.h; path = UploadDoc/UploadDocTableViewCell.h; sourceTree = "<group>"; };
@@ -2727,6 +2733,17 @@
 			name = Login;
 			sourceTree = "<group>";
 		};
+		10F69C5C20E36D41008F7C85 /* New Users */ = {
+			isa = PBXGroup;
+			children = (
+				10F69C5D20E36D57008F7C85 /* NewUsersViewController.h */,
+				10F69C5E20E36D57008F7C85 /* NewUsersViewController.m */,
+				10F69C6020E3BC45008F7C85 /* NewUserTableViewCell.h */,
+				10F69C6120E3BC45008F7C85 /* NewUserTableViewCell.m */,
+			);
+			path = "New Users";
+			sourceTree = "<group>";
+		};
 		10FE12AE1E9508B90027B3B3 /* Group Buying */ = {
 			isa = PBXGroup;
 			children = (
@@ -3298,6 +3315,7 @@
 				A7BF5D0E1FB32CDA007D7697 /* AddContactViewController.h */,
 				A7BF5D0F1FB32CDA007D7697 /* AddContactViewController.m */,
 				A781CFE31FB1B30D00A2C3B4 /* Add New User */,
+				10F69C5C20E36D41008F7C85 /* New Users */,
 				A781CFE41FB1B30D00A2C3B4 /* Search Connection */,
 			);
 			path = "Add Contact";
@@ -3957,7 +3975,9 @@
 				10EAF8191E7A8830001E4FC8 /* EditProductivityViewController.m in Sources */,
 				1069F7DB1C4F78F800063823 /* Team_StartupViewController.m in Sources */,
 				A7431A7F1EA62FD900618A9B /* MyAssetsViewController.m in Sources */,
+				10F69C5F20E36D57008F7C85 /* NewUsersViewController.m in Sources */,
 				108312631CEB39EA003B763D /* CampaignAmountTableViewCell.m in Sources */,
+				10F69C6220E3BC45008F7C85 /* NewUserTableViewCell.m in Sources */,
 				10B619B21E40605D008C9D31 /* UserFundTableViewCell.m in Sources */,
 				A7F34B471F694B6800A80E5A /* HomeViewController.m in Sources */,
 				A73928F31ED2AB1F00C2858D /* IndependentContractorViewController.m in Sources */,

@@ -438,7 +438,7 @@
                 [pickerView reloadAllComponents];
             }
             else
-                [self presentViewController:[UtilityClass displayAlertMessage:[responseDict valueForKey:@"message"]] animated:YES completion:nil];
+                [self presentViewController:[UtilityClass displayAlertMessage:@"You are not associated with any company. So you cannot post a job right now."] animated:YES completion:nil];
         } failure:^(NSError *error) {
             [UtilityClass displayAlertMessage:error.description];
             [UtilityClass hideHud];
@@ -899,7 +899,7 @@
 -(BOOL)textViewShouldBeginEditing:(UITextView *)textView{
     _selectedItem = nil ;
     
-    if([textView.text isEqualToString:@"Description"] && textView.textColor == [UIColor lightGrayColor]){
+    if([textView.text isEqualToString:@"Summary"] && textView.textColor == [UIColor lightGrayColor]){
         textView.text = @"" ;
         textView.textColor = [UtilityClass textColor] ;
     }
@@ -918,7 +918,7 @@
     _selectedItem = nil ;
     
     if([textView.text isEqualToString:@""]){
-        textView.text = @"Description" ;
+        textView.text = @"Summary" ;
         textView.textColor = [UIColor lightGrayColor] ;
     }
     

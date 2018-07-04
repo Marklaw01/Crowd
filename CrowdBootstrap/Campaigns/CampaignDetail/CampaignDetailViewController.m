@@ -322,7 +322,7 @@
 }
 
 #pragma mark - Table header gesture tapped
-- (void)sectionHeaderTapped:(UITapGestureRecognizer *)gestureRecognizer{
+- (void)sectionHeaderTapped:(UITapGestureRecognizer *)gestureRecognizer {
     
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:gestureRecognizer.view.tag];
     if (indexPath.row == 0) {
@@ -330,18 +330,24 @@
         for (int i=0; i<[sectionsArray count]; i++) {
             if (indexPath.section==i) {
                 if (indexPath.section == CAMPAIGN_DOCUMENTS_SECTION_INDEX) {
-                    if (![[[docuementsArray objectAtIndex:indexPath.row] valueForKey:@"file"] isEqualToString:@""]) {
-                        [arrayForBool replaceObjectAtIndex:i withObject:[NSNumber numberWithBool:!collapsed]];
+                    if (docuementsArray.count > 0) {
+                        if (![[[docuementsArray objectAtIndex:indexPath.row] valueForKey:@"file"] isEqualToString:@""]) {
+                            [arrayForBool replaceObjectAtIndex:i withObject:[NSNumber numberWithBool:!collapsed]];
+                        }
                     }
                 }
                 else if (indexPath.section == CAMPAIGN_AUIDIOS_SECTION_INDEX) {
-                    if (![[[audiosArray objectAtIndex:indexPath.row] valueForKey:@"file"] isEqualToString:@""]) {
-                        [arrayForBool replaceObjectAtIndex:i withObject:[NSNumber numberWithBool:!collapsed]];
+                    if (audiosArray.count > 0) {
+                        if (![[[audiosArray objectAtIndex:indexPath.row] valueForKey:@"file"] isEqualToString:@""]) {
+                            [arrayForBool replaceObjectAtIndex:i withObject:[NSNumber numberWithBool:!collapsed]];
+                        }
                     }
                 }
                 else if (indexPath.section == CAMPAIGN_VIDEOS_SECTION_INDEX) {
-                    if (![[[videosArray objectAtIndex:indexPath.row] valueForKey:@"file"] isEqualToString:@""]) {
-                        [arrayForBool replaceObjectAtIndex:i withObject:[NSNumber numberWithBool:!collapsed]];
+                    if (videosArray.count > 0) {
+                        if (![[[videosArray objectAtIndex:indexPath.row] valueForKey:@"file"] isEqualToString:@""]) {
+                            [arrayForBool replaceObjectAtIndex:i withObject:[NSNumber numberWithBool:!collapsed]];
+                        }
                     }
                 }
                 else {

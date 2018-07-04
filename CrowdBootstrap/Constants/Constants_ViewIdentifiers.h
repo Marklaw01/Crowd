@@ -125,6 +125,7 @@
 #define kBusinessCardDetailIdentifier             @"BusinessCardDetailView"
 #define kBusinessConnectionListIdentifier         @"ConnectionListView"
 #define kAddBusinessCardIdentifier                @"AddBusinessCardView"
+#define kNewUsersIdentifier                       @"NewUsersView"
 
 
 #pragma mark - Cell Identifers

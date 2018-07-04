@@ -86,7 +86,6 @@
     [revealController tapGestureRecognizer] ;
 }
 
-
 #pragma mark - IBAction Methods
 - (IBAction)navigateToNotification_Click:(id)sender {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
