@@ -1272,7 +1272,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
                                 if (backStackEntryCount == 0) {
                                     mDrawerList.setItemChecked(13, true);
-                                    toolbarTitle.setText("Assign Work Orders");
+                                    toolbarTitle.setText("Assign Work Units");
                                     fragment = new ManageWorkOrdersFragment();
                                 } else {
                                     mDrawerLayout.closeDrawer(mDrawerList);

@@ -1459,9 +1459,7 @@ public class AddJobFragment extends Fragment implements onActivityResultListener
 
                         } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
                             ((HomeActivity) getActivity()).dismissProgressDialog();
-                            Toast.makeText(getActivity(), jsonObject.optString("message") + " Try Again!", Toast.LENGTH_LONG).show();
-
-
+                            ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton("You are not associated with any company. So you cannot post a job right now.");
                         }
                         companyName.setAdapter(new SpinnerAdapter(getActivity(), 0, companyList));
                     } catch (JSONException e) {

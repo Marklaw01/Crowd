@@ -201,7 +201,7 @@ public class ViewOtherContractorPublicProfileFragment extends Fragment implement
                 args.putString("userName", tv_username.getText().toString().trim());
                 args.putString("userImage", userImageURL);
                 args.putString("noteId", "");
-                args.putString("comingFrom", "SearchConnections");
+                args.putString("comingFrom", "com.staging");
 
                 currentStartUPDetails.setArguments(args);
 

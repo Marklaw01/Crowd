@@ -287,7 +287,7 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
         viewplayVideoArrow = (ImageView) rootView.findViewById(R.id.viewplayVideoArrow);
 
         et_title = (EditText) rootView.findViewById(R.id.et_title);
-        et_title.setText("Board Membership Title");
+        et_title.setHint("Board Membership Title");
         et_description = (EditText) rootView.findViewById(R.id.et_description);
         et_interestKeywords = (EditText) rootView.findViewById(R.id.et_interestKeywords);
         et_keywords = (EditText) rootView.findViewById(R.id.et_keywords);

@@ -4,7 +4,7 @@ package com.staging.models;
  * Created by neelmani.karn on 2/8/2016.
  */
 public class NotificationObject {
-    String id, name, createdTime, descriptoin, sender, createdDate, ownerName, ownerImage;
+    String id, name, createdTime, descriptoin, sender, createdDate, ownerName, ownerImage, cardOwner;
 
     public String getCreatedDate() {
         return createdDate;
@@ -68,5 +68,13 @@ public class NotificationObject {
 
     public void setDescriptoin(String descriptoin) {
         this.descriptoin = descriptoin;
+    }
+
+    public String getCardOwner() {
+        return cardOwner;
+    }
+
+    public void setCardOwner(String cardOwner) {
+        this.cardOwner = cardOwner;
     }
 }

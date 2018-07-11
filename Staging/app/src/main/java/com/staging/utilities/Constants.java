@@ -28,6 +28,9 @@ public final class Constants {
     public static final String NOTIFICATION_COMMIT_CAMPAIGN_TAG = "Commit_Campaign";
     public static final String NOTIFICATION_UNCOMMIT_CAMPAIGN_TAG = "Uncommit_Campaign";
 
+    public static final String SEARCH_TEMP_BUSINESS_NETWORKS_URL = "getBusinessTempContacts";
+    public static final String SEARCH_TEMP_BUSINESS_NETWORKS_TAG = "getBusinessTempContacts_tag";
+
     public static final String NOTIFICATION_TEAM_MEMBER_STAUS = "TeamMember_status";
 
     public static final String NOTIFICATION_COMMENT_FOURM = "Comment_Forum";
@@ -82,6 +85,8 @@ public final class Constants {
     public static final String FORGOT_PASSWORD_USER_MAIL_URL = "sendMailForResetPassword";
     public static final String FORGOT_PASSWORD_USER_MAIL_TAG = "sendMailForResetPassword_tag";
 
+    public static final String DISCONNECT_BUSINESS_CONNECTION_URL = "diconnectBusinessNetwork";
+    public static final String DISCONNECT_BUSINESS_CONNECTION_TAG = "diconnectBusinessNetwork_tag";
 
     public static final String RESEND_CONFIRMATION_USER_MAIL_URL = "resendEmail";
     public static final String RESEND_CONFIRMATION_USER_MAIL_TAG = "resendEmail_tag";
@@ -204,9 +209,13 @@ public final class Constants {
     public static final String CAMPAIGN_KEYWORDS_URL = "campaignKeywords";
     public static final String CAMPAIGN_KEYWORDS_TAG = "campaignKeywords_tag";
 
+    public static final String CAMPAIGN_TARGET_KEYWORDS_URL = "campaignTargetKeywords";
+    public static final String CAMPAIGN_TARGET_KEYWORDS_TAG = "campaignTargetKeywords_tag";
+
     public static final String FORUMS_KEYWORDS_URL = "forumKeywords";
     public static final String FORUMS_KEYWORDS_TAG = "forumKeywords_tag";
 
+    public static final String DELETE_NEW_USERS_URL = "deleteBusinessContact";
 
     public static final String STARTUP_KEYWORDS_URL = "startupKeywords";
     public static final String STARTUP_KEYWORDS_TAG = "startupKeywords_tag";
@@ -356,7 +365,7 @@ public final class Constants {
     public static final String MY_DEACTIVATED_JOBS_URL = "deactivatedJobLists";
     public static final String MY_DEACTIVATED_JOBS_TAG = "deactivatedJobLists_tag";
 
-    public static final String SEARCH_CONNECTIONS_URL = "searchConnections";
+    public static final String SEARCH_CONNECTIONS_URL = "com.staging";
     public static final String SEARCH_CONNECTIONS_TAG = "searchConnections_tag";
 
     public static final String MY_CONNECTIONS_URL = "myConnections";

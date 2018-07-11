@@ -1369,7 +1369,7 @@ public class EditCampaignFragment extends Fragment implements View.OnClickListen
                             }
                             if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
 
-                                Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.CAMPAIGN_KEYWORDS_TAG, Constants.CAMPAIGN_KEYWORDS_URL, Constants.HTTP_GET,"Home Activity");
+                                Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.CAMPAIGN_TARGET_KEYWORDS_TAG, Constants.CAMPAIGN_TARGET_KEYWORDS_URL, Constants.HTTP_GET,"Home Activity");
                                 a.execute();
                             } else {
                                 ((HomeActivity) getActivity()).dismissProgressDialog();
@@ -1390,7 +1390,7 @@ public class EditCampaignFragment extends Fragment implements View.OnClickListen
 
                             if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
 
-                                Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.CAMPAIGN_KEYWORDS_TAG, Constants.CAMPAIGN_KEYWORDS_URL, Constants.HTTP_GET,"Home Activity");
+                                Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.CAMPAIGN_TARGET_KEYWORDS_TAG, Constants.CAMPAIGN_TARGET_KEYWORDS_URL, Constants.HTTP_GET,"Home Activity");
                                 a.execute();
                             } else {
                                 ((HomeActivity) getActivity()).dismissProgressDialog();
@@ -1426,7 +1426,7 @@ public class EditCampaignFragment extends Fragment implements View.OnClickListen
                     }
                 }
 
-                else if (tag.equalsIgnoreCase(Constants.CAMPAIGN_KEYWORDS_TAG)) {
+                else if (tag.equalsIgnoreCase(Constants.CAMPAIGN_TARGET_KEYWORDS_TAG)) {
                     //((HomeActivity) getActivity()).dismissProgressDialog();
                     try {
                         JSONObject jsonObject = new JSONObject(result);

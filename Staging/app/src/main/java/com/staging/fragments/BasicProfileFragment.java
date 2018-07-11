@@ -24,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.staging.R;
 import com.staging.activities.HomeActivity;
 import com.staging.dropdownadapter.CountryAdapter;
@@ -35,7 +36,6 @@ import com.staging.utilities.Async;
 import com.staging.utilities.Constants;
 import com.staging.utilities.DateTimeFormatClass;
 import com.staging.utilities.UsPhoneNumberFormatter;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
@@ -112,6 +112,7 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
                 // we check that the fragment is becoming visible
 
 
+
                 ((HomeActivity) getActivity()).setOnBackPressedListener(this);
                 if (((HomeActivity) getActivity()).prefManager.getString(Constants.USER_TYPE).equalsIgnoreCase(Constants.CONTRACTOR)) {
                     ProfileFragment.editView.setVisibility(View.VISIBLE);
@@ -124,8 +125,8 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
                     EntrepreneurProfileFragment.circularImageView.setClickable(true);
                 }
                 if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
-                    ((HomeActivity) getActivity()).showProgressDialog();
-                    Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.GET_COUNTRIES_LIST_WITH_STATES_TAG, Constants.GET_COUNTRIES_LIST_WITH_STATES, Constants.HTTP_POST, "Home Activity");
+                    ((HomeActivity)getActivity()).showProgressDialog();
+                    Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.GET_COUNTRIES_LIST_WITH_STATES_TAG, Constants.GET_COUNTRIES_LIST_WITH_STATES, Constants.HTTP_POST,"Home Activity");
                     a.execute();
                 } else {
                     ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
@@ -163,7 +164,7 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
                 et_dob.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
                 et_phone.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
                 et_myinterests.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-                et_phone.setMaxEms(14);
+
 //                UsPhoneNumberFormatter addLineNumberFormatter = new UsPhoneNumberFormatter(
 //                        new WeakReference<EditText>(et_phone));
 //                et_phone.addTextChangedListener(addLineNumberFormatter);
@@ -216,7 +217,7 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
 
                         states = countries.get(position).getStatesObjects();
                         //Toast.makeText(getActivity(), "size" + states.size(), Toast.LENGTH_LONG).show();
-                        stateAdapter = new StatesAdapter(getActivity(), 0, states);
+                        stateAdapter = new StatesAdapter(getActivity(),0, states);
                         citySpinner.setAdapter(stateAdapter);
 
                         if (stateAdapter != null) {
@@ -283,7 +284,6 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
 //                et_phone.addTextChangedListener(addLineNumberFormatter);
 
 
-
                 countrySpinner = (Spinner) rootView.findViewById(R.id.country);
                 citySpinner = (Spinner) rootView.findViewById(R.id.city);
                 //securityQuestionSpinner = (Spinner) rootView.findViewById(R.id.securityquestion);
@@ -317,7 +317,7 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
 
                         states = countries.get(position).getStatesObjects();
                         //Toast.makeText(getActivity(), "size" + states.size(), Toast.LENGTH_LONG).show();
-                        stateAdapter = new StatesAdapter(getActivity(), 0, states);
+                        stateAdapter = new StatesAdapter(getActivity(),0, states);
                         citySpinner.setAdapter(stateAdapter);
 
                         if (stateAdapter != null) {
@@ -392,7 +392,7 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
             switch (v.getId()) {
 
                 case R.id.addcontributor:
-                    InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    InputMethodManager inputMethodManager = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     inputMethodManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
                     if (((HomeActivity) getActivity()).prefManager.getString(Constants.USER_TYPE).equalsIgnoreCase(Constants.ENTREPRENEUR)) {
 
@@ -707,21 +707,21 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
                                 }
                             } else if (obj.getString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
                                 if (!obj.optJSONObject("errors").optString("bio").isEmpty()) {
-                                    ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton("Bio field is required!");
+                                    ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(obj.optJSONObject("errors").optString("bio"));
                                 } else if (!obj.optJSONObject("errors").optString("last_name").isEmpty()) {
                                     ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(obj.optJSONObject("errors").optString("last_name"));
                                 } else if (!obj.optJSONObject("errors").optString("first_name").isEmpty()) {
                                     ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(obj.optJSONObject("errors").optString("first_name"));
                                 } else if (!obj.optJSONObject("errors").optString("date_of_birth").isEmpty()) {
-                                    ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton("Date-of-Birth is required!");
+                                    ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(obj.optJSONObject("errors").optString("date_of_birth"));
                                 } else if (!obj.optJSONObject("errors").optString("country_id").isEmpty()) {
-                                    ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton("Country is required!");
+                                    ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(obj.optJSONObject("errors").optString("country_id"));
                                 } else if (!obj.optJSONObject("errors").optString("state_id").isEmpty()) {
-                                    ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton("State is required!");
+                                    ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(obj.optJSONObject("errors").optString("state_id"));
                                 } else if (!obj.optJSONObject("errors").optString("phoneno").isEmpty()) {
                                     ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(obj.optJSONObject("errors").optString("phoneno"));
                                 } else if (!obj.optJSONObject("errors").optString("price").isEmpty()) {
-                                    ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton("Rate is required!");
+                                    ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(obj.optJSONObject("errors").optString("price"));
                                 }
 
                             }
@@ -753,10 +753,10 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
     public void onTaskComplete(String result, String tag) {
         try {
             if (result.equalsIgnoreCase(Constants.NOINTERNET)) {
-                ((HomeActivity) getActivity()).dismissProgressDialog();
+                ((HomeActivity)getActivity()).dismissProgressDialog();
                 Toast.makeText(getActivity(), getString(R.string.check_internet), Toast.LENGTH_LONG).show();
             } else if (result.equalsIgnoreCase(Constants.SERVEREXCEPTION)) {
-                ((HomeActivity) getActivity()).dismissProgressDialog();
+                ((HomeActivity)getActivity()).dismissProgressDialog();
                 Toast.makeText(getActivity(), getString(R.string.server_down), Toast.LENGTH_LONG).show();
             } else {
                 if (tag.equalsIgnoreCase(Constants.GET_COUNTRIES_LIST_WITH_STATES_TAG)) {
@@ -810,20 +810,20 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
                             }
                             if (((HomeActivity) getActivity()).prefManager.getString(Constants.USER_TYPE).equalsIgnoreCase(Constants.ENTREPRENEUR)) {
                                 if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
-                                    Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.ENTREPRENEUR_BASIC_PROFILE_TAG, Constants.ENTREPRENEUR_BASIC_PROFILE_URL + ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID) + "&logged_in_user=" + ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID), Constants.HTTP_GET, "Home Activity");
+                                    Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.ENTREPRENEUR_BASIC_PROFILE_TAG, Constants.ENTREPRENEUR_BASIC_PROFILE_URL + ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID)+ "&logged_in_user=" + ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID), Constants.HTTP_GET,"Home Activity");
                                     a.execute();
                                     ((HomeActivity) getActivity()).setOnBackPressedListener(this);
                                 } else {
-                                    ((HomeActivity) getActivity()).dismissProgressDialog();
+                                    ((HomeActivity)getActivity()).dismissProgressDialog();
                                     ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
                                 }
                             } else {
                                 if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
-                                    Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.CONTRACTOR_BASIC_PROFILE_TAG, Constants.CONTRACTOR_BASIC_PROFILE_URL + ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID) + "&logged_in_user=" + ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID), Constants.HTTP_GET, "Home Activity");
+                                    Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.CONTRACTOR_BASIC_PROFILE_TAG, Constants.CONTRACTOR_BASIC_PROFILE_URL + ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID)+ "&logged_in_user=" + ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID), Constants.HTTP_GET,"Home Activity");
                                     a.execute();
                                     ((HomeActivity) getActivity()).setOnBackPressedListener(this);
                                 } else {
-                                    ((HomeActivity) getActivity()).dismissProgressDialog();
+                                    ((HomeActivity)getActivity()).dismissProgressDialog();
                                     ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
                                 }
                             }
@@ -832,7 +832,7 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
                             countrySpinner.setAdapter(countryAdapter);
                         }
                     } catch (JSONException e) {
-                        ((HomeActivity) getActivity()).dismissProgressDialog();
+                        ((HomeActivity)getActivity()).dismissProgressDialog();
                         e.printStackTrace();
                     }
                 } else if (tag.equalsIgnoreCase(Constants.CONTRACTOR_BASIC_PROFILE_TAG)) {
@@ -931,9 +931,9 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
 
                         }
 
-                        ((HomeActivity) getActivity()).dismissProgressDialog();
+                        ((HomeActivity)getActivity()).dismissProgressDialog();
                     } catch (JSONException e) {
-                        ((HomeActivity) getActivity()).dismissProgressDialog();
+                        ((HomeActivity)getActivity()).dismissProgressDialog();
                         e.printStackTrace();
                     }
                 } else if (tag.equalsIgnoreCase(Constants.ENTREPRENEUR_BASIC_PROFILE_TAG)) {
@@ -997,18 +997,18 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
                                 e.printStackTrace();
                             }
                         }
-                        ((HomeActivity) getActivity()).dismissProgressDialog();
+                        ((HomeActivity)getActivity()).dismissProgressDialog();
                     } catch (JSONException e) {
-                        ((HomeActivity) getActivity()).dismissProgressDialog();
+                        ((HomeActivity)getActivity()).dismissProgressDialog();
                         e.printStackTrace();
                     }
-                } else {
-                    ((HomeActivity) getActivity()).dismissProgressDialog();
+                }else{
+                    ((HomeActivity)getActivity()).dismissProgressDialog();
                 }
             }
         } catch (NumberFormatException e) {
             e.printStackTrace();
-        } catch (Exception e) {
+        }catch (Exception e){
             e.printStackTrace();
         }
     }
