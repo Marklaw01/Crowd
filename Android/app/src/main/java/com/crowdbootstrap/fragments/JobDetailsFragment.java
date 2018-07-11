@@ -1004,11 +1004,18 @@ public class JobDetailsFragment extends Fragment implements View.OnClickListener
                 case R.id.btn_apply:
                     if (commingFrom.compareTo("DEACTIVATED") == 0) {
 
-                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
 
                         alertDialogBuilder
                                 .setMessage("Do you want to activate this Job again?")
                                 .setCancelable(false)
+                                .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int arg1) {
+                                        dialog.dismiss();
+                                    }
+                                })
                                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int arg1) {

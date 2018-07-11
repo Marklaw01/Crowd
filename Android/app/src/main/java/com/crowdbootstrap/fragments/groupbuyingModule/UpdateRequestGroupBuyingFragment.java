@@ -332,6 +332,7 @@ public class UpdateRequestGroupBuyingFragment extends Fragment implements onActi
         endDateTV.setText("Group Buying Availability End Date");
         titleTV.setText("Group Buying Title");
         descriptionlbl.setText("Group Buying Description");
+        et_title.setHint("Group Buying Title");
         btnCreate.setText(getString(R.string.update));
         myCalendarInvestmentStartDate = Calendar.getInstance();
         investmentStartdate = new DatePickerDialog.OnDateSetListener() {
@@ -444,6 +445,7 @@ public class UpdateRequestGroupBuyingFragment extends Fragment implements onActi
         et_interestKeywords.setOnClickListener(this);
 
         btn_plus.setOnClickListener(this);
+        btnCreate.setText("Submit");
         btnCreate.setOnClickListener(this);
         image_fundImage.setOnClickListener(this);
         tv_deleteFile.setOnClickListener(this);
@@ -1719,7 +1721,7 @@ public class UpdateRequestGroupBuyingFragment extends Fragment implements onActi
                                     Toast.makeText(getActivity(), jsonObject.optString("message"), Toast.LENGTH_LONG).show();
                                     getActivity().onBackPressed();
                                 } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
-
+                                    Toast.makeText(getActivity(), jsonObject.optString("message"), Toast.LENGTH_LONG).show();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();

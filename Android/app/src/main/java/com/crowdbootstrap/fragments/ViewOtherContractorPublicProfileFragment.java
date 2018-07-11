@@ -5,6 +5,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,14 +16,14 @@ import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.crowdbootstrap.R;
+import com.crowdbootstrap.activities.HomeActivity;
+import com.crowdbootstrap.utilities.Constants;
 import com.quickblox.chat.QBChatService;
 import com.quickblox.chat.QBPrivateChatManager;
 import com.quickblox.chat.model.QBDialog;
 import com.quickblox.core.QBEntityCallback;
 import com.quickblox.core.exception.QBResponseException;
-import com.crowdbootstrap.R;
-import com.crowdbootstrap.activities.HomeActivity;
-import com.crowdbootstrap.utilities.Constants;
 
 
 public class ViewOtherContractorPublicProfileFragment extends Fragment implements View.OnClickListener {
@@ -31,7 +32,7 @@ public class ViewOtherContractorPublicProfileFragment extends Fragment implement
     public static TextView tv_username, tv_rate;
     public static ImageView circularImageView;
     public static RatingBar profileRating;
-    public static TextView cbx_Follow;
+    public static TextView cbx_Follow, cbx_businesscard;
 
     public static TextView connectionOption;
     public static RelativeLayout aboveLayoutProfile;
@@ -47,6 +48,10 @@ public class ViewOtherContractorPublicProfileFragment extends Fragment implement
     public static String userId = "0";
     public static int LOGGEDIN_USER_ROLE = 1;
     public static String TEAM_STARTUP_ID = "";
+
+    public static String cardID = "";
+    public static String userImageURL = "";
+    public static String contactTypeId = "";
     private QBPrivateChatManager privateChatManager = QBChatService.getInstance().getPrivateChatManager();
 
     public ViewOtherContractorPublicProfileFragment() {
@@ -64,6 +69,7 @@ public class ViewOtherContractorPublicProfileFragment extends Fragment implement
             Log.e("id", userId);
             Constants.COMMING_FROM_INTENT = "campaignsearch";
             cbx_Follow.setVisibility(View.VISIBLE);
+            cbx_businesscard.setVisibility(View.VISIBLE);
             aboveLayoutProfile.setVisibility(View.GONE);
             belowLayoutProfile.setVisibility(View.VISIBLE);
             connectionOption.setVisibility(View.VISIBLE);
@@ -74,6 +80,7 @@ public class ViewOtherContractorPublicProfileFragment extends Fragment implement
             Log.e("id", userId);
             Constants.COMMING_FROM_INTENT = Constants.LIKE_DISLIKE;
             cbx_Follow.setVisibility(View.VISIBLE);
+            cbx_businesscard.setVisibility(View.VISIBLE);
             aboveLayoutProfile.setVisibility(View.GONE);
             belowLayoutProfile.setVisibility(View.VISIBLE);
             connectionOption.setVisibility(View.VISIBLE);
@@ -86,6 +93,7 @@ public class ViewOtherContractorPublicProfileFragment extends Fragment implement
             aboveLayoutProfile.setVisibility(View.GONE);
             belowLayoutProfile.setVisibility(View.VISIBLE);
             cbx_Follow.setVisibility(View.VISIBLE);
+            cbx_businesscard.setVisibility(View.VISIBLE);
             connectionOption.setVisibility(View.VISIBLE);
         } else if ((getArguments().getString("COMMING_FROM").equalsIgnoreCase("SEARCH_CONTRACTOR_DETAILS"))) {
             ((HomeActivity) getActivity()).setActionBarTitle("Public Profile");
@@ -97,6 +105,7 @@ public class ViewOtherContractorPublicProfileFragment extends Fragment implement
             aboveLayoutProfile.setVisibility(View.GONE);
             belowLayoutProfile.setVisibility(View.VISIBLE);
             cbx_Follow.setVisibility(View.VISIBLE);
+            cbx_businesscard.setVisibility(View.VISIBLE);
             connectionOption.setVisibility(View.VISIBLE);
         } else if ((getArguments().getString("COMMING_FROM").equalsIgnoreCase("RECOMMENDED_CONTRACTOR_DETAILS"))) {
             ((HomeActivity) getActivity()).setActionBarTitle("Public Profile");
@@ -109,11 +118,13 @@ public class ViewOtherContractorPublicProfileFragment extends Fragment implement
             aboveLayoutProfile.setVisibility(View.GONE);
             belowLayoutProfile.setVisibility(View.VISIBLE);
             cbx_Follow.setVisibility(View.VISIBLE);
+            cbx_businesscard.setVisibility(View.VISIBLE);
             connectionOption.setVisibility(View.VISIBLE);
         } else if ((getArguments().getString("COMMING_FROM").equalsIgnoreCase("home"))) {
             ((HomeActivity) getActivity()).setActionBarTitle("Public Profile");
             Constants.COMMING_FROM_INTENT = "home";
             cbx_Follow.setVisibility(View.GONE);
+            cbx_businesscard.setVisibility(View.GONE);
             connectionOption.setVisibility(View.GONE);
 
             aboveLayoutProfile.setVisibility(View.VISIBLE);
@@ -123,6 +134,7 @@ public class ViewOtherContractorPublicProfileFragment extends Fragment implement
             Constants.COMMING_FROM_INTENT = "home";
 
             cbx_Follow.setVisibility(View.GONE);
+            cbx_businesscard.setVisibility(View.GONE);
             connectionOption.setVisibility(View.GONE);
             aboveLayoutProfile.setVisibility(View.GONE);
             belowLayoutProfile.setVisibility(View.VISIBLE);
@@ -145,6 +157,7 @@ public class ViewOtherContractorPublicProfileFragment extends Fragment implement
         profileRating.setFocusableInTouchMode(false);
         img_UserSwitch = (ImageView) rootView.findViewById(R.id.imageuser);
         cbx_Follow = (TextView) rootView.findViewById(R.id.cbx_Follow);
+        cbx_businesscard = (TextView) rootView.findViewById(R.id.cbx_view_card);
         img_excellenceAward = (ImageView) rootView.findViewById(R.id.img_excellenceAward);
         img_excellenceAward.setOnClickListener(this);
         connectionOption = (TextView) rootView.findViewById(R.id.connect);
@@ -174,6 +187,32 @@ public class ViewOtherContractorPublicProfileFragment extends Fragment implement
         });
 
 
+
+        cbx_businesscard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment currentStartUPDetails = new ViewBusinessCardFragment();
+                // Constants.COMMING_FROM_INTENT = "";
+                Bundle args = new Bundle();
+                args.putString("connection_id", userId);
+                args.putString("is_network", "");
+                args.putString("business_contact_type", contactTypeId);
+                args.putString("card_id", cardID);
+                args.putString("userName", tv_username.getText().toString().trim());
+                args.putString("userImage", userImageURL);
+                args.putString("noteId", "");
+                args.putString("comingFrom", "SearchConnections");
+
+                currentStartUPDetails.setArguments(args);
+
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.container, currentStartUPDetails);
+                fragmentTransaction.addToBackStack(HomeFragment.class.getName());
+
+                fragmentTransaction.commit();
+            }
+        });
         img_chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

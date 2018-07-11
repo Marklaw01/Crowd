@@ -1005,7 +1005,7 @@ public class EditJobsFragment extends Fragment implements onActivityResultListen
 
                     if (companyName.getSelectedItemPosition() == 0) {
                         Toast.makeText(getActivity(), "Company Name cannot be left blank!", Toast.LENGTH_LONG).show();
-                    } else if (selectedIndustryKeywords.isEmpty()) {
+                    } else if (industry.getText().toString().isEmpty()) {
                         Toast.makeText(getActivity(), "Select at least one Industry Keyword!", Toast.LENGTH_LONG).show();
                     } else if (COUNTRY_ID == -1) {
                         Toast.makeText(getActivity(), "Select Country!", Toast.LENGTH_LONG).show();
@@ -1019,9 +1019,9 @@ public class EditJobsFragment extends Fragment implements onActivityResultListen
                         Toast.makeText(getActivity(), "Location cannot be left blank!", Toast.LENGTH_LONG).show();
                     } else if (jobRequirements.getText().toString().trim().isEmpty()) {
                         Toast.makeText(getActivity(), "Requirements cannot be left blank!", Toast.LENGTH_LONG).show();
-                    } else if (selectedSkillsKeywords.isEmpty()) {
+                    } else if (skills.getText().toString().trim().isEmpty()) {
                         Toast.makeText(getActivity(), "Select at least one Skill!", Toast.LENGTH_LONG).show();
-                    } else if (selectedJobPostingKeywords.isEmpty()) {
+                    } else if (jobKeywords.getText().toString().trim().isEmpty()) {
                         Toast.makeText(getActivity(), "Select at least one Job Posting Keyword!", Toast.LENGTH_LONG).show();
                     } else if (jobSummary.getText().toString().trim().isEmpty()) {
                         Toast.makeText(getActivity(), "Summary cannot be left blank!", Toast.LENGTH_LONG).show();
@@ -1097,9 +1097,7 @@ public class EditJobsFragment extends Fragment implements onActivityResultListen
         viewplayVideoArrow = (ImageView) rootView.findViewById(R.id.viewplayVideoArrow);
 
 
-        btn_playAudio.setOnClickListener(this);
-        btn_viewDocument.setOnClickListener(this);
-        btn_playVideo.setOnClickListener(this);
+
 
 
         expandable_playAudio.getViewTreeObserver().addOnPreDrawListener(
@@ -1136,6 +1134,7 @@ public class EditJobsFragment extends Fragment implements onActivityResultListen
                         mAnimatorForDoc = slideAnimatorForDocument(0, expandable_viewDocument.getMeasuredHeight());
                         return true;
                     }
+
                 });
         expandable_playVideo.getViewTreeObserver().addOnPreDrawListener(
                 new ViewTreeObserver.OnPreDrawListener() {
@@ -1154,6 +1153,13 @@ public class EditJobsFragment extends Fragment implements onActivityResultListen
                         return true;
                     }
                 });
+        btn_playAudio.setOnClickListener(this);
+        btn_viewDocument.setOnClickListener(this);
+        btn_playVideo.setOnClickListener(this);
+
+
+
+
 
         return rootView;
     }
@@ -1503,6 +1509,7 @@ public class EditJobsFragment extends Fragment implements onActivityResultListen
                             Toast.makeText(getActivity(), "Your Job is created successfully.", Toast.LENGTH_LONG).show();
                             getActivity().onBackPressed();
                         } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
+                            Toast.makeText(getActivity(), jsonObject.optString("message"), Toast.LENGTH_LONG).show();
 
                         }
                     } catch (JSONException e) {
@@ -1905,8 +1912,6 @@ public class EditJobsFragment extends Fragment implements onActivityResultListen
                         }
 
 
-
-
                     } catch (JSONException e) {
                         ((HomeActivity) getActivity()).dismissProgressDialog();
                         e.printStackTrace();
@@ -1959,53 +1964,60 @@ public class EditJobsFragment extends Fragment implements onActivityResultListen
                             jobSummary.setText(campaigndetail.optString("description").trim());
 
 
-                          //STARTUP_ID = Integer.parseInt(campaigndetail.optString("startup_id").trim());
+                            //STARTUP_ID = Integer.parseInt(campaigndetail.optString("startup_id").trim());
 
                             StringBuilder stringBuilder = new StringBuilder();
                             StringBuilder stringBuilderCampaign = new StringBuilder();
 
-                            if (campaigndetail.has("skills")) {
-                                for (int i = 0; i < campaigndetail.optJSONArray("skills").length(); i++) {
-                                    //JSONObject inner = professional_information.optJSONArray("keywords").getJSONObject(i);
-                                    if ((i >= 0) && (i < (campaigndetail.optJSONArray("skills").length() - 1))) {
-                                        stringBuilder.append(campaigndetail.optJSONArray("skills").getJSONObject(i).optString("name") + ", ");
-                                    } else {
-                                        stringBuilder.append(campaigndetail.optJSONArray("skills").getJSONObject(i).optString("name") + " ");
-                                    }
-                                }
-                                skills.setText("Skills: " + stringBuilder.toString());
-                            }
+                            //fund managers
+                            preChecked(campaigndetail.getJSONArray("skills"), jobSkillskeywordsList, R.id.et_skills);
+
+                            preChecked(campaigndetail.getJSONArray("posting_keywords"), jobPostingKeywordList, R.id.et_jobPostingKeywords);
+
+                            preChecked(campaigndetail.getJSONArray("job_industry"), industryKeywordList, R.id.et_industry);
 
 
-                            if (campaigndetail.has("posting_keywords")) {
-                                for (int i = 0; i < campaigndetail.optJSONArray("posting_keywords").length(); i++) {
-                                    //JSONObject inner = professional_information.optJSONArray("keywords").getJSONObject(i);
-                                    if ((i >= 0) && (i < (campaigndetail.optJSONArray("posting_keywords").length() - 1))) {
-                                        stringBuilderCampaign.append(campaigndetail.optJSONArray("posting_keywords").getJSONObject(i).optString("name") + ", ");
-                                    } else {
-                                        stringBuilderCampaign.append(campaigndetail.optJSONArray("posting_keywords").getJSONObject(i).optString("name") + " ");
+//                            if (campaigndetail.has("skills")) {
+//                                for (int i = 0; i < campaigndetail.optJSONArray("skills").length(); i++) {
+//                                    //JSONObject inner = professional_information.optJSONArray("keywords").getJSONObject(i);
+//                                    if ((i >= 0) && (i < (campaigndetail.optJSONArray("skills").length() - 1))) {
+//                                        stringBuilder.append(campaigndetail.optJSONArray("skills").getJSONObject(i).optString("name") + ", ");
+//                                    } else {
+//                                        stringBuilder.append(campaigndetail.optJSONArray("skills").getJSONObject(i).optString("name") + " ");
+//                                    }
+//                                }
+//                                skills.setText("Skills: " + stringBuilder.toString());
+//                            }
 
-                                    }
-                                }
-                                jobKeywords.setText("Job Search Keywords: " + stringBuilderCampaign.toString());
-                            }
+
+//                            if (campaigndetail.has("posting_keywords")) {
+//                                for (int i = 0; i < campaigndetail.optJSONArray("posting_keywords").length(); i++) {
+//                                    //JSONObject inner = professional_information.optJSONArray("keywords").getJSONObject(i);
+//                                    if ((i >= 0) && (i < (campaigndetail.optJSONArray("posting_keywords").length() - 1))) {
+//                                        stringBuilderCampaign.append(campaigndetail.optJSONArray("posting_keywords").getJSONObject(i).optString("name") + ", ");
+//                                    } else {
+//                                        stringBuilderCampaign.append(campaigndetail.optJSONArray("posting_keywords").getJSONObject(i).optString("name") + " ");
+//
+//                                    }
+//                                }
+//                                jobKeywords.setText("Job Search Keywords: " + stringBuilderCampaign.toString());
+//                            }
 
 
-                            if (campaigndetail.has("job_industry")) {
-                                for (int i = 0; i < campaigndetail.optJSONArray("job_industry").length(); i++) {
-                                    //JSONObject inner = professional_information.optJSONArray("keywords").getJSONObject(i);
-                                    if ((i >= 0) && (i < (campaigndetail.optJSONArray("job_industry").length() - 1))) {
-                                        stringBuilderCampaign.append(campaigndetail.optJSONArray("job_industry").getJSONObject(i).optString("name") + ", ");
-                                    } else {
-                                        stringBuilderCampaign.append(campaigndetail.optJSONArray("job_industry").getJSONObject(i).optString("name") + " ");
-
-                                    }
-                                }
-                                industry.setText("Industry Keywords: " + stringBuilderCampaign.toString());
-                            }
+//                            if (campaigndetail.has("job_industry")) {
+//                                for (int i = 0; i < campaigndetail.optJSONArray("job_industry").length(); i++) {
+//                                    //JSONObject inner = professional_information.optJSONArray("keywords").getJSONObject(i);
+//                                    if ((i >= 0) && (i < (campaigndetail.optJSONArray("job_industry").length() - 1))) {
+//                                        stringBuilderCampaign.append(campaigndetail.optJSONArray("job_industry").getJSONObject(i).optString("name") + ", ");
+//                                    } else {
+//                                        stringBuilderCampaign.append(campaigndetail.optJSONArray("job_industry").getJSONObject(i).optString("name") + " ");
+//
+//                                    }
+//                                }
+//                                industry.setText("Industry Keywords: " + stringBuilderCampaign.toString());
+//                            }
 
                             //keywords
-
 
 
                             if (campaigndetail.optString("country_id").toString().trim().length() == 0) {
@@ -2034,8 +2046,6 @@ public class EditJobsFragment extends Fragment implements onActivityResultListen
                             }
 
 
-
-
                             if (campaigndetail.optString("job_type_id").toString().trim().length() == 0) {
                                 JOB_TYPE_ID = 0;
                             } else {
@@ -2062,51 +2072,66 @@ public class EditJobsFragment extends Fragment implements onActivityResultListen
                                 }
                             }
 
+                            if (!campaigndetail.getString("document").isEmpty()) {
+                                documentObjectList.clear();
+
+                                AudioObject documentObject = new AudioObject();
+                                documentObject.setAudioUrl(Constants.APP_IMAGE_URL + "/" + campaigndetail.optString("document"));
+                                //   int a = documents_list.getJSONObject(i).getString("file").lastIndexOf("/");
+                                documentObject.setName("Document " + (1));
+                                //Log.e("doc", Constants.APP_IMAGE_URL + "/" + documents_list.getJSONObject(i).getString("file").replaceAll(" ", "%20"));
+                                documentObjectList.add(documentObject);
 
 
+                                list_docs.setAdapter(new DocumentListAdapter());
+                                UtilityList.setListViewHeightBasedOnChildren(list_docs);
+                            } else {
 
-                            audioObjectsList.clear();
+                                expandable_viewDocument.setVisibility(View.GONE);
 
-                            AudioObject audioObject = new AudioObject();
-                            audioObject.setAudioUrl(Constants.APP_IMAGE_URL + "/" + campaigndetail.optString("audio"));
-                            //   int a = audios_list.getJSONObject(i).getString("file").lastIndexOf("/");
-                            audioObject.setName("Audio " + (1));
-                            audioObjectsList.add(audioObject);
+                            }
+
+                            if (!campaigndetail.getString("audio").isEmpty()) {
+                                audioObjectsList.clear();
+
+                                AudioObject audioObject = new AudioObject();
+                                audioObject.setAudioUrl(Constants.APP_IMAGE_URL + "/" + campaigndetail.optString("audio"));
+                                //   int a = audios_list.getJSONObject(i).getString("file").lastIndexOf("/");
+                                audioObject.setName("Audio " + (1));
+                                audioObjectsList.add(audioObject);
 
 
-                            list_audios.setAdapter(new AudioAdapter());
-                            //UtilityList.setListViewHeightBasedOnChildren(list_audios);
-                            //ListUtils.setDynamicHeight(list_audios);
+                                list_audios.setAdapter(new AudioAdapter());
+                                UtilityList.setListViewHeightBasedOnChildren(list_audios);
 
+                                //UtilityList.setListViewHeightBasedOnChildren(list_audios);
+                                //ListUtils.setDynamicHeight(list_audios);
 
-                            videoObjectList.clear();
+                            }else{
+                                expandable_playAudio.setVisibility(View.GONE);
+                            }
 
-                            AudioObject videoObject = new AudioObject();
-                            videoObject.setAudioUrl(Constants.APP_IMAGE_URL + "/" + campaigndetail.optString("video"));
-                            // int a = videos_list.getJSONObject(i).getString("file").lastIndexOf("/");
-                            videoObject.setName("Video " + (1));
-                            videoObjectList.add(videoObject);
+                            if (!campaigndetail.getString("video").isEmpty()) {
+                                videoObjectList.clear();
 
-                            list_video.setAdapter(new VideoListAdapter());
+                                AudioObject videoObject = new AudioObject();
+                                videoObject.setAudioUrl(Constants.APP_IMAGE_URL + "/" + campaigndetail.optString("video"));
+                                // int a = videos_list.getJSONObject(i).getString("file").lastIndexOf("/");
+                                videoObject.setName("Video " + (1));
+                                videoObjectList.add(videoObject);
+
+                                list_video.setAdapter(new VideoListAdapter());
+
+                                UtilityList.setListViewHeightBasedOnChildren(list_video);
+
+                            }else{
+                                expandable_playVideo.setVisibility(View.GONE);
+                            }
                             //UtilityList.setListViewHeightBasedOnChildren(list_video);
                             //ListUtils.setDynamicHeight(list_video);
 
 
-                            documentObjectList.clear();
 
-                            AudioObject documentObject = new AudioObject();
-                            documentObject.setAudioUrl(Constants.APP_IMAGE_URL + "/" + campaigndetail.optString("document"));
-                            //   int a = documents_list.getJSONObject(i).getString("file").lastIndexOf("/");
-                            documentObject.setName("Document " + (1));
-                            //Log.e("doc", Constants.APP_IMAGE_URL + "/" + documents_list.getJSONObject(i).getString("file").replaceAll(" ", "%20"));
-                            documentObjectList.add(documentObject);
-
-
-                            list_docs.setAdapter(new DocumentListAdapter());
-
-                            UtilityList.setListViewHeightBasedOnChildren(list_docs);
-                            UtilityList.setListViewHeightBasedOnChildren(list_audios);
-                            UtilityList.setListViewHeightBasedOnChildren(list_video);
 
 
                         } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
@@ -2123,6 +2148,53 @@ public class EditJobsFragment extends Fragment implements onActivityResultListen
 
         } catch (Exception e) {
 
+        }
+    }
+
+
+    private void preChecked(JSONArray jsonArray, ArrayList<GenericObject> list, int id) {
+        try {
+
+            StringBuilder stringBuilder = new StringBuilder();
+            StringBuilder stringBuilderIds = new StringBuilder();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject fundManager = jsonArray.getJSONObject(i);
+                GenericObject obj = new GenericObject();
+                obj.setId(fundManager.getString("id"));
+                obj.setTitle(fundManager.getString("name"));
+                if (stringBuilder.length() > 0) {
+                    stringBuilder.append(", ");
+                    stringBuilderIds.append(",");
+                }
+                stringBuilder.append(obj.getTitle());
+                stringBuilderIds.append(obj.getId());
+
+                int position = list.indexOf(obj);
+                if (position >= 0)
+                    list.get(position).setIschecked(true);
+            }
+            switch (id) {
+                case R.id.et_skills:
+                    skills.setText("Skills: " + stringBuilder);
+                    selectedSkillsKeywords = stringBuilderIds.toString();
+                    break;
+                case R.id.et_jobPostingKeywords:
+                    jobKeywords.setText("Job Search Keywords:" + stringBuilder);
+                    selectedJobPostingKeywords = stringBuilderIds.toString();
+                    break;
+
+                case R.id.et_industry:
+                    industry.setText("Industry Keywords:" + stringBuilder);
+                    selectedIndustryKeywords = stringBuilderIds.toString();
+                    break;
+               /* case R.id.et_portfolio:
+                    et_portfolio.setText(stringBuilder);
+                    selectedPortfolioIDs = stringBuilderIds.toString();
+                    break;*/
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 

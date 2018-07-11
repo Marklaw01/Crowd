@@ -114,7 +114,7 @@ public class IntoStartUpFragment extends Fragment implements onActivityResultLis
     private ImageView viewRoadmapArrow, viewroadmapArrowGraphic, image_roadmap;
     private RoadMapAdapter adapter;
     private ArrayList<RoadMapObject> roadMapList;
-
+    public static String startUpProfileLink;
     private ArrayList<GenericObject> keywordsList;
     private ListView roadMaps;
     private EditText startupName, startupDesc, startupNextStep, startupKeyword, startupSupportRequired;
@@ -836,7 +836,7 @@ public class IntoStartUpFragment extends Fragment implements onActivityResultLis
 
     protected void alertDialogForPicture() {
 
-        AlertDialog.Builder builderSingle = new AlertDialog.Builder(getActivity()/*new ContextThemeWrapper(getActivity(), android.R.style.Theme_Holo_Light_Dialog)*/);
+        AlertDialog.Builder builderSingle = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
         final CharSequence[] opsChars = {"Upload Image", "Take Picture"};
         builderSingle.setCancelable(true);
         builderSingle.setItems(opsChars, new DialogInterface.OnClickListener() {
@@ -1203,7 +1203,7 @@ public class IntoStartUpFragment extends Fragment implements onActivityResultLis
                         System.out.println(selectedKeyword.toString() + "-------------------------");
 
                         startupDesc.setText(jsonObject.optString("startup_desc"));
-
+                        startUpProfileLink = jsonObject.optString("startup_profile_file");
                         startupName.setText(jsonObject.optString("startup_name"));
                         startupNextStep.setText(jsonObject.optString("next_step"));
                         startupSupportRequired.setText(jsonObject.optString("support_required"));

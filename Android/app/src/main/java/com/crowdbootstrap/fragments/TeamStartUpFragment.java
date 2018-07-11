@@ -337,11 +337,18 @@ public class TeamStartUpFragment extends Fragment implements AsyncTaskCompleteLi
                         if (menu.getMenuItem(index).getTitle().equalsIgnoreCase("Suspend")) {
                             if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
 
-                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
 
                                 alertDialogBuilder
                                         .setMessage("Do you want to suspend this Co-Founder?")
                                         .setCancelable(false)
+                                        .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int arg1) {
+                                                dialog.dismiss();
+                                            }
+                                        })
                                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
 
                                             @Override
@@ -374,11 +381,18 @@ public class TeamStartUpFragment extends Fragment implements AsyncTaskCompleteLi
                         } else if (menu.getMenuItem(index).getTitle().equalsIgnoreCase("Resume")) {
                             if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
 
-                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
 
                                 alertDialogBuilder
                                         .setMessage("Do you want to resume this Co-Founder?")
                                         .setCancelable(false)
+                                        .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int arg1) {
+                                                dialog.dismiss();
+                                            }
+                                        })
                                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
 
                                             @Override
@@ -419,11 +433,18 @@ public class TeamStartUpFragment extends Fragment implements AsyncTaskCompleteLi
                         if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
 
 
-                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
 
                             alertDialogBuilder
                                     .setMessage("Do you want to remove this Co-Founder?")
                                     .setCancelable(false)
+                                    .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int arg1) {
+                                            dialog.dismiss();
+                                        }
+                                    })
                                     .setNegativeButton("No", new DialogInterface.OnClickListener() {
 
                                         @Override
@@ -474,11 +495,18 @@ public class TeamStartUpFragment extends Fragment implements AsyncTaskCompleteLi
                         if (menu.getMenuItem(index).getTitle().equalsIgnoreCase("Suspend")) {
                             if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
 
-                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
 
                                 alertDialogBuilder
                                         .setMessage("Do you want to suspend this Team-Member?")
                                         .setCancelable(false)
+                                        .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int arg1) {
+                                                dialog.dismiss();
+                                            }
+                                        })
                                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
 
                                             @Override
@@ -513,11 +541,18 @@ public class TeamStartUpFragment extends Fragment implements AsyncTaskCompleteLi
                             if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
 
 
-                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
 
                                 alertDialogBuilder
                                         .setMessage("Do you want to resume this Team-Member?")
                                         .setCancelable(false)
+                                        .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int arg1) {
+                                                dialog.dismiss();
+                                            }
+                                        })
                                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
 
                                             @Override
@@ -560,11 +595,18 @@ public class TeamStartUpFragment extends Fragment implements AsyncTaskCompleteLi
 
                         if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
 
-                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
 
                             alertDialogBuilder
                                     .setMessage("Do you want to remove this Team-Member?")
                                     .setCancelable(false)
+                                    .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int arg1) {
+                                            dialog.dismiss();
+                                        }
+                                    })
                                     .setNegativeButton("No", new DialogInterface.OnClickListener() {
 
                                         @Override
@@ -612,11 +654,18 @@ public class TeamStartUpFragment extends Fragment implements AsyncTaskCompleteLi
                         if (menu.getMenuItem(index).getTitle().equalsIgnoreCase("Suspend")) {
                             if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
 
-                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
 
                                 alertDialogBuilder
                                         .setMessage("Do you want to suspend this Contractor?")
                                         .setCancelable(false)
+                                        .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int arg1) {
+                                                dialog.dismiss();
+                                            }
+                                        })
                                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
 
                                             @Override
@@ -652,11 +701,18 @@ public class TeamStartUpFragment extends Fragment implements AsyncTaskCompleteLi
                             if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
 
 
-                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
 
                                 alertDialogBuilder
                                         .setMessage("Do you want to resume this Contractor?")
                                         .setCancelable(false)
+                                        .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int arg1) {
+                                                dialog.dismiss();
+                                            }
+                                        })
                                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
 
                                             @Override
@@ -696,11 +752,18 @@ public class TeamStartUpFragment extends Fragment implements AsyncTaskCompleteLi
 
 
                         if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
-                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
 
                             alertDialogBuilder
                                     .setMessage("Do you want to remove this Contractor?")
                                     .setCancelable(false)
+                                    .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int arg1) {
+                                            dialog.dismiss();
+                                        }
+                                    })
                                     .setNegativeButton("No", new DialogInterface.OnClickListener() {
 
                                         @Override

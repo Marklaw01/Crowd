@@ -253,7 +253,6 @@ public class AddExperienceFragment extends Fragment implements View.OnClickListe
                                     }
 
 
-
                                     if (CofounderObject.has("job_duty_id")) {
 
                                         mQuestionsDynamic.add("Job Duties");
@@ -271,7 +270,11 @@ public class AddExperienceFragment extends Fragment implements View.OnClickListe
                             }
 
 
+                        } else {
+
+                            Toast.makeText(getActivity(), jsonObject.optString("message"), Toast.LENGTH_LONG).show();
                         }
+
                         if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
 
                             Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.JOB_DUTIES_TAG, Constants.JOB_DUTIES_URL, Constants.HTTP_GET, "Home Activity");

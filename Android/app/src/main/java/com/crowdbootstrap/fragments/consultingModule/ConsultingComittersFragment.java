@@ -115,11 +115,18 @@ public class ConsultingComittersFragment extends Fragment implements AdapterView
         closeAnyways.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
 
                 alertDialogBuilder
                         .setMessage("Are you sure you want to close this Assignment?")
                         .setCancelable(false)
+                        .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int arg1) {
+                                dialog.dismiss();
+                            }
+                        })
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int arg1) {

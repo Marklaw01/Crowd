@@ -21,6 +21,67 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="4">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="30dp"
+                        android:layout_weight="1"
+                        android:padding="4dp"
+                        android:text="Home"
+
+                        android:gravity="center"
+                        android:textSize="11dp"
+                        android:background="@color/colorPrimaryDark"
+                        android:textColor="@color/white"
+                        android:id="@+id/homeTab"
+                        />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="30dp"
+                        android:layout_weight="1"
+                        android:padding="4dp"
+                        android:text="News"
+                        android:layout_marginLeft="2dp"
+                        android:gravity="center"
+                        android:textSize="11dp"
+                        android:background="@color/colorPrimaryDark"
+                        android:textColor="@color/white"
+                        android:id="@+id/newsTab"
+                        />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="30dp"
+                        android:layout_weight="1"
+                        android:padding="4dp"
+                        android:text="Alert"
+                        android:layout_marginLeft="2dp"
+                        android:gravity="center"
+                        android:textSize="11dp"
+                        android:background="@color/colorPrimaryDark"
+                        android:textColor="@color/white"
+                        android:id="@+id/alertTab"
+                        />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="30dp"
+                        android:layout_weight="1"
+                        android:padding="6dp"
+                        android:text="Networking Option"
+                        android:layout_marginLeft="2dp"
+                        android:textSize="8dp"
+                        android:gravity="center"
+                        android:background="@color/colorPrimaryDark"
+                        android:textColor="@color/white"
+                        android:id="@+id/networkingTab"
+                        />
+
+                </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

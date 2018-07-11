@@ -298,7 +298,7 @@ public class UpdateRequestProductivityFragment extends Fragment implements onAct
         endDateTV.setText("Productivity Tool Availability End Date");
         titleTV.setText("Productivity Tool Title");
         descriptionlbl.setText("Productivity Tool Description");
-
+        et_title.setHint("Productivity Tool Title");
 
 
         searchFocusGroups = (Button) rootView.findViewById(R.id.searchBoardMember);
@@ -439,6 +439,7 @@ public class UpdateRequestProductivityFragment extends Fragment implements onAct
         et_interestKeywords.setOnClickListener(this);
 
         btn_plus.setOnClickListener(this);
+        btnCreate.setText("Submit");
         btnCreate.setOnClickListener(this);
         image_fundImage.setOnClickListener(this);
         tv_deleteFile.setOnClickListener(this);
@@ -1719,7 +1720,7 @@ public class UpdateRequestProductivityFragment extends Fragment implements onAct
                                     Toast.makeText(getActivity(), "Your resource is updated successfully.", Toast.LENGTH_LONG).show();
                                     getActivity().onBackPressed();
                                 } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
-
+                                    Toast.makeText(getActivity(), jsonObject.optString("message"), Toast.LENGTH_LONG).show();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();

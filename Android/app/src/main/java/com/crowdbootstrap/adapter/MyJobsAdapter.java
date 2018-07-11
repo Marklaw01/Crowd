@@ -151,11 +151,18 @@ public class MyJobsAdapter extends BaseAdapter implements Filterable {
 
 
 
-                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context, R.style.MyDialogTheme);
 
                     alertDialogBuilder
                             .setMessage("Do you want to delete this Job?")
                             .setCancelable(false)
+                            .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+
+                                @Override
+                                public void onClick(DialogInterface dialog, int arg1) {
+                                    dialog.dismiss();
+                                }
+                            })
                             .setNegativeButton("No", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int arg1) {
@@ -197,11 +204,18 @@ public class MyJobsAdapter extends BaseAdapter implements Filterable {
                 @Override
                 public void onClick(View v) {
 
-                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context, R.style.MyDialogTheme);
 
                     alertDialogBuilder
                             .setMessage("Do you want to archive this Job?")
                             .setCancelable(false)
+                            .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+
+                                @Override
+                                public void onClick(DialogInterface dialog, int arg1) {
+                                    dialog.dismiss();
+                                }
+                            })
                             .setNegativeButton("No", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int arg1) {
@@ -243,11 +257,18 @@ public class MyJobsAdapter extends BaseAdapter implements Filterable {
             holder.tv_deactivate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context, R.style.MyDialogTheme);
 
                     alertDialogBuilder
                             .setMessage("Do you want to deactivate this Job?")
                             .setCancelable(false)
+                            .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+
+                                @Override
+                                public void onClick(DialogInterface dialog, int arg1) {
+                                    dialog.dismiss();
+                                }
+                            })
                             .setNegativeButton("No", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int arg1) {

@@ -183,7 +183,7 @@ public class DeactivatedBetaTesterAdapter extends BaseAdapter implements View.On
             holder.tv_archive.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showDialog(position, "Do you want to activate this Beta Tester?", Constants.BETA_TESTER_ACTIVATE_URL);
+                    showDialog(position, "Do you want to activate this beta test?", Constants.BETA_TESTER_ACTIVATE_URL);
                 }
             });
         } catch (Exception e) {
@@ -196,11 +196,18 @@ public class DeactivatedBetaTesterAdapter extends BaseAdapter implements View.On
 
 
     private void showDialog(final int position, String message, final String url) {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context, R.style.MyDialogTheme);
 
         alertDialogBuilder
                 .setMessage(message)
                 .setCancelable(false)
+                .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int arg1) {
+                        dialog.dismiss();
+                    }
+                })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int arg1) {

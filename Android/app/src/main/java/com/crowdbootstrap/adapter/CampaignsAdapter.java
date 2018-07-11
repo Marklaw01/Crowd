@@ -104,11 +104,18 @@ public class CampaignsAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
 
-                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context, R.style.MyDialogTheme);
 
                     alertDialogBuilder
                             .setMessage("Do you want to delete your campaign?")
                             .setCancelable(false)
+                            .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+
+                                @Override
+                                public void onClick(DialogInterface dialog, int arg1) {
+                                    dialog.dismiss();
+                                }
+                            })
                             .setNegativeButton("No", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int arg1) {

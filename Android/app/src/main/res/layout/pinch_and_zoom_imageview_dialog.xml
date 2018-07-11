@@ -12,8 +12,8 @@
         android:layout_gravity="center"
         android:layout_weight="0.8"
         android:scaleType="centerInside"
-
-        android:src="@drawable/defaultroadmapimg" />
+        android:src="@drawable/image"
+        />
 
     <Button
         android:id="@+id/btn_ok"

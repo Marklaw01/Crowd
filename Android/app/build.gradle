@@ -7,12 +7,24 @@ android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
     defaultConfig {
+
+
+
         applicationId "com.crowdbootstrap"
         minSdkVersion 18
         targetSdkVersion 23
-        versionCode 4
-        versionName "1.4"
+        versionCode 6
+        versionName "1.6"
         multiDexEnabled true
+    }
+
+    signingConfigs {
+        release {
+            storeFile file("D:/E Drive/Crowd-Bootstrap_final-Code/Crowd-Bootstrap/crowdbootstrap_production.jks")
+            storePassword "crowd_bootstrap"
+            keyAlias "crowd_bootstrap"
+            keyPassword "crowd_bootstrap"
+        }
     }
     buildTypes {
         /*release {
@@ -23,10 +35,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }*/
         release {
-            debuggable false
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
+
+
         /*debug{
             defaultConfig {
                 debuggable true
@@ -34,18 +48,18 @@ android {
                 versionNameSuffix "-DEBUG"
             }
         }*/
-        applicationVariants.all { variant ->
-            variant.outputs.each { output ->
-                output.outputFile = file("$project.buildDir/apk/crowd_bootstrap.apk")
-            }
-        }
-        applicationVariants.all { variant ->
-            variant.outputs.each { output ->
-                output.outputFile = new File(
-                        output.outputFile.parent,
-                        output.outputFile.name.replace(".apk", "_v${variant.versionName}.apk"))
-            }
-        }
+//        applicationVariants.all { variant ->
+//            variant.outputs.each { output ->
+//                output.outputFile = file("$project.buildDir/apk/crowd_bootstrap.apk")
+//            }
+//        }
+//        applicationVariants.all { variant ->
+//            variant.outputs.each { output ->
+//                output.outputFile = new File(
+//                        output.outputFile.parent,
+//                        output.outputFile.name.replace(".apk", "_v${variant.versionName}.apk"))
+//            }
+//        }
 
     }
     dexOptions {

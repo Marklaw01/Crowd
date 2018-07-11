@@ -381,7 +381,7 @@ public class UtilitiesClass {
     }
 
     public void alertDialogSingleButton(String message) {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context, R.style.MyDialogTheme);
 
         alertDialogBuilder
                 .setMessage(message)

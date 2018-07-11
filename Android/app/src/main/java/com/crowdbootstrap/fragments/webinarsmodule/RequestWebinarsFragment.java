@@ -234,7 +234,7 @@ public class RequestWebinarsFragment extends Fragment implements onActivityResul
         endDateTV.setText("Webinar Availability End Date");
         titleTV.setText("Webinar Title");
         descriptionlbl.setText("Webinar Description");
-
+        et_title.setHint("Webinar Title");
         spinner_uploadFileType = (Spinner) rootView.findViewById(R.id.spinner_uploadFileType);
         pathofmedia = new ArrayList<Mediabeans>();
         // tv = (TextView) rootView.findViewById(R.id.tv);
@@ -289,7 +289,7 @@ public class RequestWebinarsFragment extends Fragment implements onActivityResul
 
         btn_browse.setTag(0);
         btn_browse.setOnClickListener(this);
-        btnCreate.setText("Create");
+        btnCreate.setText("Submit");
         btn_plus.setOnClickListener(this);
         btnCreate.setOnClickListener(this);
         image_fundImage.setOnClickListener(this);

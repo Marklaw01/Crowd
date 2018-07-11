@@ -15,6 +15,8 @@
     <string name="server_down">Server is not responding. please try after some time.</string>
     <string name="google_app_id">15119152410</string>
     <string name="google_api_key">AIzaSyABVL3JTP0h_jN0JYCFkeHxiGfbneg6Qck</string>
+    <!--<string name="google_api_key">AIzaSyAZosLCFEOvhk_EIsQSzsHW4SXGK3ljWXo</string>-->
+
 
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_home">HomeActivity</string>
@@ -42,6 +44,7 @@
     <string name="privacypolicy">Privacy Policy</string>
     <string name="facebook">Facebook</string>
     <string name="linkedin">LinkedIn</string>
+    <string name="aboutcrowdbootstrap">About CrowdBootstrap...</string>
     <string name="google">Google</string>
 
     <string name="server_client_id">502919930015-0ft1i40ev21ddu751q703kj5kl4se2uo.apps.googleusercontent.com</string>
@@ -92,6 +95,7 @@
     <string name="myProfile">My Profile</string>
     <string name="profile">Profile</string>
     <string name="connections">Connections</string>
+    <string name="myconnections">My Connections</string>
     <string name="suggest_keywords">Suggest Keywords</string>
     <string name="entrepreneur_video">Entrepreneur Video</string>
     <string name="currentStartup">Current Startup</string>
@@ -232,7 +236,7 @@
 
     <!--strings related to Team Contributor screen-->
     <string name="groupchat">Group Chat</string>
-    <string name="recommentcontractor">Recommended Contractors</string>
+    <string name="recommentcontractor">Add Team Members</string>
     <string name="cofounder">CoFounder</string>
     <string name="entrepreneur">Entrepreneur</string>
     <string name="temmember">Team Member</string>
@@ -398,4 +402,10 @@
     <string name="applied">Thank you. You have applied.</string>
     <string name="appliedresources">Thank you. You have registered your interest.</string>
     <string name="number_of_commitments">Number of Commitments</string>
+
+
+
+    <!--Google Maps Implementations-->
+
+    <string name="google_maps_key" templateMergeStrategy="preserve">AIzaSyAZosLCFEOvhk_EIsQSzsHW4SXGK3ljWXo</string>
 </resources>

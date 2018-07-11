@@ -27,6 +27,10 @@
         <item name="android:windowDisablePreview">true</item>
     </style>
 
+    <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorPrimary">@color/darkGreen</item>
+    </style>
+
     <style name="LoginPageTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/app_backgroundColor</item>
         <item name="colorPrimaryDark">@color/app_backgroundColor</item>

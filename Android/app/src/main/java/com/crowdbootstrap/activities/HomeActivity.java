@@ -30,8 +30,6 @@ import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.crowdbootstrap.fragments.communalassetsmodule.CommunalAssetsFragment;
-import com.crowdbootstrap.fragments.consultingModule.ConsultingFragment;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.iid.InstanceID;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
@@ -56,10 +54,12 @@ import com.crowdbootstrap.fragments.EntrepreneurVideoFragment;
 import com.crowdbootstrap.fragments.ForumDetailsFragment;
 import com.crowdbootstrap.fragments.ForumsTabFragment;
 import com.crowdbootstrap.fragments.FundsFragment;
+import com.crowdbootstrap.fragments.GettingStartedFragment;
 import com.crowdbootstrap.fragments.HomeFragment;
 import com.crowdbootstrap.fragments.JobsFragment;
 import com.crowdbootstrap.fragments.ManageWorkOrdersFragment;
 import com.crowdbootstrap.fragments.MessagesFragment;
+import com.crowdbootstrap.fragments.NetworkingOptionFragment;
 import com.crowdbootstrap.fragments.NotesFragment;
 import com.crowdbootstrap.fragments.NotifictaionsListFragment;
 import com.crowdbootstrap.fragments.OrganizationSearchFragment;
@@ -79,7 +79,9 @@ import com.crowdbootstrap.fragments.audiovideomodule.AudioVideoFragment;
 import com.crowdbootstrap.fragments.betatestmodule.BetaTestersFragment;
 import com.crowdbootstrap.fragments.boardMembersModule.BoardMembersFragment;
 import com.crowdbootstrap.fragments.careeradvancementsmodule.CareerAdvancementFragment;
+import com.crowdbootstrap.fragments.communalassetsmodule.CommunalAssetsFragment;
 import com.crowdbootstrap.fragments.conferencesmodule.ConferencesFragment;
+import com.crowdbootstrap.fragments.consultingModule.ConsultingFragment;
 import com.crowdbootstrap.fragments.demodaysmodule.DemoDaysFragment;
 import com.crowdbootstrap.fragments.earlyAdoptorsModule.EarlyAdatorsFragment;
 import com.crowdbootstrap.fragments.endorsorsModule.EndorsersFragment;
@@ -188,8 +190,12 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     }
 
     public void dismissProgressDialog() {
-        if (pd.isShowing()) {
-            pd.dismiss();
+        try {
+            if (pd.isShowing()) {
+                pd.dismiss();
+            }
+        } catch (Exception e) {
+
         }
     }
 
@@ -231,7 +237,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             if (data != null) {
                 if (data.containsKey(Constants.NOTIFICATION_TAG)) {
                     if (data.getString(Constants.NOTIFICATION_TAG).equalsIgnoreCase(Constants.NOTIFICATION_PROFILE_TAG) || data.getString(Constants.NOTIFICATION_TAG).equalsIgnoreCase(Constants.NOTIFICATION_FOLLOW_CAMPAIGN_TAG) || data.getString(Constants.NOTIFICATION_TAG).equalsIgnoreCase(Constants.NOTIFICATION_UNFOLLOW_CAMPAIGN_TAG) || data.getString(Constants.NOTIFICATION_TAG).equalsIgnoreCase(Constants.NOTIFICATION_TEAM_MEMBER_STAUS)) {
-                        mDrawerList.setItemChecked(1, true);
+                        mDrawerList.setItemChecked(2, true);
                         Fragment fragment = new NotifictaionsListFragment();
                         if (fragment != null) {
                             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -336,7 +342,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                             e.printStackTrace();
                         }
 
-                        AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this, R.style.MyDialogTheme);
                         builder.setTitle("Do you want to work with this team?");
                         builder.setMessage(ExtraMessageForAddTeamMember)
                                 .setCancelable(false)
@@ -423,11 +429,17 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                         if (connectionNotificationStatus.compareTo("1") == 0) {
                             utilitiesClass.alertDialogSingleButton("You have already performed the action.");
                         } else {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
+                            AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this, R.style.MyDialogTheme);
                             builder.setTitle("Connection Request");
                             builder.setMessage("Do you want to connect with this user?")
                                     .setCancelable(false)
+                                    .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
 
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int arg1) {
+                                            dialog.dismiss();
+                                        }
+                                    })
                                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 
                                         @Override
@@ -517,7 +529,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                         replaceFragment(fragment);
                     } else {
                         if (savedInstanceState == null) {
-                            mDrawerList.setItemChecked(1, true);
+                            mDrawerList.setItemChecked(2, true);
                             Fragment fragment = new NotifictaionsListFragment();
                             if (fragment != null) {
                                 setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
@@ -542,7 +554,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
             } else {
                 if (savedInstanceState == null) {
-                    mDrawerList.setItemChecked(1, true);
+                    mDrawerList.setItemChecked(2, true);
                     Fragment fragment = new HomeFragment();
                     if (fragment != null) {
                         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -556,7 +568,6 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             setBadgeData();
 
             // ADD TIMER AFTER EVERY 5 SECOND FOR THE NOTIFICATION TO BE UPDATED
-
 
 
             new Thread(new Runnable() {
@@ -689,6 +700,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
         try {
             contributorNavigationArray = new ArrayList<NavDrawerItem>();
+            contributorNavigationArray.add(new NavDrawerItem("Start", R.drawable.roadmapvideoimg));
             contributorNavigationArray.add(new NavDrawerItem(getString(R.string.home), R.drawable.ic_home));
             contributorNavigationArray.add(new NavDrawerItem(getString(R.string.myProfile), R.drawable.ic_profile));
             contributorNavigationArray.add(new NavDrawerItem(getString(R.string.startup), R.drawable.ic_startups));
@@ -717,7 +729,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             contributorNavigationProfileArray = new ArrayList<NavDrawerItem>();
             contributorNavigationProfileArray.add(new NavDrawerItem(getString(R.string.entrepreneur_video), R.drawable.entrepreneurvideoimg));
             contributorNavigationProfileArray.add(new NavDrawerItem(getString(R.string.profile), R.drawable.ic_userprofile));
-            contributorNavigationProfileArray.add(new NavDrawerItem(getString(R.string.connections), R.drawable.ic_userprofile));
+            contributorNavigationProfileArray.add(new NavDrawerItem(getString(R.string.myconnections), R.drawable.ic_userprofile));
+            contributorNavigationProfileArray.add(new NavDrawerItem("Add Connection", R.drawable.searchcampaignimg));
             contributorNavigationProfileArray.add(new NavDrawerItem(getString(R.string.suggest_keywords), R.drawable.ic_userprofile));
             contributorNavigationProfileArray.add(new NavDrawerItem(getString(R.string.settings), R.drawable.ic_setting));
 
@@ -725,7 +738,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             contributorNavigationOpportunities.add(new NavDrawerItem(getString(R.string.beta_testers), R.drawable.ic_betatesterimg));
             contributorNavigationOpportunities.add(new NavDrawerItem(getString(R.string.board_members), R.drawable.boardmemberimg));
 
-            contributorNavigationOpportunities.add(new NavDrawerItem(getString(R.string.consulting), R.drawable.dummy_ic_consulting));
+            contributorNavigationOpportunities.add(new NavDrawerItem(getString(R.string.consulting), R.drawable.ic_consulting));
             contributorNavigationOpportunities.add(new NavDrawerItem(getString(R.string.early_adopters), R.drawable.ic_earlyadopter));
             contributorNavigationOpportunities.add(new NavDrawerItem(getString(R.string.endorsers), R.drawable.ic_endorses));
             contributorNavigationOpportunities.add(new NavDrawerItem(getString(R.string.focus_groups), R.drawable.ic_focusgroup));
@@ -734,27 +747,28 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
 
             contributorNavigationEvents = new ArrayList<NavDrawerItem>();
-            contributorNavigationEvents.add(new NavDrawerItem(getString(R.string.conferences), R.drawable.dummy_ic_conference));
-            contributorNavigationEvents.add(new NavDrawerItem(getString(R.string.demo_days), R.drawable.dummy_ic_demo_days));
-            contributorNavigationEvents.add(new NavDrawerItem(getString(R.string.meet_ups), R.drawable.dummy_ic_meetups));
-            contributorNavigationEvents.add(new NavDrawerItem(getString(R.string.webinars), R.drawable.dummy_ic_webinars));
+            contributorNavigationEvents.add(new NavDrawerItem(getString(R.string.conferences), R.drawable.ic_conference));
+            contributorNavigationEvents.add(new NavDrawerItem(getString(R.string.demo_days), R.drawable.ic_demo_days));
+            contributorNavigationEvents.add(new NavDrawerItem(getString(R.string.meet_ups), R.drawable.ic_meetups));
+            contributorNavigationEvents.add(new NavDrawerItem(getString(R.string.webinars), R.drawable.ic_webinars));
 
             contributorNavigationResource = new ArrayList<NavDrawerItem>();
-            contributorNavigationResource.add(new NavDrawerItem(getString(R.string.hardware), R.drawable.dummy_ic_hardware));
-            contributorNavigationResource.add(new NavDrawerItem(getString(R.string.software), R.drawable.dummy_ic_software));
-            contributorNavigationResource.add(new NavDrawerItem(getString(R.string.services), R.drawable.dummy_ic_services));
-            contributorNavigationResource.add(new NavDrawerItem(getString(R.string.audioVideo), R.drawable.dummy_ic_play));
-            contributorNavigationResource.add(new NavDrawerItem(getString(R.string.information), R.drawable.dummy_ic_info));
-            contributorNavigationResource.add(new NavDrawerItem(getString(R.string.productivity), R.drawable.dummy_ic_productivity));
-            contributorNavigationResource.add(new NavDrawerItem(getString(R.string.communal_assets), R.drawable.dummy_communalassetimg));
+            contributorNavigationResource.add(new NavDrawerItem(getString(R.string.hardware), R.drawable.ic_hardware));
+            contributorNavigationResource.add(new NavDrawerItem(getString(R.string.software), R.drawable.ic_software));
+            contributorNavigationResource.add(new NavDrawerItem(getString(R.string.services), R.drawable.ic_services));
+            contributorNavigationResource.add(new NavDrawerItem(getString(R.string.audioVideo), R.drawable.ic_play));
+            contributorNavigationResource.add(new NavDrawerItem(getString(R.string.information), R.drawable.ic_info));
+            contributorNavigationResource.add(new NavDrawerItem(getString(R.string.productivity), R.drawable.ic_productivity));
+            contributorNavigationResource.add(new NavDrawerItem(getString(R.string.communal_assets), R.drawable.communalassetimg));
 
             contributiorChildNavigationArrayContractor = new ArrayList<NavDrawerItem>();
             contributiorChildNavigationArrayContractor.add(new NavDrawerItem(getString(R.string.contractorVideo), R.drawable.contractorvideoimg));
             contributiorChildNavigationArrayContractor.add(new NavDrawerItem(getString(R.string.searchcontributor), R.drawable.ic_search_contracotrs));
             contributiorChildNavigationArrayContractor.add(new NavDrawerItem(getString(R.string.publicProfile), R.drawable.ic_public_profile));
             contributiorChildNavigationArrayContractor.add(new NavDrawerItem(getString(R.string.workOrders), R.drawable.ic_workorders));
-            contributiorChildNavigationArrayContractor.add(new NavDrawerItem(getString(R.string.selfImprovement), R.drawable.dummy_ic_productivity));
-            contributiorChildNavigationArrayContractor.add(new NavDrawerItem("Career Help", R.drawable.dummy_ic_productivity));
+            contributiorChildNavigationArrayContractor.add(new NavDrawerItem("Add Work Units", R.drawable.manageworkorderimg));
+            contributiorChildNavigationArrayContractor.add(new NavDrawerItem(getString(R.string.selfImprovement), R.drawable.ic_productivity));
+            contributiorChildNavigationArrayContractor.add(new NavDrawerItem("Career Help", R.drawable.ic_productivity));
 
             contributiorChildNavigationArrayMessages = new ArrayList<NavDrawerItem>();
             contributiorChildNavigationArrayMessages.add(new NavDrawerItem(getString(R.string.archivedForums), R.drawable.ic_archived_forum));
@@ -762,9 +776,10 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             contributiorChildNavigationArrayMessages.add(new NavDrawerItem(getString(R.string.notification), R.drawable.notificationsimg));
             contributiorChildNavigationArrayMessages.add(new NavDrawerItem(getString(R.string.chat), R.drawable.ic_chats));
             contributiorChildNavigationArrayMessages.add(new NavDrawerItem(getString(R.string.forums), R.drawable.ic_forum));
-            contributiorChildNavigationArrayMessages.add(new NavDrawerItem(getString(R.string.groups), R.drawable.dummy_groupsimg));
-            contributiorChildNavigationArrayMessages.add(new NavDrawerItem(getString(R.string.messages), R.drawable.ic_messages));
+            contributiorChildNavigationArrayMessages.add(new NavDrawerItem(getString(R.string.groups), R.drawable.groupsimg));
+            contributiorChildNavigationArrayMessages.add(new NavDrawerItem("Team Messages", R.drawable.ic_messages));
             contributiorChildNavigationArrayMessages.add(new NavDrawerItem(getString(R.string.notes), R.drawable.ic_note));
+
 
             contributorOrganizations = new ArrayList<>();
             contributorOrganizations.add(new NavDrawerItem(getString(R.string.organizationvideo), R.drawable.ic_archived_forum));
@@ -772,16 +787,17 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
 
             contributiorChildArray.put(0, new ArrayList<NavDrawerItem>());
-            contributiorChildArray.put(1, contributorNavigationProfileArray);
-            contributiorChildArray.put(2, contributiorChildNavigationArrayStartup);
-            contributiorChildArray.put(3, contributiorChildNavigationArrayContractor);
-            contributiorChildArray.put(4, contributorOrganizations);
-            contributiorChildArray.put(5, contributiorChildNavigationArrayMessages);
-            contributiorChildArray.put(6, contributorNavigationResource);
-            contributiorChildArray.put(7, contributorNavigationEvents);
-            contributiorChildArray.put(8, contributorNavigationOpportunities);
-            contributiorChildArray.put(9, new ArrayList<NavDrawerItem>());
+            contributiorChildArray.put(1, new ArrayList<NavDrawerItem>());
+            contributiorChildArray.put(2, contributorNavigationProfileArray);
+            contributiorChildArray.put(3, contributiorChildNavigationArrayStartup);
+            contributiorChildArray.put(4, contributiorChildNavigationArrayContractor);
+            contributiorChildArray.put(5, contributorOrganizations);
+            contributiorChildArray.put(6, contributiorChildNavigationArrayMessages);
+            contributiorChildArray.put(7, contributorNavigationResource);
+            contributiorChildArray.put(8, contributorNavigationEvents);
+            contributiorChildArray.put(9, contributorNavigationOpportunities);
             contributiorChildArray.put(10, new ArrayList<NavDrawerItem>());
+            contributiorChildArray.put(11, new ArrayList<NavDrawerItem>());
 
             //=-============Created the Header for the Side Navigation Drawer====================================
             inflater = getLayoutInflater();
@@ -797,7 +813,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                     i.setType("message/rfc822");
                     i.putExtra(Intent.EXTRA_SUBJECT, "Crowd Bootstrap Invitation");
                     i.putExtra(Intent.EXTRA_TEXT, "\n" +
-                            "[Name]:\n" +
+                            "[Enter name manually]:\n" +
                             "\n" +
                             "Crowd Bootstrap helps entrepreneurs accelerate their journey from a startup idea to initial revenues. It is a free App that enables you to benefit as an entrepreneur or help as an expert.\n" +
                             "\n" +
@@ -833,51 +849,54 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                     ArrayList<NavDrawerItem> list = contributiorChildArray.get(groupPosition);
 
                     if (list.size() > 0) {
-                        if (groupPosition == 1) {
+                        if (groupPosition == 2) {
                             //                        mDrawerList.collapseGroup(lastExpandedGroupPosition);
-                            lastExpandedGroupPosition = 1;
-                            mDrawerList.setItemChecked(2, true);
-                        } else if (groupPosition == 2) {
-                            lastExpandedGroupPositionfirst = 2;
+                            lastExpandedGroupPosition = 2;
                             mDrawerList.setItemChecked(3, true);
                         } else if (groupPosition == 3) {
-                            lastExpandedGroupPositionsecond = 3;
+                            lastExpandedGroupPositionfirst = 3;
                             mDrawerList.setItemChecked(4, true);
                         } else if (groupPosition == 4) {
-                            lastExpandedGroupPositionthird = 4;
+                            lastExpandedGroupPositionsecond = 4;
                             mDrawerList.setItemChecked(5, true);
                         } else if (groupPosition == 5) {
-                            lastExpandedGroupPositionfourth = 5;
+                            lastExpandedGroupPositionthird = 5;
                             mDrawerList.setItemChecked(6, true);
                         } else if (groupPosition == 6) {
-                            lastExpandedGroupPositionfifth = 6;
+                            lastExpandedGroupPositionfourth = 6;
                             mDrawerList.setItemChecked(7, true);
                         } else if (groupPosition == 7) {
-                            lastExpandedGroupPositionsixth = 7;
+                            lastExpandedGroupPositionfifth = 7;
                             mDrawerList.setItemChecked(8, true);
                         } else if (groupPosition == 8) {
-                            lastExpandedGroupPositionseventh = 8;
+                            lastExpandedGroupPositionsixth = 8;
                             mDrawerList.setItemChecked(9, true);
+                        } else if (groupPosition == 9) {
+                            lastExpandedGroupPositionseventh = 9;
+                            mDrawerList.setItemChecked(10, true);
                         }
                     } else {
 
                         Fragment fragment = null;
                         Bundle bundle = null;
                         switch (groupPosition) {
+
                             case 0:
                                 setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
                                 mDrawerList.setItemChecked(1, true);
-                                toolbarTitle.setText("Home");
-                                fragment = new HomeFragment();
-
+                                toolbarTitle.setText("Start");
+                                fragment = new GettingStartedFragment();
                                 break;
                             case 1:
+                                setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
+                                mDrawerList.setItemChecked(2, true);
+                                toolbarTitle.setText("Home");
+                                fragment = new HomeFragment();
 
                                 break;
                             case 2:
 
                                 break;
-
                             case 3:
 
                                 break;
@@ -885,6 +904,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                             case 4:
 
                                 break;
+
                             case 5:
 
                                 break;
@@ -892,18 +912,22 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
                                 break;
                             case 7:
+
                                 break;
                             case 8:
                                 break;
                             case 9:
+                                break;
+                            case 10:
                                 setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
-                                mDrawerList.setItemChecked(10, true);
+                                mDrawerList.setItemChecked(11, true);
                                 toolbarTitle.setText("Shopping Cart");
                                 fragment = new ChoosePaymentGatewayFragment();
                                 break;
-                            case 10:
+                            case 11:
                                 showLogoutAlert();
                                 break;
+
 
                             default:
                                 break;
@@ -976,7 +1000,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                     //toolbarTitle.setText(list.get(childPosition - 1).getName());
                     Fragment fragment = null;
                     Bundle bundle = null;
-                    if (groupPosition == 1) {
+                    if (groupPosition == 2) {
 
                         switch (childPosition) {
 
@@ -984,7 +1008,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(3, true);
+                                    mDrawerList.setItemChecked(4, true);
                                     toolbarTitle.setText("Entrepreneur Video");
                                     fragment = new EntrepreneurVideoFragment();
                                 } else {
@@ -996,12 +1020,11 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 break;
                             case 1:
 
-
                                 setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(4, true);
+                                    mDrawerList.setItemChecked(5, true);
                                     toolbarTitle.setText("My Profile");
                                     fragment = new ProfileFragment();
                                 } else {
@@ -1018,7 +1041,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(5, true);
+                                    mDrawerList.setItemChecked(6, true);
                                     toolbarTitle.setText("Connections");
                                     fragment = new ConnectionsFragment();
                                 } else {
@@ -1029,14 +1052,30 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
                                 break;
 
+
                             case 3:
+                                setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
+
+                                backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
+
+                                if (backStackEntryCount == 0) {
+                                    mDrawerList.setItemChecked(7, true);
+                                    toolbarTitle.setText("Search Contractor");
+                                    fragment = new SearchContractorsFragment();
+                                } else {
+                                    mDrawerLayout.closeDrawer(mDrawerList);
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                                    return false;
+                                }
+                                break;
+                            case 4:
 
                                 setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(6, true);
+                                    mDrawerList.setItemChecked(8, true);
                                     toolbarTitle.setText("Suggest Keywords");
                                     fragment = new SuggestKeywordsFragment();
                                 } else {
@@ -1046,13 +1085,13 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 }
                                 break;
 
-                            case 4:
+                            case 5:
                                 setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(7, true);
+                                    mDrawerList.setItemChecked(9, true);
                                     toolbarTitle.setText("Settings");
                                     fragment = new SettingsFragment();
                                 } else {
@@ -1062,13 +1101,13 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 }
                                 break;
                         }
-                    } else if (groupPosition == 2) {
+                    } else if (groupPosition == 3) {
                         switch (childPosition) {
                             case 0:
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(4, true);
+                                    mDrawerList.setItemChecked(5, true);
                                     toolbarTitle.setText("Roadmap Video");
                                     fragment = new RoadmapVideoFragment();
                                 } else {
@@ -1084,7 +1123,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
                                 if (backStackEntryCount == 0) {
 
-                                    mDrawerList.setItemChecked(5, true);
+                                    mDrawerList.setItemChecked(6, true);
                                     fragment = new AddStartupFragment();
                                 } else {
                                     mDrawerLayout.closeDrawer(mDrawerList);
@@ -1099,7 +1138,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(6, true);
+                                    mDrawerList.setItemChecked(7, true);
                                     toolbarTitle.setText("Upload Application");
                                     fragment = new StartupApplicatioFragment();
                                 } else {
@@ -1114,7 +1153,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(7, true);
+                                    mDrawerList.setItemChecked(8, true);
                                     toolbarTitle.setText("Upload Profile");
                                     fragment = new StartupProfileFragment();
                                 } else {
@@ -1127,7 +1166,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                             case 4:
                                 setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
-                                if (mDrawerList.getCheckedItemPosition() == 8) {
+                                if (mDrawerList.getCheckedItemPosition() == 9) {
 
                                     mDrawerLayout.closeDrawer(mDrawerList);
 
@@ -1142,7 +1181,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                     if (backStackEntryCount == 0) {
 
 
-                                        mDrawerList.setItemChecked(8, true);
+                                        mDrawerList.setItemChecked(9, true);
 
                                         fragment = new CurrentStartUpFragment();
                                         bundle = new Bundle();
@@ -1182,7 +1221,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(9, true);
+                                    mDrawerList.setItemChecked(10, true);
                                     toolbarTitle.setText("Funds");
                                     fragment = new FundsFragment();
                                 } else {
@@ -1198,7 +1237,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(10, true);
+                                    mDrawerList.setItemChecked(11, true);
                                     toolbarTitle.setText("Campaigns");
                                     Bundle bundle1 = new Bundle();
                                     bundle1.putString("home", "");
@@ -1217,7 +1256,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(11, true);
+                                    mDrawerList.setItemChecked(12, true);
                                     toolbarTitle.setText("Search Campaigns");
                                     fragment = new SearchCampaignFragment();
                                 } else {
@@ -1232,8 +1271,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(12, true);
-                                    toolbarTitle.setText("Assign Work Orders");
+                                    mDrawerList.setItemChecked(13, true);
+                                    toolbarTitle.setText("Assign Work Units");
                                     fragment = new ManageWorkOrdersFragment();
                                 } else {
                                     mDrawerLayout.closeDrawer(mDrawerList);
@@ -1242,7 +1281,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 }
                                 break;
                         }
-                    } else if (groupPosition == 3) {
+                    } else if (groupPosition == 4) {
                         switch (childPosition) {
 
                             case 0:
@@ -1250,7 +1289,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(5, true);
+                                    mDrawerList.setItemChecked(6, true);
                                     toolbarTitle.setText("Contractor Video");
                                     fragment = new ContractorVideoFragment();
                                 } else {
@@ -1267,7 +1306,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(6, true);
+                                    mDrawerList.setItemChecked(7, true);
                                     toolbarTitle.setText("Search Contractor");
                                     fragment = new SearchContractorsFragment();
                                 } else {
@@ -1283,7 +1322,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(7, true);
+                                    mDrawerList.setItemChecked(8, true);
                                     fragment = new ViewContractorPublicProfileFragment();
                                     bundle = new Bundle();
                                     bundle.putString("COMMING_FROM", "home");
@@ -1301,7 +1340,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(8, true);
+                                    mDrawerList.setItemChecked(9, true);
                                     fragment = new CurrentStartUpFragment();
                                     bundle = new Bundle();
                                     bundle.putString("COMMING_FROM", "WORK_ORDERS");
@@ -1319,7 +1358,22 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(9, true);
+                                    mDrawerList.setItemChecked(10, true);
+                                    toolbarTitle.setText("Add Work Units");
+                                    fragment = new ManageWorkOrdersFragment();
+                                } else {
+                                    mDrawerLayout.closeDrawer(mDrawerList);
+                                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                                    return false;
+                                }
+                                break;
+                            case 5:
+                                setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
+
+                                backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
+
+                                if (backStackEntryCount == 0) {
+                                    mDrawerList.setItemChecked(11, true);
                                     toolbarTitle.setText("Self Improvement");
                                     fragment = new SelfImprovementFragment();
                                 } else {
@@ -1329,13 +1383,13 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 }
                                 break;
 
-                            case 5:
+                            case 6:
                                 setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(10, true);
+                                    mDrawerList.setItemChecked(12, true);
                                     toolbarTitle.setText("Career Help");
                                     fragment = new CareerAdvancementFragment();
                                 } else {
@@ -1346,7 +1400,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 break;
 
                         }
-                    } else if (groupPosition == 4) {
+                    } else if (groupPosition == 5) {
                         switch (childPosition) {
                             case 0:
                                 setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
@@ -1354,7 +1408,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(6, true);
+                                    mDrawerList.setItemChecked(7, true);
                                     toolbarTitle.setText("Organization Video");
                                     fragment = new OrgnizationVideoFragment();
                                 } else {
@@ -1370,7 +1424,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(7, true);
+                                    mDrawerList.setItemChecked(8, true);
                                     toolbarTitle.setText("Organization Search");
                                     fragment = new OrganizationSearchFragment();
                                 } else {
@@ -1381,7 +1435,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 break;
                         }
 
-                    } else if (groupPosition == 5) {
+                    } else if (groupPosition == 6) {
 
                         switch (childPosition) {
                             case 0:
@@ -1390,7 +1444,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(7, true);
+                                    mDrawerList.setItemChecked(8, true);
                                     toolbarTitle.setText("Archived Forums");
                                     fragment = new ArchivedForumsFragment();
                                 } else {
@@ -1406,7 +1460,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(8, true);
+                                    mDrawerList.setItemChecked(9, true);
                                     toolbarTitle.setText("Archived Messages");
                                     fragment = new ArchivedNotificationFragment();
                                 } else {
@@ -1422,7 +1476,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(9, true);
+                                    mDrawerList.setItemChecked(10, true);
                                     toolbarTitle.setText("Notifications");
                                     fragment = new NotifictaionsListFragment();
                                 } else {
@@ -1438,7 +1492,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(10, true);
+                                    mDrawerList.setItemChecked(11, true);
                                     toolbarTitle.setText("Chat");
                                     fragment = new ChatTabFragment();
                                 } else {
@@ -1453,7 +1507,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(11, true);
+                                    mDrawerList.setItemChecked(12, true);
                                     toolbarTitle.setText("Forums");
                                     fragment = new ForumsTabFragment();
                                 } else {
@@ -1469,7 +1523,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(12, true);
+                                    mDrawerList.setItemChecked(13, true);
                                     toolbarTitle.setText(getString(R.string.groups));
                                     fragment = new GroupsFragment();
                                 } else {
@@ -1486,8 +1540,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(13, true);
-                                    toolbarTitle.setText(R.string.messages);
+                                    mDrawerList.setItemChecked(14, true);
+                                    toolbarTitle.setText("Team Messages");
                                     fragment = new MessagesFragment();
                                 } else {
                                     mDrawerLayout.closeDrawer(mDrawerList);
@@ -1502,7 +1556,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(14, true);
+                                    mDrawerList.setItemChecked(15, true);
                                     toolbarTitle.setText("Notes");
                                     fragment = new NotesFragment();
                                 } else {
@@ -1512,8 +1566,9 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 }
                                 break;
 
+
                         }
-                    } else if (groupPosition == 6) {
+                    } else if (groupPosition == 7) {
                         switch (childPosition) {
                             case 0:
                                 setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
@@ -1521,7 +1576,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(8, true);
+                                    mDrawerList.setItemChecked(9, true);
                                     toolbarTitle.setText(getString(R.string.hardware));
                                     fragment = new HardwareFragment();
                                 } else {
@@ -1536,7 +1591,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(9, true);
+                                    mDrawerList.setItemChecked(10, true);
                                     toolbarTitle.setText(getString(R.string.software));
                                     fragment = new SoftwareFragment();
                                 } else {
@@ -1551,7 +1606,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(10, true);
+                                    mDrawerList.setItemChecked(11, true);
                                     toolbarTitle.setText(getString(R.string.services));
                                     fragment = new ServicesFragment();
                                 } else {
@@ -1566,7 +1621,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(11, true);
+                                    mDrawerList.setItemChecked(12, true);
                                     toolbarTitle.setText(getString(R.string.audioVideo));
                                     fragment = new AudioVideoFragment();
                                 } else {
@@ -1582,7 +1637,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(12, true);
+                                    mDrawerList.setItemChecked(13, true);
                                     toolbarTitle.setText(getString(R.string.information));
                                     fragment = new InformationFragment();
                                 } else {
@@ -1599,7 +1654,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(13, true);
+                                    mDrawerList.setItemChecked(14, true);
                                     toolbarTitle.setText(getString(R.string.productivity));
                                     fragment = new ProductivityFragment();
                                 } else {
@@ -1614,7 +1669,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(14, true);
+                                    mDrawerList.setItemChecked(15, true);
                                     toolbarTitle.setText(getString(R.string.communal_assets));
                                     fragment = new CommunalAssetsFragment();
                                 } else {
@@ -1624,7 +1679,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 }
                                 break;
                         }
-                    } else if (groupPosition == 7) {
+                    } else if (groupPosition == 8) {
 
                         switch (childPosition) {
                             case 0:
@@ -1633,7 +1688,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(9, true);
+                                    mDrawerList.setItemChecked(10, true);
                                     toolbarTitle.setText(getString(R.string.conferences));
                                     fragment = new ConferencesFragment();
                                 } else {
@@ -1649,7 +1704,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(10, true);
+                                    mDrawerList.setItemChecked(11, true);
                                     toolbarTitle.setText(getString(R.string.demo_days));
 
                                     fragment = new DemoDaysFragment();
@@ -1665,7 +1720,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(11, true);
+                                    mDrawerList.setItemChecked(12, true);
                                     toolbarTitle.setText(getString(R.string.meet_ups));
                                     fragment = new MeetUpsFragment();
                                 } else {
@@ -1681,7 +1736,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(12, true);
+                                    mDrawerList.setItemChecked(13, true);
                                     toolbarTitle.setText(getString(R.string.webinars));
                                     fragment = new WebinarsFragment();
                                 } else {
@@ -1691,7 +1746,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 }
                                 break;
                         }
-                    } else if (groupPosition == 8) {
+                    } else if (groupPosition == 9) {
                         switch (childPosition) {
                             case 0:
                                 setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
@@ -1700,7 +1755,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(10, true);
+                                    mDrawerList.setItemChecked(11, true);
                                     toolbarTitle.setText(getString(R.string.beta_testers));
                                     fragment = new BetaTestersFragment();
                                 } else {
@@ -1716,7 +1771,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(11, true);
+                                    mDrawerList.setItemChecked(12, true);
                                     toolbarTitle.setText(getString(R.string.board_members));
                                     fragment = new BoardMembersFragment();
                                 } else {
@@ -1733,7 +1788,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(12, true);
+                                    mDrawerList.setItemChecked(13, true);
                                     toolbarTitle.setText(getString(R.string.consulting));
                                     fragment = new ConsultingFragment();
                                 } else {
@@ -1748,11 +1803,10 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(13, true);
+                                    mDrawerList.setItemChecked(14, true);
                                     toolbarTitle.setText(getString(R.string.early_adopters));
                                     fragment = new EarlyAdatorsFragment();
                                 } else {
-
                                     mDrawerLayout.closeDrawer(mDrawerList);
                                     fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                     return false;
@@ -1764,7 +1818,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(14, true);
+                                    mDrawerList.setItemChecked(15, true);
                                     toolbarTitle.setText(getString(R.string.endorsers));
                                     fragment = new EndorsersFragment();
                                 } else {
@@ -1779,7 +1833,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(15, true);
+                                    mDrawerList.setItemChecked(16, true);
                                     toolbarTitle.setText(getString(R.string.focus_groups));
                                     fragment = new FocusGroupsFragment();
                                 } else {
@@ -1794,7 +1848,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(16, true);
+                                    mDrawerList.setItemChecked(17, true);
                                     toolbarTitle.setText(getString(R.string.jobs));
                                     fragment = new JobsFragment();
                                 } else {
@@ -1809,7 +1863,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                                 backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
 
                                 if (backStackEntryCount == 0) {
-                                    mDrawerList.setItemChecked(17, true);
+                                    mDrawerList.setItemChecked(18, true);
                                     toolbarTitle.setText(getString(R.string.recruiter));
                                     fragment = new RecruitersFragment();
                                 } else {
@@ -1990,9 +2044,16 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     public void onBackPressed() {
         int backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
         if (backStackEntryCount == 0) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.MyDialogTheme);
             builder.setMessage("Are you sure you want to exit?")
                     .setCancelable(false)
+                    .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int arg1) {
+                            dialog.dismiss();
+                        }
+                    })
                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             finish();
@@ -2265,7 +2326,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     public void showLogoutAlert() {
 
         try {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(HomeActivity.this);
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(HomeActivity.this, R.style.MyDialogTheme);
             // Setting Dialog Message
             alertDialog.setMessage("Are you sure you want to log out?");
 

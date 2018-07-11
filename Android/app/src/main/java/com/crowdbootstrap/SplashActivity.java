@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.crowdbootstrap.activities.GettingStartedActivity;
+import com.crowdbootstrap.activities.HomeActivity;
 import com.crowdbootstrap.activities.LoginActivity;
 import com.crowdbootstrap.utilities.Constants;
 import com.crowdbootstrap.utilities.PrefManager;
@@ -58,7 +59,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 if (prefManager.getBoolean(Constants.ISLOGGEDIN)) {
-                    startActivity(new Intent(SplashActivity.this, GettingStartedActivity.class));
+                    startActivity(new Intent(SplashActivity.this, HomeActivity.class));
                     finish();
                 } else {
                     startActivity(new Intent(SplashActivity.this, LoginActivity.class));

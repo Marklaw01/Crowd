@@ -235,7 +235,7 @@ public class RequestInformationFragment extends Fragment implements onActivityRe
         endDateTV.setText("Information Availability End Date");
         titleTV.setText("Information Title");
         descriptionlbl.setText("Information Description");
-
+        et_title.setHint("Information Title");
         spinner_uploadFileType = (Spinner) rootView.findViewById(R.id.spinner_uploadFileType);
         pathofmedia = new ArrayList<Mediabeans>();
         // tv = (TextView) rootView.findViewById(R.id.tv);
@@ -292,7 +292,7 @@ public class RequestInformationFragment extends Fragment implements onActivityRe
         btn_browse.setOnClickListener(this);
 
         btn_plus.setOnClickListener(this);
-        btnCreate.setText("Create");
+        btnCreate.setText("Submit");
         btnCreate.setOnClickListener(this);
         image_fundImage.setOnClickListener(this);
         tv_deleteFile.setOnClickListener(this);

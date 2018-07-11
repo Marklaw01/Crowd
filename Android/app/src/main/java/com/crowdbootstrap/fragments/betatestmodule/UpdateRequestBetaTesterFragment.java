@@ -406,6 +406,7 @@ public class UpdateRequestBetaTesterFragment extends Fragment implements onActiv
         btn_browse.setOnClickListener(this);
 
         btn_plus.setOnClickListener(this);
+        btnCreate.setText("Submit");
         btnCreate.setOnClickListener(this);
         image_fundImage.setOnClickListener(this);
         tv_deleteFile.setOnClickListener(this);
@@ -1957,7 +1958,7 @@ public class UpdateRequestBetaTesterFragment extends Fragment implements onActiv
                                     Toast.makeText(getActivity(), jsonObject.optString("message"), Toast.LENGTH_LONG).show();
                                     getActivity().onBackPressed();
                                 } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
-
+                                    Toast.makeText(getActivity(), jsonObject.optString("message"), Toast.LENGTH_LONG).show();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();

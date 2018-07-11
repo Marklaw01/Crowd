@@ -285,6 +285,7 @@ public class CreateFundFragment extends Fragment implements onActivityResultList
         et_fundsClosedDate.setOnClickListener(this);
         et_investmentEndDate.setOnClickListener(this);
         btn_plus.setOnClickListener(this);
+        btnCreate.setText("Submit");
         btnCreate.setOnClickListener(this);
         image_fundImage.setOnClickListener(this);
         tv_deleteFile.setOnClickListener(this);
@@ -1419,11 +1420,14 @@ public class CreateFundFragment extends Fragment implements onActivityResultList
                                     Toast.makeText(getActivity(), "Your fund is created successfully.", Toast.LENGTH_LONG).show();
                                     getActivity().onBackPressed();
                                 } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
-                                    if (jsonObject.has("errors")) {
+
                                        /* if (!jsonObject.optJSONObject("errors").optString("username").isEmpty()) {
                                             Toast.makeText(getActivity(), jsonObject.optJSONObject("errors").optString("description"), Toast.LENGTH_LONG).show();
                                         }*/
-                                    }
+
+                                        Toast.makeText(getActivity(), jsonObject.optString("message"), Toast.LENGTH_LONG).show();
+
+
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();

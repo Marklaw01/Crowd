@@ -142,7 +142,7 @@ public class DemoDaysDetailsFragment extends Fragment implements View.OnClickLis
         et_interestKeywords = (EditText) rootView.findViewById(R.id.et_interestKeywords);
         et_endDate = (EditText) rootView.findViewById(R.id.et_endDate);
         et_start_date = (EditText) rootView.findViewById(R.id.et_start_date);
-
+        et_title.setHint("Demo Day Title");
 
         expandable_playAudio = (LinearLayout) rootView.findViewById(R.id.expandable_playAudio);
         expandable_playVideo = (LinearLayout) rootView.findViewById(R.id.expandable_playVideo);

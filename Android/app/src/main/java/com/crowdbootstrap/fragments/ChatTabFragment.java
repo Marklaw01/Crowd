@@ -86,7 +86,7 @@ public class ChatTabFragment extends Fragment {
                 case 0:
                     return "Chats";
                 case 1:
-                    return "Contacts";
+                    return "Connections";
 
             }
             return null;

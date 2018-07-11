@@ -204,6 +204,7 @@ public class StartUpDocsFragment extends Fragment implements View.OnClickListene
                 Bundle args = new Bundle();
                 args.putString("id", CurrentStartUpDetailFragment.STARTUP_ID);
                 args.putString("startupname", CurrentStartUpDetailFragment.titleSTartup);
+                args.putString("from","startupDoc");
                 uploadStartupProfile.setArguments(args);
                 ((HomeActivity) getActivity()).replaceFragment(uploadStartupProfile);
                 /*FragmentTransaction transactionProfile = getParentFragment().getFragmentManager().beginTransaction();

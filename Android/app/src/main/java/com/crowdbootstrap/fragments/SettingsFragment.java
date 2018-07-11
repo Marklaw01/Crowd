@@ -124,6 +124,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
 
         txtVersion = (TextView) rootView.findViewById(R.id.txtVersion);
         txtVersion.setText(getString(R.string.version) + ((HomeActivity) getActivity()).prefManager.getAppVersion(getActivity()));
+
         if (((HomeActivity) getActivity()).prefManager.getBoolean(Constants.IS_NOTIFICATION_ON)) {
             switchNotification.setChecked(true);
         } else {
@@ -377,45 +378,6 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
             switchGroupBuyingUpdate.setChecked(false);
         }
 
-        switchPublicProfile.setOnCheckedChangeListener(this);
-        switchNotification.setOnCheckedChangeListener(this);
-        switchBoardMember.setOnCheckedChangeListener(this);
-        switchBetaTester.setOnCheckedChangeListener(this);
-        switchEndorser.setOnCheckedChangeListener(this);
-        switchEarlyAdopter.setOnCheckedChangeListener(this);
-        switchFocusGroups.setOnCheckedChangeListener(this);
-        switchConsulting.setOnCheckedChangeListener(this);
-
-        switchMyConnectionUpdate.setOnCheckedChangeListener(this);
-        switchStartupUpdate.setOnCheckedChangeListener(this);
-        switchFundUpdate.setOnCheckedChangeListener(this);
-        switchCampaignFollowedUpdate.setOnCheckedChangeListener(this);
-        switchCampaignCommittedUpdate.setOnCheckedChangeListener(this);
-        switchSelfImprovementUpdate.setOnCheckedChangeListener(this);
-        switchCareerHelpUpdate.setOnCheckedChangeListener(this);
-        switchOrganizationUpdate.setOnCheckedChangeListener(this);
-        switchForumUpdate.setOnCheckedChangeListener(this);
-        switchGroupUpdate.setOnCheckedChangeListener(this);
-        switchHardwareUpdate.setOnCheckedChangeListener(this);
-        switchSoftwareUpdate.setOnCheckedChangeListener(this);
-        switchServiceUpdate.setOnCheckedChangeListener(this);
-        switchAudioVideoUpdate.setOnCheckedChangeListener(this);
-        switchInformationUpdate.setOnCheckedChangeListener(this);
-        switchProductivityUpdate.setOnCheckedChangeListener(this);
-        switchConferenceUpdate.setOnCheckedChangeListener(this);
-        switchDemoDayUpdate.setOnCheckedChangeListener(this);
-        switchMeetupUpdate.setOnCheckedChangeListener(this);
-        switchWebinarUpdate.setOnCheckedChangeListener(this);
-        switchBetaTestUpdate.setOnCheckedChangeListener(this);
-        switchBoardMemberUpdate.setOnCheckedChangeListener(this);
-        switchConsultingUpdate.setOnCheckedChangeListener(this);
-        switchCommunalAssetUpdate.setOnCheckedChangeListener(this);
-        switchEarlyAdopterUpdate.setOnCheckedChangeListener(this);
-        switchEndorserUpdate.setOnCheckedChangeListener(this);
-        switchFocusGroupUpdate.setOnCheckedChangeListener(this);
-        switchJobUpdate.setOnCheckedChangeListener(this);
-        switchLaunchDealUpdate.setOnCheckedChangeListener(this);
-        switchGroupBuyingUpdate.setOnCheckedChangeListener(this);
 
 
         return rootView;
@@ -839,7 +801,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
 
     public void showSettingAlert(String message, final boolean isChecked) {
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
         // Setting Dialog Message
         alertDialog.setMessage(message);
 
@@ -888,7 +850,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
 
     public void showSettingBetaTesterAlert(String message, final boolean isChecked) {
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
         // Setting Dialog Message
         alertDialog.setMessage(message);
 
@@ -976,7 +938,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
 
     public void showSettingBoardMemberrAlert(String message, final boolean isChecked) {
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
         // Setting Dialog Message
         alertDialog.setMessage(message);
 
@@ -1059,7 +1021,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
 
     public void showSettingEndorserAlert(String message, final boolean isChecked) {
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
         // Setting Dialog Message
         alertDialog.setMessage(message);
 
@@ -1140,7 +1102,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
 
     public void showSettingEarlyAdopterAlert(String message, final boolean isChecked) {
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
         // Setting Dialog Message
         alertDialog.setMessage(message);
 
@@ -1223,7 +1185,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
 
     public void showSettingFocusGroupAlert(String message, final boolean isChecked) {
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
         // Setting Dialog Message
         alertDialog.setMessage(message);
 
@@ -1308,7 +1270,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
 
     public void showSettingConnectionAlert(String message, final boolean isChecked) {
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
         // Setting Dialog Message
         alertDialog.setMessage(message);
 
@@ -1391,7 +1353,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
 
     public void showSettingStartupAlert(String message, final boolean isChecked) {
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
         // Setting Dialog Message
         alertDialog.setMessage(message);
 
@@ -1474,7 +1436,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
 
     public void showSettingFundAlert(String message, final boolean isChecked) {
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
         // Setting Dialog Message
         alertDialog.setMessage(message);
 
@@ -1557,7 +1519,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
 
     public void showSettingCampaignFollowedAlert(String message, final boolean isChecked) {
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
         // Setting Dialog Message
         alertDialog.setMessage(message);
 
@@ -1640,7 +1602,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
 
     public void showSettingCampaignCommitedAlert(String message, final boolean isChecked) {
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
         // Setting Dialog Message
         alertDialog.setMessage(message);
 
@@ -1723,7 +1685,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
 
     public void showSettingSelfImprovementAlert(String message, final boolean isChecked) {
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
         // Setting Dialog Message
         alertDialog.setMessage(message);
 
@@ -1806,7 +1768,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
 
     public void showSettingCareerHelpAlert(String message, final boolean isChecked) {
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
         // Setting Dialog Message
         alertDialog.setMessage(message);
 
@@ -1889,7 +1851,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
 
     public void showSettingOrganizationAlert(String message, final boolean isChecked) {
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
         // Setting Dialog Message
         alertDialog.setMessage(message);
 
@@ -1972,7 +1934,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
 
     public void showSettingForumAlert(String message, final boolean isChecked) {
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
         // Setting Dialog Message
         alertDialog.setMessage(message);
 
@@ -2055,7 +2017,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
 
     public void showSettingGroupAlert(String message, final boolean isChecked) {
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
         // Setting Dialog Message
         alertDialog.setMessage(message);
 
@@ -2138,7 +2100,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
 
     public void showSettingHardwareAlert(String message, final boolean isChecked) {
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
         // Setting Dialog Message
         alertDialog.setMessage(message);
 
@@ -2221,7 +2183,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
 
     public void showSettingSoftwareAlert(String message, final boolean isChecked) {
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
         // Setting Dialog Message
         alertDialog.setMessage(message);
 
@@ -2304,7 +2266,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
 
     public void showSettingServiceAlert(String message, final boolean isChecked) {
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
         // Setting Dialog Message
         alertDialog.setMessage(message);
 
@@ -2387,7 +2349,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
 
     public void showSettingAudioVideoAlert(String message, final boolean isChecked) {
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
         // Setting Dialog Message
         alertDialog.setMessage(message);
 
@@ -2470,7 +2432,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
 
     public void showSettingInformationAlert(String message, final boolean isChecked) {
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
         // Setting Dialog Message
         alertDialog.setMessage(message);
 
@@ -2553,7 +2515,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
 
     public void showSettingProductivityAlert(String message, final boolean isChecked) {
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
         // Setting Dialog Message
         alertDialog.setMessage(message);
 
@@ -2636,7 +2598,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
 
     public void showSettingConferenceAlert(String message, final boolean isChecked) {
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
         // Setting Dialog Message
         alertDialog.setMessage(message);
 
@@ -2719,7 +2681,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
 
     public void showSettingDemoDayAlert(String message, final boolean isChecked) {
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
         // Setting Dialog Message
         alertDialog.setMessage(message);
 
@@ -2802,7 +2764,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
 
     public void showSettingWebinarAlert(String message, final boolean isChecked) {
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
         // Setting Dialog Message
         alertDialog.setMessage(message);
 
@@ -2885,7 +2847,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
 
     public void showSettingMeetupAlert(String message, final boolean isChecked) {
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
         // Setting Dialog Message
         alertDialog.setMessage(message);
 
@@ -2968,7 +2930,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
 
     public void showSettingBetaTestUpdateAlert(String message, final boolean isChecked) {
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
         // Setting Dialog Message
         alertDialog.setMessage(message);
 
@@ -3051,7 +3013,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
 
     public void showSettingBoardMemberUpdateAlert(String message, final boolean isChecked) {
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
         // Setting Dialog Message
         alertDialog.setMessage(message);
 
@@ -3134,7 +3096,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
 
     public void showSettingConsultingUpdateAlert(String message, final boolean isChecked) {
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
         // Setting Dialog Message
         alertDialog.setMessage(message);
 
@@ -3217,7 +3179,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
 
     public void showSettingCommunalAssetUpdateAlert(String message, final boolean isChecked) {
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
         // Setting Dialog Message
         alertDialog.setMessage(message);
 
@@ -3300,7 +3262,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
 
     public void showSettingEndorserUpdateAlert(String message, final boolean isChecked) {
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
         // Setting Dialog Message
         alertDialog.setMessage(message);
 
@@ -3383,7 +3345,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
 
     public void showSettingEarlyAdopterUpdateAlert(String message, final boolean isChecked) {
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
         // Setting Dialog Message
         alertDialog.setMessage(message);
 
@@ -3466,7 +3428,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
 
     public void showSettingFocusGroupUpdateAlert(String message, final boolean isChecked) {
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
         // Setting Dialog Message
         alertDialog.setMessage(message);
 
@@ -3549,7 +3511,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
 
     public void showSettingJobUpdateAlert(String message, final boolean isChecked) {
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
         // Setting Dialog Message
         alertDialog.setMessage(message);
 
@@ -3632,7 +3594,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
 
     public void showSettingLaunchDealUpdateAlert(String message, final boolean isChecked) {
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
         // Setting Dialog Message
         alertDialog.setMessage(message);
 
@@ -3715,7 +3677,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
 
     public void showSettingGroupBuyingUpdateAlert(String message, final boolean isChecked) {
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
         // Setting Dialog Message
         alertDialog.setMessage(message);
 
@@ -3796,7 +3758,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
 
     public void showSettingConsultingAlert(String message, final boolean isChecked) {
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
         // Setting Dialog Message
         alertDialog.setMessage(message);
 
@@ -3910,81 +3872,157 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
 
                         JSONObject funds = jsonObject.getJSONObject("setting_list");
 
-                        ((HomeActivity) getActivity()).prefManager.storeBoolean(Constants.IS_NOTIFICATION_ON, funds.optBoolean("notification"));
-
-                        ((HomeActivity) getActivity()).prefManager.storeBoolean(Constants.IS_CONTRACTOR_PUBLIC_PROFILE_ON, funds.optBoolean("public_profile"));
-
                         ((HomeActivity) getActivity()).prefManager.storeBoolean(Constants.IS_BETA_TESTER, funds.optBoolean("beta_tester"));
+                        switchBetaTester.setChecked(funds.optBoolean("beta_tester"));
 
                         ((HomeActivity) getActivity()).prefManager.storeBoolean(Constants.IS_BOARD_MEMBER, funds.optBoolean("board_member"));
+                        switchBoardMember.setChecked(funds.optBoolean("board_member"));
 
                         ((HomeActivity) getActivity()).prefManager.storeBoolean(Constants.IS_EARLY_ADOPTER, funds.optBoolean("early_adopter"));
+                        switchEarlyAdopter.setChecked(funds.optBoolean("early_adopter"));
 
                         ((HomeActivity) getActivity()).prefManager.storeBoolean(Constants.IS_ENDORSER, funds.optBoolean("endorsor"));
+                        switchEndorser.setChecked(funds.optBoolean("endorsor"));
 
                         ((HomeActivity) getActivity()).prefManager.storeBoolean(Constants.IS_FOCUS_GROUP, funds.optBoolean("focus_group"));
+                        switchFocusGroups.setChecked(funds.optBoolean("focus_group"));
 
                         ((HomeActivity) getActivity()).prefManager.storeBoolean(Constants.IS_CONSULTING, funds.optBoolean("consulting"));
+                        switchConsulting.setChecked(funds.optBoolean("consulting"));
 
                         ((HomeActivity) getActivity()).prefManager.storeBoolean(Constants.IS_CONNECTION_UPDATE, funds.optBoolean("feeds_profile"));
+                        switchMyConnectionUpdate.setChecked(funds.optBoolean("feeds_profile"));
 
                         ((HomeActivity) getActivity()).prefManager.storeBoolean(Constants.IS_STARTUP_UPDATE, funds.optBoolean("feeds_startup"));
+                        switchStartupUpdate.setChecked(funds.optBoolean("feeds_startup"));
 
                         ((HomeActivity) getActivity()).prefManager.storeBoolean(Constants.IS_FUND_UPDATE, funds.optBoolean("feeds_fund"));
+                        switchFundUpdate.setChecked(funds.optBoolean("feeds_fund"));
 
                         ((HomeActivity) getActivity()).prefManager.storeBoolean(Constants.IS_CAMPAIGN_FOLLOWED_UPDATE, funds.optBoolean("feeds_campaign"));
+                        switchCampaignFollowedUpdate.setChecked(funds.optBoolean("feeds_campaign"));
 
                         ((HomeActivity) getActivity()).prefManager.storeBoolean(Constants.IS_CAMPAIGN_COMMITED_UPDATE, funds.optBoolean("feeds_campaign_commited"));
+                        switchCampaignCommittedUpdate.setChecked(funds.optBoolean("feeds_campaign_commited"));
 
                         ((HomeActivity) getActivity()).prefManager.storeBoolean(Constants.IS_SELF_IMPROVEMENT_UPDATE, funds.optBoolean("feeds_improvement"));
+                        switchSelfImprovementUpdate.setChecked(funds.optBoolean("feeds_improvement"));
 
                         ((HomeActivity) getActivity()).prefManager.storeBoolean(Constants.IS_CAREER_HELP_UPDATE, funds.optBoolean("feeds_career"));
+                        switchCareerHelpUpdate.setChecked(funds.optBoolean("feeds_career"));
 
                         ((HomeActivity) getActivity()).prefManager.storeBoolean(Constants.IS_ORGANIZATION_UPDATE, funds.optBoolean("feeds_organization"));
+                        switchOrganizationUpdate.setChecked(funds.optBoolean("feeds_organization"));
 
                         ((HomeActivity) getActivity()).prefManager.storeBoolean(Constants.IS_FORUM_UPDATE, funds.optBoolean("feeds_forum"));
+                        switchForumUpdate.setChecked(funds.optBoolean("feeds_forum"));
 
                         ((HomeActivity) getActivity()).prefManager.storeBoolean(Constants.IS_GROUP_UPDATE, funds.optBoolean("feeds_group"));
+                        switchGroupUpdate.setChecked(funds.optBoolean("feeds_group"));
 
                         ((HomeActivity) getActivity()).prefManager.storeBoolean(Constants.IS_HARDWARE_UPDATE, funds.optBoolean("feeds_hardware"));
+                        switchHardwareUpdate.setChecked(funds.optBoolean("feeds_hardware"));
 
                         ((HomeActivity) getActivity()).prefManager.storeBoolean(Constants.IS_SOFTWARE_UPDATE, funds.optBoolean("feeds_software"));
+                        switchSoftwareUpdate.setChecked(funds.optBoolean("feeds_software"));
 
                         ((HomeActivity) getActivity()).prefManager.storeBoolean(Constants.IS_SERVICE_UPDATE, funds.optBoolean("feeds_service"));
+                        switchServiceUpdate.setChecked(funds.optBoolean("feeds_service"));
 
                         ((HomeActivity) getActivity()).prefManager.storeBoolean(Constants.IS_AUDIOVIDEO_UPDATE, funds.optBoolean("feeds_audio"));
+                        switchAudioVideoUpdate.setChecked(funds.optBoolean("feeds_audio"));
 
                         ((HomeActivity) getActivity()).prefManager.storeBoolean(Constants.IS_INFORMATION_UPDATE, funds.optBoolean("feeds_information"));
+                        switchInformationUpdate.setChecked(funds.optBoolean("feeds_information"));
 
                         ((HomeActivity) getActivity()).prefManager.storeBoolean(Constants.IS_PRODUCTIVITY_UPDATE, funds.optBoolean("feeds_productivity"));
+                        switchProductivityUpdate.setChecked(funds.optBoolean("feeds_productivity"));
 
                         ((HomeActivity) getActivity()).prefManager.storeBoolean(Constants.IS_CONFERENCE_UPDATE, funds.optBoolean("feeds_conference"));
+                        switchConferenceUpdate.setChecked(funds.optBoolean("feeds_conference"));
 
                         ((HomeActivity) getActivity()).prefManager.storeBoolean(Constants.IS_DEMODAY_UPDATE, funds.optBoolean("feeds_demoday"));
+                        switchDemoDayUpdate.setChecked(funds.optBoolean("feeds_demoday"));
 
                         ((HomeActivity) getActivity()).prefManager.storeBoolean(Constants.IS_MEETUP_UPDATE, funds.optBoolean("feeds_meetup"));
+                        switchMeetupUpdate.setChecked(funds.optBoolean("feeds_meetup"));
 
                         ((HomeActivity) getActivity()).prefManager.storeBoolean(Constants.IS_WEBINAR_UPDATE, funds.optBoolean("feeds_webinar"));
+                        switchWebinarUpdate.setChecked(funds.optBoolean("feeds_webinar"));
 
                         ((HomeActivity) getActivity()).prefManager.storeBoolean(Constants.IS_BETATEST_UPDATE, funds.optBoolean("feeds_betatest"));
+                        switchBetaTestUpdate.setChecked(funds.optBoolean("feeds_betatest"));
 
                         ((HomeActivity) getActivity()).prefManager.storeBoolean(Constants.IS_BOARD_MEMBER_UPDATE, funds.optBoolean("feeds_boardmember"));
+                        switchBoardMemberUpdate.setChecked(funds.optBoolean("feeds_boardmember"));
 
                         ((HomeActivity) getActivity()).prefManager.storeBoolean(Constants.IS_COMMUNAL_ASSET_UPDATE, funds.optBoolean("feeds_communal"));
+                        switchCommunalAssetUpdate.setChecked(funds.optBoolean("feeds_communal"));
 
                         ((HomeActivity) getActivity()).prefManager.storeBoolean(Constants.IS_CONSULTING_UPDATE, funds.optBoolean("feeds_consulting"));
+                        switchConsultingUpdate.setChecked(funds.optBoolean("feeds_consulting"));
 
                         ((HomeActivity) getActivity()).prefManager.storeBoolean(Constants.IS_EARLY_ADOPTER_UPDATE, funds.optBoolean("feeds_earlyadopter"));
+                        switchEarlyAdopterUpdate.setChecked(funds.optBoolean("feeds_earlyadopter"));
 
                         ((HomeActivity) getActivity()).prefManager.storeBoolean(Constants.IS_ENDORSER_UPDATE, funds.optBoolean("feeds_endorser"));
+                        switchEndorserUpdate.setChecked(funds.optBoolean("feeds_endorser"));
 
                         ((HomeActivity) getActivity()).prefManager.storeBoolean(Constants.IS_FOCUS_GROUP_UPDATE, funds.optBoolean("feeds_focusgroup"));
+                        switchFocusGroupUpdate.setChecked(funds.optBoolean("feeds_focusgroup"));
 
                         ((HomeActivity) getActivity()).prefManager.storeBoolean(Constants.IS_JOB_UPDATE, funds.optBoolean("feeds_job"));
+                        switchJobUpdate.setChecked(funds.optBoolean("feeds_job"));
 
                         ((HomeActivity) getActivity()).prefManager.storeBoolean(Constants.IS_LAUNCH_DEAL_UPDATE, funds.optBoolean("feeds_launchdeal"));
+                        switchLaunchDealUpdate.setChecked(funds.optBoolean("feeds_launchdeal"));
 
                         ((HomeActivity) getActivity()).prefManager.storeBoolean(Constants.IS_GROUP_BUYING_UPDATE, funds.optBoolean("feeds_purchaseorder"));
+                        switchGroupBuyingUpdate.setChecked(funds.optBoolean("feeds_purchaseorder"));
+
+                        switchPublicProfile.setOnCheckedChangeListener(this);
+                        switchNotification.setOnCheckedChangeListener(this);
+                        switchBoardMember.setOnCheckedChangeListener(this);
+                        switchBetaTester.setOnCheckedChangeListener(this);
+                        switchEndorser.setOnCheckedChangeListener(this);
+                        switchEarlyAdopter.setOnCheckedChangeListener(this);
+                        switchFocusGroups.setOnCheckedChangeListener(this);
+                        switchConsulting.setOnCheckedChangeListener(this);
+
+                        switchMyConnectionUpdate.setOnCheckedChangeListener(this);
+                        switchStartupUpdate.setOnCheckedChangeListener(this);
+                        switchFundUpdate.setOnCheckedChangeListener(this);
+                        switchCampaignFollowedUpdate.setOnCheckedChangeListener(this);
+                        switchCampaignCommittedUpdate.setOnCheckedChangeListener(this);
+                        switchSelfImprovementUpdate.setOnCheckedChangeListener(this);
+                        switchCareerHelpUpdate.setOnCheckedChangeListener(this);
+                        switchOrganizationUpdate.setOnCheckedChangeListener(this);
+                        switchForumUpdate.setOnCheckedChangeListener(this);
+                        switchGroupUpdate.setOnCheckedChangeListener(this);
+                        switchHardwareUpdate.setOnCheckedChangeListener(this);
+                        switchSoftwareUpdate.setOnCheckedChangeListener(this);
+                        switchServiceUpdate.setOnCheckedChangeListener(this);
+                        switchAudioVideoUpdate.setOnCheckedChangeListener(this);
+                        switchInformationUpdate.setOnCheckedChangeListener(this);
+                        switchProductivityUpdate.setOnCheckedChangeListener(this);
+                        switchConferenceUpdate.setOnCheckedChangeListener(this);
+                        switchDemoDayUpdate.setOnCheckedChangeListener(this);
+                        switchMeetupUpdate.setOnCheckedChangeListener(this);
+                        switchWebinarUpdate.setOnCheckedChangeListener(this);
+                        switchBetaTestUpdate.setOnCheckedChangeListener(this);
+                        switchBoardMemberUpdate.setOnCheckedChangeListener(this);
+                        switchConsultingUpdate.setOnCheckedChangeListener(this);
+                        switchCommunalAssetUpdate.setOnCheckedChangeListener(this);
+                        switchEarlyAdopterUpdate.setOnCheckedChangeListener(this);
+                        switchEndorserUpdate.setOnCheckedChangeListener(this);
+                        switchFocusGroupUpdate.setOnCheckedChangeListener(this);
+                        switchJobUpdate.setOnCheckedChangeListener(this);
+                        switchLaunchDealUpdate.setOnCheckedChangeListener(this);
+                        switchGroupBuyingUpdate.setOnCheckedChangeListener(this);
+
+
+
+
 
                     } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
 

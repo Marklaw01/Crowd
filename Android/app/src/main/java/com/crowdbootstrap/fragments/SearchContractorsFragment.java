@@ -92,6 +92,7 @@ public class SearchContractorsFragment extends Fragment implements AdapterView.O
                         current_page += 1;
                         Log.e("items", String.valueOf(adapter.getCount()));
                         if (TOTAL_ITEMS != adapter.getCount()) {
+                            ((HomeActivity) getActivity()).showProgressDialog();
                             String searchedKey = ((HomeActivity) getActivity()).utilitiesClass.removeSpecialCharacters(et_search.getText().toString().trim());
                             Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.SEARCH_CONTRACTORS_TAG, Constants.SEARCH_CONTRACTORS_URL + "?user_id=" + ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID) + "&search_text=" + searchedKey + "&page_no=" + current_page, Constants.HTTP_GET,"Home Activity");
                             a.execute();

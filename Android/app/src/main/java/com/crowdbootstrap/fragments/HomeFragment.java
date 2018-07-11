@@ -5,6 +5,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,40 +18,71 @@ import com.crowdbootstrap.utilities.NonSwipeableViewPager;
 /**
  * Created by neelmani.karn on 1/15/2016.
  */
-public class HomeFragment  extends Fragment{
+public class HomeFragment extends Fragment {
 
     private TextView dummyText;
+
     public HomeFragment() {
         super();
     }
 
     public TabLayout tabLayout;
     public NonSwipeableViewPager viewPager;
-    public static int int_items = 2;
+    public static int int_items = 4;
+    public static int selectedPosition;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.funds_tab_layout, container, false);
-        ((HomeActivity)getActivity()).setActionBarTitle(getString(R.string.hardware));
+        ((HomeActivity) getActivity()).setActionBarTitle(getString(R.string.home));
 
         try {
             tabLayout = (TabLayout) rootView.findViewById(R.id.tabs);
             viewPager = (NonSwipeableViewPager) rootView.findViewById(R.id.viewpager);
-            viewPager.setAdapter(new HomeFragment.MyAdapter(getChildFragmentManager()));
 
-            tabLayout.post(new Runnable() {
-                @Override
-                public void run() {
-                    viewPager.setOffscreenPageLimit(0);
-                    tabLayout.setupWithViewPager(viewPager);
-                }
-            });
+
+//            tabLayout.post(new Runnable() {
+//                @Override
+//                public void run() {
+//                    viewPager.setOffscreenPageLimit(0);
+//                    tabLayout.setupWithViewPager(viewPager);
+//                }
+//            });
+
+
+
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        viewPager.setAdapter(new HomeFragment.MyAdapter(getChildFragmentManager()));
+        tabLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                viewPager.setOffscreenPageLimit(selectedPosition);
+                tabLayout.setupWithViewPager(viewPager);
+            }
+        });
+
+        selectPage(selectedPosition);
+    }
+
+
+    void selectPage(int pageIndex) {
+        try {
+            tabLayout.setScrollPosition(pageIndex, 0f, true);
+            viewPager.setCurrentItem(pageIndex);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     class MyAdapter extends FragmentPagerAdapter {
@@ -68,9 +100,13 @@ public class HomeFragment  extends Fragment{
             try {
                 switch (position) {
                     case 0:
-                        return new HomeFeedsFragment();
-                    case 1:
                         return new HomeInfoFragment();
+                    case 1:
+                        return new BlogsFragment();
+                    case 2:
+                        return new HomeFeedsFragment();
+                    case 3:
+                        return new NetworkingOptionFragment();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -92,9 +128,14 @@ public class HomeFragment  extends Fragment{
 
             switch (position) {
                 case 0:
-                    return "What's New";
+                    return "Home";
                 case 1:
-                    return "About";
+                    return "News";
+                case 2:
+                    return "Alert";
+                case 3:
+                    return "Networking Options";
+
             }
             return null;
         }

@@ -88,13 +88,16 @@ public class ProductivityFragment extends Fragment{
          */
 
         @Override
+
+
+
         public CharSequence getPageTitle(int position) {
 
             switch (position) {
                 case 0:
-                    return "Search Information";
+                    return "Search Productivity";
                 case 1:
-                    return "Add Information";
+                    return "Add Productivity";
             }
             return null;
         }

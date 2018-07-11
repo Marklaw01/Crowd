@@ -252,7 +252,7 @@ public class ConsultingDetailsFragment extends Fragment implements onActivityRes
 
         et_targetMarket.setVisibility(View.GONE);
         targetMarketTV.setVisibility(View.GONE);
-
+        et_title.setHint("Consulting Project Title");
 
         expandable_playAudio = (LinearLayout) rootView.findViewById(R.id.expandable_playAudio);
         expandable_playVideo = (LinearLayout) rootView.findViewById(R.id.expandable_playVideo);

@@ -407,6 +407,7 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
         et_fundsClosedDate.setOnClickListener(this);
         et_investmentEndDate.setOnClickListener(this);
         btn_plus.setOnClickListener(this);
+        btnCreate.setText("Submit");
         btnCreate.setOnClickListener(this);
         image_fundImage.setOnClickListener(this);
         tv_deleteFile.setOnClickListener(this);
@@ -1896,6 +1897,7 @@ public class UpdateFundFragment extends Fragment implements onActivityResultList
                                     Toast.makeText(getActivity(), "Your fund is updated successfully.", Toast.LENGTH_LONG).show();
                                     getActivity().onBackPressed();
                                 } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
+                                    Toast.makeText(getActivity(), jsonObject.optString("message"), Toast.LENGTH_LONG).show();
 
                                 }
                             } catch (JSONException e) {

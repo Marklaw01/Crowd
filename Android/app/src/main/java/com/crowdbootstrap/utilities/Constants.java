@@ -129,6 +129,8 @@ public final class Constants {
     public static final String GET_JOBEXPERIENCE_LIST_URL = "getUserExperiences";
     public static final String GET_JOBEXPERIENCE_LIST_TAG = "getUserExperiences_tag";
 
+    public static final String BLOG_FEEDS_LIST = "getBlogPosts";
+    public static final String BLOG_FEEDS_TAG = "getBlogPosts_tag";
 
     public static final String JOB_DUTIES_URL = "jobDutiesLists";
     public static final String JOB_DUTIES_TAG = "jobDutiesLists_tag";
@@ -192,6 +194,9 @@ public final class Constants {
     public static final String CAMPAIGN_KEYWORDS_URL = "campaignKeywords";
     public static final String CAMPAIGN_KEYWORDS_TAG = "campaignKeywords_tag";
 
+    public static final String CAMPAIGN_TARGET_KEYWORDS_URL = "campaignTargetKeywords";
+    public static final String CAMPAIGN_TARGET_KEYWORDS_TAG = "campaignTargetKeywords_tag";
+
     public static final String FORUMS_KEYWORDS_URL = "forumKeywords";
     public static final String FORUMS_KEYWORDS_TAG = "forumKeywords_tag";
 
@@ -251,6 +256,7 @@ public final class Constants {
     public static final String SEARCH_CAMPAIGN_TAG = "searchCampaigns_tag";
 
     public static final String DELETE_STARTUPS_URL = "deleteStartup";
+    public static final String DELETE_NEW_USERS_URL = "deleteBusinessContact";
 
     public static final String DELETE_JOB_URL = "deleteJob";
     public static final String ARCHIVE_JOB_URL = "archiveJob";
@@ -1269,6 +1275,9 @@ public final class Constants {
     public static final String CREATE_MEETUPS_URL = "addMeetup";
     public static final String UPDATE_MEETUPS_URL = "editMeetup";
 
+    public static final String MEETUPS_FORUM_LIST_URL = "userForums";
+    public static final String MEETUPS_FORUM_LIST_TAG = "userForums_tag";
+
     public static final String MEETUPS_DETAILS_URL = "meetupDetails";
     public static final String MEETUPS_DETAILS_TAG = "meetupDetails_tag";
 
@@ -2071,6 +2080,62 @@ public final class Constants {
 
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+    public static final String CREATE_BUSINESS_CARD_URL = "addBusinessCard";
+    public static final String UPDATE_BUSINESS_CARD_URL = "editBusinessCard";
+
+    public static final String GET_MY_BUSINESS_CARD_URL = "businessCardList";
+    public static final String GET_MY_BUSINESS_CARD_TAG = "businessCardList_tag";
+
+    public static final String GET_BUSINESS_CARD_DETAILS_URL = "businessCardDetails";
+    public static final String GET_BUSINESS_CARD_DETAILS_TAG = "businessCardDetails_tag";
+
+    public static final String BUSINESS_CONNECTION_TYPE_URL = "businessConnectionType";
+    public static final String BUSINESS_CONNECTION_TYPE_TAG = "businessConnectionType_tag";
+
+    public static final String ADD_BUSINESS_CONNECTION_TYPE_URL = "addbusinessUserConnectionType";
+    public static final String ADD_BUSINESS_CONNECTION_TYPE_TAG = "addbusinessUserConnectionType_tag";
+
+    public static final String ACTIVATE_BUSINESS_CARD = "activeBusinessCard";
+
+    public static final String CREATE_NEW_USER_URL = "addBusinessContact";
+
+    public static final String SEARCH_BUSINESS_NETWORKS_URL = "searchBusinessNetworks";
+    public static final String SEARCH_BUSINESS_NETWORKS_TAG = "searchBusinessNetworks_tag";
+
+    public static final String SEARCH_TEMP_BUSINESS_NETWORKS_URL = "getBusinessTempContacts";
+    public static final String SEARCH_TEMP_BUSINESS_NETWORKS_TAG = "getBusinessTempContacts_tag";
+
+    public static final String ADD_BUSINESS_CONNECTION_URL = "addBusinessNetwork";
+    public static final String ADD_BUSINESS_CONNECTION_TAG = "addBusinessNetwork_tag";
+
+    public static final String DISCONNECT_BUSINESS_CONNECTION_URL = "diconnectBusinessNetwork";
+    public static final String DISCONNECT_BUSINESS_CONNECTION_TAG = "diconnectBusinessNetwork_tag";
+
+    public static final String ADD_BUSINESS_CONNECTION_NOTES_URL = "addBusinessCardNotes";
+    public static final String ADD_BUSINESS_CONNECTION_NOTES_TAG = "addBusinessCardNotes_tag";
+
+    public static final String EDIT_BUSINESS_CONNECTION_NOTES_URL = "editBusinessCardNotes";
+    public static final String EDIT_BUSINESS_CONNECTION_NOTES_TAG = "editBusinessCardNotes_tag";
 
 
+    public static final String GET_USER_NETWORK_NOTES_URL = "businessCardNotesList";
+    public static final String GET_USER_NETWORK_NOTES_TAG = "businessCardNotesList_tag";
+
+    public static final String USER_VISIBILITY_URL = "userVisibilityStatus";
+    public static final String USER_VISIBILITY_TAG = "userVisibilityStatus_tag";
+
+    public static final String USER_AVAILABILITY_URL = "userAvailabilityStatus";
+    public static final String USER_AVAILABILITY_TAG = "userAvailabilityStatus_tag";
+
+    public static final String USER_WITHIN_MILES_URL = "usersListWithinMiles";
+    public static final String USER_WITHIN_MILES_TAG = "usersListWithinMiles_tag";
+
+    public static final String USER_IN_LAT_LONG_URL = "userListWithSameLatLong";
+    public static final String USER_IN_LAT_LONG_TAG = "userListWithSameLatLong_tag";
+
+    public static final String DELETE_BUSINESS_CARD_URL = "deleteBusinessCard";
+    public static final String DELETE_BUSINESS_CARD_TAG = "deleteBusinessCard_tag";
+
+    public static final String RESEND_CONFIRMATION_USER_MAIL_URL = "resendEmail";
+    public static final String RESEND_CONFIRMATION_USER_MAIL_TAG = "resendEmail_tag";
 }

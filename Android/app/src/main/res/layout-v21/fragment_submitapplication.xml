@@ -146,23 +146,10 @@
                 android:weightSum="1">
 
                 <Button
-                    android:id="@+id/submitquestionnair"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:layout_gravity="center_horizontal"
-                    android:background="@drawable/blue_button"
-                    android:padding="10dp"
-                    android:text="@string/submit"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/mediumTextStyle" />
-
-                <Button
                     android:id="@+id/savequestionnair"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginLeft="20dp"
                     android:layout_weight="0.5"
                     android:background="@drawable/green_color_button"
                     android:padding="10dp"
@@ -170,6 +157,18 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/mediumTextStyle" />
 
+                <Button
+                    android:id="@+id/submitquestionnair"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/blue_button"
+                    android:padding="10dp"
+                    android:text="@string/submit"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/mediumTextStyle" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

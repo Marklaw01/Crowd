@@ -33,6 +33,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -46,6 +47,7 @@ import android.widget.Toast;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.crowdbootstrap.R;
 import com.crowdbootstrap.activities.HomeActivity;
+import com.crowdbootstrap.adapter.ConnectionTypeAdapter;
 import com.crowdbootstrap.adapter.FundsKeywordsAdapter;
 import com.crowdbootstrap.filebrowser.FilePicker;
 import com.crowdbootstrap.fragments.WebViewFragment;
@@ -101,6 +103,7 @@ public class UpdateRequestMeetUpsFragment extends Fragment implements onActivity
     private ImageView viewDocumentArrow, viewplayAudioArrow, viewplayVideoArrow;
     private LinearLayout btn_playAudio, btn_viewDocument, btn_playVideo;
     private LinearLayout expandable_playAudio, expandable_viewDocument, expandable_playVideo;
+    private int selectedForumListIDs, selectedMeetupAccesssIds, selectedMeetupNotificationIds;
     /*private DocumentListAdapter docAdapter;
     private AudioAdapter audioAdapter;
     private VideoListAdapter videoAdapter;*/
@@ -113,7 +116,7 @@ public class UpdateRequestMeetUpsFragment extends Fragment implements onActivity
     private ArrayList<String> selectedFundManagersList;
 
     private String selectedInterestedKeywordsId = "", selectedTargetMarktetIDs = "", selectedKeywordsIDs = "";
-    private ArrayList<GenericObject> keywordsList, interestedKeywordsList, targetMarktetList;
+    private ArrayList<GenericObject> keywordsList, interestedKeywordsList, targetMarktetList, forumList, meetupAccessList, meetupNotificationList;
     private DatePickerDialog.OnDateSetListener investmentStartdate, investmentEnddate/*, funcCloseddate*/;
     private Calendar myCalendarInvestmentStartDate, myCalendarInvestmentEndDate, myCalendarFuncClosedDate;
 
@@ -150,6 +153,9 @@ public class UpdateRequestMeetUpsFragment extends Fragment implements onActivity
 
     private TextView startDateTV, endDateTV, titleTV, descriptionlbl, keywordTV;
     public static boolean viewFiles;
+    private LinearLayout meetupLayout;
+    private Spinner forumName, meetupNotification, meetupAccess;
+
 
     public UpdateRequestMeetUpsFragment() {
         super();
@@ -168,6 +174,7 @@ public class UpdateRequestMeetUpsFragment extends Fragment implements onActivity
         ((HomeActivity) getActivity()).setOnBackPressedListener(this);
 
         if (viewFiles == true) {
+
             if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
                 ((HomeActivity) getActivity()).showProgressDialog();
                 AsyncNew a = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.MEETUPS_KEYWORDS_LIST_TAG, Constants.MEETUPS_KEYWORDS_LIST_URL, Constants.HTTP_GET_REQUEST, null);
@@ -175,9 +182,9 @@ public class UpdateRequestMeetUpsFragment extends Fragment implements onActivity
             } else {
                 ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
             }
-
             viewFiles = false;
         }
+
     }
 
     /**
@@ -201,6 +208,9 @@ public class UpdateRequestMeetUpsFragment extends Fragment implements onActivity
         keywordsList = new ArrayList<>();
         targetMarktetList = new ArrayList<>();
         interestedKeywordsList = new ArrayList<>();
+        forumList = new ArrayList<>();
+        meetupAccessList = new ArrayList<>();
+        meetupNotificationList = new ArrayList<>();
         /*audioObject = new AudioObject();
         videoObject = new AudioObject();
         docObject = new AudioObject();*/
@@ -283,6 +293,57 @@ public class UpdateRequestMeetUpsFragment extends Fragment implements onActivity
         viewplayAudioArrow = (ImageView) rootView.findViewById(R.id.viewplayAudioArrow);
         viewplayVideoArrow = (ImageView) rootView.findViewById(R.id.viewplayVideoArrow);
 
+        meetupLayout = (LinearLayout) rootView.findViewById(R.id.meetupLayout);
+        meetupLayout.setVisibility(View.VISIBLE);
+        forumName = (Spinner) rootView.findViewById(R.id.et_forumName);
+        meetupAccess = (Spinner) rootView.findViewById(R.id.et_meetupAccess);
+        meetupNotification = (Spinner) rootView.findViewById(R.id.et_meetupNotification);
+
+
+        forumName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedForumListIDs = Integer.parseInt(forumList.get(position).getId());
+                //COUNTRY_ID = Integer.parseInt(countries.get(position).getId());
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        meetupAccess.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedMeetupAccesssIds = Integer.parseInt(meetupAccessList.get(position).getId());
+                //COUNTRY_ID = Integer.parseInt(countries.get(position).getId());
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+        meetupNotification.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedMeetupNotificationIds = Integer.parseInt(meetupNotificationList.get(position).getId());
+                //COUNTRY_ID = Integer.parseInt(countries.get(position).getId());
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
         et_title = (EditText) rootView.findViewById(R.id.et_title);
         et_description = (EditText) rootView.findViewById(R.id.et_description);
         et_interestKeywords = (EditText) rootView.findViewById(R.id.et_interestKeywords);
@@ -299,7 +360,7 @@ public class UpdateRequestMeetUpsFragment extends Fragment implements onActivity
         endDateTV.setText("Meet Up Availability End Date");
         titleTV.setText("Meet Up Title");
         descriptionlbl.setText("Meet Up Description");
-
+        et_title.setHint("Meet Up Title");
 
         searchFocusGroups = (Button) rootView.findViewById(R.id.searchBoardMember);
         searchFocusGroups.setVisibility(View.GONE);
@@ -439,6 +500,7 @@ public class UpdateRequestMeetUpsFragment extends Fragment implements onActivity
         et_interestKeywords.setOnClickListener(this);
 
         btn_plus.setOnClickListener(this);
+        btnCreate.setText("Submit");
         btnCreate.setOnClickListener(this);
         image_fundImage.setOnClickListener(this);
         tv_deleteFile.setOnClickListener(this);
@@ -705,7 +767,7 @@ public class UpdateRequestMeetUpsFragment extends Fragment implements onActivity
 
     protected void alertDialogForPicture() {
         try {
-            AlertDialog.Builder builderSingle = new AlertDialog.Builder(getActivity()/*new ContextThemeWrapper(getActivity(), android.R.style.Theme_Holo_Light_Dialog)*/);
+            AlertDialog.Builder builderSingle = new AlertDialog.Builder(getActivity(),R.style.MyDialogTheme);
             final CharSequence[] opsChars = {"Upload Image", "Take Picture"};
             builderSingle.setCancelable(true);
             builderSingle.setItems(opsChars, new DialogInterface.OnClickListener() {
@@ -965,6 +1027,11 @@ public class UpdateRequestMeetUpsFragment extends Fragment implements onActivity
                 map.put("interest_keywords_id", selectedInterestedKeywordsId);
                 map.put("keywords_id", selectedKeywordsIDs);
                 map.put("target_market", selectedTargetMarktetIDs);
+                map.put("access_level", String.valueOf(selectedMeetupAccesssIds));
+                map.put("send_notifications", String.valueOf(selectedMeetupNotificationIds));
+                map.put("forum_id", String.valueOf(selectedForumListIDs));
+
+
                 map.put("start_date", et_start_date.getText().toString().trim());
                 map.put("end_date", et_endDate.getText().toString().trim());
                 map.put("image_del", String.valueOf(0));
@@ -1265,6 +1332,10 @@ public class UpdateRequestMeetUpsFragment extends Fragment implements onActivity
         }
     }
 
+    private ConnectionTypeAdapter forumAdapter, meetupAccessAdapter, meetupNotificationAdapter;
+    private String str_fundID, str_meetupNotificationID,str_meetupAccessID;
+
+
     @Override
     public void onTaskComplete(String result, String tag) {
         if (result.equalsIgnoreCase(Constants.NOINTERNET)) {
@@ -1292,6 +1363,48 @@ public class UpdateRequestMeetUpsFragment extends Fragment implements onActivity
                             obj.setPosition(i);
                             keywordsList.add(obj);
                         }
+
+
+                        meetupNotificationList.clear();
+                        GenericObject obj = new GenericObject();
+                        obj.setId("1");
+                        obj.setTitle("Groups");
+                        obj.setPosition(1);
+                        meetupNotificationList.add(obj);
+
+                        GenericObject obj2 = new GenericObject();
+                        obj2.setId("2");
+                        obj2.setTitle("Connections");
+                        obj2.setPosition(2);
+                        meetupNotificationList.add(obj2);
+
+
+                        meetupNotificationAdapter = new ConnectionTypeAdapter(getActivity(), 0, meetupNotificationList);
+                        meetupNotification.setAdapter(meetupNotificationAdapter);
+                        //+++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+                        meetupAccessList.clear();
+                        GenericObject obj3 = new GenericObject();
+                        obj3.setId("1");
+                        obj3.setTitle("Groups");
+                        obj3.setPosition(1);
+                        meetupAccessList.add(obj);
+
+                        GenericObject obj4 = new GenericObject();
+                        obj4.setId("2");
+                        obj4.setTitle("Connections");
+                        obj4.setPosition(2);
+                        meetupAccessList.add(obj4);
+
+                        GenericObject obj5 = new GenericObject();
+                        obj5.setId("3");
+                        obj5.setTitle("Public");
+                        obj5.setPosition(3);
+                        meetupAccessList.add(obj5);
+                        meetupAccessAdapter = new ConnectionTypeAdapter(getActivity(), 0, meetupAccessList);
+                        meetupAccess.setAdapter(meetupAccessAdapter);
+
+
                         if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
                             AsyncNew a = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.MEETUPS_INTEREST_KEYWORDS_LIST_TAG, Constants.MEETUPS_INTEREST_KEYWORDS_LIST_URL, Constants.HTTP_GET_REQUEST, null);
                             a.execute();
@@ -1353,6 +1466,42 @@ public class UpdateRequestMeetUpsFragment extends Fragment implements onActivity
                             targetMarktetList.add(obj);
                         }
 
+
+                        if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
+                            AsyncNew a = new AsyncNew(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.MEETUPS_FORUM_LIST_TAG, Constants.MEETUPS_FORUM_LIST_URL + "?user_id=" + ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID), Constants.HTTP_GET_REQUEST, null);
+                            a.execute();
+                        } else {
+                            ((HomeActivity) getActivity()).dismissProgressDialog();
+                            ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
+                        }
+
+
+                    } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
+                        ((HomeActivity) getActivity()).dismissProgressDialog();
+                        targetMarktetList.clear();
+                    }
+                } catch (JSONException e) {
+                    ((HomeActivity) getActivity()).dismissProgressDialog();
+                    e.printStackTrace();
+                }
+            } else if (tag.equals(Constants.MEETUPS_FORUM_LIST_TAG)) {
+                CrowdBootstrapLogger.logInfo(result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    forumList.clear();
+                    if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_SUCESS_STATUS_CODE)) {
+                        ((HomeActivity) getActivity()).dismissProgressDialog();
+                        for (int i = 0; i < jsonObject.optJSONArray("Forums").length(); i++) {
+                            GenericObject obj = new GenericObject();
+                            obj.setId(jsonObject.optJSONArray("Forums").getJSONObject(i).optString("id"));
+                            obj.setTitle(jsonObject.optJSONArray("Forums").getJSONObject(i).optString("forum_name"));
+                            obj.setPosition(i);
+                            forumList.add(obj);
+                        }
+                        forumAdapter = new ConnectionTypeAdapter(getActivity(), 0, forumList);
+                        forumName.setAdapter(forumAdapter);
+
+
                         if (((HomeActivity) getActivity()).networkConnectivity.isInternetConnectionAvaliable()) {
                             JSONObject object = new JSONObject();
                             object.put("user_id", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
@@ -1363,9 +1512,11 @@ public class UpdateRequestMeetUpsFragment extends Fragment implements onActivity
                             ((HomeActivity) getActivity()).dismissProgressDialog();
                             ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
                         }
+
+
                     } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
                         ((HomeActivity) getActivity()).dismissProgressDialog();
-                        targetMarktetList.clear();
+                        forumList.clear();
                     }
                 } catch (JSONException e) {
                     ((HomeActivity) getActivity()).dismissProgressDialog();
@@ -1381,7 +1532,6 @@ public class UpdateRequestMeetUpsFragment extends Fragment implements onActivity
                         ((HomeActivity) getActivity()).dismissProgressDialog();
                         et_description.setText(jsonObject.getString("description"));
                         et_title.setText(jsonObject.getString("title"));
-
                         et_start_date.setText(jsonObject.getString("start_date"));
                         et_endDate.setText(jsonObject.getString("end_date"));
                         ImageLoader.getInstance().displayImage(Constants.APP_IMAGE_URL + jsonObject.getString("image").trim(), image_fundImage);
@@ -1428,6 +1578,48 @@ public class UpdateRequestMeetUpsFragment extends Fragment implements onActivity
 
                         //fund industry
                         preChecked(jsonObject.getJSONArray("target_market"), targetMarktetList, R.id.et_targetMarket);
+
+
+
+
+                        str_fundID = jsonObject.getString("forum_id").toString();
+                        str_meetupAccessID =  jsonObject.getString("access_level").toString();
+                        str_meetupNotificationID = jsonObject.getString("send_notifications").toString();
+                        if (!str_fundID.isEmpty()) {
+                            selectedForumListIDs = Integer.parseInt(str_fundID);
+                            if (forumAdapter != null) {
+                                for (int position = 0; position < forumAdapter.getCount(); position++) {
+                                    if (forumAdapter.getId(position).equalsIgnoreCase(selectedForumListIDs + "")) {
+                                        forumName.setSelection(position);
+                                    }
+                                }
+                            }
+                        }
+
+
+                        if (!str_meetupAccessID.isEmpty()) {
+                            selectedMeetupAccesssIds = Integer.parseInt(str_meetupAccessID);
+                            if (meetupAccessAdapter != null) {
+                                for (int position = 0; position < meetupAccessAdapter.getCount(); position++) {
+                                    if (meetupAccessAdapter.getId(position).equalsIgnoreCase(selectedMeetupAccesssIds + "")) {
+                                        meetupAccess.setSelection(position);
+                                    }
+                                }
+                            }
+                        }
+
+
+                        if (!str_meetupNotificationID.isEmpty()) {
+                            selectedMeetupNotificationIds = Integer.parseInt(str_meetupNotificationID);
+                            if (meetupNotificationAdapter != null) {
+                                for (int position = 0; position < meetupNotificationAdapter.getCount(); position++) {
+                                    if (meetupNotificationAdapter.getId(position).equalsIgnoreCase(selectedMeetupNotificationIds + "")) {
+                                        meetupNotification.setSelection(position);
+                                    }
+                                }
+                            }
+                        }
+
 
 
                     } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
@@ -1719,7 +1911,7 @@ public class UpdateRequestMeetUpsFragment extends Fragment implements onActivity
                                     Toast.makeText(getActivity(), "Your event is updated successfully.", Toast.LENGTH_LONG).show();
                                     getActivity().onBackPressed();
                                 } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
-
+                                    Toast.makeText(getActivity(), jsonObject.optString("message"), Toast.LENGTH_LONG).show();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();

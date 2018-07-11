@@ -300,7 +300,7 @@ public class UpdateRequestConferencesFragment extends Fragment implements onActi
         titleTV.setText("Conference Title");
         descriptionlbl.setText("Conference Description");
 
-
+        et_title.setHint("Conference Title");
         searchFocusGroups = (Button) rootView.findViewById(R.id.searchBoardMember);
         searchFocusGroups.setVisibility(View.GONE);
         searchFocusGroups.setText("Search Recommended Conference");
@@ -439,6 +439,7 @@ public class UpdateRequestConferencesFragment extends Fragment implements onActi
         et_interestKeywords.setOnClickListener(this);
 
         btn_plus.setOnClickListener(this);
+        btnCreate.setText("Submit");
         btnCreate.setOnClickListener(this);
         image_fundImage.setOnClickListener(this);
         tv_deleteFile.setOnClickListener(this);
@@ -1719,7 +1720,7 @@ public class UpdateRequestConferencesFragment extends Fragment implements onActi
                                     Toast.makeText(getActivity(), "Your event is updated successfully.", Toast.LENGTH_LONG).show();
                                     getActivity().onBackPressed();
                                 } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
-
+                                    Toast.makeText(getActivity(), jsonObject.optString("message"), Toast.LENGTH_LONG).show();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();

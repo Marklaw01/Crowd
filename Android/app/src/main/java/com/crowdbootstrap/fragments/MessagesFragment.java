@@ -51,7 +51,7 @@ public class MessagesFragment extends Fragment implements AsyncTaskCompleteListe
     public void onResume() {
         super.onResume();
         ((HomeActivity) getActivity()).setOnBackPressedListener(this);
-        ((HomeActivity) getActivity()).setActionBarTitle(getString(R.string.messages));
+        ((HomeActivity) getActivity()).setActionBarTitle("Team Messages");
 
         try {
             current_page = 1;
@@ -154,11 +154,18 @@ public class MessagesFragment extends Fragment implements AsyncTaskCompleteListe
                     switch (index) {
                         case 0:
                             if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
-                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
 
                                 alertDialogBuilder
                                         .setMessage("Do you want to achieve this message?")
                                         .setCancelable(false)
+                                        .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int arg1) {
+                                                dialog.dismiss();
+                                            }
+                                        })
                                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
 
                                             @Override
@@ -196,11 +203,18 @@ public class MessagesFragment extends Fragment implements AsyncTaskCompleteListe
                             break;
                         case 1:
                             if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
-                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
 
                                 alertDialogBuilder
                                         .setMessage("Do you want to delete this message?")
                                         .setCancelable(false)
+                                        .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int arg1) {
+                                                dialog.dismiss();
+                                            }
+                                        })
                                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
 
                                             @Override

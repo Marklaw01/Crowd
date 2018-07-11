@@ -107,11 +107,18 @@ public class CurrentStartupsAdapter extends BaseAdapter implements Filterable {
                     if (isDelete){
 
 
-                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context, R.style.MyDialogTheme);
 
                         alertDialogBuilder
                                 .setMessage("Do you want to delete your startup?")
                                 .setCancelable(false)
+                                .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int arg1) {
+                                        dialog.dismiss();
+                                    }
+                                })
                                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int arg1) {

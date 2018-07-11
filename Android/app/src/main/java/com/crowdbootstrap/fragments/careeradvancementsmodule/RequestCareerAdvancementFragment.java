@@ -234,6 +234,7 @@ public class RequestCareerAdvancementFragment extends Fragment implements onActi
         endDateTV.setText("Career Help Availability End Date");
         titleTV.setText("Career Help Title");
         descriptionlbl.setText("Career Help Description");
+        et_title.setHint("Career Help Title");
 
         spinner_uploadFileType = (Spinner) rootView.findViewById(R.id.spinner_uploadFileType);
         pathofmedia = new ArrayList<Mediabeans>();
@@ -289,7 +290,7 @@ public class RequestCareerAdvancementFragment extends Fragment implements onActi
 
         btn_browse.setTag(0);
         btn_browse.setOnClickListener(this);
-        btnCreate.setText("Create");
+        btnCreate.setText("Submit");
         btn_plus.setOnClickListener(this);
         btnCreate.setOnClickListener(this);
         image_fundImage.setOnClickListener(this);

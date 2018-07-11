@@ -165,9 +165,9 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
                 et_phone.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
                 et_myinterests.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
 
-                UsPhoneNumberFormatter addLineNumberFormatter = new UsPhoneNumberFormatter(
-                        new WeakReference<EditText>(et_phone));
-                et_phone.addTextChangedListener(addLineNumberFormatter);
+//                UsPhoneNumberFormatter addLineNumberFormatter = new UsPhoneNumberFormatter(
+//                        new WeakReference<EditText>(et_phone));
+//                et_phone.addTextChangedListener(addLineNumberFormatter);
 
                 et_bio.setOnTouchListener(new View.OnTouchListener() {
                     @Override
@@ -279,9 +279,9 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
                 et_phone.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
 
 
-                UsPhoneNumberFormatter addLineNumberFormatter = new UsPhoneNumberFormatter(
-                        new WeakReference<EditText>(et_phone));
-                et_phone.addTextChangedListener(addLineNumberFormatter);
+//                UsPhoneNumberFormatter addLineNumberFormatter = new UsPhoneNumberFormatter(
+//                        new WeakReference<EditText>(et_phone));
+//                et_phone.addTextChangedListener(addLineNumberFormatter);
 
 
                 countrySpinner = (Spinner) rootView.findViewById(R.id.country);
@@ -397,7 +397,7 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
                     if (((HomeActivity) getActivity()).prefManager.getString(Constants.USER_TYPE).equalsIgnoreCase(Constants.ENTREPRENEUR)) {
 
                         if (!et_dob.getText().toString().trim().isEmpty() && !DateTimeFormatClass.compareDates(DateTimeFormatClass.convertStringObjectToDate(et_dob.getText().toString().trim()))) {
-                            ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton("Date of Birth must be before than current date!");
+                            ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton("Date of Birth must be before the current date!");
                         } else {
                             EntrepreneurProfileFragment.et_rate.setBackgroundDrawable(null);
                             EntrepreneurProfileFragment.et_rate.setFocusableInTouchMode(false);
@@ -469,7 +469,7 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
 
                     } else {
                         if (!et_dob.getText().toString().trim().isEmpty() && !DateTimeFormatClass.compareDates(DateTimeFormatClass.convertStringObjectToDate(et_dob.getText().toString().trim()))) {
-                            ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton("Date of Birth must be before than current date!");
+                            ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton("Date of Birth must be before the current date!");
                         } else {
                             ProfileFragment.et_rate.setBackgroundDrawable(null);
                             ProfileFragment.et_rate.setFocusableInTouchMode(false);
@@ -707,21 +707,21 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
                                 }
                             } else if (obj.getString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
                                 if (!obj.optJSONObject("errors").optString("bio").isEmpty()) {
-                                    ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton("Bio field is required!");
+                                    ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(obj.optJSONObject("errors").optString("bio"));
                                 } else if (!obj.optJSONObject("errors").optString("last_name").isEmpty()) {
                                     ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(obj.optJSONObject("errors").optString("last_name"));
                                 } else if (!obj.optJSONObject("errors").optString("first_name").isEmpty()) {
                                     ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(obj.optJSONObject("errors").optString("first_name"));
                                 } else if (!obj.optJSONObject("errors").optString("date_of_birth").isEmpty()) {
-                                    ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton("Date-of-Birth is required!");
+                                    ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(obj.optJSONObject("errors").optString("date_of_birth"));
                                 } else if (!obj.optJSONObject("errors").optString("country_id").isEmpty()) {
-                                    ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton("Country is required!");
+                                    ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(obj.optJSONObject("errors").optString("country_id"));
                                 } else if (!obj.optJSONObject("errors").optString("state_id").isEmpty()) {
-                                    ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton("State is required!");
+                                    ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(obj.optJSONObject("errors").optString("state_id"));
                                 } else if (!obj.optJSONObject("errors").optString("phoneno").isEmpty()) {
                                     ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(obj.optJSONObject("errors").optString("phoneno"));
                                 } else if (!obj.optJSONObject("errors").optString("price").isEmpty()) {
-                                    ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton("Rate is required!");
+                                    ((HomeActivity) getActivity()).utilitiesClass.alertDialogSingleButton(obj.optJSONObject("errors").optString("price"));
                                 }
 
                             }

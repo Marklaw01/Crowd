@@ -153,7 +153,7 @@ public class CurrentStartUpDetailFragment extends Fragment {
             //adapter.addFrag(IntoStartUpFragment.getInstance(STARTUP_ID), "Overview");
             adapter.addFrag(new IntoStartUpFragment(), "Overview");
             adapter.addFrag(new TeamStartUpFragment(), "Team");
-            adapter.addFrag(new WorkOrderStartUpEntrepreneur(), "Work Orders");
+            adapter.addFrag(new WorkOrderStartUpEntrepreneur(), "Billed Work Orders");
             adapter.addFrag(new DocsSharingFragment(), "Docs");
             adapter.addFrag(new StartUpDocsFragment(), "Roadmap Docs");
             viewPager.setAdapter(adapter);
@@ -168,7 +168,7 @@ public class CurrentStartUpDetailFragment extends Fragment {
             ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
             adapter.addFrag(new IntoStartUpFragment(), "Overview");
             adapter.addFrag(new TeamStartUpFragment(), "Team");
-            adapter.addFrag(new WorkOrderStartUpFragment(), "Work Order");
+            adapter.addFrag(new WorkOrderStartUpFragment(), "Billed Work Order");
             adapter.addFrag(new DocsSharingFragment(), "Docs");
             viewPager.setAdapter(adapter);
         } catch (Exception e) {

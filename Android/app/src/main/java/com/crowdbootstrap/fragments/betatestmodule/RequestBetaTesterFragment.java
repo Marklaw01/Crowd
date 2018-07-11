@@ -281,6 +281,7 @@ public class RequestBetaTesterFragment extends Fragment implements onActivityRes
         btn_browse.setOnClickListener(this);
 
         btn_plus.setOnClickListener(this);
+        btnCreate.setText("Submit");
         btnCreate.setOnClickListener(this);
         image_fundImage.setOnClickListener(this);
         tv_deleteFile.setOnClickListener(this);

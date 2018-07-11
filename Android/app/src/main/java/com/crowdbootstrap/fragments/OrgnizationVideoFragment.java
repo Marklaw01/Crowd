@@ -33,7 +33,7 @@ public class OrgnizationVideoFragment extends Fragment {
                 if (!b) {
                     YPlayer = youTubePlayer;
                     YPlayer.setFullscreen(false);
-                    YPlayer.loadVideo("rzrUTei649c");
+                    YPlayer.loadVideo("TWH_aV6WinY");
                     YPlayer.play();
                 }
             }

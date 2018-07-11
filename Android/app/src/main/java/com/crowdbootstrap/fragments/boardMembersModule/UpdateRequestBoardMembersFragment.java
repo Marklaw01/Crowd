@@ -286,6 +286,7 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
         viewplayVideoArrow = (ImageView) rootView.findViewById(R.id.viewplayVideoArrow);
 
         et_title = (EditText) rootView.findViewById(R.id.et_title);
+        et_title.setHint("Board Membership Title");
         et_description = (EditText) rootView.findViewById(R.id.et_description);
         et_interestKeywords = (EditText) rootView.findViewById(R.id.et_interestKeywords);
         et_keywords = (EditText) rootView.findViewById(R.id.et_keywords);
@@ -425,6 +426,7 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
         et_interestKeywords.setOnClickListener(this);
 
         btn_plus.setOnClickListener(this);
+        btnCreate.setText("Submit");
         btnCreate.setOnClickListener(this);
         image_fundImage.setOnClickListener(this);
         tv_deleteFile.setOnClickListener(this);
@@ -658,6 +660,9 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
             for (int i = 0; i < pathofmedia.size(); i++) {
                 if ((pathofmedia.get(i).getPath().equals(path))/* && (pathofmedia.get(i).getPath().equals(fileName))*/) {
                     alreadyexist = true;
+
+
+
                 }
             }
             if (!alreadyexist) {
@@ -1699,7 +1704,7 @@ public class UpdateRequestBoardMembersFragment extends Fragment implements onAct
                                     Toast.makeText(getActivity(), jsonObject.optString("message"), Toast.LENGTH_LONG).show();
                                     getActivity().onBackPressed();
                                 } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
-
+                                    Toast.makeText(getActivity(), jsonObject.optString("message"), Toast.LENGTH_LONG).show();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();

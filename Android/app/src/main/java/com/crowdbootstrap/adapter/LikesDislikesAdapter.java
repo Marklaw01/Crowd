@@ -2,12 +2,15 @@ package com.crowdbootstrap.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.crowdbootstrap.activities.HomeActivity;
+import com.crowdbootstrap.fragments.ViewOtherContractorPublicProfileFragment;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.crowdbootstrap.R;
@@ -72,6 +75,7 @@ public class LikesDislikesAdapter extends BaseAdapter {
             holder.fundTitle = (TextView) convertView.findViewById(R.id.personName);
             holder.fundDescription = (TextView) convertView.findViewById(R.id.aboutMe);
             holder.fund_icon = (CircleImageView) convertView.findViewById(R.id.profileimage);
+            holder.viewProfile =  (TextView) convertView.findViewById(R.id.viewBtn);
             convertView.setTag(holder);
 
         } else {
@@ -81,13 +85,24 @@ public class LikesDislikesAdapter extends BaseAdapter {
         holder.fundTitle.setText(list.get(position).getName());
         holder.fundDescription.setText(list.get(position).getBio());
         ImageLoader.getInstance().displayImage(Constants.APP_IMAGE_URL + list.get(position).getImage(), holder.fund_icon);
+        holder.viewProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString("COMMING_FROM", Constants.LIKE_DISLIKE);
+                bundle.putString("id", list.get(position).getId());
+                ViewOtherContractorPublicProfileFragment profile = new ViewOtherContractorPublicProfileFragment();
+                profile.setArguments(bundle);
+                (((HomeActivity) context)).replaceFragment(profile);
+            }
+        });
 
         return convertView;
     }
 
 
     static class ViewHolder {
-        TextView fundTitle, fundDescription;
+        TextView fundTitle, fundDescription,viewProfile;
         CircleImageView fund_icon;
     }
 }

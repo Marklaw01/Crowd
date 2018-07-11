@@ -10,6 +10,33 @@ public class ContractorsObject {
     private int isContributorType;
     private String isPublicProfile;
     private String invitationSent;
+    private String businessConnectionTypeId;
+    private String cardId;
+    private String isNetwork;
+
+    public String getIsNetwork() {
+        return isNetwork;
+    }
+
+    public void setIsNetwork(String isNetwork) {
+        this.isNetwork = isNetwork;
+    }
+
+    public String getCardId() {
+        return cardId;
+    }
+
+    public void setCardId(String cardId) {
+        this.cardId = cardId;
+    }
+
+    public String getBusinessConnectionTypeId() {
+        return businessConnectionTypeId;
+    }
+
+    public void setBusinessConnectionTypeId(String businessConnectionTypeId) {
+        this.businessConnectionTypeId = businessConnectionTypeId;
+    }
 
     public String getIsPublicProfile() {
         return isPublicProfile;

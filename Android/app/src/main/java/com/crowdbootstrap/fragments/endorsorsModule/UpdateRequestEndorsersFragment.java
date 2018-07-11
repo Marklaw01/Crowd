@@ -298,7 +298,7 @@ public class UpdateRequestEndorsersFragment extends Fragment implements onActivi
         et_targetMarket = (EditText) rootView.findViewById(R.id.et_targetMarket);
         //et_portfolio = (EditText) rootView.findViewById(R.id.et_portfolio);
         //et_keywords = (EditText) rootView.findViewById(R.id.et_keywords);
-
+        et_title.setHint("Endorsement Title");
         //et_fundsClosedDate = (EditText) rootView.findViewById(R.id.et_fundsClosedDate);
         et_endDate = (EditText) rootView.findViewById(R.id.et_endDate);
         et_start_date = (EditText) rootView.findViewById(R.id.et_start_date);
@@ -434,6 +434,7 @@ public class UpdateRequestEndorsersFragment extends Fragment implements onActivi
         et_interestKeywords.setOnClickListener(this);
 
         btn_plus.setOnClickListener(this);
+        btnCreate.setText("Submit");
         btnCreate.setOnClickListener(this);
         image_fundImage.setOnClickListener(this);
         tv_deleteFile.setOnClickListener(this);
@@ -1715,7 +1716,7 @@ public class UpdateRequestEndorsersFragment extends Fragment implements onActivi
                                     Toast.makeText(getActivity(), "Updated successfully.", Toast.LENGTH_LONG).show();
                                     getActivity().onBackPressed();
                                 } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
-
+                                    Toast.makeText(getActivity(), jsonObject.optString("message"), Toast.LENGTH_LONG).show();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();

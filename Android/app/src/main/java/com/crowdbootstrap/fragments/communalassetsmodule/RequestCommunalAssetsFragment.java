@@ -237,6 +237,7 @@ public class RequestCommunalAssetsFragment extends Fragment implements onActivit
         descriptionLbl.setText("Communal Asset Description");
         startDateTV.setText("Communal Asset Start Date");
         endDateTV.setText("Communal Asset End Date");
+        et_title.setHint("Communal Asset Title");
         spinner_uploadFileType = (Spinner) rootView.findViewById(R.id.spinner_uploadFileType);
         pathofmedia = new ArrayList<Mediabeans>();
         // tv = (TextView) rootView.findViewById(R.id.tv);
@@ -294,6 +295,7 @@ public class RequestCommunalAssetsFragment extends Fragment implements onActivit
         btn_browse.setOnClickListener(this);
 
         btn_plus.setOnClickListener(this);
+        btnCreate.setText("Submit");
         btnCreate.setOnClickListener(this);
         image_fundImage.setOnClickListener(this);
         tv_deleteFile.setOnClickListener(this);

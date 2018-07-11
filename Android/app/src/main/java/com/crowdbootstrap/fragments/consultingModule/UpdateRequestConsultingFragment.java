@@ -316,7 +316,8 @@ public class UpdateRequestConsultingFragment extends Fragment implements onActiv
         endDateTV.setText("Deadline for commitment to bid");
         titleTV.setText("Consulting Project Title");
         descriptionlbl.setText("Project Overview");
-
+        et_description.setHint("Project Overview");
+        et_title.setHint("Consulting Project Title");
 
         searchFocusGroups = (Button) rootView.findViewById(R.id.searchBoardMember);
         searchFocusGroups.setVisibility(View.GONE);
@@ -574,6 +575,7 @@ public class UpdateRequestConsultingFragment extends Fragment implements onActiv
         et_interestKeywords.setOnClickListener(this);
 
         btn_plus.setOnClickListener(this);
+        btnCreate.setText("Submit");
         btnCreate.setOnClickListener(this);
         image_fundImage.setOnClickListener(this);
         tv_deleteFile.setOnClickListener(this);
@@ -2065,7 +2067,7 @@ public class UpdateRequestConsultingFragment extends Fragment implements onActiv
                                     Toast.makeText(getActivity(), "Your Consulting assignment is updated successfully.", Toast.LENGTH_LONG).show();
                                     getActivity().onBackPressed();
                                 } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
-
+                                    Toast.makeText(getActivity(), jsonObject.optString("message"), Toast.LENGTH_LONG).show();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();

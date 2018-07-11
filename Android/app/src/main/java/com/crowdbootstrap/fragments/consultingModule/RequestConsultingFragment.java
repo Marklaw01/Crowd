@@ -247,8 +247,8 @@ public class RequestConsultingFragment extends Fragment implements onActivityRes
 
         titleTV.setText("Consulting Project Title");
         descriptionlbl.setText("Project Overview");
-
-
+        et_description.setHint("Project Overview");
+        et_title.setHint("Consulting Project Title");
         // Layouts to be made visible in consulting
         conditionsTV = (TextView) rootView.findViewById(R.id.conditionlbl);
         et_conditions = (EditText) rootView.findViewById(R.id.et_condition);
@@ -348,7 +348,7 @@ public class RequestConsultingFragment extends Fragment implements onActivityRes
 
         btn_browse.setTag(0);
         btn_browse.setOnClickListener(this);
-        btnCreate.setText("Create");
+        btnCreate.setText("Submit");
         btn_plus.setOnClickListener(this);
         btnCreate.setOnClickListener(this);
         image_fundImage.setOnClickListener(this);

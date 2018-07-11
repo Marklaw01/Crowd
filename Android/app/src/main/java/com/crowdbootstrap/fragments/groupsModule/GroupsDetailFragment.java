@@ -157,6 +157,7 @@ public class GroupsDetailFragment extends Fragment implements View.OnClickListen
         endDateTV.setText("Group Availability End Date");
         titleTV.setText("Group Title");
         descriptionlbl.setText("Group Description");
+        et_title.setHint("Group Title");
         expandable_playAudio.getViewTreeObserver().addOnPreDrawListener(
                 new ViewTreeObserver.OnPreDrawListener() {
 

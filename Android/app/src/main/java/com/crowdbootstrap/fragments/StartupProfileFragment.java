@@ -141,6 +141,7 @@ public class StartupProfileFragment extends Fragment implements AdapterView.OnIt
             Bundle args = new Bundle();
             args.putString("id", currentStartupsList.get(position).getId());
             args.putString("startupname", currentStartupsList.get(position).getStartUpName());
+            args.putString("from","startupProfile");
             uploadStartupProfile.setArguments(args);
             FragmentTransaction ft = getFragmentManager().beginTransaction();
             ft.add(R.id.container, uploadStartupProfile);

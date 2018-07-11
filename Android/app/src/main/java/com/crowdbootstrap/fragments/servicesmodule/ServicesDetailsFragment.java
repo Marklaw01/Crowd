@@ -52,7 +52,7 @@ public class ServicesDetailsFragment extends Fragment implements View.OnClickLis
     private ImageView viewDocumentArrow, viewplayAudioArrow, viewplayVideoArrow;
     private LinearLayout btn_playAudio, btn_viewDocument, btn_playVideo;
     private LinearLayout expandable_playAudio, expandable_viewDocument, expandable_playVideo;
-    private TextView startDateTV, endDateTV, titleTV, descriptionlbl,keywordTV;
+    private TextView startDateTV, endDateTV, titleTV, descriptionlbl, keywordTV;
 
     private ValueAnimator mAnimatorForDoc, mAnimatorForAudio, mAnimatorForVideo;
     private TextView list_audios, list_docs, list_video;
@@ -144,6 +144,7 @@ public class ServicesDetailsFragment extends Fragment implements View.OnClickLis
         et_start_date = (EditText) rootView.findViewById(R.id.et_start_date);
 
 
+        et_title.setHint("Service Title");
         expandable_playAudio = (LinearLayout) rootView.findViewById(R.id.expandable_playAudio);
         expandable_playVideo = (LinearLayout) rootView.findViewById(R.id.expandable_playVideo);
         expandable_viewDocument = (LinearLayout) rootView.findViewById(R.id.expandable_viewDocument);

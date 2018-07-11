@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crowdbootstrap.R;
@@ -57,6 +58,7 @@ public class UploadStartupProfileFragment extends Fragment implements View.OnCli
     private Button btnUpload, btn_browseFile;
     private EditText startupName, filename;
     private String STARTUP_ID, titleStartup;
+    private TextView startupProfileLink;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -69,6 +71,31 @@ public class UploadStartupProfileFragment extends Fragment implements View.OnCli
         btn_browseFile = (Button) rootView.findViewById(R.id.browsefile);
         startupName = (EditText) rootView.findViewById(R.id.startupname);
         startupName.setText(titleStartup);
+        startupProfileLink = (TextView) rootView.findViewById(R.id.startupProfileLink);
+
+        if(getArguments().getString("from").compareTo("startupDoc") == 0) {
+            startupProfileLink.setText("Profile Uploaded Link: " + Constants.APP_IMAGE_URL + "/" + IntoStartUpFragment.startUpProfileLink);
+            Log.e("xxx", "LINK NAME++++" + startupProfileLink.getText().toString());
+            if (!IntoStartUpFragment.startUpProfileLink.isEmpty()) {
+                startupProfileLink.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Fragment rateContributor = new WebViewFragment();
+
+                        Bundle bundle = new Bundle();
+
+                        bundle.putString("url", Constants.APP_IMAGE_URL + "/" + IntoStartUpFragment.startUpProfileLink);
+                        rateContributor.setArguments(bundle);
+                        ((HomeActivity) getActivity()).replaceFragment(rateContributor);
+                    }
+                });
+
+            } else {
+                startupProfileLink.setVisibility(View.GONE);
+            }
+        }else{
+            startupProfileLink.setVisibility(View.GONE);
+        }
 
         filename = (EditText) rootView.findViewById(R.id.filename);
 
@@ -112,7 +139,7 @@ public class UploadStartupProfileFragment extends Fragment implements View.OnCli
                 }*/ else {
                     HashMap<String, String> map = new HashMap<String, String>();
 
-                    map.put("startup_id",STARTUP_ID);
+                    map.put("startup_id", STARTUP_ID);
                     map.put("user_id", ((HomeActivity) getActivity()).prefManager.getString(Constants.USER_ID));
                     map.put("file_name", filename.getText().toString().trim());
                     map.put("status", "0");
@@ -313,8 +340,9 @@ public class UploadStartupProfileFragment extends Fragment implements View.OnCli
 
                         Toast.makeText(getActivity(), jsonObject.optString("message"), Toast.LENGTH_LONG).show();
                         getActivity().onBackPressed();
+//                        getActivity().onBackPressed();
                     } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
-                        if (!jsonObject.optJSONObject("errors").optString("file_name").isEmpty()){
+                        if (!jsonObject.optJSONObject("errors").optString("file_name").isEmpty()) {
                             Toast.makeText(getActivity(), jsonObject.optJSONObject("errors").optString("file_name"), Toast.LENGTH_LONG).show();
                         }
                     }

@@ -186,11 +186,18 @@ public class MyForumsFragment extends Fragment implements View.OnClickListener, 
                     switch (index) {
                         case 0:
                             if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
-                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
 
                                 alertDialogBuilder
                                         .setMessage("Do you want to close this forum?")
                                         .setCancelable(false)
+                                        .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int arg1) {
+                                                dialog.dismiss();
+                                            }
+                                        })
                                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
 
                                             @Override
@@ -222,11 +229,18 @@ public class MyForumsFragment extends Fragment implements View.OnClickListener, 
                         case 1:
 
                             if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
-                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
 
                                 alertDialogBuilder
                                         .setMessage("Do you want to archive this forum?")
                                         .setCancelable(false)
+                                        .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int arg1) {
+                                                dialog.dismiss();
+                                            }
+                                        })
                                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
 
                                             @Override
@@ -265,11 +279,18 @@ public class MyForumsFragment extends Fragment implements View.OnClickListener, 
                             break;
                         case 2:
                             if (((HomeActivity) getActivity()).networkConnectivity.isOnline()) {
-                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
 
                                 alertDialogBuilder
                                         .setMessage("Do you want to delete this forum?")
                                         .setCancelable(false)
+                                        .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int arg1) {
+                                                dialog.dismiss();
+                                            }
+                                        })
                                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
 
                                             @Override

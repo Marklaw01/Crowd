@@ -236,7 +236,7 @@ public class RequestFocusGroupFragment extends Fragment implements onActivityRes
         descriptionLbl.setText("Focus Group Description");
         startDateTV.setText("Focus Group Start Date");
         endDateTV.setText("Focus Group End Date");
-
+        et_title.setHint("Focus Group Title");
         spinner_uploadFileType = (Spinner) rootView.findViewById(R.id.spinner_uploadFileType);
         pathofmedia = new ArrayList<Mediabeans>();
         // tv = (TextView) rootView.findViewById(R.id.tv);
@@ -293,6 +293,7 @@ public class RequestFocusGroupFragment extends Fragment implements onActivityRes
         btn_browse.setOnClickListener(this);
 
         btn_plus.setOnClickListener(this);
+        btnCreate.setText("Submit");
         btnCreate.setOnClickListener(this);
         image_fundImage.setOnClickListener(this);
         tv_deleteFile.setOnClickListener(this);

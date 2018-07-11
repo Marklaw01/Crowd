@@ -131,7 +131,7 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
     private TextView privacyPolicy;
     private TextView facebookRequest;
     private TextView googleRequest;
-    private static final String TAG = HomeActivity.class.getSimpleName();
+    private static final String TAG ="SIGNUP";
     public static final String PACKAGE_MOBILE_SDK_SAMPLE_APP = "com.crowdbootstrap.fragments";
 
     private TextView linkedinRequest;
@@ -268,11 +268,15 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
                 .requestEmail()
                 .build();
 
-        mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
-                .enableAutoManage(getActivity(), this)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
+        try {
+            mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
+                    .enableAutoManage(getActivity(), this)
+                    .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                    .build();
 
+        } catch(Exception e){
+
+        }
 
         googleRequest.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -493,9 +497,9 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
         };*/
 
 
-        UsPhoneNumberFormatter addLineNumberFormatter = new UsPhoneNumberFormatter(
-                new WeakReference<EditText>(et_phoneNumber));
-        et_phoneNumber.addTextChangedListener(addLineNumberFormatter);
+//        UsPhoneNumberFormatter addLineNumberFormatter = new UsPhoneNumberFormatter(
+//                new WeakReference<EditText>(et_phoneNumber));
+//        et_phoneNumber.addTextChangedListener(addLineNumberFormatter);
 
 
         btn_signup.setOnClickListener(new View.OnClickListener() {
@@ -631,6 +635,13 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
 
     private static Scope buildScope() {
         return Scope.build(Scope.R_BASICPROFILE, Scope.W_SHARE);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mGoogleApiClient.stopAutoManage(getActivity());
+        mGoogleApiClient.disconnect();
     }
 
     @Override
@@ -788,9 +799,12 @@ public class SignupFragment extends Fragment implements AsyncTaskCompleteListene
         } else if (!et_ConfPassword.getText().toString().trim().equals(et_password.getText().toString().trim())) {
             et_ConfPassword.setError("Password and Confirm Password must be same!", getResources().getDrawable(android.R.drawable.ic_dialog_alert));
             requestFocus(et_ConfPassword);
-        } else if (spinnersPreDefinedQuestions.size() == 0) {
-            ((LoginActivity) getActivity()).utilitiesClass.alertDialogSingleButton("Please select at-least one security question!");
-        } else {
+        }
+
+//        else if (spinnersPreDefinedQuestions.size() == 0) {
+//            ((LoginActivity) getActivity()).utilitiesClass.alertDialogSingleButton("Please select at least one security question!");
+//        }
+        else {
 //            if (!et_DOB.getText().toString().trim().isEmpty() && !DateTimeFormatClass.compareDates(myCalendar.getTime())) {
 //                ((LoginActivity) getActivity()).utilitiesClass.alertDialogSingleButton("Date of Birth must be before than current date!");
 //            } else {

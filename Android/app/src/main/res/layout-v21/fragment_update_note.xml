@@ -100,7 +100,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_weight="0.5"
                 android:background="@drawable/blue_button"
-                android:text="Update"
+                android:text="Edit"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
         </LinearLayout>

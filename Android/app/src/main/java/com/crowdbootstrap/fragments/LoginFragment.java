@@ -22,17 +22,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.crowdbootstrap.R;
-import com.crowdbootstrap.RegistrationIntentService;
-import com.crowdbootstrap.activities.GettingStartedActivity;
-import com.crowdbootstrap.activities.LoginActivity;
-import com.crowdbootstrap.helper.CustomEditTextView;
-import com.crowdbootstrap.listeners.AsyncTaskCompleteListener;
-import com.crowdbootstrap.logger.CrowdBootstrapLogger;
-import com.crowdbootstrap.utilities.Async;
-import com.crowdbootstrap.utilities.AsyncNew;
-import com.crowdbootstrap.utilities.Constants;
-import com.crowdbootstrap.utilities.UtilitiesClass;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.quickblox.auth.QBAuth;
 import com.quickblox.auth.model.QBSession;
@@ -44,6 +33,16 @@ import com.quickblox.messages.model.QBEnvironment;
 import com.quickblox.messages.model.QBNotificationChannel;
 import com.quickblox.messages.model.QBSubscription;
 import com.quickblox.users.model.QBUser;
+import com.crowdbootstrap.R;
+import com.crowdbootstrap.RegistrationIntentService;
+import com.crowdbootstrap.activities.HomeActivity;
+import com.crowdbootstrap.activities.LoginActivity;
+import com.crowdbootstrap.helper.CustomEditTextView;
+import com.crowdbootstrap.listeners.AsyncTaskCompleteListener;
+import com.crowdbootstrap.logger.CrowdBootstrapLogger;
+import com.crowdbootstrap.utilities.AsyncNew;
+import com.crowdbootstrap.utilities.Constants;
+import com.crowdbootstrap.utilities.UtilitiesClass;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,21 +51,12 @@ import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 
-/*import com.quickblox.core.QBEntityCallbackImpl;
-import com.quickblox.users.model.QBUser;
-
-tested on staging testcommit
-
-
-
-
-*/
 
 public class LoginFragment extends Fragment implements View.OnClickListener, AsyncTaskCompleteListener<String> {
 
     String android_id;
     private Button btn_signup, btn_login;
-    private TextView tv_forgotPassword;
+    private TextView tv_forgotPassword, tv_aboutCrowdBootstrap, tv_resendConfirmationLink;
     private CustomEditTextView et_email, et_password;
     //private CustomEditTextView et_email;
     UtilitiesClass utils;
@@ -84,7 +74,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Asy
 
         btn_signup = (Button) rootView.findViewById(R.id.btn_signup);
         tv_forgotPassword = (TextView) rootView.findViewById(R.id.tv_forgotPassword);
+        tv_aboutCrowdBootstrap = (TextView) rootView.findViewById(R.id.tv_aboutCrowdBootstrap);
         btn_login = (Button) rootView.findViewById(R.id.btn_login);
+        tv_resendConfirmationLink = (TextView) rootView.findViewById(R.id.tv_resendConfirmation);
 
         utils = UtilitiesClass.getInstance((LoginActivity) getActivity());
         if (((LoginActivity) getActivity()).checkPlayServices()) {
@@ -103,6 +95,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Asy
         btn_login.setOnClickListener(this);
         btn_signup.setOnClickListener(this);
         tv_forgotPassword.setOnClickListener(this);
+        tv_aboutCrowdBootstrap.setOnClickListener(this);
+        tv_resendConfirmationLink.setOnClickListener(this);
 
         et_password.setImeOptions(EditorInfo.IME_ACTION_DONE);
         et_password.setOnEditorActionListener(new EditText.OnEditorActionListener() {
@@ -205,6 +199,11 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Asy
             case R.id.btn_login:
                 submitLogin();
                 break;
+
+            case R.id.tv_aboutCrowdBootstrap:
+                LoginInfoFragment aboutCrowdFragment = new LoginInfoFragment();
+                getFragmentManager().beginTransaction().replace(R.id.container, aboutCrowdFragment).addToBackStack(null).commit();
+                break;
             case R.id.btn_signup:
                 SignupFragment signupFragment = new SignupFragment();
                 getFragmentManager().beginTransaction().replace(R.id.container, signupFragment).addToBackStack(null).commit();
@@ -212,6 +211,12 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Asy
             case R.id.tv_forgotPassword:
                 ForgotPasswordFragment forgotPasswordFragment = new ForgotPasswordFragment();
                 getFragmentManager().beginTransaction().replace(R.id.container, forgotPasswordFragment).addToBackStack(null).commit();
+                break;
+
+            case R.id.tv_resendConfirmation:
+                ResendConfirmationFragment resendConfirmationFragment = new ResendConfirmationFragment();
+                getFragmentManager().beginTransaction().replace(R.id.container, resendConfirmationFragment).addToBackStack(null).commit();
+
                 break;
         }
     }
@@ -320,6 +325,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Asy
                     public void onSuccess(Object o, Bundle bundle) {
                         if (((LoginActivity) getActivity()).isShowingProgressDialog()) {
                             ((LoginActivity) getActivity()).dismissProgressDialog();
+
                         }
                         CrowdBootstrapLogger.logInfo("endTime" + String.valueOf(System.currentTimeMillis()));
                         /*((LoginActivity)getActivity()).runOnUiThread(new Runnable() {
@@ -331,7 +337,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Asy
 
                         ((LoginActivity) getActivity()).prefManager.saveQbUser(user);
                         ((LoginActivity) getActivity()).prefManager.storeString(Constants.QUICKBLOX_SESSION_TOKEN, session.getToken());
-                        Intent go = new Intent(getActivity(), GettingStartedActivity.class);
+                        Intent go = new Intent(getActivity(), HomeActivity.class);
                         startActivity(go);
                         getActivity().finish();
                     }
@@ -352,7 +358,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Asy
                             });*/
                             ((LoginActivity) getActivity()).prefManager.saveQbUser(user);
                             ((LoginActivity) getActivity()).prefManager.storeString(Constants.QUICKBLOX_SESSION_TOKEN, session.getToken());
-                            Intent go = new Intent(getActivity(), GettingStartedActivity.class);
+                            Intent go = new Intent(getActivity(), HomeActivity.class);
                             startActivity(go);
                             getActivity().finish();
                         } else {
@@ -368,6 +374,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Asy
                 CrowdBootstrapLogger.logInfo("sessioninerror" + errors.toString());
                 unRegisterInBackground();
             }
+
+
+
+
         });
 
     }

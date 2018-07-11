@@ -297,7 +297,7 @@ public class UpdateRequestWebinarsFragment extends Fragment implements onActivit
         endDateTV.setText("Webinar Availability End Date");
         titleTV.setText("Webinar Title");
         descriptionlbl.setText("Webinar Description");
-
+        et_title.setHint("Webinar Title");
 
 
         searchFocusGroups = (Button) rootView.findViewById(R.id.searchBoardMember);
@@ -438,6 +438,7 @@ public class UpdateRequestWebinarsFragment extends Fragment implements onActivit
         et_interestKeywords.setOnClickListener(this);
 
         btn_plus.setOnClickListener(this);
+        btnCreate.setText("Submit");
         btnCreate.setOnClickListener(this);
         image_fundImage.setOnClickListener(this);
         tv_deleteFile.setOnClickListener(this);
@@ -1719,7 +1720,7 @@ public class UpdateRequestWebinarsFragment extends Fragment implements onActivit
                                     Toast.makeText(getActivity(), "Your event is updated successfully.", Toast.LENGTH_LONG).show();
                                     getActivity().onBackPressed();
                                 } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
-
+                                    Toast.makeText(getActivity(), jsonObject.optString("message"), Toast.LENGTH_LONG).show();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();

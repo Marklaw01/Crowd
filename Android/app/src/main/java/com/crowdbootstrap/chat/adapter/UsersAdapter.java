@@ -54,9 +54,9 @@ public class UsersAdapter extends BaseListAdapter<QBUser> {
 
         try {
             if (isUserMe(user)) {
-                holder.loginTextView.setText(user.getFullName());
+                holder.loginTextView.setText(user.getLogin());
             } else {
-                holder.loginTextView.setText(user.getFullName());
+                holder.loginTextView.setText(user.getLogin());
             }
 
             ImageLoader.getInstance().displayImage("", holder.userImageView, options);

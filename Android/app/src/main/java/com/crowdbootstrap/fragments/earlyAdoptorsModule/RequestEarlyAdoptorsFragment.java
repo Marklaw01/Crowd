@@ -235,7 +235,7 @@ public class RequestEarlyAdoptorsFragment extends Fragment implements onActivity
         descriptionLbl.setText("Early Adopter Description");
         startDateTV.setText("Early Adopter Start Date");
         endDateTV.setText("Early Adopter End Date");
-
+        et_title.setHint("Early Adopter Title");
 
         spinner_uploadFileType = (Spinner) rootView.findViewById(R.id.spinner_uploadFileType);
         pathofmedia = new ArrayList<Mediabeans>();
@@ -294,6 +294,7 @@ public class RequestEarlyAdoptorsFragment extends Fragment implements onActivity
         btn_browse.setOnClickListener(this);
 
         btn_plus.setOnClickListener(this);
+        btnCreate.setText("Submit");
         btnCreate.setOnClickListener(this);
         image_fundImage.setOnClickListener(this);
         tv_deleteFile.setOnClickListener(this);

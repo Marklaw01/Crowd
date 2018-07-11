@@ -213,6 +213,7 @@ public class RequestBoardMembersFragment extends Fragment implements onActivityR
 
 
         et_title = (EditText) rootView.findViewById(R.id.et_title);
+        et_title.setHint("Board Membership Title");
         et_description = (EditText) rootView.findViewById(R.id.et_description);
         et_interestKeywords = (EditText) rootView.findViewById(R.id.et_interestKeywords);
         et_keywords = (EditText) rootView.findViewById(R.id.et_keywords);
@@ -281,6 +282,7 @@ public class RequestBoardMembersFragment extends Fragment implements onActivityR
         btn_browse.setOnClickListener(this);
 
         btn_plus.setOnClickListener(this);
+        btnCreate.setText("Submit");
         btnCreate.setOnClickListener(this);
         image_fundImage.setOnClickListener(this);
         tv_deleteFile.setOnClickListener(this);

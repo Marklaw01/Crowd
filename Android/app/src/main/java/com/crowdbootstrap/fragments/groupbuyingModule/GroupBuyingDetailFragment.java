@@ -157,6 +157,7 @@ public class GroupBuyingDetailFragment extends Fragment implements View.OnClickL
         endDateTV.setText("Group Buying Availability End Date");
         titleTV.setText("Group Buying Title");
         descriptionlbl.setText("Group Buying Description");
+        et_title.setHint("Group Buying Title");
         expandable_playAudio.getViewTreeObserver().addOnPreDrawListener(
                 new ViewTreeObserver.OnPreDrawListener() {
 
@@ -467,24 +468,24 @@ public class GroupBuyingDetailFragment extends Fragment implements View.OnClickL
                         et_endDate.setText(jsonObject.getString("end_date"));
                         ImageLoader.getInstance().displayImage(Constants.APP_IMAGE_URL + jsonObject.getString("image").trim(), image_roadmap);
 
-                        if (jsonObject.has("interest_keywords")) {
+                        if (jsonObject.has("interest_keywords_id")) {
                             StringBuilder sb = new StringBuilder();
-                            for (int i = 0; i < jsonObject.getJSONArray("interest_keywords").length(); i++) {
+                            for (int i = 0; i < jsonObject.getJSONArray("interest_keywords_id").length(); i++) {
                                 if (sb.length() > 0) {
                                     sb.append(", ");
                                 }
-                                sb.append(jsonObject.getJSONArray("interest_keywords").getJSONObject(i).getString("name"));
+                                sb.append(jsonObject.getJSONArray("interest_keywords_id").getJSONObject(i).getString("name"));
                             }
                             et_interestKeywords.setText(sb.toString());
                         }
 
-                        if (jsonObject.has("keywords")) {
+                        if (jsonObject.has("keywords_id")) {
                             StringBuilder sb = new StringBuilder();
-                            for (int i = 0; i < jsonObject.getJSONArray("keywords").length(); i++) {
+                            for (int i = 0; i < jsonObject.getJSONArray("keywords_id").length(); i++) {
                                 if (sb.length() > 0) {
                                     sb.append(", ");
                                 }
-                                sb.append(jsonObject.getJSONArray("keywords").getJSONObject(i).getString("name"));
+                                sb.append(jsonObject.getJSONArray("keywords_id").getJSONObject(i).getString("name"));
                             }
                             et_keywords.setText(sb.toString());
                         }

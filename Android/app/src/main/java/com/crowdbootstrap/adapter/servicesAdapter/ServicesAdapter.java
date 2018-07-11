@@ -203,11 +203,18 @@ public class ServicesAdapter extends BaseAdapter implements View.OnClickListener
     }
 
     private void showDialog(final int position, String message, final String url) {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context,R.style.MyDialogTheme);
 
         alertDialogBuilder
                 .setMessage(message)
                 .setCancelable(false)
+                .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int arg1) {
+                        dialog.dismiss();
+                    }
+                })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int arg1) {

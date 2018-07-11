@@ -143,7 +143,7 @@ public class ConferencesDetailsFragment extends Fragment implements View.OnClick
         et_endDate = (EditText) rootView.findViewById(R.id.et_endDate);
         et_start_date = (EditText) rootView.findViewById(R.id.et_start_date);
 
-
+        et_title.setHint("Conference Title");
         expandable_playAudio = (LinearLayout) rootView.findViewById(R.id.expandable_playAudio);
         expandable_playVideo = (LinearLayout) rootView.findViewById(R.id.expandable_playVideo);
         expandable_viewDocument = (LinearLayout) rootView.findViewById(R.id.expandable_viewDocument);

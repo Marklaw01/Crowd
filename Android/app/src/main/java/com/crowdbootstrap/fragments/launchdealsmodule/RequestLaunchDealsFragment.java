@@ -234,6 +234,7 @@ public class RequestLaunchDealsFragment extends Fragment implements onActivityRe
         endDateTV.setText("Launch Deal Availability End Date");
         titleTV.setText("Launch Deal Title");
         descriptionlbl.setText("Launch Deal Description");
+        et_title.setHint("Launch Deal Title");
 
         spinner_uploadFileType = (Spinner) rootView.findViewById(R.id.spinner_uploadFileType);
         pathofmedia = new ArrayList<Mediabeans>();
@@ -289,7 +290,7 @@ public class RequestLaunchDealsFragment extends Fragment implements onActivityRe
 
         btn_browse.setTag(0);
         btn_browse.setOnClickListener(this);
-        btnCreate.setText("Create");
+        btnCreate.setText("Submit");
         btn_plus.setOnClickListener(this);
         btnCreate.setOnClickListener(this);
         image_fundImage.setOnClickListener(this);

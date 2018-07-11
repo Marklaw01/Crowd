@@ -234,7 +234,7 @@ public class RequestSelfImprovementFragment extends Fragment implements onActivi
         endDateTV.setText("Self Improvement Availability End Date");
         titleTV.setText("Self Improvement Title");
         descriptionlbl.setText("Self Improvement Description");
-
+        et_title.setHint("Self Improvement Title");
         spinner_uploadFileType = (Spinner) rootView.findViewById(R.id.spinner_uploadFileType);
         pathofmedia = new ArrayList<Mediabeans>();
         // tv = (TextView) rootView.findViewById(R.id.tv);
@@ -289,7 +289,7 @@ public class RequestSelfImprovementFragment extends Fragment implements onActivi
 
         btn_browse.setTag(0);
         btn_browse.setOnClickListener(this);
-        btnCreate.setText("Create");
+        btnCreate.setText("Submit");
         btn_plus.setOnClickListener(this);
         btnCreate.setOnClickListener(this);
         image_fundImage.setOnClickListener(this);

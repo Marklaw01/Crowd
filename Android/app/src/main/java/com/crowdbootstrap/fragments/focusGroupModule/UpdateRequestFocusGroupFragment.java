@@ -303,7 +303,7 @@ public class UpdateRequestFocusGroupFragment extends Fragment implements onActiv
         startDateTV.setText("Focus Group Start Date");
         endDateTV.setText("Focus Group End Date");
 
-
+        et_title.setHint("Focus Group Title");
         searchFocusGroups = (Button) rootView.findViewById(R.id.searchBoardMember);
         searchFocusGroups.setText("Search Recommended Focus Groups");
         searchFocusGroups.setOnClickListener(new View.OnClickListener() {
@@ -441,6 +441,7 @@ public class UpdateRequestFocusGroupFragment extends Fragment implements onActiv
         et_interestKeywords.setOnClickListener(this);
 
         btn_plus.setOnClickListener(this);
+        btnCreate.setText("Submit");
         btnCreate.setOnClickListener(this);
         image_fundImage.setOnClickListener(this);
         tv_deleteFile.setOnClickListener(this);
@@ -1721,7 +1722,7 @@ public class UpdateRequestFocusGroupFragment extends Fragment implements onActiv
                                     Toast.makeText(getActivity(), "Your fund is updated successfully.", Toast.LENGTH_LONG).show();
                                     getActivity().onBackPressed();
                                 } else if (jsonObject.optString(Constants.RESPONSE_STATUS_CODE).equalsIgnoreCase(Constants.RESPONSE_ERROR_STATUS_CODE)) {
-
+                                    Toast.makeText(getActivity(), jsonObject.optString("message"), Toast.LENGTH_LONG).show();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
