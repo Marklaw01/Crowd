@@ -89,7 +89,7 @@ public class ForgotPasswordFragment extends Fragment implements View.OnClickList
         } else {
             ((LoginActivity) getActivity()).showProgressDialog();
             if (((LoginActivity) getActivity()).networkConnectivity.isOnline()) {
-                Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FORGOT_PASSWORD_USER_QUESTIONS_LIST_TAG, Constants.FORGOT_PASSWORD_USER_QUESTIONS_LIST_URL + et_email.getText().toString().trim(), Constants.HTTP_GET,"Home Activity");
+                Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FORGOT_PASSWORD_USER_QUESTIONS_LIST_TAG, Constants.FORGOT_PASSWORD_USER_QUESTIONS_LIST_URL + et_email.getText().toString().trim(), Constants.HTTP_GET,"Login Activity");
                 a.execute();
             } else {
                 ((LoginActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
@@ -126,7 +126,7 @@ public class ForgotPasswordFragment extends Fragment implements View.OnClickList
                 if (et_answer.getText().toString().trim().equalsIgnoreCase(obj.getAnswer())) {
                     if (((LoginActivity) getActivity()).networkConnectivity.isOnline()) {
                         ((LoginActivity) getActivity()).showProgressDialog();
-                        Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FORGOT_PASSWORD_USER_MAIL_TAG, Constants.FORGOT_PASSWORD_USER_MAIL_URL + "?user_email=" + et_email.getText().toString().trim(), Constants.HTTP_GET,"Home Activity");
+                        Async a = new Async(getActivity(), (AsyncTaskCompleteListener<String>) getActivity(), Constants.FORGOT_PASSWORD_USER_MAIL_TAG, Constants.FORGOT_PASSWORD_USER_MAIL_URL + "?user_email=" + et_email.getText().toString().trim(), Constants.HTTP_GET,"Login Activity");
                         a.execute();
                     } else {
                         ((LoginActivity) getActivity()).utilitiesClass.alertDialogSingleButton(getString(R.string.no_internet_connection));
