@@ -1,0 +1,118 @@
+<?php
+namespace App\Controller\Admin;
+
+use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
+use Cake\Filesystem\Folder;
+use Cake\Filesystem\File;
+use Cake\Database\Expression\QueryExpression;
+use Cake\Mailer\Email;
+use Cake\Routing\Router;
+use Cake\Auth\DefaultPasswordHasher;
+
+/**
+* Users Controller
+*
+*@property\App\Model\Table\Users table $users
+*/ 
+
+class SubAdminsController extends AppController
+{
+    
+    /**
+    *  add method for users
+    *
+    *
+    *
+    */
+    
+    function add()
+    {
+              $this->loadModel('Users');
+              $this->loadModel('SubAdminDetails');
+              
+              $user = $this->Users->newEntity();
+              
+              if($this->request->is('post')){
+                  
+                  $user->status = 1; /* Insert status by default 1*/
+                  $user->role_id = 3; /* Insert role_id by default 2*/
+                  
+                  $this->request->data['password'] =  ucfirst(strtolower($this->request->data['username'])).'@'.rand('1','9999');
+                  
+                  //removing the validations of the user model dynamically
+                        
+                      $this->Users->validator()->remove('email');
+                      $this->Users->validator()->remove('confirm_password');
+                      $this->Users->validator()->remove('first_name');
+                      $this->Users->validator()->remove('last_name');
+                      $this->Users->validator()->remove('phoneno');
+                      $this->Users->validator()->remove('date_of_birth');
+                      $this->Users->validator()->remove('answer');
+                      $this->Users->validator()->remove('question_id');
+                      $this->Users->validator()->remove('country');
+                      $this->Users->validator()->remove('city');
+                      $this->Users->validator()->remove('terms');
+                      $this->Users->validator()->remove('best_availablity');
+                      
+                      $user = $this->Users->patchEntity($user, $this->request->data());
+                       
+                        if($user->errors())
+                        {
+                        
+                        //here we are getting the errors while validating the data
+                            
+                            $errors = $user->errors();
+                            
+                            foreach($errors as $key=>$error){
+                                foreach($error as $errorKey=>$errorMessage){
+                                        $finalErrors[$key] = $errorMessage;
+                                }
+                            }
+                           
+                        }else{
+                                
+                                if($result = $this->Users->save($user)){
+                                     
+                                     $user_id = $result->id;
+                                     
+                                //saving the data in subadmin details table
+                                     
+                                     $SubAdminDetails['user_id'] = $user_id;
+                                     $SubAdminDetails['company_name'] = $this->request->data['company_name'];
+                                        
+                                        $to = $this->request->data['email'];
+                                        $password = $this->request->data['password'];
+                                        
+                                        $SubAdminDetails = $this->SubAdminDetails->newEntity($SubAdminDetails);
+                                        
+                                        if($this->SubAdminDetails->save($SubAdminDetails)){
+                                                
+                                                $email = new Email();
+			
+                                                $email->template('addsubadmin')
+                                                     ->emailFormat('html')
+                                                     ->from(['Crowdbootstrap@crowdbootstrap.com' => 'Crowd Bootstrap'])
+                                                     ->to($to)
+                                                     ->subject('Crowd Bootstrap - Registration Confirmation') 
+                                                     ->viewVars(['email' => $to, 'password' => $password])                  
+                                                     ->send();
+                                                
+                                        }
+                                        
+                                        $this->Flash->success(__('The SubAdmin has been created successfully.'));
+                                        return $this->redirect($this->referer());
+                                }else{
+                                        $this->Flash->error(__('The SubAdmin has not been created.'));
+                                        return $this->redirect($this->referer());
+                                }
+                        }
+                        
+                }
+        
+        $this->set('user', $user);
+        
+    }
+
+}
+?>

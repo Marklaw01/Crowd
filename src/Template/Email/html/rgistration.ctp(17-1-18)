@@ -1,0 +1,80 @@
+<html>
+	<head>
+		<style>
+			.deviceWidth{width:600px;}
+
+			table tr{margin: 0px;padding: 0px;}
+
+			td.cellwidth{width:30%;}
+
+			td.cellwidth2{width:60%}
+
+			.get-padding{padding:3%;}
+
+			.listing{margin:20px auto;display:table;}
+
+			@media (max-width: 639px)  {
+				table.deviceWidth{width:auto ; padding:0;} 
+				td{font-size:14px;}
+			}
+
+			 @media(max-width:480px){
+			 	body{margin:0;}
+			 }
+			@media (max-width: 439px)  {
+				table.deviceWidth{width:400px ; padding:0;} 
+				td{font-size:14px;width:100%;display:table;}
+				td.cellwidth{width:92%;display:table;}
+				td.cellwidth2{width:50%;}
+				.get-padding{padding:3% 0;}
+				.listing{margin:20px 10px;}
+			}
+			@media (max-width: 439px)  and (-webkit-min-device-pixel-ratio:0){
+				td.cellwidth{width:100px;display:table;}
+
+			}
+			.mail_header {background:#03375c none repeat scroll 0 0; width: 95%; margin: 0px auto; padding-left: 2%; padding-right: 2%; min-height: 100px; background-image: url("<?php //echo 'http://'.$_SERVER['SERVER_NAME'];?>/img/bg_body.png"); background-repeat: repeat; height: 100px;
+			}
+			.mail_footer {background:#03375c none repeat scroll 0 0; width: 95%; margin: 0px auto; padding-left: 2%; padding-right: 2%; background-image: url("<?php //echo 'http://'.$_SERVER['SERVER_NAME'];?>/img/footer_bg.png"); background-repeat: repeat-x; min-height: 100px; height: 100px;
+			}
+			.mail_footer .Object a {
+			  color: #fff !important;
+			}
+		</style>
+	</head>
+	<body style="margin-top: 30px;" yahoo="fix" >
+		<table border="0" cellspacing="0" cellpadding="0" class="deviceWidth" style="margin:0 auto;   background: #e5e5e5;padding:20px;box-sizing:border-box;">
+			<tr class="mail_header">
+				<td><p style="text-align: center; margin: 0px 0px 15px; padding: 9px 0px 0px 13px;"><img class="" width="143px" alt="Crowd Bootstrap" src="<?php echo 'http://'.$_SERVER['SERVER_NAME'];?>/images/logo.png"></p></td>
+			</tr>
+			<tr>
+				<td style="padding:10px;">
+					<br/>
+					<p style="margin: 10px 0;line-height: 1.2;">Dear <?php echo $fullname;?>:</P>
+					<br/>
+					<p style="margin: 10px 0;line-height: 1.2;">Please click the link below to complete the registration process.</p>
+					<br/>
+					<a href="<?php echo $url;?>" target="_blank" title="Click Here">Click Here</a> or Copy & Paste below url to browser.
+					<br/>
+					<p style="margin: 10px 0;line-height: 1.2;"> <?php echo $url;?> </p>
+					<br/>
+					<!-- <p style="margin: 10px 0;line-height: 1.2;">Gain the competitive advantage exclusive to Fortune 500 companies</p> -->
+				</td>
+			</tr>
+			<tr>
+				<td  style="padding:10px;" class="cellwidth2">
+					Thanks,<br/><br/>
+					Crowd Bootstrap Team
+					<br/>
+					<br/>
+					<br/>	
+				</td>
+			</tr>
+			
+			<tr class="mail_footer">
+				<td><p style="text-align:center;padding-top:9px;color:#ffffff;font-size:11px;font-weight:bold">&copy; Copyright 2017 &nbsp; <?php echo 'www.'.$_SERVER['SERVER_NAME'];?> &nbsp; All Rights Reserved.</p></td>
+			</tr>
+			
+		</table>
+	</body>
+<html>

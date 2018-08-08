@@ -1,8 +1,0 @@
-
-API key for staging
-	public static final String GOOGLE_PROJECT_ID = "965286451869";
-	public static final String GOOGLE_PROJECT_API_KEY = "AIzaSyDQ18y3vc76UXoSLtQuv7NHurrsVVklByE";
-
-API key for productions
-	public static final String GOOGLE_PROJECT_ID = "15119152410";
-	public static final String GOOGLE_PROJECT_API_KEY = "AIzaSyABVL3JTP0h_jN0JYCFkeHxiGfbneg6Qck";

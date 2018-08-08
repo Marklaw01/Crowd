@@ -1,0 +1,88 @@
+<?php echo $this->Html->link("Intro",ARRAY('controller'=>'startups','action'=>''),ARRAY('class'=>"focus"));?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<?php echo $this->Html->link("Team",ARRAY('controller'=>'startups','action'=>'ViewStartupTeam/'.$team_detail[0]['startup_id']),ARRAY('class'=>""));?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<?php echo $this->Html->link("Work Orders",ARRAY('controller'=>'startups','action'=>''),ARRAY('class'=>""));?>&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<?php echo $this->Html->link("Docs",ARRAY('controller'=>'startups','action'=>''),ARRAY('class'=>""));?>&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<?php echo $this->Html->link("StartupDocs",ARRAY('controller'=>'startups','action'=>''),ARRAY('class'=>""));?>&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br/>
+<?php echo $this->Html->link("Recommend Contractors",ARRAY('controller'=>'Contractors','action'=>'SearchContractor'),ARRAY('class'=>""));?>&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<div class="content">
+<table>
+<tr>
+<td> <b>Name<b></td>
+<td> <b>Role</b> </td>
+<td><b>Actions</b></td>
+</tr>
+
+<?php foreach($team_detail AS $team){ ?>
+
+<?php if($team['contractor_role']['name']=='Entrepreneur'){?>
+            <h5><?php echo "Entrepreneur";?></h5>     
+<tr>
+<td>
+<?php $id = base64_encode($team['user_id']);?> 
+<?php echo $this->Html->link($team['contractor_name'],['controller'=>'Contractors','action'=>'view_basic_profile/'.$id],['escape'=>false,'title'=>'click here to see profile']);?>
+</td>
+<td>
+   <?php echo $team['contractor_role']['name'];?>
+</td>
+<td>
+   <?php echo $this->Html->link('Chat',['controller'=>'','action'=>'']);?>
+   <?php echo $this->Html->link('Message',['controller'=>'','action'=>'']);?>
+   <?php echo $this->Html->link('Remove',['controller'=>'','action'=>'']);?>
+</td>
+</tr>
+<?php }elseif(($team['contractor_role']['name']=='Co-founder')){ ?>
+
+<tr>
+    <td>
+             <?php $id = base64_encode($team['user_id']);?> 
+             <?php echo $this->Html->link($team['contractor_name'],['controller'=>'Contractors','action'=>'view_basic_profile/'.$id],['escape'=>false,'title'=>'click here to see profile']);?>
+    </td>
+    <td>
+            <?php echo $team['contractor_role']['name'];?>
+    </td>
+    <td>
+		   <?php echo $this->Html->link('Chat',['controller'=>'','action'=>'']);?>
+		   <?php echo $this->Html->link('Message',['controller'=>'','action'=>'']);?>
+		   <?php echo $this->Html->link('Remove',['controller'=>'','action'=>'']);?>
+    </td>
+</tr>
+<?php }elseif(($team['contractor_role']['name']=='Team Member')){ ?>
+    <tr>
+    <td>
+             <?php $id = base64_encode($team['user_id']);?> 
+             <?php echo $this->Html->link($team['contractor_name'],['controller'=>'Contractors','action'=>'view_basic_profile/'.$id],['escape'=>false,'title'=>'click here to see profile']);?>
+    </td>
+    <td>
+            <?php echo $team['contractor_role']['name'];?>
+    </td>
+    <td>
+		   <?php echo $this->Html->link('Chat',['controller'=>'','action'=>'']);?>
+		   <?php echo $this->Html->link('Message',['controller'=>'','action'=>'']);?>
+		   <?php echo $this->Html->link('Remove',['controller'=>'','action'=>'']);?>
+    </td>
+</tr>  
+<?php }elseif(($team['contractor_role']['name']=='Contractor')){ ?>
+<tr>
+    <td>
+             <?php $id = base64_encode($team['user_id']);?> 
+             <?php echo $this->Html->link($team['contractor_name'],['controller'=>'Contractors','action'=>'view_basic_profile/'.$id],['escape'=>false,'title'=>'click here to see profile']);?>
+    </td>
+    <td>
+            <?php echo $team['contractor_role']['name'];?>
+    </td>
+    <td>
+		   <?php echo $this->Html->link('Chat',['controller'=>'','action'=>'']);?>
+		   <?php echo $this->Html->link('Message',['controller'=>'','action'=>'']);?>
+		   <?php echo $this->Html->link('Remove',['controller'=>'','action'=>'']);?>
+    </td>
+</tr>  
+<?php }?>
+<?php }?>
+
+</table>
+</div>
