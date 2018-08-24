@@ -115,9 +115,9 @@
                     }
                     else if([[responseDict valueForKey:@"code"] intValue] == kErrorCode)  {
                        
-                        [UtilityClass showNotificationMessgae:[responseDict valueForKey:@"message"] withResultType:@"1" withDuration:1] ;
-                        [self navigateToLoginScreen] ;
-                        //[self presentViewController:[UtilityClass displayAlertMessage:[responseDict valueForKey:@"message"]] animated:YES completion:nil];
+//                        [UtilityClass showNotificationMessgae:[responseDict valueForKey:@"message"] withResultType:@"1" withDuration:1] ;
+//                        [self navigateToLoginScreen] ;
+                        [self presentViewController:[UtilityClass displayAlertMessage:[responseDict valueForKey:@"message"]] animated:YES completion:nil];
                     }
                    // else [self presentViewController:[UtilityClass displayAlertMessage:kAlert_EmailNotRegistered] animated:YES completion:nil];
                     //[self presentViewController:[UtilityClass displayAlertMessage:[responseDict valueForKey:@"message"]] animated:YES completion:nil];

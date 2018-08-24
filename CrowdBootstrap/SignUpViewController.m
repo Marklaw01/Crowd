@@ -906,18 +906,21 @@ static NSString * const kClientId = @"502919930015-7na0abn25duqcvgqn81e1ptuuo8s9
                 cell.securityQuesTxtFld.text = @"" ;
                 selectedSecurityQuesIndex = -1 ;
                 cell.securityQuesLbl.text = @"" ;
+                cell.securityQuesTxtFld.placeholder = kSelectSecurityQuesDefaultText ;
                 
                 [[chooseSecurityQuesArray objectAtIndex:selectedCellIndex] setValue:@"" forKey:@"question"] ;
                 [[chooseSecurityQuesArray objectAtIndex:selectedCellIndex] setValue:@"" forKey:@"id"] ;
             }
             else {
                 cell.securityQuesTxtFld.text = @"" ;
+                cell.securityQuesTxtFld.placeholder = @"" ;
                 cell.securityQuesLbl.text = [[securityQuestionsArray objectAtIndex:(int)[pickerView selectedRowInComponent:0]-1] valueForKey:@"name"] ;
                 selectedSecurityQuesIndex = (int)[pickerView selectedRowInComponent:0] ;
                 
                 [[chooseSecurityQuesArray objectAtIndex:selectedCellIndex] setValue:[[securityQuestionsArray objectAtIndex:(int)[pickerView selectedRowInComponent:0]-1] valueForKey:@"name"] forKey:@"question"] ;
                 [[chooseSecurityQuesArray objectAtIndex:selectedCellIndex] setValue:[[securityQuestionsArray objectAtIndex:(int)[pickerView selectedRowInComponent:0]-1] valueForKey:@"id"] forKey:@"id"] ;
             }
+
 //        }
     }
     else {
@@ -943,9 +946,11 @@ static NSString * const kClientId = @"502919930015-7na0abn25duqcvgqn81e1ptuuo8s9
             if([pickerView selectedRowInComponent:0] == 0){
                 cell.securityQuesTxtFld.text = @"" ;
                 cell.securityQuesLbl.text = @"" ;
+                cell.securityQuesTxtFld.placeholder = kSelectSecurityQuesDefaultText ;
             }
             else {
                 cell.securityQuesTxtFld.text = @"" ;
+                cell.securityQuesTxtFld.placeholder = @"" ;
                 cell.securityQuesLbl.text = [[chooseSecurityQuesArray objectAtIndex:selectedCellIndex] valueForKey:@"question"]  ;
             }
 //        }
